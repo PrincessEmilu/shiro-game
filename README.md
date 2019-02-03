@@ -34,7 +34,7 @@ The primary goals of this project are the following:
 | File/Directory | Contents |
 | -------------- | ----------- |
 | README.md | This document. A general project overview and artifact guide. |
-| [doc/milestones.md](milestones.md) | Milestone overviews and lessons learned. _You will add to this with each milestone._ |
+| [doc/milestones.md](doc/milestones.md) | Milestone overviews and lessons learned. _You will add to this with each milestone._ |
 | [doc/GameDesign.md](doc/GameDesign.md) | Game concept and game play design. _You will finish most of this in milestone 1, but keep it up to date throughout the project._ | 
 | [doc/Art.md](doc/Art.md) | How the game will look and feel. Includes verbal descriptions, stories, mock-ups and concept art. _You will finish most of this in milestone 1, but keep it up to date throughout the project._| 
 | [doc/Architecture](doc/Architecture.md) | Technical documentation describing the classes required to implement the game (and how these classes will interact) _You will finish most of this in milestone 1, but keep it up to date throughout the project._ | 
