@@ -52,6 +52,6 @@ The primary goals of this project are the following:
 - [MonoGame Documentation](http://www.monogame.net/documentation/?page=main)
 - [Course schedule](https://people.rit.edu/~esmvcs/files/2185/IGME106_Course_Schedule_2185.htm)
 - This [UML class diagram reference](https://www.uml-diagrams.org/class-reference.html) probably has more than you'll need, but it's a good starting point.
-- [Markdown](https://help.github.com/categories/writing-on-github/) is a convenient method of documentation because it can have nice formatting while still being a plain text file (which allows multiple team members to edit sections and view/merge differences).
+- [Markdown](https://docs.gitlab.com/ee/user/markdown.html) is a convenient method of documentation because it can have nice formatting while still being a plain text file (which allows multiple team members to edit sections and view/merge differences).
 ~- You can incorporate images into this document by adding them to the folder and then linking them. For example:
 ![Art example alt text](art-example.jpg)
