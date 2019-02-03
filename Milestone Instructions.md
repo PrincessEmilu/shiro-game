@@ -44,9 +44,9 @@ Because grading these types of materials can be subjective, everything will be g
 * [Art and Interface](doc/Art.md)
 * [Architecture](doc/Architecture.md)
 * [Production](doc/Production.md)
-2. Keep the [Meeting Log](doc/mtgLog.md) log up to date to track when your team meets and the main topic(s) of discussion.
+2. Keep the [Meeting Log](doc/mtgLog.md) up to date to track when your team meets and the main topic(s) of discussion.
 3. Make sure to also keep the weekly meeting time on the main [README](../README.md) up to date.
-4. Update how tasks are being managed as needed in the main [doc/Production.md](doc/Production.md) document
+4. Update how tasks are being managed as needed in the main [Production](doc/Production.md) document
 5. Add a summary of the milestone's progress and lessons learned to [doc/milestones.md](doc/milestones.md) _(The more thought you put into this, the easier it will be to write the [postmortem](doc/postmortem.md) at the end of the project.)_
 6. Make a final release tag (vN.0) and document what it contains in [src/Release Notes.md](src/Release Notes.md)
 
