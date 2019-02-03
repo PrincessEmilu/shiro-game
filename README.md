@@ -1,5 +1,5 @@
 # IGME-106 Spring 2019 
-# Team *YOUR_TEAM_NAME*
+# Team **YOUR_TEAM_NAME**
 
 _This README contains basic information about the project and its artifacts. If kept up to date, it will act as a primary dashboard for the project._
 
@@ -20,20 +20,20 @@ The primary goals of this project are the following:
 5. To have fun making a game
 
 ## Mission Statement
-*Replace this with the overall objectives that your team has agreed upon. What is the goal of the project (from a learning and product perspective)? Who is your target audience? How will you define success?*
+**Replace this with the overall objectives that your team has agreed upon. What is the goal of the project (from a learning and product perspective)? Who is your target audience? How will you define success?**
 
 ## Communications
 
 ### Discord
-*Add info about how to join/use your team's Discord channel. What is it?*
+**Add info about how to join/use your team's Discord channel. What is it?**
 
 ### Meeting Times
-*Set at least 1 out-of-class meeting time and note times when the entire group is usually free for additional meetings as needed.*
+**Set at least 1 out-of-class meeting time and note times when the entire group is usually free for additional meetings as needed.**
 
 ## Repository Overview
-*As the project progresses, add notes here about how the repository is organized, how branches are being used, etc.*
+**As the project progresses, add notes here about how the repository is organized, how branches are being used, etc.**
 
-*Instructions about the required documentation/activities for each milestone can be found in [Milestone Instructions.md](Milestone Instructions.md).*
+**Instructions about the required documentation/activities for each milestone can be found in [Milestone Instructions.md](Milestone Instructions.md).**
 
 | File/Directory | Contents |
 | -------------- | ----------- |
@@ -52,6 +52,6 @@ The primary goals of this project are the following:
 - [MonoGame Documentation](http://www.monogame.net/documentation/?page=main)
 - [Course schedule](https://people.rit.edu/~esmvcs/files/2185/IGME106_Course_Schedule_2185.htm)
 - This [UML class diagram reference](https://www.uml-diagrams.org/class-reference.html) probably has more than you'll need, but it's a good starting point.
-- [Markdown](https://docs.gitlab.com/ee/user/markdown.html) is a convenient method of documentation because it can have nice formatting while still being a plain text file (which allows multiple team members to edit sections and view/merge differences).
-~- You can incorporate images into this document by adding them to the folder and then linking them. For example:
-![Art example alt text](art-example.jpg)
+- [Markdown](https://docs.gitlab.com/ee/user/markdown.html) is a convenient method of documentation because it can have nice formatting while still being a plain text file (which allows multiple team members to edit sections and view/merge differences). _(I'm requiring it for this project because it also allows me to easily see changes over time and who worked on different sections of a document.)_
+~- You can incorporate images into this document by adding them to the folder and then linking them using the markdown syntax `![alt text](relative path to image file)`. For example `![Art example alt text](doc/art-example.jpg)` results in:
+![Art example alt text](doc/art-example.jpg)
