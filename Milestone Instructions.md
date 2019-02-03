@@ -44,7 +44,6 @@ Because grading these types of materials can be subjective, everything will be g
 * [Art and Interface](doc/Art.md)
 * [Architecture](doc/Architecture.md)
 * [Production](doc/Production.md)
-* [Game Design](doc/GameDesign.md)
 2. Keep the [Meeting Log](doc/mtgLog.md) log up to date to track when your team meets and the main topic(s) of discussion.
 3. Make sure to also keep the weekly meeting time on the main [README](../README.md) up to date.
 4. Update how tasks are being managed as needed in the main [doc/Production.md](doc/Production.md) document
