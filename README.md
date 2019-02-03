@@ -1,5 +1,7 @@
-# IGME-106 Spring 2019 Team *YOUR_TEAM_NAME* Overview
-This README contains basic information about the project and its artifacts. If kept up to date, it will act as a primary dashboard for the project.
+# IGME-106 Spring 2019 
+# Team *YOUR_TEAM_NAME*
+
+_This README contains basic information about the project and its artifacts. If kept up to date, it will act as a primary dashboard for the project._
 
 ## Team
 
@@ -31,11 +33,13 @@ The primary goals of this project are the following:
 ## Repository Overview
 *As the project progresses, add notes here about how the repository is organized, how branches are being used, etc.*
 
+*Instructions about the required documentation/activities for each milestone can be found in [Milestone Instructions.md](Milestone Instructions.md).*
+
 | File/Directory | Contents |
 | -------------- | ----------- |
-| [doc/mtgLog](doc/mtgLog.md) | A log of team meetings and general progress.  _Update this with each team meeting._|
+| [doc/mtgLog.md](doc/mtgLog.md) | A log of team meetings and general progress.  _Update this with each team meeting._|
 | README.md | This document. A general project overview and artifact guide. _Update this as needed with extra references, etc._|
-| [doc/milestones.md](milestones.md) | Milestone overviews and lessons learned. _Update this with each milestone._ |
+| [doc/milestones.md](doc/milestones.md) | Milestone overviews and lessons learned. _Update this with each milestone._ |
 | [doc/GameDesign.md](doc/GameDesign.md) | Game concept and game play design. _Write this in milestone 1, but keep it up to date throughout the project._ | 
 | [doc/Art.md](doc/Art.md) | How the game will look and feel. Includes verbal descriptions, stories, mock-ups and concept art. _Write this in milestone 1, but keep it up to date throughout the project._| 
 | [doc/Architecture.md](doc/Architecture.md) | Technical documentation describing the classes required to implement the game (and how these classes will interact) _Write this in milestones 1&2, but keep it up to date throughout the project._ | 
