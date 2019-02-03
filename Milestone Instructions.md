@@ -26,6 +26,7 @@ Everything will be graded in terms of:
 - The quality of the deliverable itself (i.e. delivery for presentations, organization and clarity for documentation, coding standards, etc. for implementation)
 
 Because grading these types of materials can be subjective, everything will be graded at one of 5 levels:
+
 | *Rubric Level* | *Description* | *% of max possible points* |
 |----------------|---------------------------------------------------|---------|
 | *Exceptional* | Covers all of the required content in an organized and engaging manner. Only very minor issues. | 100% |
@@ -36,11 +37,24 @@ Because grading these types of materials can be subjective, everything will be g
 
 *Templates for each type of documentation have been provided. You can change/reorganize as you see fit as long as the required content is included for each milestone.*
 
+## In _Every_ Milestone
+
+- Make sure all previous completed documentation is still accurate
+~- [Game Design](doc/GameDesign.md)
+~- [Art and Interface](doc/Art.md)
+~- [Architecture](doc/Architecture.md)
+~- [Production](doc/Production.md)
+~- [Game Design](doc/GameDesign.md)
+- Keep the [Meeting Log](doc/mtgLog.md) log up to date to track when your team meets and the main topic(s) of discussion.
+- Make sure to also keep the weekly meeting time on the main [README](../README.md) up to date.
+- Update how tasks are being managed as needed in the main [doc/Production.md](doc/Production.md) document
+- Add a summary of the milestone's progress and lessons learned to [doc/milestones.md](doc/milestones.md) _(The more thought you put into this, the easier it will be to write the [postmortem](doc/postmortem.md) at the end of the project.)_
+
 ## Milestone 1
 *Creating a plan*
 _You main goal for milestone 1 is establishing your game concept, game play, and a prioritized feature list. Once you have this, you'll make initial art/UI mockups and start your technical design (state machines, classes, etc.). During milestone 1, you'll also establish how your team will keep itself organized and manage tasks._
 
-### [Game Design](doc/GameDesign.md))
+### [Game Design](doc/GameDesign.md)
 Decide how the game should be designed. All games must be 2D, but the design is up to your group. You may want to look at the often unique designs of the games submitted to the Independent Game Festival. Some things to consider:
 - What genre is the game? 
 - Is it a knockoff game? 
@@ -55,13 +69,12 @@ You should not simply implement an existing game (like Pac Man, Tetris or Chess)
 
 *This document should be largely complete by the end of milestone 1. In subsequent milestones (especially #2), you may need to refine the concept and add details.*
 
-### [Art and Interface](doc/Art.md))
+### [Art and Interface](doc/Art.md)
 Describe how your game looks and feels.  Does it have a visual style?  How will you gather art for the game?  How does the user interact with your game?  Describe both the interface and the control scheme(s).  What are the user interface requirements (health bars, ammo, units, etc.)?  
 
 *Milestone 1 must include a UI prototype with a mockup of all menus, user interfaces and example game screens.*  While these will be a rough draft, it is expected that each group will spend time thinking about what the user really needs and how the game will look.  Having a solid plan makes implementing the game easier later. In subsequent milestones, you will refine the concept and add details (especially screenshots, etc.).
 
-
-### [Architecture](doc/Architecture.md))
+### [Architecture](doc/Architecture.md)
 Decide on the program architecture of your game. Your game must be data driven and must read in content from one or more files. Some things to consider:
 - What classes will you need in your game?
 - How will your characters, enemies & NPCs be handled?
@@ -78,12 +91,6 @@ Your game may not use third party software (physics systems, pre-built engines, 
 - A state diagram of the primary game modes with at least a high level description of how you plan to implement this (i.e. which classes it impacts).
 
 ### [Production](doc/Production.md)
-*During every milestone, you will:*
-- Keep the [Meeting Log](doc/mtgLog.md) log up to date to track when your team meets and the main topic(s) of discussion.
-- Make sure to also keep the weekly meeting time on the main [README](../README.md) up to date.
-- Update how tasks are being managed as needed in the main [doc/Production.md](doc/Production.md) document
-- Add a summary of the milestone's progress and lessons learned to [doc/milestones.md](doc/milestones.md) _(The more thought you put into this, the easier it will be to write the [postmortem](doc/postmortem.md) at the end of the project.)_
-
 *By the end of milestone 1, you will document:*
 - Scope
 - Task management
@@ -121,7 +128,7 @@ In order to divide work effectively, take some time to consider how you'll break
 
 While you won't be making detailed test plans or doing any automated testing for this project, you should think about how you will test your game. Will you just play through it a lot? Are there specific scenarios you need to test? What questions will you ask of your play testers? Where/how will you track bugs that you find? (GitLab does have support for [issue tracking](https://docs.gitlab.com/ee/user/project/issues/). If you want help using this, ask your instructor.
 
-### [Presentation](doc/Presentations.md))
+### [Presentation](doc/Presentations.md)
 Here is where you will present your group to the class.  Your group is your game studio, and your presentation is like a game pitch.  It tells the audience what you’re building, why you’re making it and how you plan on accomplishing what you’ve decided to create.
 
 Each section of the presentation will be a summary of your documentation.  However, *don’t just copy and paste your write-up into a PowerPoint slide*; summarize the major points and explain them to the class.
@@ -132,8 +139,8 @@ Your presentation should contain each of the following four sections, with about
 - *Art and Interface*: What will the visual (art) style of the game be? What will we see on the screen?  What types of menus will we encounter?  What will the overall flow of your game be?  Show some of the interface mock-ups you’ve done and explain the choices you’ve made.
 - *Production*: What is your game’s timeline?  Which pieces of the game are necessary vs. “if we have time”? What is your weekly meeting time?  How have they been going?  Have you been using any external tools (Google Docs, Google Calendar, Trello, etc.) to keep track of tasks and timelines?  
 
-### [Implementation](src/ReleaseNotes.md))
-No implementation is required for milestone 1. That said, I strong suggest that your at least create the base MonoGame project, add it to version control, and make sure everyone can build/run it.
+### [Implementation](src/ReleaseNotes.md)
+No implementation is required for milestone 1. That said, I strongly suggest that your at least create the base MonoGame project, add it to version control, and make sure everyone can build/run it.
 
 ## Milestone 2
 *Starting the technology*
@@ -141,13 +148,7 @@ Your main goal for milestone 2 is getting a “bare bones” version of your gam
 
 Since the games are required to be data-driven, your team must develop one external tool that helps to get data into a useable format for your game.  These tools should allow the team to quickly and easily alter some core data that the game uses.  This data will be stored in an external file, and read in when the game starts. The tool does not have to be 100% complete for this milestone, but it should be functional.
 
-### [Game Design](doc/GameDesign.md))
-Refine and update as needed to ensure it remains accurate.
-
-### [Art and Interface](doc/Art.md))
-Refine and update as needed to ensure it remains accurate.
-
-### [Architecture](doc/Architecture.md))
+### [Architecture](doc/Architecture.md)
 *External Tool:* Design and initial implementation required in milestone 2. Completed in milestone 3.
 Since the games are required to be data-driven, your team must develop one external tool that helps to get data into a useable format for your game.  These tools should allow the team to quickly and easily alter some core data that the game uses.  This data will be stored in an external file, and read in when the game starts.
 
@@ -159,14 +160,7 @@ It is common to use something other than MonoGame to create these external tools
 - Updates to your diagrams, etc. as you refine your design and implementation plans.
 - The technical design and initial implementation for an  external tool to support your game development.
 
-### [Production](doc/Production.md))
-*During every milestone, you will:*
-- Keep the [Meeting Log](doc/mtgLog.md) log up to date to track when your team meets and the main topic(s) of discussion.
-- Make sure to also keep the weekly meeting time on the main [README](../README.md) up to date.
-- Update how tasks are being managed as needed in the main [doc/Production.md](doc/Production.md) document
-- Add a summary of the milestone's progress and lessons learned to [doc/milestones.md](doc/milestones.md) _(The more thought you put into this, the easier it will be to write the [postmortem](doc/postmortem.md) at the end of the project.)_
-
-### [Presentation](doc/Presentations.md))
+### [Presentation](doc/Presentations.md)
 Your group will present your progress up to this point.  
 
 Using a shorter PowerPoint presentation than your first one, discuss anything that has changed since your initial plan: any changes to architecture, design, interfaces, or your timelines. 
@@ -175,7 +169,7 @@ Discuss where your group feels they are in the development timeline, and what th
 
 Lastly, demonstrate your game.  
 
-### [Implementation](src/ReleaseNotes.md))
+### [Implementation](src/ReleaseNotes.md)
 *By the end of milestone 2 you should have:*
 - A skeleton for all major states, classes and behavior in your game
 - Implementation of the basic controls to drive the game
@@ -189,22 +183,7 @@ _You should have a basic working game for this milestone. You have four main goa
 - _Finish the external tool_
 - _Continue implementing gameplay logic and algorithms_
 
-### [Game Design](doc/GameDesign.md))
-Refine and update as needed to ensure it remains accurate.
-
-### [Art and Interface](doc/Art.md))
-Refine and update as needed to ensure it remains accurate.
-
-### [Architecture](doc/Architecture.md))
-
-### [Production](doc/Production.md))
-*During every milestone, you will:*
-- Keep the [Meeting Log](doc/mtgLog.md) log up to date to track when your team meets and the main topic(s) of discussion.
-- Make sure to also keep the weekly meeting time on the main [README](../README.md) up to date.
-- Update how tasks are being managed as needed in the main [doc/Production.md](doc/Production.md) document
-- Add a summary of the milestone's progress and lessons learned to [doc/milestones.md](doc/milestones.md) _(The more thought you put into this, the easier it will be to write the [postmortem](doc/postmortem.md) at the end of the project.)_
-
-### [Presentation](doc/Presentations.md))
+### [Presentation](doc/Presentations.md)
 Similar to the last milestone, your group will present your progress up to this point.  
 
 Using a shorter PowerPoint presentation than your first or second ones, briefly mention everything that has been implemented in your game thus far. 
@@ -215,7 +194,7 @@ Additionally, discuss your stretch goals and which ones you may have time to imp
 
 Lastly, demonstrate your game.  
 
-### [Implementation](src/ReleaseNotes.md))
+### [Implementation](src/ReleaseNotes.md)
 *By the end of milestone 3:*
 - _Your basic game algorithms (such as collision detection & response, animations, etc.) should be finalized for this milestone._  This means they should work the way you want, so you can move on to other areas of your game for the last milestone.  If you’re stuck or having problems, you can always stop by office hours or ask one of the gaming tutors for help.
 - _All “minimally required” states of your game should be reachable._  They don’t have to all work perfectly or look pretty, but they should all be implemented at this stage.  This includes: menus, pause screens, level selection, battle modes, etc.  If you have some extra states that are on your “if we have time” list, they don’t need to be implemented yet.
@@ -228,19 +207,7 @@ You may also find it useful to implement some of the new data structures and alg
 *Hey, look what we did!*
 _Your assignment is to finish your game for this milestone.  If you have extra time, feel free to polish the game, add extra levels or implement any of your “extra” features. In addition to wrapping up the project and making sure all documentation is accurate, you'll work as a team to complete a [project post-mortem](postmortem.md)._
 
-### [Game Design](doc/GameDesign.md))
-
-### [Art and Interface](doc/Art.md))
-
-### [Architecture](doc/Architecture.md))
-
-### [Production](doc/Production.md))
-*During every milestone, you will:*
-- Keep the [Meeting Log](doc/mtgLog.md) log up to date to track when your team meets and the main topic(s) of discussion.
-- Make sure to also keep the weekly meeting time on the main [README](../README.md) up to date.
-- Update how tasks are being managed as needed in the main [doc/Production.md](doc/Production.md) document
-- Add a summary of the milestone's progress and lessons learned to [doc/milestones.md](doc/milestones.md)
-
+### [Production](doc/Production.md)
 *At the end of milestone 4, you will also write a detailed project [postmortem](doc/postmortem.md).*
 A postmortem is basically an analysis of a recently completed event.  
 
@@ -256,9 +223,7 @@ To get a feel for postmortems, check out some of the [game postmortems from Gama
 
 Choose two (or more) of the nearly 200 postmortems and read them fully.  Many games are represented; some date back as far as 1997.    
 
-
-
-### [Presentation](doc/Presentations.md))
+### [Presentation](doc/Presentations.md)
 Create one (or more) slides for each of the following topics:
 - What went right?
 - What went wrong?
@@ -268,7 +233,5 @@ Each member should have something to say for at least one of those questions.
 
 Lastly, demonstrate your game.  
 
-
-### [Implementation](src/ReleaseNotes.md))
-
-
+### [Implementation](src/ReleaseNotes.md)
+*By the end of milestone 4 you should have a polished game that includes all of your MVP (minimum viable product) features.* Be sure to document any known issues!
