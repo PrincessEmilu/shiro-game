@@ -33,18 +33,21 @@ The primary goals of this project are the following:
 
 | File/Directory | Contents |
 | -------------- | ----------- |
-| README.md | This document. A general project overview and artifact guide. |
-| [doc/milestones.md](milestones.md) | Milestone overviews and lessons learned. _You will add to this with each milestone._ |
-| [doc/GameDesign.md](doc/GameDesign.md) | Game concept and game play design. _You will finish most of this in milestone 1, but keep it up to date throughout the project._ | 
-| [doc/Art.md](doc/Art.md) | How the game will look and feel. Includes verbal descriptions, stories, mock-ups and concept art. _You will finish most of this in milestone 1, but keep it up to date throughout the project._| 
-| [doc/Architecture](doc/Architecture.md) | Technical documentation describing the classes required to implement the game (and how these classes will interact) _You will finish most of this in milestone 1, but keep it up to date throughout the project._ | 
-| [doc/Production](doc/Production.md) | Project scope, planning, and task management information. _You will finish most of this in milestone 1, but keep it up to date throughout the project._ |
-| [doc/Presentations](doc/Presentations/Presentations.md) | Presentation instructions and materials for each milestone _You will add to this with each milestone._| 
+| [doc/mtgLog](doc/mtgLog.md) | A log of team meetings and general progress.  _Update this with each team meeting._|
+| README.md | This document. A general project overview and artifact guide. _Update this as needed with extra references, etc._|
+| [doc/milestones.md](milestones.md) | Milestone overviews and lessons learned. _Update this with each milestone._ |
+| [doc/GameDesign.md](doc/GameDesign.md) | Game concept and game play design. _Write this in milestone 1, but keep it up to date throughout the project._ | 
+| [doc/Art.md](doc/Art.md) | How the game will look and feel. Includes verbal descriptions, stories, mock-ups and concept art. _Write this in milestone 1, but keep it up to date throughout the project._| 
+| [doc/Architecture.md](doc/Architecture.md) | Technical documentation describing the classes required to implement the game (and how these classes will interact) _Write this in milestones 1&2, but keep it up to date throughout the project._ | 
+| [doc/Production.md](doc/Production.md) | Project scope, planning, and task management information. _Write this in milestone 1, but keep it up to date throughout the project._ |
+| [doc/Presentations.md](doc/Presentations.md) | Presentation instructions and materials for each milestone _Update this with each milestone._| 
 | src/ | Implementation artifacts.|
-
+| [src/ReleaseNotes.md](src/ReleaseNotes.md) | Summary of the implementation progress made during each milestone. _Update this with each milestone._| 
 
 ## Other Resources
-- [Markdown](https://help.github.com/categories/writing-on-github/) is a convenient method of documentation because it can have nice formatting while still being a plain text file (which allows multiple team members to edit sections and view/merge differences).
 - [MonoGame Documentation](http://www.monogame.net/documentation/?page=main)
 - [Course schedule](https://people.rit.edu/~esmvcs/files/2185/IGME106_Course_Schedule_2185.htm)
-- *...*
+- This [UML class diagram reference](https://www.uml-diagrams.org/class-reference.html) probably has more than you'll need, but it's a good starting point.
+- [Markdown](https://help.github.com/categories/writing-on-github/) is a convenient method of documentation because it can have nice formatting while still being a plain text file (which allows multiple team members to edit sections and view/merge differences).
+~- You can incorporate images into this document by adding them to the folder and then linking them. For example:
+![Art example alt text](art-example.jpg)
