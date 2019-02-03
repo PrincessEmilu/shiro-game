@@ -39,16 +39,17 @@ Because grading these types of materials can be subjective, everything will be g
 
 ## In _Every_ Milestone
 
-- Make sure all previous completed documentation is still accurate
-~- [Game Design](doc/GameDesign.md)
-~- [Art and Interface](doc/Art.md)
-~- [Architecture](doc/Architecture.md)
-~- [Production](doc/Production.md)
-~- [Game Design](doc/GameDesign.md)
-- Keep the [Meeting Log](doc/mtgLog.md) log up to date to track when your team meets and the main topic(s) of discussion.
-- Make sure to also keep the weekly meeting time on the main [README](../README.md) up to date.
-- Update how tasks are being managed as needed in the main [doc/Production.md](doc/Production.md) document
-- Add a summary of the milestone's progress and lessons learned to [doc/milestones.md](doc/milestones.md) _(The more thought you put into this, the easier it will be to write the [postmortem](doc/postmortem.md) at the end of the project.)_
+1. Make sure all previous completed documentation is still accurate
+* [Game Design](doc/GameDesign.md)
+* [Art and Interface](doc/Art.md)
+* [Architecture](doc/Architecture.md)
+* [Production](doc/Production.md)
+* [Game Design](doc/GameDesign.md)
+2. Keep the [Meeting Log](doc/mtgLog.md) log up to date to track when your team meets and the main topic(s) of discussion.
+3. Make sure to also keep the weekly meeting time on the main [README](../README.md) up to date.
+4. Update how tasks are being managed as needed in the main [doc/Production.md](doc/Production.md) document
+5. Add a summary of the milestone's progress and lessons learned to [doc/milestones.md](doc/milestones.md) _(The more thought you put into this, the easier it will be to write the [postmortem](doc/postmortem.md) at the end of the project.)_
+6. Make a final release tag (vN.0) and document what it contains in [src/Release Notes.md](src/Release Notes.md)
 
 ## Milestone 1
 *Creating a plan*
