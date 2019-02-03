@@ -20,7 +20,8 @@ The primary goals of this project are the following:
 5. To have fun making a game
 
 ## Mission Statement
-**Replace this with the overall objectives that your team has agreed upon. What is the goal of the project (from a learning and product perspective)? Who is your target audience? How will you define success?**
+**Replace this with the overall objectives that your team has agreed upon.** 
+_What is the goal of the project (from a learning and product perspective)? Who is your target audience? How will you define success?_
 
 ## Communications
 
@@ -33,7 +34,7 @@ The primary goals of this project are the following:
 ## Repository Overview
 **As the project progresses, add notes here about how the repository is organized, how branches are being used, etc.**
 
-**Instructions about the required documentation/activities for each milestone can be found in [Milestone Instructions.md](Milestone Instructions.md).**
+**Instructions about the required documentation/activities for each milestone can be found in [instructions/](instructions/Milestone Instructions.md).**
 
 | File/Directory | Contents |
 | -------------- | ----------- |

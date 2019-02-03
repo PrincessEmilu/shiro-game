@@ -8,8 +8,6 @@
 
 ### Mockups
 
-### Screenshots & Demo Videos
-
 ## Game Mode <B>
 
 ### Mockups
