@@ -6,10 +6,10 @@ Each milestone is equally weighted towards the 20% of your final grade. Within e
 
 | **Milestone** | **Due Date** | **Game Design** | **Art and Interface** | **Architecture** | **Production** | **Presentation** | **Implementation** | **Peer Evals** |
 |-----------|-------|-------------|-------------------|--------------|------------|--------------|----------------|----------------|
-| [Milestone 1](Milestone1.md) |F2/22/2019| 20% | 20% | 15% | 15% | 25% | 0% | 5% |
-| [Milestone 2](Milestone2.md) |M3/18/2019| 10% | 10% | 15% | 10% | 20% | 30% | 5% |
-| [Milestone 3](Milestone3.md) |F4/12/2019| 5%  | 5%  | 10% | 10% | 20% | 45% | 5% |
-| [Milestone 4](Milestone4.md) |M4/29/2019| 5%  | 5%  | 5%  | 20% | 25% | 35% | 5% |
+| [Milestone 1](Milestone1.md) |F 2/22/2019| 20% | 20% | 15% | 15% | 25% | 0% | 5% |
+| [Milestone 2](Milestone2.md) |M 3/18/2019| 10% | 10% | 15% | 10% | 20% | 30% | 5% |
+| [Milestone 3](Milestone3.md) |F 4/12/2019| 5%  | 5%  | 10% | 10% | 20% | 45% | 5% |
+| [Milestone 4](Milestone4.md) |M 4/29/2019| 5%  | 5%  | 5%  | 20% | 25% | 35% | 5% |
 
 ![Grade breakdown by milestone and activity](milestone_breakdown.png)
 
@@ -49,3 +49,14 @@ Because grading these types of materials can be subjective, everything will be g
 4. Update how tasks are being managed as needed in the main [Production](doc/Production.md) document
 5. Add a summary of the milestone's progress and lessons learned to [doc/milestones.md](doc/milestones.md) _(The more thought you put into this, the easier it will be to write the [postmortem](doc/postmortem.md) at the end of the project.)_
 6. Make a final release tag (vN.0) and document what it contains in [src/Release Notes.md](src/Release Notes.md)
+
+### Making the release tag
+1.	Go to the home page for your group repo
+2.	Click on “Commits” near the top of the page
+3.	Click on the commit that contains the version of code you want us to grade
+4.	On the top right, select Options -> Tag
+5.	When creating the tag, **enter “vX.0” as the tag name** (ONLY those 4 characters where X is the current milestone number). Make sure to also include your release notes.
+6.	After creating the tag, you should see a summary page for the tag
+7.	Copy the URL and submit that as the link for the group milestone dropbox in myCourses.
+
+

@@ -20,19 +20,19 @@ The primary goals of this project are the following:
 5. To have fun making a game
 
 ## Mission Statement
-**Replace this with the overall objectives that your team has agreed upon.** 
+_Replace this with the overall objectives that your team has agreed upon._
 _What is the goal of the project (from a learning and product perspective)? Who is your target audience? How will you define success?_
 
 ## Communications
 
 ### Discord
-**Add info about how to join/use your team's Discord channel. What is it?**
+_Add info about how to join/use your team's Discord channel. What is it?_
 
 ### Meeting Times
-**Set at least 1 out-of-class meeting time and note times when the entire group is usually free for additional meetings as needed.**
+_Set at least 1 out-of-class meeting time and note times when the entire group is usually free for additional meetings as needed._
 
 ## Repository Overview
-**As the project progresses, add notes here about how the repository is organized, how branches are being used, etc.**
+_As the project progresses, add notes here about how the repository is organized, how branches are being used, etc._
 
 **Instructions about the required documentation/activities for each milestone can be found in [instructions/](instructions/Milestone Instructions.md).**
 
