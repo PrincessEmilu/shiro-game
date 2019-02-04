@@ -5,10 +5,10 @@ _This README contains basic information about the project and its artifacts. If 
 
 ## Team
 
-- MEMBER1
-- Emily Horton
-- MEMBER3
-- MEMBER4
+- MEMBER1 - Emily Horton
+- MEMBER2
+- MEMBER3 - Emily Zeh
+- MEMBER4 - Destiny Treptau
 - MEMBER5
 
 ## Goals
