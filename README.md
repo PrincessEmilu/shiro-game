@@ -8,7 +8,7 @@ _This README contains basic information about the project and its artifacts. If 
 - MEMBER1
 - MEMBER2
 - Alexa Amoriello
-- MEMBER4
+- Destiny Treptau
 - MEMBER5
 
 ## Goals
