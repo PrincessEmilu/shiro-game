@@ -9,7 +9,7 @@ _This README contains basic information about the project and its artifacts. If 
 - MEMBER2
 - MEMBER3
 - MEMBER4
-- MEMBER5
+- Brandon
 
 ## Goals
 The primary goals of this project are the following:
