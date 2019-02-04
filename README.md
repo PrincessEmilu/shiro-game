@@ -8,7 +8,7 @@ _This README contains basic information about the project and its artifacts. If 
 - MEMBER1
 - MEMBER2
 - MEMBER3
-- MEMBER4
+- MEMBER4 - Destiny Treptau
 - MEMBER5
 
 ## Goals
