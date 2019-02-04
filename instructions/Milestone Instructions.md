@@ -11,14 +11,14 @@ Each milestone is equally weighted towards the 20% of your final grade. Within e
 | [Milestone 3](Milestone3.md) |F4/12/2019| 5%  | 5%  | 10% | 10% | 20% | 45% | 5% |
 | [Milestone 4](Milestone4.md) |M4/29/2019| 5%  | 5%  | 5%  | 20% | 25% | 35% | 5% |
 
-![Grade breakdown by milestone and activity](doc/milestone_breakdown.png)
+![Grade breakdown by milestone and activity](milestone_breakdown.png)
 
 Overall, this means that:
 - Documentation (of all types, including peer evals which are graded individually) is worth 50% of your project grade
 - Presentations are worth 23%
 - Implementation (that matches your documentation) is worth 28%
 
-![Grade breakdown by activity type](doc/activity_type_breakdown.png)
+![Grade breakdown by activity type](activity_type_breakdown.png)
 
 Everything will be graded in terms of: 
 - How much of the required content is present
