@@ -9,7 +9,7 @@ _This README contains basic information about the project and its artifacts. If 
 - MEMBER2 - Alexa Amoriello
 - MEMBER3 - Emily Zeh
 - MEMBER4 - Destiny Treptau
-- MEMBER5
+- MEMBER5 - Brandon Service
 
 ## Goals
 The primary goals of this project are the following:
