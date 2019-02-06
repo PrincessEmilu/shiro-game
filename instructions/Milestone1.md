@@ -22,7 +22,7 @@ We were thinking of having three main areas: Forest, City and Sewer. If we have 
 - What makes the game fun?
 Cats, of course. Gameplay mechanics wise, we want to focus on having the player engaged in battles by focusing and using stragery. Also, getting engaged and attached
 to the main character, who is a kitten. Also, the satisfaction of completing simple puzzles  is something we want to focus on. Level design is really important, as it contributes
-to the  feel of the characters and the gameplay. Overall, we want the user to have a great experience that puts them into the cat's shoes, or 'paws'.
+to the  feel of the characters and the gameplay. Overall, we want the user to have a great experience that puts them into the cat's shoes, or 'paws'. 
 
 You should not simply implement an existing game (like Pac Man, Tetris or Chess).  If you want to use an existing game as inspiration, that is great, but make it your own.  Five points of this assignment will be dedicated to the creativity shown in game design.
 
