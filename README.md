@@ -1,15 +1,14 @@
 # IGME-106 Spring 2019 
-# Team **YOUR_TEAM_NAME**
+# Team **Base 23**
 
-_This README contains basic information about the project and its artifacts. If kept up to date, it will act as a primary dashboard for the project._
 
 ## Team
 
-- MEMBER1 - Emily Horton
-- MEMBER2 - Alexa Amoriello
-- MEMBER3 - Emily Zeh
-- MEMBER4 - Destiny Treptau
-- MEMBER5 - Brandon Service
+Emily Horton  
+Alexa Amoriello  
+Emily Zeh  
+Destiny Treptau  
+Brandon Service  
 
 ## Goals
 The primary goals of this project are the following:
@@ -26,10 +25,10 @@ _What is the goal of the project (from a learning and product perspective)? Who 
 ## Communications
 
 ### Discord
-_Add info about how to join/use your team's Discord channel. What is it?_
+This group will use the private Discord channel in the IGME 106 Discord Server.
 
 ### Meeting Times
-_Set at least 1 out-of-class meeting time and note times when the entire group is usually free for additional meetings as needed._
+Weekly meetings will be held Friday in GOL 2000 between 4-6PM.
 
 ## Repository Overview
 _As the project progresses, add notes here about how the repository is organized, how branches are being used, etc._
