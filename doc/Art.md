@@ -9,7 +9,8 @@
 ## Concept Art
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/ShiroTitle.png "Logo, Shiro")
 
-## Game Mode <A>
+## Main Menu <A>
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Main_Menu.png "Main Menu")
 
 ### Mockups
 
