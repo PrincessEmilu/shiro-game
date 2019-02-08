@@ -11,11 +11,13 @@ The actual gameplay mechanics of fights will feature rythm-based button presses 
 The main character of the story, a kitten, is trying to get back home to its family after being washed away in a flood.
 
 ### Objectives
-The objective of the game is to bring that cat home. We want a game to have a sense of atmosphere that helps the player 
+The objective of the game is to *bring that cat home!*  
+We want a game to have a sense of atmosphere that the player will feel emotionally invested in.
 
 ### Inspiration and References
-A lot of us are inspired by RPG games such as Undertale and Shadow of the Colussus. We appreciate the simple way that games like Undertale are built
-and we admire how stories are made more hands-off and told "in the background".
+A lot of us are inspired by RPG games such as Undertale and Shadow of the Colussus. We appreciate the simple way that games like these are built
+and we admire how the stories are more hands-off and told "in the background". The player is meant to experience the game world and feel emotion based on what they 
+are seeing and experiencing for themselves.
 
 ## Game Play
 
