@@ -49,10 +49,13 @@ There will be enemies.
 ### Graphics
 our graphics will be vector-based and where possible, digitally hand-drawn by our artists. It will not be feasible for all of our art to come from our team's artists.
 We may need to use online databases, such as OpenGameArt, to fill in the gaps.
+
 ### Text
+We will use several fonts for diffent contexts.
 
 ### Sound
 We will most likely get sound effects from an open-source site, such as freesound.org. We may need to employ a similar strategy with music.
+
 ## Screenshots & Demo Videos
 
 ## External References
