@@ -1,10 +1,10 @@
-# IGME-106 Spring 2019 Team *YOUR_TEAM_NAME* Meeting Minutes
+# IGME-106 Spring 2019 Team *Base 23* Meeting Minutes
 
 ## Overview
 *There's no need to take detailed meeting minutes (unless you want to), but I would like you to keep a rough log of when you meet and the major topics of discussion.*
 
 ## Milestone 1
-- *Date* (# team members present): topics discussed
+- *02/08/19* (all 5 members present): Timeline of Milestones
 - ...
 
 ## Milestone 2
