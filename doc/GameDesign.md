@@ -39,7 +39,7 @@ The first area of our first level will be designed as a tutorial for the player 
 For the battle system, keys to be pressed will be displayed on the screen and will not deviate from the basic movement and interactive mechanics.
 
 ### Player(s)
-There will be only one player.
+There will be only one player. The player will basically need two seperate classes for the two game states- in the battle, and in the game world.
 
 ### Non-playable characters
 There will be enemies.
@@ -57,5 +57,7 @@ We will use several fonts for diffent contexts.
 We will most likely get sound effects from an open-source site, such as freesound.org. We may need to employ a similar strategy with music.
 
 ## Screenshots & Demo Videos
+We will put those up at some point...
 
 ## External References
+As of right now, we don't have any...
