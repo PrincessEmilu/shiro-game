@@ -18,4 +18,14 @@
 
 ## OO Design
 
+The classes we will be using in our game consist of three abstract classes (GameObject, World, and Battle), their children classes, and the defualt classes created by MonoGame. The first abstract class, GameObject has the children classes of Player and Enemy. World has the children classes City, Forest, and Sewer. Battle has one child class which is Boss. 
+
+The characters consist of only the player and enemies they interact with and will be handled by their respective classes. The Player class will be similar in structure to the of Homework One with its own Update method and any other methods/variables (stats) the player will have. Enemy will be similar, it will have its own Update method with possible movement methods and its own stats.
+
+The common base classes are the GameObject and World classes because they extend to multiple different children classes.
+
+The abstract classes we have, as stated above, are GameObject, World, and Battle.
+
+Input will be handled in two different ways, the first being the movement which will be put into Player's Update method and will move similarly to that of Homework One. The other type of input will be handled by the Battle class. In a Battle state, the player will have to time key presses at the right time so they can dodge attacks. There will be a method that takes the input from the key presses and tests to see if they were pressed at the right time.
+
 ## External Tool
