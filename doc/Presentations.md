@@ -15,6 +15,7 @@ I suggest you practice in front of (at least) your team.  Actually present to yo
 With each milestone, **add a link in the table above to your presentation slides** (I'm assuming these will be in Google Slides) AND **make a few notes in this document** about how you went about planning and practicing for this presentation. 
 
 ## Milestone 1
+The planning and creation of the presentation was done in our second outside of class group meeting. It was split based off of what each person did outside of the class and meetings. For example, Emily Z. and Alexa did concept art so they created and practiced the slides for anything concept art related. The rest of the slides were created by those who put more focus onto that topic. Each individual practiced their own slides they created and plan on talking about in the presentation by preparing what they want to say and mock presenting.
 
 ## Milestone 2
 
