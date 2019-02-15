@@ -30,3 +30,6 @@
 
 ## Shadows <A>
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Shadow_Concept_Art.jpg "Shadows")
+
+## Rat(s) <A>
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Rat_Concept_Art.jpg "Rats")
