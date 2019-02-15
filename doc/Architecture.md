@@ -2,7 +2,7 @@
 
 ## Overview
 
-We are planning to create a complex architecture in order to keep such a large project clean and easy to read. We plan to implement 4 finite state machines and 3 main parent classes. By the end of our project we will have implemented many child classes. we plan to do this in an organized manner so that it does not become to overwhelming and instead allows for clarity through the specific and concise classes.
+We are planning to create a complex architecture in order to keep such a large project clean and easy to read. We plan to implement 4 finite state machines and 3 main parent classes. By the end of our project we will have implemented many child classes. we plan to do this in an organized manner so that it does not become too overwhelming and instead allows for clarity through the specific and concise classes.
 
 ## General Approach
 
