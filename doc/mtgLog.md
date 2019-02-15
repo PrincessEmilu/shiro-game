@@ -5,6 +5,7 @@
 
 ## Milestone 1
 - *02/08/19* (all 5 members present): Timeline of Milestones
+- *02/15/19* (all 5 members present): All documents created. This meeting will be refining deisgn docs and creating our presentation.
 - ...
 
 ## Milestone 2
