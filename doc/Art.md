@@ -18,12 +18,11 @@
 ## Shiro <A>
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Shiro_Concept.png "Shiro Concept Art")
 
-# Concept Art - Worlds
-## Sewer <A>
-
-## City <A>
-
-## Forest <A>
+# Concept Art - Game Screens
+## Overworld <A>
+![How the overworld might look](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/gameworld.png "How the overworld might look")
+## Battle Screen <A>
+![How the battlescreen might look](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/battlescreen.png "How the battle screen might look")
 
 # Concept Art - Enemies
 ## Bee <A>
