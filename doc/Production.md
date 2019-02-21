@@ -29,7 +29,11 @@ be implemented after getting our main mechanics working.
 *  Ambient sound effects
 
 ## Task Management
+Our group plans to utilize Trello to maintain deadlines and help with smooth task management and assignments.
 
 ### Task Breakdowns
+Our Trello Board can be located here: https://trello.com/b/n6mIV6kK/shiro-the-game
 
 ## Testing
+At this point, our plans for testing are simply to play the game amongst ourselves and to share it with others. We have yet to determine
+any special test cases or methods that we will need to handle.
