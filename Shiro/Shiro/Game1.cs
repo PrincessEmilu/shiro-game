@@ -25,6 +25,7 @@ namespace Shiro
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameState state;
+
         Texture2D background;
         Texture2D testCat;
         Texture2D enemyCat;
@@ -45,6 +46,8 @@ namespace Shiro
             Content.RootDirectory = "Content";
             rng = new Random();
         }
+
+      
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -72,6 +75,7 @@ namespace Shiro
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
             testCat = Content.Load<Texture2D>("cat");
             enemyCat = Content.Load<Texture2D>("enemy cat");
             background = Content.Load<Texture2D>("cat");
@@ -79,11 +83,12 @@ namespace Shiro
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
 
-            Rectangle pos = new Rectangle(50, 50, 50, 50);
-            Rectangle pos2 = new Rectangle(100, 100, 50, 50);
+            Rectangle pos = new Rectangle(50, 50, 50 , 50);
+            Rectangle pos2 = new Rectangle(100, 100, 50 , 50);
 
             player = new Player(testCat, pos, width, height);
             enemy = new Enemy(enemyCat, pos2, width, height, rng);
+
         }
 
         /// <summary>
@@ -107,46 +112,6 @@ namespace Shiro
 
             // TODO: Add your update logic here
 
-            //Switch for Game State
-            switch (state)
-            {
-                case GameState.TitleScreen:
-                    break;
-                case GameState.MainMenu:
-                    break;
-                case GameState.Level:
-                    break;
-                case GameState.PauseMenu:
-                    break;
-                case GameState.Battle:
-                    break;
-                case GameState.GameOver:
-                    break;
-                default:
-                    break;
-            }
-
-            player.Update(gameTime);
-
-            KeyboardState kbState = Keyboard.GetState();
-            /*if (kbState.IsKeyDown(Keys.Up))
-            {                
-                graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY -= 1, width, height);                
-            }
-            if (kbState.IsKeyDown(Keys.Down))
-            {
-                graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY += 1, width, height);
-            }
-            if (kbState.IsKeyDown(Keys.Left))
-            {
-                graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX -= 1, 0, width, height);
-            }
-            if (kbState.IsKeyDown(Keys.Right))
-            {                
-                graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX += 1, 0, width, height);
-            }*/
-
-
             base.Update(gameTime);
         }
 
@@ -159,34 +124,6 @@ namespace Shiro
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
-            //Switch for Game State
-            switch (state)
-            {
-                case GameState.TitleScreen:
-                    break;
-                case GameState.MainMenu:
-                    break;
-                case GameState.Level:
-                    break;
-                case GameState.PauseMenu:
-                    break;
-                case GameState.Battle:
-                    break;
-                case GameState.GameOver:
-                    break;
-                default:
-                    break;
-            }
-
-            spriteBatch.Begin();
-
-            player.Draw(spriteBatch);
-
-            spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);
-
-
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }
