@@ -1,10 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace Shiro
 {
+    //Game State Enum
+    enum GameState
+    {
+        TitleScreen,
+        MainMenu,
+        Level,
+        PauseMenu,
+        Battle,
+        GameOver
+    }
+
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -12,29 +23,13 @@ namespace Shiro
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        Texture2D background;
-        Texture2D testCat;
-        Texture2D enemyCat;
-
-        private int viewportMoveX;
-        private int viewportMoveY;
-        public int width;
-        public int height;
-
-        private Player player;
-        private Enemy enemy;
-
-        public Random rng;
+        GameState state;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            rng = new Random();
         }
-
-      
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -45,6 +40,9 @@ namespace Shiro
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            //Start at the Title Screen
+            state = GameState.TitleScreen;
 
             base.Initialize();
         }
@@ -59,20 +57,6 @@ namespace Shiro
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
-            testCat = Content.Load<Texture2D>("cat");
-            enemyCat = Content.Load<Texture2D>("enemy cat");
-            background = Content.Load<Texture2D>("cat");
-
-            width = graphics.GraphicsDevice.Viewport.Width;
-            height = graphics.GraphicsDevice.Viewport.Height;
-
-            Rectangle pos = new Rectangle(50, 50, 50 , 50);
-            Rectangle pos2 = new Rectangle(100, 100, 50 , 50);
-
-            player = new Player(testCat, pos, width, height);
-            enemy = new Enemy(enemyCat, pos2, width, height, rng);
-
         }
 
         /// <summary>
@@ -96,27 +80,24 @@ namespace Shiro
 
             // TODO: Add your update logic here
 
-            player.Update(gameTime);
-
-            KeyboardState kbState = Keyboard.GetState();
-            /*if (kbState.IsKeyDown(Keys.Up))
-            {                
-                graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY -= 1, width, height);                
-            }
-            if (kbState.IsKeyDown(Keys.Down))
+            //Switch for Game State
+            switch (state)
             {
-                graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY += 1, width, height);
+                case GameState.TitleScreen:
+                    break;
+                case GameState.MainMenu:
+                    break;
+                case GameState.Level:
+                    break;
+                case GameState.PauseMenu:
+                    break;
+                case GameState.Battle:
+                    break;
+                case GameState.GameOver:
+                    break;
+                default:
+                    break;
             }
-            if (kbState.IsKeyDown(Keys.Left))
-            {
-                graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX -= 1, 0, width, height);
-            }
-            if (kbState.IsKeyDown(Keys.Right))
-            {                
-                graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX += 1, 0, width, height);
-            }*/
-
-            
 
             base.Update(gameTime);
         }
@@ -131,14 +112,24 @@ namespace Shiro
 
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin();
-
-            player.Draw(spriteBatch);
-
-            spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);
-
-
-            spriteBatch.End();
+            //Switch for Game State
+            switch (state)
+            {
+                case GameState.TitleScreen:
+                    break;
+                case GameState.MainMenu:
+                    break;
+                case GameState.Level:
+                    break;
+                case GameState.PauseMenu:
+                    break;
+                case GameState.Battle:
+                    break;
+                case GameState.GameOver:
+                    break;
+                default:
+                    break;
+            }
 
             base.Draw(gameTime);
         }
