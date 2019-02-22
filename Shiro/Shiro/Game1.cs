@@ -4,6 +4,18 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Shiro
 {
+    //Game State Enum
+    enum GameState
+    {
+        TitleScreen,
+        MainMenu,
+        Level,
+        PauseMenu,
+        Battle,
+        GameOver
+    }
+
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -11,6 +23,7 @@ namespace Shiro
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        GameState state;
 
         public Game1()
         {
@@ -27,6 +40,9 @@ namespace Shiro
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            //Start at the Title Screen
+            state = GameState.TitleScreen;
 
             base.Initialize();
         }
@@ -64,6 +80,25 @@ namespace Shiro
 
             // TODO: Add your update logic here
 
+            //Switch for Game State
+            switch (state)
+            {
+                case GameState.TitleScreen:
+                    break;
+                case GameState.MainMenu:
+                    break;
+                case GameState.Level:
+                    break;
+                case GameState.PauseMenu:
+                    break;
+                case GameState.Battle:
+                    break;
+                case GameState.GameOver:
+                    break;
+                default:
+                    break;
+            }
+
             base.Update(gameTime);
         }
 
@@ -76,6 +111,25 @@ namespace Shiro
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            //Switch for Game State
+            switch (state)
+            {
+                case GameState.TitleScreen:
+                    break;
+                case GameState.MainMenu:
+                    break;
+                case GameState.Level:
+                    break;
+                case GameState.PauseMenu:
+                    break;
+                case GameState.Battle:
+                    break;
+                case GameState.GameOver:
+                    break;
+                default:
+                    break;
+            }
 
             base.Draw(gameTime);
         }

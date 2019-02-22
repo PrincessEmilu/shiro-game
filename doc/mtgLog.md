@@ -9,7 +9,7 @@
 - ...
 
 ## Milestone 2
-- *Date* (# team members present): topics discussed
+- *02/22/19* (Alexa absent due to flu): Next tasks to work on. Started working on classes and divying up tasks. Created text-based group chat.
 - ...
 
 ## Milestone 3
