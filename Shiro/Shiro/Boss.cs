@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shiro
 {
-    class Boss : Battle
+    class Boss //Turned off inheritence for now, while testing.
     {
         //Fields
 

@@ -47,9 +47,11 @@ namespace Shiro
         //Fields for Menu
         Texture2D menuBackground;
 
-
         //Fields for Pause Menu
         Texture2D pauseBackground;
+
+        //The battle object that represents current battle
+        Battle currentBattle;
 
 
 
@@ -269,6 +271,9 @@ namespace Shiro
                     {
                         state = GameState.PauseMenu;
                     }
+
+                    currentBattle.Update();
+
                     break;
 
                 case GameState.GameOver:
@@ -327,7 +332,6 @@ namespace Shiro
 
             player.Update(gameTime);
 
-            KeyboardState kbState = Keyboard.GetState();
             /*if (kbState.IsKeyDown(Keys.Up))
             {                
                 graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY -= 1, width, height);                
@@ -360,7 +364,7 @@ namespace Shiro
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
 
             //Switch for Game State
             switch (state)
@@ -374,14 +378,13 @@ namespace Shiro
                 case GameState.PauseMenu:
                     break;
                 case GameState.Battle:
+                    currentBattle.Draw(spriteBatch);
                     break;
                 case GameState.GameOver:
                     break;
                 default:
                     break;
             }
-
-            spriteBatch.Begin();
 
             player.Draw(spriteBatch);
 
