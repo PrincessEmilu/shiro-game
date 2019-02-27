@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,10 @@ namespace Shiro
         private int windowWidth;
         private Rectangle prevPos;
         private Random rng;
+        int endPoint;
+        int startPoint;
+        bool top;
+
 
 
         public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng) : base(texture, position)
@@ -27,21 +32,48 @@ namespace Shiro
             windowHeight = height;
             prevPos = position;
             this.rng = rng;
+            endPoint = position.Y + 50;
+            startPoint = position.Y;
+            top = true;
+            
         }
 
         //Overridden Update method, puts all of the player's update code into one place to be called once
         public override void Update(GameTime gameTime)
         {
-            int rand = rng.Next(1, 5);
-            if (rand == 1)
-            {    
-                position.Y += 5;
-                position.X += 5;
-                position.Y -= 5;
-                position.X -= 5;
+            // ---- RANDOM CODE TO BE IMPLEMENTED ------
+            //int rand = 1;
+            //if (rand == 1)
+            //{    
 
-                
+            //Up and down movement, tied to set points based on enemy's starting point, made in constructor
+            if (top)
+            {
+                if (position.Y >= startPoint)
+                {
+                    position.Y += 1;
+                    
+                    if(position.Y == endPoint)
+                    {
+                        top = false;
+                    }
+                }               
             }
+            else
+            {
+                if (position.Y <= endPoint)
+                {
+                    position.Y -= 1;
+                    if(position.Y == startPoint)
+                    {
+                        top = true;
+                    }
+                    
+                }
+            }          
+            
+            //}
+            /*
             if (rand == 2)
             {
                 position.Y += 5;
@@ -53,7 +85,7 @@ namespace Shiro
             if (rand == 4)
             {
                 position.X += 5;
-            }
+            }*/
 
             /* Wrap around the screen
             position.X += windowWidth;

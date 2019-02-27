@@ -331,6 +331,7 @@ namespace Shiro
             }
 
             player.Update(gameTime);
+            enemy.Update(gameTime);
 
             /*if (kbState.IsKeyDown(Keys.Up))
             {                
@@ -388,7 +389,10 @@ namespace Shiro
 
             player.Draw(spriteBatch);
 
-            spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);
+            enemy.Draw(spriteBatch);
+
+
+            //spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);
 
 
             spriteBatch.End();
