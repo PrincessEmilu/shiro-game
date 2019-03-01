@@ -96,7 +96,7 @@ namespace Shiro
             height = graphics.GraphicsDevice.Viewport.Height;
 
             Rectangle pos = new Rectangle(50, 50, 50, 50);
-            Rectangle pos2 = new Rectangle(100, 100, 50, 50);
+            Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
             player = new Player(testCat, pos, width, height);
             enemy = new Enemy(enemyCat, pos2, width, height, rng);
