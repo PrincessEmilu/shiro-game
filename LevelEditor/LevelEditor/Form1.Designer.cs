@@ -36,17 +36,14 @@
             this.tileBoxPreview = new System.Windows.Forms.PictureBox();
             this.askForTilesLabel = new System.Windows.Forms.Label();
             this.sizeOfTileLabel = new System.Windows.Forms.Label();
-            this.paddingLabel = new System.Windows.Forms.Label();
             this.backgroundLabel = new System.Windows.Forms.Label();
             this.howManyTileCounter = new System.Windows.Forms.NumericUpDown();
-            this.paddingNumberInput = new System.Windows.Forms.NumericUpDown();
             this.backgroundTileSelection = new System.Windows.Forms.NumericUpDown();
             this.previewMapButton = new System.Windows.Forms.Button();
             this.sizeOfTilesDropdown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureOfLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileBoxPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.howManyTileCounter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.paddingNumberInput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.backgroundTileSelection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeOfTilesDropdown)).BeginInit();
             this.SuspendLayout();
@@ -92,6 +89,7 @@
             this.tileBoxPreview.Location = new System.Drawing.Point(17, 96);
             this.tileBoxPreview.Name = "tileBoxPreview";
             this.tileBoxPreview.Size = new System.Drawing.Size(752, 53);
+            this.tileBoxPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.tileBoxPreview.TabIndex = 3;
             this.tileBoxPreview.TabStop = false;
             // 
@@ -115,21 +113,11 @@
             this.sizeOfTileLabel.TabIndex = 5;
             this.sizeOfTileLabel.Text = "Size of Tiles?:";
             // 
-            // paddingLabel
-            // 
-            this.paddingLabel.AutoSize = true;
-            this.paddingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.paddingLabel.Location = new System.Drawing.Point(17, 221);
-            this.paddingLabel.Name = "paddingLabel";
-            this.paddingLabel.Size = new System.Drawing.Size(111, 20);
-            this.paddingLabel.TabIndex = 6;
-            this.paddingLabel.Text = "Any Padding?:";
-            // 
             // backgroundLabel
             // 
             this.backgroundLabel.AutoSize = true;
             this.backgroundLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.backgroundLabel.Location = new System.Drawing.Point(17, 255);
+            this.backgroundLabel.Location = new System.Drawing.Point(17, 221);
             this.backgroundLabel.Name = "backgroundLabel";
             this.backgroundLabel.Size = new System.Drawing.Size(224, 20);
             this.backgroundLabel.TabIndex = 7;
@@ -153,17 +141,9 @@
             0});
             this.howManyTileCounter.ValueChanged += new System.EventHandler(this.howManyTileCounter_ValueChanged);
             // 
-            // paddingNumberInput
-            // 
-            this.paddingNumberInput.Location = new System.Drawing.Point(134, 221);
-            this.paddingNumberInput.Name = "paddingNumberInput";
-            this.paddingNumberInput.Size = new System.Drawing.Size(120, 20);
-            this.paddingNumberInput.TabIndex = 12;
-            this.paddingNumberInput.ValueChanged += new System.EventHandler(this.paddingNumberInput_ValueChanged);
-            // 
             // backgroundTileSelection
             // 
-            this.backgroundTileSelection.Location = new System.Drawing.Point(247, 255);
+            this.backgroundTileSelection.Location = new System.Drawing.Point(256, 221);
             this.backgroundTileSelection.Minimum = new decimal(new int[] {
             1,
             0,
@@ -220,10 +200,8 @@
             this.Controls.Add(this.sizeOfTilesDropdown);
             this.Controls.Add(this.previewMapButton);
             this.Controls.Add(this.backgroundTileSelection);
-            this.Controls.Add(this.paddingNumberInput);
             this.Controls.Add(this.howManyTileCounter);
             this.Controls.Add(this.backgroundLabel);
-            this.Controls.Add(this.paddingLabel);
             this.Controls.Add(this.sizeOfTileLabel);
             this.Controls.Add(this.askForTilesLabel);
             this.Controls.Add(this.tileBoxPreview);
@@ -235,7 +213,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureOfLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileBoxPreview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.howManyTileCounter)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.paddingNumberInput)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.backgroundTileSelection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeOfTilesDropdown)).EndInit();
             this.ResumeLayout(false);
@@ -252,10 +229,8 @@
         private System.Windows.Forms.PictureBox tileBoxPreview;
         private System.Windows.Forms.Label askForTilesLabel;
         private System.Windows.Forms.Label sizeOfTileLabel;
-        private System.Windows.Forms.Label paddingLabel;
         private System.Windows.Forms.Label backgroundLabel;
         private System.Windows.Forms.NumericUpDown howManyTileCounter;
-        private System.Windows.Forms.NumericUpDown paddingNumberInput;
         private System.Windows.Forms.NumericUpDown backgroundTileSelection;
         private System.Windows.Forms.Button previewMapButton;
         private System.Windows.Forms.NumericUpDown sizeOfTilesDropdown;

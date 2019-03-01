@@ -13,7 +13,6 @@ namespace LevelEditor
     public partial class Form1 : Form
     {
         int tileCounter = 1;
-        int paddingNum = 0;
         int backgroundTile = 1;
         int sizeOfTiles = 100;
         public Form1()
@@ -35,7 +34,7 @@ namespace LevelEditor
 
         private void previewMapButton_Click(object sender, EventArgs e)
         {
-            MapPreviewer map = new MapPreviewer(tileBoxPreview.Image, tileCounter, paddingNum, backgroundTile, sizeOfTiles);
+            MapPreviewer map = new MapPreviewer(tileBoxPreview.Image, tileCounter, backgroundTile, sizeOfTiles);
             map.ShowDialog();
         }
 
@@ -43,12 +42,6 @@ namespace LevelEditor
         {
             NumericUpDown howManyTiles = (NumericUpDown) sender;
             tileCounter = (int) howManyTiles.Value;
-        }
-
-        private void paddingNumberInput_ValueChanged(object sender, EventArgs e)
-        {
-            NumericUpDown paddingNumeric = (NumericUpDown)sender;
-            paddingNum = (int)paddingNumeric.Value;
         }
 
         private void backgroundTileSelection_ValueChanged(object sender, EventArgs e)

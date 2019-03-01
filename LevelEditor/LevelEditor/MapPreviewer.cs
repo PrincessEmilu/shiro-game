@@ -12,54 +12,37 @@ namespace LevelEditor
 {
     public partial class MapPreviewer : Form
     {
-        List<Button> map;
+        List<Image> tilesCropped;
         Image tiles;
         int tileCounter;
-        int paddingNum;
         int backgroundTile;
         int sizeOfTiles;
-        public MapPreviewer(Image tiles, int tileCounter, int paddingNum, int backgroundTile, int sizeOfTiles)
+        public MapPreviewer(Image tiles, int tileCounter, int backgroundTile, int sizeOfTiles)
         {
             InitializeComponent();
             this.tiles = tiles;
             this.tileCounter = tileCounter;
-            this.paddingNum = paddingNum;
             this.backgroundTile = backgroundTile;
             this.sizeOfTiles = sizeOfTiles;
-            map = new List<Button>(1280 * 720);
+            tilesCropped = croppedImages(tiles);
         }
 
-        private void MapPreviewer_Load(object sender, EventArgs e)
+        private List<Image> croppedImages(Image tiles)
         {
-            int tileWidth = sizeOfTiles;
-            int tileHeight = sizeOfTiles;
-            int tileRows = 30;
-            int tileCols = 30;
-
-            using (Bitmap sourceBmp = new Bitmap(tiles))
+            List<Image> listOfImages = new List<Image>(tileCounter);
+            Bitmap imgCloned = (Bitmap)tiles;
+            for(int i = 0; i < tileCounter; i++)
             {
-                Size s = new Size(tileWidth, tileHeight);
-                Rectangle destRect = new Rectangle(Point.Empty, s);
-                for (int row = 0; row < tileRows; row++)
-                    for (int col = 0; col < tileCols; col++)
-                    {
-                        PictureBox p = new PictureBox();
-                        p.Size = s;
-                        Point loc = new Point(tileWidth * col, tileHeight * row);
-                        Rectangle srcRect = new Rectangle(loc, s);
-                        Bitmap tile = new Bitmap(tileWidth, tileHeight);
-                        Graphics G = Graphics.FromImage(tile);
-                        G.DrawImage(sourceBmp, destRect, srcRect, GraphicsUnit.Pixel);
-                        p.Image = tile;
-                        p.Location = loc;
-                        p.Tag = loc;
-                        p.Name = String.Format("Col={0:00}-Row={1:00}", col, row);
-                        // p.MouseDown += p_MouseDown;
-                        // p.MouseUp += p_MouseUp;
-                        // p.MouseMove += p_MouseMove;
-                        this.Controls.Add(p);
-                    }
+                Rectangle cropRectangle = new Rectangle(sizeOfTiles * i, 0, sizeOfTiles, sizeOfTiles);
+                Bitmap newBitmap = imgCloned.Clone(cropRectangle, imgCloned.PixelFormat);
+                listOfImages.Add(newBitmap);
             }
+            return listOfImages;
+        }
+
+        private void tableLayoutPixels_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+                e.Graphics.DrawImage(tilesCropped[backgroundTile - 1], e.CellBounds);
         }
     }
 }
