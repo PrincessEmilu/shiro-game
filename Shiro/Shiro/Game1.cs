@@ -92,14 +92,16 @@ namespace Shiro
             enemyCat = Content.Load<Texture2D>("enemy cat");
             background = Content.Load<Texture2D>("cat");
 
+            font = Content.Load<SpriteFont>("font");
+
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
 
             Rectangle pos = new Rectangle(50, 50, 50, 50);
-            Rectangle pos2 = new Rectangle(100, 100, 50, 50);
+            Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
             player = new Player(testCat, pos, width, height);
-            enemy = new Enemy(enemyCat, pos2, width, height, rng);
+            enemy = new Enemy(enemyCat, pos2, width, height, rng.Next(1,5), 100);
         }
 
         /// <summary>
@@ -211,6 +213,15 @@ namespace Shiro
                         state = GameState.PauseMenu;
                         arrowPosition = 0;  //Make sure the initial position is zero
                     }
+
+                    //Enemy Encounter- replace wtih colision some day
+                    if (kbState.IsKeyDown(Keys.Space) && pbState.IsKeyUp(Keys.Space))
+                    {
+                        state = GameState.Battle;
+
+                        //Create a new battle object with player and enemy collided\
+                        currentBattle = new Battle(kbState, pbState, font, player, enemy);
+                    }
                     break;
 
                 case GameState.PauseMenu:
@@ -274,9 +285,22 @@ namespace Shiro
 
                     currentBattle.Update();
 
+                    //Checks battle state
+                    if (currentBattle.Victory)
+                    {
+                        //Might need to do more logic than this in final version...
+                        state = GameState.Level;
+                    }
+
+                    if (currentBattle.GameOver)
+                    {
+                        state = GameState.GameOver;
+                    }
+
                     break;
 
                 case GameState.GameOver:
+
                     //Transition to the Main Menu if Escape is Pressed
                     if (kbState.IsKeyDown(Keys.Escape))
                     {
@@ -375,6 +399,9 @@ namespace Shiro
                 case GameState.MainMenu:
                     break;
                 case GameState.Level:
+                    player.Draw(spriteBatch);
+
+                    enemy.Draw(spriteBatch);
                     break;
                 case GameState.PauseMenu:
                     break;
@@ -387,9 +414,8 @@ namespace Shiro
                     break;
             }
 
-            player.Draw(spriteBatch);
-
-            enemy.Draw(spriteBatch);
+            //DEBUG: Draw current state
+            spriteBatch.DrawString(font, state.ToString(), new Vector2(50, 50), Color.Beige);
 
 
             //spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);

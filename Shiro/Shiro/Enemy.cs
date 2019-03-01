@@ -19,80 +19,253 @@ namespace Shiro
         private int windowWidth;
         private Rectangle prevPos;
         private Random rng;
-        int endPoint;
-        int startPoint;
-        bool top;
+
+        private int endPointY;
+        private int startPointY;
+        private int endPointX;
+        private int startPointX;
+
+        private int enemyRng;
+        private bool top;
+        private bool right;
+        private bool active;
 
 
 
-        public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng) : base(texture, position)
+        public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng) : base(texture, position) //random movement
         {
+            //this constructor is for random movement type at a set distance of 100
+
             stamina = 100;
             windowWidth = width;
             windowHeight = height;
             prevPos = position;
             this.rng = rng;
-            endPoint = position.Y + 50;
-            startPoint = position.Y;
-            top = true;
+
+            endPointY = position.Y + 100;
+            startPointY = position.Y;
+            endPointX = position.X + 100;
+            startPointX = position.X;
+
+            enemyRng = rng.Next(1, 5);
             
+            top = true;
+            right = true;
         }
+
+        public Enemy(Texture2D texture, Rectangle position, int width, int height, int enemyRng, int distance) : base(texture, position)
+        {
+            //this constructor is for a set movement type and distance, if you only want distance, you need to use rng.Next(1,5)
+
+            stamina = 100;
+            windowWidth = width;
+            windowHeight = height;
+            prevPos = position;
+            active = true;
+            
+
+            endPointY = position.Y + distance;
+            startPointY = position.Y;
+            endPointX = position.X + distance;
+            startPointX = position.X;
+
+            this.enemyRng = enemyRng;
+
+            top = true;
+            right = true;
+        }
+
+
+
 
         //Overridden Update method, puts all of the player's update code into one place to be called once
         public override void Update(GameTime gameTime)
         {
-            // ---- RANDOM CODE TO BE IMPLEMENTED ------
-            //int rand = 1;
-            //if (rand == 1)
-            //{    
-
-            //Up and down movement, tied to set points based on enemy's starting point, made in constructor
-            if (top)
+            
+            if (enemyRng == 1)
             {
-                if (position.Y >= startPoint)
+                //Up and down movement, tied to set points based on enemy's starting point, made in constructor
+                if (top)
                 {
-                    position.Y += 1;
-                    
-                    if(position.Y == endPoint)
+                    if (position.Y >= startPointY)
                     {
-                        top = false;
+                        position.Y += 1;
+
+                        if (position.Y == endPointY)
+                        {
+                            top = false;
+                        }
                     }
-                }               
+                }
+                else
+                {
+                    if (position.Y <= endPointY)
+                    {
+                        position.Y -= 1;
+                        if (position.Y == startPointY)
+                        {
+                            top = true;
+                        }
+
+                    }
+                }
+            }
+            if (enemyRng == 2)
+            {
+                //Left and Right movement, tied to set points based on enemy's starting point, made in constructor
+                if (right)
+                {
+                    if (position.X >= startPointX)
+                    {
+                        position.X += 1;
+
+                        if (position.X == endPointX)
+                        {
+                            right = false;
+                        }
+                    }
+                }
+                else
+                {
+                    if (position.X <= endPointX)
+                    {
+                        position.X -= 1;
+                        if (position.X == startPointX)
+                        {
+                            right = true;
+                        }
+
+                    }
+                }
+            }
+            if(enemyRng == 3) //moving in a counter clockwise square
+            {
+                if (top && right)
+                {
+                    if (position.Y >= startPointY)
+                    {
+                        position.Y += 1;
+
+                        if (position.Y >= endPointY) //reached bottom
+                        {
+                            if (position.X >= startPointX)
+                            {
+                                position.X += 1;
+                                position.Y = endPointY;
+
+                                if (position.X == endPointX)
+                                {
+                                    right = false;
+                                    top = false;
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                else
+                {
+                   if (position.Y <= endPointY)
+                   {
+                       position.Y -= 1;
+                       if (position.Y <= startPointY)
+                       {
+                            position.Y = startPointY;
+
+                            if (position.X <= endPointX)
+                            {
+                                position.X -= 1;
+                                
+                                if (position.X == startPointX)
+                                {
+                                    right = true;
+                                    top = true;
+                                }
+                            }
+                       }
+
+                   }
+                }
+            }
+            if (enemyRng == 4) //moving in a clockwise square
+            {
+                if (top && right)
+                {
+                    if (position.X >= startPointX)
+                    {
+                        position.X += 1;
+
+                        if (position.X >= endPointX) //reached max x
+                        {
+                            if (position.Y >= startPointY)
+                            {
+                                position.Y += 1;
+                                position.X = endPointX;
+
+                                if (position.Y == endPointY)
+                                {
+                                    right = false;
+                                    top = false;
+                                }
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    if (position.X <= endPointX)
+                    {
+                        position.X -= 1;
+                        if (position.X <= startPointX)
+                        {
+                            position.X = startPointX;
+
+                            if (position.Y <= endPointY)
+                            {
+                                position.Y -= 1;
+
+                                if (position.Y == startPointY)
+                                {
+                                    right = true;
+                                    top = true;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+            
+        }
+
+        //Check Collison
+        public bool CheckCollision(GameObject check)
+        {
+            if (active == true)
+            {
+                if (position.Intersects(check.Position)) //check if intersecting with the player
+                {
+                    active = false;
+                    return true; //returns true to enter battle state
+                }
             }
             else
             {
-                if (position.Y <= endPoint)
-                {
-                    position.Y -= 1;
-                    if(position.Y == startPoint)
-                    {
-                        top = true;
-                    }
-                    
-                }
-            }          
-            
-            //}
-            /*
-            if (rand == 2)
-            {
-                position.Y += 5;
+                return false;
             }
-            if (rand == 3)
-            {
-                position.X -= 5;
-            }
-            if (rand == 4)
-            {
-                position.X += 5;
-            }*/
 
-            /* Wrap around the screen
-            position.X += windowWidth;
-            position.Y += windowHeight;
-            position.X %= windowWidth;
-            position.Y %= windowHeight;*/
+            return false;
         }
+
+        public override void Draw(SpriteBatch sb)
+        {
+            if (active == true)
+            {
+                base.Draw(sb);
+            }
+        }
+
 
         //Property for the amount of stamina and previous position  
         public int Stamina
