@@ -24,6 +24,11 @@ namespace Shiro
         protected Player player;
         protected Enemy enemy;
 
+        //Resources
+        protected SpriteFont font;
+        protected KeyboardState kbState;
+        protected KeyboardState pbState;
+
         //Updates player and enemy stamina, but also used for tracking state.
         protected int playerStamina;
         protected int enemyStamina;
@@ -41,7 +46,7 @@ namespace Shiro
         //Constructor
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
         //the previous locations of the player and the enemies that were on the level.
-        public Battle(Player player, Enemy enemy)
+        public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Player player, Enemy enemy)
         {
             this.player = player;
             this.enemy = enemy;
@@ -50,19 +55,44 @@ namespace Shiro
             enemyStamina = enemy.Stamina;
 
             listKeys = new List<AttackKey>();
+
+            this.font = font;
         }
 
         //Methods
         public void Update()
         {
+            //Keybaord state
+            pbState = kbState;
+            kbState = Keyboard.GetState();
+
             //Update logic based on current game state
             switch (battleState)
             {
                 case BattleState.Idle:
                     //Waits for the player to pick fight or runaway
+
+                    //Player picks fight, change state
+                    if (kbState.IsKeyDown(Keys.F))
+                    {
+                        battleState = BattleState.Fight;
+                    }
                     break;
+
                 case BattleState.Fight:
                     //Processes attacks and damage
+
+                    //DEBUG: DAMAGE PLAYER
+                    if (kbState.IsKeyDown(Keys.F) && pbState.IsKeyUp(Keys.F))
+                    {
+                        playerStamina -= 10;
+                    }
+
+                    //DEBUG: DAMAGE ENEMY
+                    if (kbState.IsKeyDown(Keys.E) && pbState.IsKeyUp(Keys.E))
+                    {
+                        enemyStamina -= 10;
+                    }
 
                     //stuff
                     //goes
@@ -90,18 +120,19 @@ namespace Shiro
 
         public void Draw(SpriteBatch sb)
         {
-            //Some objects get drawn regardless of state, mostly GUI stuff.l
+            //Some objects get drawn regardless of state, mostly GUI stuff.
 
             //Draws the screen differently based on current state.
             switch (battleState)
             {
                 case BattleState.Idle:
-                    //Simply draws the options to fight (or not?) to the player
+                    //Simply draws the options to fight (or not?) to the playe
                     break;
+
                 case BattleState.Fight:
                     //Draws the attacks and any effects needed
-
                     break;
+
                 case BattleState.Death:
                     //Transition to game over
                     break;
@@ -110,6 +141,15 @@ namespace Shiro
                     break;
 
             }
+
+            //Draws player and enemy
+            player.Draw(sb);
+            enemy.Draw(sb);
+
+            //DEBUG: Draw battle info
+            sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);
+            sb.DrawString(font, "Player Stamina: " + playerStamina, new Vector2(50, 150), Color.Beige);
+            sb.DrawString(font, "Enemy Stamina: " + enemyStamina, new Vector2(50, 200), Color.Beige);
         }
 
         //Creates a key object

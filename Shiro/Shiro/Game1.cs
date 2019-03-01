@@ -92,6 +92,8 @@ namespace Shiro
             enemyCat = Content.Load<Texture2D>("enemy cat");
             background = Content.Load<Texture2D>("cat");
 
+            font = Content.Load<SpriteFont>("font");
+
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
 
@@ -210,6 +212,15 @@ namespace Shiro
                     {
                         state = GameState.PauseMenu;
                         arrowPosition = 0;  //Make sure the initial position is zero
+                    }
+
+                    //Enemy Encounter- replace wtih colision some day
+                    if (kbState.IsKeyDown(Keys.Space) && pbState.IsKeyUp(Keys.Space))
+                    {
+                        state = GameState.Battle;
+
+                        //Create a new battle object with player and enemy collided\
+                        currentBattle = new Battle(kbState, pbState, font, player, enemy);
                     }
                     break;
 
@@ -375,6 +386,9 @@ namespace Shiro
                 case GameState.MainMenu:
                     break;
                 case GameState.Level:
+                    player.Draw(spriteBatch);
+
+                    enemy.Draw(spriteBatch);
                     break;
                 case GameState.PauseMenu:
                     break;
@@ -387,9 +401,8 @@ namespace Shiro
                     break;
             }
 
-            player.Draw(spriteBatch);
-
-            enemy.Draw(spriteBatch);
+            //DEBUG: Draw current state
+            spriteBatch.DrawString(font, state.ToString(), new Vector2(50, 50), Color.Beige);
 
 
             //spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);
