@@ -13,18 +13,27 @@ namespace Shiro
     class Player : GameObject
     {
         //Fields        
-        private int stamina;
         private int windowHeight;
         private int windowWidth;
-        private Rectangle prevPos;
+
+        //Property for the amount of stamina and previous position  
+        public int Stamina { get; set; }
+
+        public Rectangle PrevPos { get; private set; }
+
+        public void Center()
+        {
+            position.X = windowWidth / 2;
+            position.Y = windowHeight / 2;
+        }
 
 
         public Player(Texture2D texture, Rectangle position, int width, int height) : base(texture, position)
         {            
-            stamina = 100;
+            Stamina = 100;
             windowWidth = width;
             windowHeight = height;
-            prevPos = position;
+            PrevPos = position;
         }
 
         //Overridden Update method, puts all of the player's update code into one place to be called once
@@ -53,32 +62,6 @@ namespace Shiro
             position.Y += windowHeight;
             position.X %= windowWidth;
             position.Y %= windowHeight;*/
-        }
-
-        //Property for the amount of stamina and previous position  
-        public int Stamina
-        {
-            get { return stamina; }
-
-            set
-            {
-                stamina = value;
-            }
-        }
-
-        public Rectangle PrevPos
-        {
-            get { return prevPos; }
-            set
-            {
-                prevPos = value;
-            }
-        }
-
-        public void Center()
-        {
-            position.X = windowWidth / 2;
-            position.Y = windowHeight / 2;
         }
 
     }
