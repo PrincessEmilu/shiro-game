@@ -10,7 +10,8 @@
 
 ## Milestone 2
 - *02/22/19* (Alexa absent due to flu): Next tasks to work on. Started working on classes and divying up tasks. Created text-based group chat.
-- ...
+- *03/01/2019* (All members present for in-class work day; Brandon couldn't make normal meeting time after class) : Refactored Trellow board to be more useful. Started working on coding tasks. See Trello board for brekadown. 
+- 
 
 ## Milestone 3
 - *Date* (# team members present): topics discussed
