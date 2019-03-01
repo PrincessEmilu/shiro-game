@@ -5,24 +5,19 @@ _You main goal for milestone 1 is establishing your game concept, game play, and
 ## [Game Design](doc/GameDesign.md)
 Decide how the game should be designed. All games must be 2D, but the design is up to your group. You may want to look at the often unique designs of the games submitted to the Independent Game Festival. Some things to consider:
 - What genre is the game? 
-Our game is going to be an Puzzle RPG with rhythm elements. 
+
 - Is it a knockoff game? 
-While it isn't a direct knockoff game, it has influences from other games such as: Undertale, Shadow of Col, and Guitar Hero.
+
 - What are the objectives of the game? 
-The objective of the game is to clear all the levels and get back home to your family.
+
 - How many players does the game allow? 
-The game is single player.
 - Is it turn-based or real-time? 
-The game is turn based with real time interaction during battle scenes.
+
 - What is the look-and-feel of the game? 
-The feel of the game is mysterious with dark colors and tones. We really like the feel of the game Limbo, and how it uses light to create mood. 
-We will be creating vector graphics for all the characters, backgrounds,ect.
+
 - Will the game have multiple levels?
-We were thinking of having three main areas: Forest, City and Sewer. If we have time, we will probably add more areas that link the areas closer together.
+
 - What makes the game fun?
-Cats, of course. Gameplay mechanics wise, we want to focus on having the player engaged in battles by focusing and using stragery. Also, getting engaged and attached
-to the main character, who is a kitten. Also, the satisfaction of completing simple puzzles  is something we want to focus on. Level design is really important, as it contributes
-to the  feel of the characters and the gameplay. Overall, we want the user to have a great experience that puts them into the cat's shoes, or 'paws'. 
 
 You should not simply implement an existing game (like Pac Man, Tetris or Chess).  If you want to use an existing game as inspiration, that is great, but make it your own.  Five points of this assignment will be dedicated to the creativity shown in game design.
 
