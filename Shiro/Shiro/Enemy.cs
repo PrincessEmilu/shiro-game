@@ -20,19 +20,22 @@ namespace Shiro
         private Rectangle prevPos;
         private Random rng;
 
-        int endPointY;
-        int startPointY;
-        int endPointX;
-        int startPointX;
+        private int endPointY;
+        private int startPointY;
+        private int endPointX;
+        private int startPointX;
 
-        int enemyRng;
-        bool top;
-        bool right;
+        private int enemyRng;
+        private bool top;
+        private bool right;
+        private bool active;
 
 
 
-        public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng) : base(texture, position)
+        public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng) : base(texture, position) //random movement
         {
+            //this constructor is for random movement type at a set distance of 100
+
             stamina = 100;
             windowWidth = width;
             windowHeight = height;
@@ -48,15 +51,36 @@ namespace Shiro
             
             top = true;
             right = true;
-            
-            
         }
+
+        public Enemy(Texture2D texture, Rectangle position, int width, int height, int enemyRng, int distance) : base(texture, position)
+        {
+            //this constructor is for a set movement type and distance, if you only want distance, you need to use rng.Next(1,5)
+
+            stamina = 100;
+            windowWidth = width;
+            windowHeight = height;
+            prevPos = position;
+            
+
+            endPointY = position.Y + distance;
+            startPointY = position.Y;
+            endPointX = position.X + distance;
+            startPointX = position.X;
+
+            this.enemyRng = enemyRng;
+
+            top = true;
+            right = true;
+        }
+
+
+
 
         //Overridden Update method, puts all of the player's update code into one place to be called once
         public override void Update(GameTime gameTime)
         {
-            // ---- RANDOM CODE TO BE IMPLEMENTED ------
-
+            
             if (enemyRng == 1)
             {
                 //Up and down movement, tied to set points based on enemy's starting point, made in constructor
@@ -211,30 +235,36 @@ namespace Shiro
                     }
                 }
             }
-
-
-
-            //}
-            /*
-            if (rand == 2)
-            {
-                position.Y += 5;
-            }
-            if (rand == 3)
-            {
-                position.X -= 5;
-            }
-            if (rand == 4)
-            {
-                position.X += 5;
-            }*/
-
-            /* Wrap around the screen
-            position.X += windowWidth;
-            position.Y += windowHeight;
-            position.X %= windowWidth;
-            position.Y %= windowHeight;*/
+            
         }
+
+        //Check Collison
+        public bool CheckCollision(GameObject check)
+        {
+            if (active == true)
+            {
+                if (position.Intersects(check.Position)) //check if intersecting with the player
+                {
+                    active = false;
+                    return true; //returns true to enter battle state
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+            return false;
+        }
+
+        public override void Draw(SpriteBatch sb)
+        {
+            if (active == true)
+            {
+                base.Draw(sb);
+            }
+        }
+
 
         //Property for the amount of stamina and previous position  
         public int Stamina
