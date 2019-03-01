@@ -28,7 +28,9 @@ namespace Shiro
         private int enemyRng;
         private bool top;
         private bool right;
-        private bool active;
+
+        //Properties
+        public bool Active { get; private set; }
 
 
 
@@ -61,7 +63,7 @@ namespace Shiro
             windowWidth = width;
             windowHeight = height;
             prevPos = position;
-            active = true;
+            Active = true;
             
 
             endPointY = position.Y + distance;
@@ -75,12 +77,14 @@ namespace Shiro
             right = true;
         }
 
-
-
-
         //Overridden Update method, puts all of the player's update code into one place to be called once
         public override void Update(GameTime gameTime)
         {
+            //Turns off if stamins = 0
+            if (Stamina <= 0)
+            {
+                Active = false;
+            }
             
             if (enemyRng == 1)
             {
@@ -242,11 +246,11 @@ namespace Shiro
         //Check Collison
         public bool CheckCollision(GameObject check)
         {
-            if (active == true)
+            if (Active == true)
             {
                 if (position.Intersects(check.Position)) //check if intersecting with the player
                 {
-                    active = false;
+                    Active = false;
                     return true; //returns true to enter battle state
                 }
             }
@@ -260,7 +264,7 @@ namespace Shiro
 
         public override void Draw(SpriteBatch sb)
         {
-            if (active == true)
+            if (Active == true)
             {
                 base.Draw(sb);
             }
