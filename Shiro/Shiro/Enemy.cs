@@ -61,6 +61,7 @@ namespace Shiro
             windowWidth = width;
             windowHeight = height;
             prevPos = position;
+            active = true;
             
 
             endPointY = position.Y + distance;
