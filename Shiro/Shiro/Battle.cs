@@ -43,6 +43,10 @@ namespace Shiro
         //Battle starts out idle
         protected BattleState battleState = BattleState.Idle;
 
+        //Properties
+        public bool Victory { get; private set; }
+        public bool GameOver { get; private set; }
+
         //Constructor
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
         //the previous locations of the player and the enemies that were on the level.
@@ -57,6 +61,9 @@ namespace Shiro
             listKeys = new List<AttackKey>();
 
             this.font = font;
+
+            Victory = false;
+            GameOver = false;
         }
 
         //Methods
@@ -94,10 +101,6 @@ namespace Shiro
                         enemyStamina -= 10;
                     }
 
-                    //stuff
-                    //goes
-                    //here
-
                     //Then checks Win/Loss conditions
                     if (playerStamina <= 0)
                     {
@@ -111,9 +114,18 @@ namespace Shiro
 
                 case BattleState.Death:
                     //What happens when the player stamina reaches 0
+                    if (!GameOver)
+                    {
+                        GameOver = true;
+                    }
                     break;
+
                 case BattleState.Victory:
                     //What happens when the enemy stamina reaches  0
+                    if (!Victory)
+                    {
+                        Victory = true;
+                    }
                     break;
             }
         }

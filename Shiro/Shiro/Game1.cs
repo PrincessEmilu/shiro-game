@@ -285,9 +285,22 @@ namespace Shiro
 
                     currentBattle.Update();
 
+                    //Checks battle state
+                    if (currentBattle.Victory)
+                    {
+                        //Might need to do more logic than this in final version...
+                        state = GameState.Level;
+                    }
+
+                    if (currentBattle.GameOver)
+                    {
+                        state = GameState.GameOver;
+                    }
+
                     break;
 
                 case GameState.GameOver:
+
                     //Transition to the Main Menu if Escape is Pressed
                     if (kbState.IsKeyDown(Keys.Escape))
                     {
