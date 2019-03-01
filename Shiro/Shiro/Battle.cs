@@ -29,15 +29,11 @@ namespace Shiro
         protected KeyboardState kbState;
         protected KeyboardState pbState;
 
-        //Updates player and enemy stamina, but also used for tracking state.
-        protected int playerStamina;
-        protected int enemyStamina;
-
         //List of keys
         protected List<AttackKey> listKeys;
 
         //Location on battlescreen to draw the enemy and the player
-        protected Point playerPositon;
+        protected Point playerPosition;
         protected Point enemyPosition;
 
         //Battle starts out idle
@@ -55,8 +51,12 @@ namespace Shiro
             this.player = player;
             this.enemy = enemy;
 
-            playerStamina = player.Stamina;
-            enemyStamina = enemy.Stamina;
+            //Positions to draw player and enemy
+            player.PrevPos = player.Position;
+
+            player.Position = new Rectangle(50, 200, 50, 50);
+            enemy.Position = new Rectangle(600, 200, 50, 50);
+
 
             listKeys = new List<AttackKey>();
 
@@ -92,21 +92,21 @@ namespace Shiro
                     //DEBUG: DAMAGE PLAYER
                     if (kbState.IsKeyDown(Keys.F) && pbState.IsKeyUp(Keys.F))
                     {
-                        playerStamina -= 10;
+                        player.Stamina -= 10;
                     }
 
                     //DEBUG: DAMAGE ENEMY
                     if (kbState.IsKeyDown(Keys.E) && pbState.IsKeyUp(Keys.E))
                     {
-                        enemyStamina -= 10;
+                        enemy.Stamina -= 10;
                     }
 
                     //Then checks Win/Loss conditions
-                    if (playerStamina <= 0)
+                    if (player.Stamina <= 0)
                     {
                         battleState = BattleState.Death;
                     }
-                    else if(enemyStamina <=0)
+                    else if(enemy.Stamina <=0)
                     {
                         battleState = BattleState.Victory;
                     }
@@ -125,6 +125,7 @@ namespace Shiro
                     if (!Victory)
                     {
                         Victory = true;
+                        player.Position = player.PrevPos;
                     }
                     break;
             }
@@ -160,8 +161,8 @@ namespace Shiro
 
             //DEBUG: Draw battle info
             sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);
-            sb.DrawString(font, "Player Stamina: " + playerStamina, new Vector2(50, 150), Color.Beige);
-            sb.DrawString(font, "Enemy Stamina: " + enemyStamina, new Vector2(50, 200), Color.Beige);
+            sb.DrawString(font, "Player Stamina: " + player.Stamina, new Vector2(50, 150), Color.Beige);
+            sb.DrawString(font, "Enemy Stamina: " + enemy.Stamina, new Vector2(50, 200), Color.Beige);
         }
 
         //Creates a key object

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace Shiro
 {
@@ -37,8 +38,11 @@ namespace Shiro
         public int width;
         public int height;
 
+        //Entities
         private Player player;
         private Enemy enemy;
+
+        List<Enemy> listEnemies;
 
         public Random rng;
         //Fields for Title Screen
@@ -59,8 +63,8 @@ namespace Shiro
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            rng = new Random();
         }
+
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -70,7 +74,8 @@ namespace Shiro
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            listEnemies = new List<Enemy>();
+            rng = new Random();
 
             //Start at the Title Screen
             state = GameState.TitleScreen;
@@ -101,7 +106,11 @@ namespace Shiro
             Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
             player = new Player(testCat, pos, width, height);
-            enemy = new Enemy(enemyCat, pos2, width, height, rng.Next(1,5), 100);
+
+            //Enemies eventually loaded elsewhere
+            listEnemies.Add(new Enemy(enemyCat, pos2, width, height, rng.Next(1,5), 100));
+            listEnemies.Add(new Enemy(enemyCat, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100));
+            listEnemies.Add(new Enemy(enemyCat, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100));
         }
 
         /// <summary>
@@ -207,6 +216,27 @@ namespace Shiro
                     break;
 
                 case GameState.Level:
+                    //Updated entities
+                    player.Update(gameTime);
+                    foreach(Enemy e in listEnemies)
+                    {
+                        //PRocesses enemy if it is active
+                        if (e.Active)
+                        {
+                            e.Update(gameTime);
+
+                            //Enemy Encounter
+                            if (e.CheckCollision(player))
+                            {
+                                state = GameState.Battle;
+
+                                //Create a new battle object with player and enemy collided\
+                                currentBattle = new Battle(kbState, pbState, font, player, e);
+                            }
+                        }
+                    }
+
+
                     //Change to the Pause Menu when Escape is Pressed
                     if (kbState.IsKeyDown(Keys.Escape))
                     {
@@ -214,14 +244,7 @@ namespace Shiro
                         arrowPosition = 0;  //Make sure the initial position is zero
                     }
 
-                    //Enemy Encounter- replace wtih colision some day
-                    if (kbState.IsKeyDown(Keys.Space) && pbState.IsKeyUp(Keys.Space))
-                    {
-                        state = GameState.Battle;
 
-                        //Create a new battle object with player and enemy collided\
-                        currentBattle = new Battle(kbState, pbState, font, player, enemy);
-                    }
                     break;
 
                 case GameState.PauseMenu:
@@ -354,9 +377,6 @@ namespace Shiro
                     break;
             }
 
-            player.Update(gameTime);
-            enemy.Update(gameTime);
-
             /*if (kbState.IsKeyDown(Keys.Up))
             {                
                 graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY -= 1, width, height);                
@@ -401,7 +421,10 @@ namespace Shiro
                 case GameState.Level:
                     player.Draw(spriteBatch);
 
-                    enemy.Draw(spriteBatch);
+                    foreach(Enemy e in listEnemies)
+                    {
+                        e.Draw(spriteBatch);
+                    }
                     break;
                 case GameState.PauseMenu:
                     break;
