@@ -31,6 +31,7 @@ namespace Shiro
 
         //Properties
         public bool Active { get; private set; }
+        public bool InBattle { get; set; }
 
 
 
@@ -43,6 +44,9 @@ namespace Shiro
             windowHeight = height;
             prevPos = position;
             this.rng = rng;
+
+            Active = true;
+            InBattle = false;
 
             endPointY = position.Y + 100;
             startPointY = position.Y;
@@ -63,7 +67,9 @@ namespace Shiro
             windowWidth = width;
             windowHeight = height;
             prevPos = position;
+
             Active = true;
+            InBattle = false;
             
 
             endPointY = position.Y + distance;
@@ -85,158 +91,162 @@ namespace Shiro
             {
                 Active = false;
             }
-            
-            if (enemyRng == 1)
+
+            //Only move around if not in battle
+            if (!InBattle)
             {
-                //Up and down movement, tied to set points based on enemy's starting point, made in constructor
-                if (top)
+                if (enemyRng == 1)
                 {
-                    if (position.Y >= startPointY)
+                    //Up and down movement, tied to set points based on enemy's starting point, made in constructor
+                    if (top)
                     {
-                        position.Y += 1;
-
-                        if (position.Y == endPointY)
+                        if (position.Y >= startPointY)
                         {
-                            top = false;
-                        }
-                    }
-                }
-                else
-                {
-                    if (position.Y <= endPointY)
-                    {
-                        position.Y -= 1;
-                        if (position.Y == startPointY)
-                        {
-                            top = true;
-                        }
+                            position.Y += 1;
 
-                    }
-                }
-            }
-            if (enemyRng == 2)
-            {
-                //Left and Right movement, tied to set points based on enemy's starting point, made in constructor
-                if (right)
-                {
-                    if (position.X >= startPointX)
-                    {
-                        position.X += 1;
-
-                        if (position.X == endPointX)
-                        {
-                            right = false;
-                        }
-                    }
-                }
-                else
-                {
-                    if (position.X <= endPointX)
-                    {
-                        position.X -= 1;
-                        if (position.X == startPointX)
-                        {
-                            right = true;
-                        }
-
-                    }
-                }
-            }
-            if(enemyRng == 3) //moving in a counter clockwise square
-            {
-                if (top && right)
-                {
-                    if (position.Y >= startPointY)
-                    {
-                        position.Y += 1;
-
-                        if (position.Y >= endPointY) //reached bottom
-                        {
-                            if (position.X >= startPointX)
+                            if (position.Y == endPointY)
                             {
-                                position.X += 1;
-                                position.Y = endPointY;
-
-                                if (position.X == endPointX)
-                                {
-                                    right = false;
-                                    top = false;
-                                }
+                                top = false;
                             }
-                            
+                        }
+                    }
+                    else
+                    {
+                        if (position.Y <= endPointY)
+                        {
+                            position.Y -= 1;
+                            if (position.Y == startPointY)
+                            {
+                                top = true;
+                            }
+
                         }
                     }
                 }
-                else
+                if (enemyRng == 2)
                 {
-                   if (position.Y <= endPointY)
-                   {
-                       position.Y -= 1;
-                       if (position.Y <= startPointY)
-                       {
-                            position.Y = startPointY;
-
-                            if (position.X <= endPointX)
-                            {
-                                position.X -= 1;
-                                
-                                if (position.X == startPointX)
-                                {
-                                    right = true;
-                                    top = true;
-                                }
-                            }
-                       }
-
-                   }
-                }
-            }
-            if (enemyRng == 4) //moving in a clockwise square
-            {
-                if (top && right)
-                {
-                    if (position.X >= startPointX)
+                    //Left and Right movement, tied to set points based on enemy's starting point, made in constructor
+                    if (right)
                     {
-                        position.X += 1;
-
-                        if (position.X >= endPointX) //reached max x
+                        if (position.X >= startPointX)
                         {
-                            if (position.Y >= startPointY)
-                            {
-                                position.Y += 1;
-                                position.X = endPointX;
+                            position.X += 1;
 
-                                if (position.Y == endPointY)
+                            if (position.X == endPointX)
+                            {
+                                right = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (position.X <= endPointX)
+                        {
+                            position.X -= 1;
+                            if (position.X == startPointX)
+                            {
+                                right = true;
+                            }
+
+                        }
+                    }
+                }
+                if (enemyRng == 3) //moving in a counter clockwise square
+                {
+                    if (top && right)
+                    {
+                        if (position.Y >= startPointY)
+                        {
+                            position.Y += 1;
+
+                            if (position.Y >= endPointY) //reached bottom
+                            {
+                                if (position.X >= startPointX)
                                 {
-                                    right = false;
-                                    top = false;
+                                    position.X += 1;
+                                    position.Y = endPointY;
+
+                                    if (position.X == endPointX)
+                                    {
+                                        right = false;
+                                        top = false;
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (position.Y <= endPointY)
+                        {
+                            position.Y -= 1;
+                            if (position.Y <= startPointY)
+                            {
+                                position.Y = startPointY;
+
+                                if (position.X <= endPointX)
+                                {
+                                    position.X -= 1;
+
+                                    if (position.X == startPointX)
+                                    {
+                                        right = true;
+                                        top = true;
+                                    }
                                 }
                             }
 
                         }
                     }
                 }
-                else
+                if (enemyRng == 4) //moving in a clockwise square
                 {
-                    if (position.X <= endPointX)
+                    if (top && right)
                     {
-                        position.X -= 1;
-                        if (position.X <= startPointX)
+                        if (position.X >= startPointX)
                         {
-                            position.X = startPointX;
+                            position.X += 1;
 
-                            if (position.Y <= endPointY)
+                            if (position.X >= endPointX) //reached max x
                             {
-                                position.Y -= 1;
-
-                                if (position.Y == startPointY)
+                                if (position.Y >= startPointY)
                                 {
-                                    right = true;
-                                    top = true;
+                                    position.Y += 1;
+                                    position.X = endPointX;
+
+                                    if (position.Y == endPointY)
+                                    {
+                                        right = false;
+                                        top = false;
+                                    }
                                 }
+
                             }
                         }
+                    }
+                    else
+                    {
+                        if (position.X <= endPointX)
+                        {
+                            position.X -= 1;
+                            if (position.X <= startPointX)
+                            {
+                                position.X = startPointX;
 
+                                if (position.Y <= endPointY)
+                                {
+                                    position.Y -= 1;
+
+                                    if (position.Y == startPointY)
+                                    {
+                                        right = true;
+                                        top = true;
+                                    }
+                                }
+                            }
+
+                        }
                     }
                 }
             }
@@ -250,7 +260,7 @@ namespace Shiro
             {
                 if (position.Intersects(check.Position)) //check if intersecting with the player
                 {
-                    Active = false;
+                    InBattle = false;
                     return true; //returns true to enter battle state
                 }
             }

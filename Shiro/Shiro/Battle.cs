@@ -33,7 +33,7 @@ namespace Shiro
         protected List<AttackKey> listKeys;
 
         //Location on battlescreen to draw the enemy and the player
-        protected Point playerPositon;
+        protected Point playerPosition;
         protected Point enemyPosition;
 
         //Battle starts out idle
@@ -50,6 +50,13 @@ namespace Shiro
         {
             this.player = player;
             this.enemy = enemy;
+
+            //Positions to draw player and enemy
+            player.PrevPos = player.Position;
+
+            player.Position = new Rectangle(50, 200, 50, 50);
+            enemy.Position = new Rectangle(600, 200, 50, 50);
+
 
             listKeys = new List<AttackKey>();
 
@@ -118,6 +125,7 @@ namespace Shiro
                     if (!Victory)
                     {
                         Victory = true;
+                        player.Position = player.PrevPos;
                     }
                     break;
             }

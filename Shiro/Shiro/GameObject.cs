@@ -14,17 +14,18 @@ namespace Shiro
         protected Texture2D texture;
         protected Rectangle position;
 
+        //Property for the position field
+        public Rectangle Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
         //Constructor that takes two parameters
         protected GameObject(Texture2D texture, Rectangle position)
         {
             this.texture = texture;
             this.position = position;
-        }
-
-        //Property for the position field
-        public Rectangle Position
-        {
-            get { return position; }
         }
 
         //Draw method

@@ -19,14 +19,13 @@ namespace Shiro
         //Property for the amount of stamina and previous position  
         public int Stamina { get; set; }
 
-        public Rectangle PrevPos { get; private set; }
+        public Rectangle PrevPos { get; set; }
 
         public void Center()
         {
             position.X = windowWidth / 2;
             position.Y = windowHeight / 2;
         }
-
 
         public Player(Texture2D texture, Rectangle position, int width, int height) : base(texture, position)
         {            
@@ -42,19 +41,19 @@ namespace Shiro
             KeyboardState kbState = Keyboard.GetState();
             if (kbState.IsKeyDown(Keys.Up))
             {
-                position.Y -= 1;
+                position.Y -= 5;
             }
             if (kbState.IsKeyDown(Keys.Down))
             {
-                position.Y += 1;
+                position.Y += 5;
             }
             if (kbState.IsKeyDown(Keys.Left))
             {
-                position.X -= 1;
+                position.X -= 5;
             }
             if (kbState.IsKeyDown(Keys.Right))
             {
-                position.X += 1;
+                position.X += 5;
             }
 
             /* Wrap around the screen
