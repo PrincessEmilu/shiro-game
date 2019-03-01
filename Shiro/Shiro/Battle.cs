@@ -20,6 +20,8 @@ namespace Shiro
     class Battle
     {
         //Fields
+
+        protected int timer;
         //References to player and enemy in battle
         protected Player player;
         protected Enemy enemy;
@@ -48,6 +50,8 @@ namespace Shiro
         //the previous locations of the player and the enemies that were on the level.
         public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Player player, Enemy enemy)
         {
+            timer = 0;
+
             this.player = player;
             this.enemy = enemy;
 
@@ -56,7 +60,6 @@ namespace Shiro
 
             player.Position = new Rectangle(50, 200, 50, 50);
             enemy.Position = new Rectangle(600, 200, 50, 50);
-
 
             listKeys = new List<AttackKey>();
 
@@ -88,6 +91,7 @@ namespace Shiro
 
                 case BattleState.Fight:
                     //Processes attacks and damage
+                    timer += 1;
 
                     //DEBUG: DAMAGE PLAYER
                     if (kbState.IsKeyDown(Keys.F) && pbState.IsKeyUp(Keys.F))
@@ -163,6 +167,7 @@ namespace Shiro
             sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);
             sb.DrawString(font, "Player Stamina: " + player.Stamina, new Vector2(50, 150), Color.Beige);
             sb.DrawString(font, "Enemy Stamina: " + enemy.Stamina, new Vector2(50, 200), Color.Beige);
+            sb.DrawString(font, "Elapsed Frames: " + timer, new Vector2(50, 250), Color.Beige);
         }
 
         //Creates a key object
