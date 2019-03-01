@@ -101,7 +101,7 @@ namespace Shiro
             Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
             player = new Player(testCat, pos, width, height);
-            enemy = new Enemy(enemyCat, pos2, width, height, rng);
+            enemy = new Enemy(enemyCat, pos2, width, height, rng.Next(1,5), 100);
         }
 
         /// <summary>
