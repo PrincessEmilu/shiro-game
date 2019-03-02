@@ -37,6 +37,7 @@ namespace Shiro
         private int viewportMoveY;
         public int width;
         public int height;
+        KeyboardState kbState;
 
         //Entities
         private Player player;
@@ -56,6 +57,13 @@ namespace Shiro
 
         //The battle object that represents current battle
         Battle currentBattle;
+
+        //Debug for testing Keys
+        Texture2D key;
+        AttackKey keyUp;
+        AttackKey keyDown;
+        AttackKey keyRight;
+        AttackKey keyLeft;
 
 
 
@@ -99,6 +107,13 @@ namespace Shiro
 
             font = Content.Load<SpriteFont>("font");
 
+            //Arrow for Debug
+            key = Content.Load<Texture2D>("Up Arrow");
+            keyUp = new AttackKey(key, new Rectangle(300, 400, 50, 50), KeyType.Up, 2);
+            keyDown = new AttackKey(key, new Rectangle(350, 400, 50, 50), KeyType.Down, 2);
+            keyRight = new AttackKey(key, new Rectangle(400, 400, 50, 50), KeyType.Right, 2);
+            keyLeft = new AttackKey(key, new Rectangle(450, 400, 50, 50), KeyType.Left, 2);
+
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
 
@@ -134,7 +149,7 @@ namespace Shiro
             // TODO: Add your update logic here
 
             //Keyboard State
-            KeyboardState kbState = Keyboard.GetState();
+            kbState = Keyboard.GetState();
 
             //Switch for Game State
             switch (state)
@@ -142,27 +157,29 @@ namespace Shiro
                 case GameState.TitleScreen:
 
                     //Transition into Menu State when Enter is Pressed
-                    if (kbState.IsKeyDown(Keys.Enter))
+                    if (SingleKeyPress(Keys.Enter))
                     {
                         state = GameState.MainMenu;
                         arrowPosition = 0;  //Make sure the initial position is zero
                     } 
 
                     //Exit the Game when Escape is Pressed
-                    if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    if (SingleKeyPress(Keys.Escape))
+                    {
                         Exit();
+                    }
                     break;
 
                 case GameState.MainMenu:
 
                     //Transition to the Title Screen when Escape is Pressed
-                    if (kbState.IsKeyDown(Keys.Escape))
+                    if (SingleKeyPress(Keys.Escape))
                     {
                         state = GameState.TitleScreen;
                     }
 
                     //Update the arrow position to decide which choice the user in highlighting
-                    if (kbState.IsKeyDown(Keys.Up) && pbState.IsKeyUp(Keys.Up))
+                    if (SingleKeyPress(Keys.Up))
                     {
                         //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
                         if (arrowPosition == 0 || arrowPosition == 1)
@@ -175,7 +192,7 @@ namespace Shiro
                             arrowPosition--;
                         }
                     }
-                    else if (kbState.IsKeyDown(Keys.Down) && pbState.IsKeyUp(Keys.Down))
+                    else if (SingleKeyPress(Keys.Down))
                     {
                         //If the bottom choice is selcted reset the position to the top choice.
                         if (arrowPosition == 2)
@@ -190,7 +207,7 @@ namespace Shiro
                     }
 
                     //Change Game State if a choice is selected
-                    if (kbState.IsKeyDown(Keys.Enter))
+                    if (SingleKeyPress(Keys.Enter))
                     {
                         switch (arrowPosition)
                         {
@@ -208,7 +225,7 @@ namespace Shiro
 
                 case GameState.Instructions:
                     //Change to the Menu State when Escape is Pressed
-                    if (kbState.IsKeyDown(Keys.Escape))
+                    if (SingleKeyPress(Keys.Escape))
                     {
                         state = GameState.MainMenu;
                         arrowPosition = 0;  //Make sure the initial position is zero
@@ -238,7 +255,7 @@ namespace Shiro
 
 
                     //Change to the Pause Menu when Escape is Pressed
-                    if (kbState.IsKeyDown(Keys.Escape))
+                    if (SingleKeyPress(Keys.Enter))
                     {
                         state = GameState.PauseMenu;
                         arrowPosition = 0;  //Make sure the initial position is zero
@@ -249,13 +266,13 @@ namespace Shiro
 
                 case GameState.PauseMenu:
                     //Transition to the Level State when Escape is Pressed
-                    if (kbState.IsKeyDown(Keys.Escape))
+                    if (SingleKeyPress(Keys.Escape))
                     {
                         state = GameState.Level;
                     }
 
                     //Update the arrow position to decide which choice the user in highlighting
-                    if (kbState.IsKeyDown(Keys.Up) && pbState.IsKeyUp(Keys.Up))
+                    if (SingleKeyPress(Keys.Up))
                     {
                         //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
                         if (arrowPosition == 0 || arrowPosition == 1)
@@ -268,7 +285,7 @@ namespace Shiro
                             arrowPosition--;
                         }
                     }
-                    else if (kbState.IsKeyDown(Keys.Down) && pbState.IsKeyUp(Keys.Down))
+                    else if (SingleKeyPress(Keys.Down))
                     {
                         //If the bottom choice is selcted reset the position to the top choice.
                         if (arrowPosition == 2)
@@ -283,7 +300,7 @@ namespace Shiro
                     }
 
                     //Change Game State if a choice is selected
-                    if (kbState.IsKeyDown(Keys.Enter))
+                    if (SingleKeyPress(Keys.Enter))
                     {
                         switch (arrowPosition)
                         {
@@ -301,12 +318,18 @@ namespace Shiro
 
                 case GameState.Battle:
                     //Change to the Pause Menu when Escape is Pressed
-                    if (kbState.IsKeyDown(Keys.Escape))
+                    if (SingleKeyPress(Keys.Escape))
                     {
                         state = GameState.PauseMenu;
                     }
 
                     currentBattle.Update();
+
+                    //Update Keys for Debug
+                    keyUp.Update(gameTime);
+                    keyDown.Update(gameTime);
+                    keyRight.Update(gameTime);
+                    keyLeft.Update(gameTime);
 
                     //Checks battle state
                     if (currentBattle.Victory)
@@ -318,6 +341,7 @@ namespace Shiro
                     if (currentBattle.GameOver)
                     {
                         state = GameState.GameOver;
+                        arrowPosition = 0;  //Make sure the initial position is zero
                     }
 
                     break;
@@ -325,12 +349,12 @@ namespace Shiro
                 case GameState.GameOver:
 
                     //Transition to the Main Menu if Escape is Pressed
-                    if (kbState.IsKeyDown(Keys.Escape))
+                    if (SingleKeyPress(Keys.Escape))
                     {
                         state = GameState.MainMenu;
                     }
                     //Update the arrow position to decide which choice the user in highlighting
-                    if (kbState.IsKeyDown(Keys.Up) && pbState.IsKeyUp(Keys.Up))
+                    if (SingleKeyPress(Keys.Up))
                     {
                         //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
                         if (arrowPosition == 0 || arrowPosition == 1)
@@ -343,7 +367,7 @@ namespace Shiro
                             arrowPosition--;
                         }
                     }
-                    else if (kbState.IsKeyDown(Keys.Down) && pbState.IsKeyUp(Keys.Down))
+                    else if (SingleKeyPress(Keys.Down))
                     {
                         //If the bottom choice is selcted reset the position to the top choice.
                         if (arrowPosition == 2)
@@ -358,7 +382,7 @@ namespace Shiro
                     }
 
                     //Change Game State if a choice is selected
-                    if (kbState.IsKeyDown(Keys.Enter))
+                    if (SingleKeyPress(Keys.Enter))
                     {
                         switch (arrowPosition)
                         {
@@ -430,6 +454,10 @@ namespace Shiro
                     break;
                 case GameState.Battle:
                     currentBattle.Draw(spriteBatch);
+                    keyUp.Draw(spriteBatch);
+                    keyDown.Draw(spriteBatch);
+                    keyRight.Draw(spriteBatch);
+                    keyLeft.Draw(spriteBatch);
                     break;
                 case GameState.GameOver:
                     break;
@@ -447,6 +475,15 @@ namespace Shiro
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private bool SingleKeyPress(Keys key)
+        {
+            if (kbState.IsKeyDown(key) && (pbState.IsKeyUp(key) || pbState == null))
+            {
+                return true;
+            }
+            return false;
         }
     }
 

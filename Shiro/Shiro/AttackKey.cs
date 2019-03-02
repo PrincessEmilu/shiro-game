@@ -49,17 +49,19 @@ namespace Shiro
 
         public override void Draw(SpriteBatch sb)
         {
-            switch (KeyType)
+            switch (key)
             {
                 case KeyType.Up:
-                    sb.Draw(texture, position, Color.White);
+                    sb.Draw(texture, position, null, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), SpriteEffects.None, 1.0f);
                     break;
                 case KeyType.Down:
-
+                    sb.Draw(texture, position, null, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), SpriteEffects.FlipVertically, 1.0f);
                     break;
                 case KeyType.Left:
+                    sb.Draw(texture, position, null, Color.White, (float)(3*Math.PI/2), new Vector2(texture.Width / 2, texture.Height / 2), SpriteEffects.None, 1.0f);
                     break;
                 case KeyType.Right:
+                    sb.Draw(texture, position, null, Color.White, (float)(Math.PI / 2), new Vector2(texture.Width / 2, texture.Height / 2), SpriteEffects.None, 1.0f);
                     break;
                 default:
                     break;
