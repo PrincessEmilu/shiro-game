@@ -109,10 +109,6 @@ namespace Shiro
 
             //Arrow for Debug
             key = Content.Load<Texture2D>("Up Arrow");
-            keyUp = new AttackKey(key, new Rectangle(300, 400, 50, 50), KeyType.Up, 2);
-            keyDown = new AttackKey(key, new Rectangle(350, 400, 50, 50), KeyType.Down, 2);
-            keyRight = new AttackKey(key, new Rectangle(400, 400, 50, 50), KeyType.Right, 2);
-            keyLeft = new AttackKey(key, new Rectangle(450, 400, 50, 50), KeyType.Left, 2);
 
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
@@ -248,7 +244,7 @@ namespace Shiro
                                 state = GameState.Battle;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, player, e);
+                                currentBattle = new Battle(kbState, pbState, font, key, player, e);
                             }
                         }
                     }
@@ -324,12 +320,6 @@ namespace Shiro
                     }
 
                     currentBattle.Update();
-
-                    //Update Keys for Debug
-                    keyUp.Update(gameTime);
-                    keyDown.Update(gameTime);
-                    keyRight.Update(gameTime);
-                    keyLeft.Update(gameTime);
 
                     //Checks battle state
                     if (currentBattle.Victory)
@@ -454,10 +444,6 @@ namespace Shiro
                     break;
                 case GameState.Battle:
                     currentBattle.Draw(spriteBatch);
-                    keyUp.Draw(spriteBatch);
-                    keyDown.Draw(spriteBatch);
-                    keyRight.Draw(spriteBatch);
-                    keyLeft.Draw(spriteBatch);
                     break;
                 case GameState.GameOver:
                     break;

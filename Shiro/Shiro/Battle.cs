@@ -20,19 +20,24 @@ namespace Shiro
     class Battle
     {
         //Fields
-
         protected int timer;
+        protected int attackTick;
+
+        protected int keySpeed;
+
         //References to player and enemy in battle
         protected Player player;
         protected Enemy enemy;
 
         //Resources
         protected SpriteFont font;
+        protected Texture2D keyTexture;
         protected KeyboardState kbState;
         protected KeyboardState pbState;
 
         //List of keys
         protected List<AttackKey> listKeys;
+        protected Queue<int> queueAttacks;
 
         //Location on battlescreen to draw the enemy and the player
         protected Point playerPosition;
@@ -48,12 +53,20 @@ namespace Shiro
         //Constructor
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
         //the previous locations of the player and the enemies that were on the level.
-        public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Player player, Enemy enemy)
+        public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D keyTexture, Player player, Enemy enemy)
         {
-            timer = 0;
-
+            //The starts of the show...
             this.player = player;
             this.enemy = enemy;
+
+
+            //attackTick is the number of frames before a new enemy attack will be created.
+            //Although here it is a constant, it can be changed with different enemies.
+            timer = 0;
+            attackTick = 100;
+
+            //Also hardcoded for now, eventually given by enemy?
+            keySpeed = 5;
 
             //Positions to draw player and enemy
             player.PrevPos = player.Position;
@@ -61,9 +74,20 @@ namespace Shiro
             player.Position = new Rectangle(50, 200, 50, 50);
             enemy.Position = new Rectangle(600, 200, 50, 50);
 
+            //listKeys holds the key attack objects. queueAttacks hold the attack pattern from the enemy in battle.
+            //For now, it is a hard-coded value.
             listKeys = new List<AttackKey>();
+            queueAttacks = new Queue<int>();
+
+            queueAttacks.Enqueue(1);
+            queueAttacks.Enqueue(2);
+            queueAttacks.Enqueue(3);
+            queueAttacks.Enqueue(4);
+            queueAttacks.Enqueue(0);
+            queueAttacks.Enqueue(0);
 
             this.font = font;
+            this.keyTexture = keyTexture;
 
             Victory = false;
             GameOver = false;
@@ -81,7 +105,6 @@ namespace Shiro
             {
                 case BattleState.Idle:
                     //Waits for the player to pick fight or runaway
-
                     //Player picks fight, change state
                     if (kbState.IsKeyDown(Keys.F))
                     {
@@ -90,8 +113,22 @@ namespace Shiro
                     break;
 
                 case BattleState.Fight:
+
+                    //
                     //Processes attacks and damage
+                    //Timer keeps track of elapsed battle time. Every attack tick, the next attack in the enemy's pattern will be
+                    //created. The attack pattern will loop by default.
+                    //
+
                     timer += 1;
+
+                    if (attackTick % 100 == 0)
+                    {
+                        listKeys.Add(CreateKey(queueAttacks.Peek()));
+
+                        //Add first entry to the end of the list, remove it from the start.
+                        queueAttacks.Enqueue(queueAttacks.Dequeue());
+                    }
 
                     //DEBUG: DAMAGE PLAYER
                     if (kbState.IsKeyDown(Keys.F) && pbState.IsKeyUp(Keys.F))
@@ -148,6 +185,10 @@ namespace Shiro
 
                 case BattleState.Fight:
                     //Draws the attacks and any effects needed
+                    foreach(AttackKey key in listKeys)
+                    {
+                        if (key != null) { key.Draw(sb); }
+                    }
                     break;
 
                 case BattleState.Death:
@@ -171,9 +212,21 @@ namespace Shiro
         }
 
         //Creates a key object
-        protected void CreateKey()
+        protected AttackKey CreateKey(int keyValue)
         {
+            AttackKey keyToReturn = null;
 
+            //Creates the appropriate type of key based on the integer supplied
+            if (keyValue != 0)
+            {
+                keyToReturn = new AttackKey(
+                    keyTexture,
+                    new Rectangle(800, 500, keyTexture.Width, keyTexture.Height ),
+                    keyValue,
+                    keySpeed);
+            }
+
+            return keyToReturn;
         }
     }
 }

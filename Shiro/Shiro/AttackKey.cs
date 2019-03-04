@@ -11,7 +11,7 @@ namespace Shiro
     //Enum for Key Type
     enum KeyType
     {
-        Up,
+        Up = 1,
         Down,
         Left,
         Right
@@ -24,9 +24,9 @@ namespace Shiro
         int speed;
 
         //Constructor
-        public AttackKey(Texture2D texture, Rectangle position, KeyType key, int speed) : base(texture, position)
+        public AttackKey(Texture2D texture, Rectangle position, int key, int speed) : base(texture, position)
         {
-            this.key = key;
+            this.key = (KeyType)key;
             this.speed = speed;
         }
 
