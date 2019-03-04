@@ -94,7 +94,7 @@ namespace Shiro
         }
 
         //Methods
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             //Keybaord state
             pbState = kbState;
@@ -122,12 +122,18 @@ namespace Shiro
 
                     timer += 1;
 
-                    if (attackTick % 100 == 0)
+                    if (timer % attackTick == 0)
                     {
                         listKeys.Add(CreateKey(queueAttacks.Peek()));
 
                         //Add first entry to the end of the list, remove it from the start.
                         queueAttacks.Enqueue(queueAttacks.Dequeue());
+                    }
+
+                    //Update the keys
+                    foreach(AttackKey key in listKeys)
+                    {
+                        if (key != null) { key.Update(gameTime); }
                     }
 
                     //DEBUG: DAMAGE PLAYER

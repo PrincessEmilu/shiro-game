@@ -319,7 +319,7 @@ namespace Shiro
                         state = GameState.PauseMenu;
                     }
 
-                    currentBattle.Update();
+                    currentBattle.Update(gameTime);
 
                     //Checks battle state
                     if (currentBattle.Victory)
