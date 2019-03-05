@@ -32,12 +32,18 @@ namespace Shiro
         //Resources
         protected SpriteFont font;
         protected Texture2D keyTexture;
+        protected Texture2D hitboxTexture;
+        
+        //Keyboard
         protected KeyboardState kbState;
         protected KeyboardState pbState;
 
         //List of keys
         protected List<AttackKey> listKeys;
         protected Queue<int> queueAttacks;
+
+        //The hitbox for blocking enemy attacks
+        protected Rectangle hitbox;
 
         //Location on battlescreen to draw the enemy and the player
         protected Point playerPosition;
@@ -53,7 +59,7 @@ namespace Shiro
         //Constructor
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
         //the previous locations of the player and the enemies that were on the level.
-        public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D keyTexture, Player player, Enemy enemy)
+        public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D keyTexture, Texture2D hitboxTexture, Player player, Enemy enemy)
         {
             //The starts of the show...
             this.player = player;
@@ -85,6 +91,11 @@ namespace Shiro
             queueAttacks.Enqueue(4);
             queueAttacks.Enqueue(0);
             queueAttacks.Enqueue(0);
+
+
+            //Hitbox for blocking enemy attacks- it is actually just a rectangle
+            hitbox = new Rectangle(100, 350, 100, 100);
+            this.hitboxTexture = hitboxTexture;
 
             this.font = font;
             this.keyTexture = keyTexture;
@@ -181,6 +192,8 @@ namespace Shiro
         public void Draw(SpriteBatch sb)
         {
             //Some objects get drawn regardless of state, mostly GUI stuff.
+            //Draws the hitbox.
+            sb.Draw(hitboxTexture, hitbox, Color.White);
 
             //Draws the screen differently based on current state.
             switch (battleState)
@@ -227,7 +240,7 @@ namespace Shiro
             {
                 keyToReturn = new AttackKey(
                     keyTexture,
-                    new Rectangle(800, 500, keyTexture.Width, keyTexture.Height ),
+                    new Rectangle(800, 400, keyTexture.Width, keyTexture.Height ),
                     keyValue,
                     keySpeed);
             }

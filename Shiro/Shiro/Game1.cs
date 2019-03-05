@@ -30,9 +30,12 @@ namespace Shiro
         int arrowPosition;  //For Menu Systems
         SpriteFont font;
         KeyboardState pbState;
+
         Texture2D background;
         Texture2D testCat;
         Texture2D enemyCat;
+        Texture2D hitbox;
+
         private int viewportMoveX;
         private int viewportMoveY;
         public int width;
@@ -100,13 +103,13 @@ namespace Shiro
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
             testCat = Content.Load<Texture2D>("cat");
             enemyCat = Content.Load<Texture2D>("enemy cat");
             background = Content.Load<Texture2D>("cat");
 
             font = Content.Load<SpriteFont>("font");
 
+            hitbox = Content.Load<Texture2D>("hitbox");
             //Arrow for Debug
             key = Content.Load<Texture2D>("Up Arrow");
 
@@ -244,7 +247,7 @@ namespace Shiro
                                 state = GameState.Battle;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, key, player, e);
+                                currentBattle = new Battle(kbState, pbState, font, key, hitbox, player, e);
                             }
                         }
                     }
