@@ -145,10 +145,15 @@ namespace Shiro
 
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
+            
 
-            camera = new Camera(graphics.GraphicsDevice.Viewport, 1280, 720, 1);
+            camera = new Camera(graphics.GraphicsDevice.Viewport, 1500, 1500, 1);
 
-
+           /* float camWidth = camera.Pos.X / 2;
+            width = (int)camWidth;
+            float camHeight = camera.Pos.X / 2;
+            height = (int)camHeight;
+            */
             Rectangle pos = new Rectangle(width / 2, height / 2, 50, 50);
             Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
@@ -513,8 +518,10 @@ namespace Shiro
             switch (state)
             {
                 case GameState.TitleScreen:
+                    camera.Pos = new Vector2(0, 0);
                     break;
                 case GameState.MainMenu:
+                    camera.Pos = new Vector2(0, 0);
                     spriteBatch.Draw(menuBackground, new Vector2(0, 0), Color.White);
                     switch (arrowPosition)
                     {
@@ -529,6 +536,7 @@ namespace Shiro
                     }
                     break;
                 case GameState.Instructions:
+                    camera.Pos = new Vector2(0, 0);
                     spriteBatch.Draw(instructionsBackground, new Vector2(0, 0), Color.White);
                     break;
                 case GameState.Level:
@@ -540,11 +548,14 @@ namespace Shiro
                     }
                     break;
                 case GameState.PauseMenu:
+                    camera.Pos = new Vector2(0, 0);
                     break;
                 case GameState.Battle:
+                    camera.Pos = new Vector2(0, 0);
                     currentBattle.Draw(spriteBatch);
                     break;
                 case GameState.GameOver:
+                    camera.Pos = new Vector2(0, 0);
                     break;
                 default:
                     break;

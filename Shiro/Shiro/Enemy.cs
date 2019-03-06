@@ -39,7 +39,7 @@ namespace Shiro
         {
             //this constructor is for random movement type at a set distance of 100
 
-            stamina = 100;
+            stamina = 1000;
             windowWidth = width;
             windowHeight = height;
             prevPos = position;
