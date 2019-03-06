@@ -27,6 +27,7 @@ namespace Shiro
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameState state;
+        GameState previousState;
         int arrowPosition;  //For Menu Systems
         SpriteFont font;
         KeyboardState pbState;
@@ -49,11 +50,16 @@ namespace Shiro
         List<Enemy> listEnemies;
 
         public Random rng;
+
         //Fields for Title Screen
         Texture2D titleBackground;
 
+        //Fields for Instructions
+        Texture2D instructionsBackground;
+
         //Fields for Menu
         Texture2D menuBackground;
+        Texture2D pawPrint;
 
         //Fields for Pause Menu
         Texture2D pauseBackground;
@@ -67,6 +73,11 @@ namespace Shiro
         AttackKey keyDown;
         AttackKey keyRight;
         AttackKey keyLeft;
+
+        //Debug stuff
+        const int TargetWidth = 1300;
+        const int TargetHeight = 720;
+        Matrix scale;
 
 
 
@@ -91,6 +102,16 @@ namespace Shiro
             //Start at the Title Screen
             state = GameState.TitleScreen;
 
+            //More Debug Stuff
+            graphics.PreferredBackBufferWidth = 1300;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+
+            float scaleX = graphics.PreferredBackBufferWidth / TargetWidth;
+            float scaleY = graphics.PreferredBackBufferHeight / TargetHeight;
+            scale = Matrix.CreateScale(new Vector3(scaleX, scaleY, 1));
+
             base.Initialize();
         }
 
@@ -112,6 +133,11 @@ namespace Shiro
             hitbox = Content.Load<Texture2D>("hitbox");
             //Arrow for Debug
             key = Content.Load<Texture2D>("Up Arrow");
+
+            //Menu Screens 
+            menuBackground = Content.Load<Texture2D>("ShiroMenuScreen");
+            pawPrint = Content.Load<Texture2D>("PawPrint");
+            instructionsBackground = Content.Load<Texture2D>("InstructionsScreen");
 
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
@@ -254,10 +280,11 @@ namespace Shiro
 
 
                     //Change to the Pause Menu when Escape is Pressed
-                    if (SingleKeyPress(Keys.Enter))
+                    if (SingleKeyPress(Keys.Escape))
                     {
                         state = GameState.PauseMenu;
                         arrowPosition = 0;  //Make sure the initial position is zero
+                        previousState = GameState.Level;
                     }
 
 
@@ -267,7 +294,18 @@ namespace Shiro
                     //Transition to the Level State when Escape is Pressed
                     if (SingleKeyPress(Keys.Escape))
                     {
-                        state = GameState.Level;
+                        switch (previousState)
+                        {
+                            case GameState.Level:
+                                state = GameState.Level;
+                                break;
+                            case GameState.Battle:
+                                state = GameState.Battle;
+                                break;
+                            default:
+                                break;
+                        }
+                                
                     }
 
                     //Update the arrow position to decide which choice the user in highlighting
@@ -320,6 +358,8 @@ namespace Shiro
                     if (SingleKeyPress(Keys.Escape))
                     {
                         state = GameState.PauseMenu;
+                        arrowPosition = 0; //Set Initial Arrow Position to Zero
+                        previousState = GameState.Battle;
                     }
 
                     currentBattle.Update(gameTime);
@@ -414,7 +454,6 @@ namespace Shiro
             //Update the previous state
             pbState = kbState;
 
-
             base.Update(gameTime);
         }
 
@@ -426,7 +465,7 @@ namespace Shiro
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
 
             //Switch for Game State
             switch (state)
@@ -434,6 +473,21 @@ namespace Shiro
                 case GameState.TitleScreen:
                     break;
                 case GameState.MainMenu:
+                    spriteBatch.Draw(menuBackground, new Vector2(0, 0), Color.White);
+                    switch (arrowPosition)
+                    {
+                        case 1:
+                            spriteBatch.Draw(pawPrint, new Rectangle(100, 450, 40, 40), Color.White);
+                            break;
+                        case 2:
+                            spriteBatch.Draw(pawPrint, new Rectangle(100, 530, 40, 40), Color.White);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case GameState.Instructions:
+                    spriteBatch.Draw(instructionsBackground, new Vector2(0, 0), Color.White);
                     break;
                 case GameState.Level:
                     player.Draw(spriteBatch);
