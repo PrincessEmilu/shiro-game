@@ -227,11 +227,12 @@ namespace Shiro
         {
             //Some objects get drawn regardless of state, mostly GUI stuff.
             //Draws the hitbox.
-            sb.Draw(hitboxTexture, hitbox, Color.White);
+            sb.Draw(hitboxTexture, hitbox, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);
 
             //Draws the screen differently based on current state.
             switch (battleState)
             {
+
                 case BattleState.Idle:
                     //Simply draws the options to fight (or not?) to the playe
                     break;
@@ -240,7 +241,7 @@ namespace Shiro
                     //Draws the attacks and any effects needed
                     foreach(AttackKey key in listKeys)
                     {
-                        if (key != null) { key.Draw(sb); }
+                        key.Draw(sb);
                     }
                     break;
 

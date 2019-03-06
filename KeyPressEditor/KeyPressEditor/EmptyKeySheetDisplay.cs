@@ -13,10 +13,14 @@ namespace KeyPressEditor
     public partial class EmptyKeySheetDisplay : Form
     {
         private int keyAmount;
+        private List<Button> buttonsList;
         public EmptyKeySheetDisplay(int keyAmount)
         {
             this.keyAmount = keyAmount;
             InitializeComponent();
+            buttonsList = new List<Button>(keyAmount);
+            keysLayout.AutoSize = true;
+            generateButtonList();
         }
 
         public bool isEven(int amt)
@@ -29,118 +33,29 @@ namespace KeyPressEditor
             return isEven;
         }
 
+        //add buttons to the layout panel.
         public void generateMaping(int amt)
         {
-            int rows = determineRows(amt);
-            int columns = determineCol(amt, rows);
 
-            int buttonSize = 50;
-            int Distance = 20;
-            int start_x = 10;
-            int start_y = 10;
-
-            for (int x = 0; x < columns; x++)
-                {
-                    for (int y = 0; y < rows; y++)
-                    {
-                    Button tmpButton = new Button();
-                    tmpButton.Top = start_x + (x * buttonSize + Distance);
-                    tmpButton.Left = start_y + (y * buttonSize + Distance);
-                    tmpButton.Width = buttonSize;
-                    tmpButton.Height = buttonSize;
-                    tmpButton.FlatAppearance.BorderSize = 0;
-                    this.Controls.Add(tmpButton);
-                    tmpButton.Click += new EventHandler(button_Click);
-                }
+            foreach(Button b in buttonsList)
+            {
+                keysLayout.Controls.Add(b);
             }
         }
 
-
-        public int determineCol(int amt, int rows)
+        //generate a list of buttons based on how many the user set.
+        public void generateButtonList()
         {
-            int col = 0;
-
-            if (checkIfPrime(amt))
+            for(int i = 0; i < keyAmount; i++)
             {
-                col = 1;
-            } else
-            {
-                col = amt / rows;
+                Button b = new Button();
+                this.Controls.Add(b);
+                b.Click += new EventHandler(button_Click);
+                buttonsList.Add(b);
             }
-
-            return col;
         }
 
-        public int determineRows(int amt)
-        {
-            int rows = 0;
-
-            if (isEven(amt))
-            {
-                if (amt % 8 == 0)
-                {
-                    rows = amt / 8;
-                }
-
-                if (amt % 6 == 0)
-                {
-                    rows = amt / 6;
-                }
-
-                if (amt % 4 == 0)
-                {
-                    rows = amt / 4;
-                }
-                if (amt % 5 == 0)
-                {
-                    rows = amt / 5;
-                }
-
-            } else
-            {
-                if (amt % 5 == 0)
-                {
-                    rows = amt / 5;
-                }
-
-                if (amt % 7 == 0)
-                {
-                    rows = amt / 7;
-                }
-
-                if (amt % 3 == 0)
-                {
-                    rows = amt / 3;
-                }
-            }
-
-            if (checkIfPrime(amt))
-            {
-                rows = amt;
-            }
-
-            return rows;
-        }
-
-        public bool checkIfPrime(int amt)
-        {
-            int count = 0;
-            bool isPrime = true;
-
-            for (int i = 2; i < amt; i++)
-            {
-                if (amt % i == 0)
-                    count++;
-            }
-
-            if (count > 1)
-            {
-                isPrime = false;
-            }
-
-            return isPrime;
-        }
-
+        //click on button.
         private void button_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Hello, I work!");
@@ -149,6 +64,11 @@ namespace KeyPressEditor
         private void EmptyKeySheetDisplay_Load(object sender, EventArgs e)
         {
             generateMaping(keyAmount);
+        }
+
+        private void saveKeyPressesButton_Click(object sender, EventArgs e)
+        {
+            //do something!
         }
     }
 }
