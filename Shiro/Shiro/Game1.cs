@@ -391,6 +391,8 @@ namespace Shiro
                             default:
                                 break;
                         }
+
+                        arrowPosition = 0;
                     }
                     break;
 
@@ -421,6 +423,19 @@ namespace Shiro
                     break;
 
                 case GameState.GameOver:
+                    //Reset the Level
+
+                    //Reset the Player's Stamina and Position
+                    player.Stamina = 100;
+                    player.Center();
+
+                    //Reset All Enemies in the Level
+                    foreach (Enemy e in listEnemies)
+                    {
+                        e.Active = true;
+                        e.Stamina = 100;
+                        e.InBattle = false;
+                    }
 
                     //Transition to the Main Menu if Escape is Pressed
                     if (SingleKeyPress(Keys.Escape))
