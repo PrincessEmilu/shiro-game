@@ -197,7 +197,7 @@ namespace Shiro
                     if (SingleKeyPress(Keys.Enter))
                     {
                         state = GameState.MainMenu;
-                        arrowPosition = 0;  //Make sure the initial position is zero
+                        arrowPosition = 1;  //Make sure the initial position is one
                     }
 
                     //Exit the Game when Escape is Pressed
@@ -219,7 +219,7 @@ namespace Shiro
                     if (SingleKeyPress(Keys.Up))
                     {
                         //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
-                        if (arrowPosition == 0 || arrowPosition == 1)
+                        if (arrowPosition == 1)
                         {
                             arrowPosition = 2;
                         }
@@ -265,7 +265,7 @@ namespace Shiro
                     if (SingleKeyPress(Keys.Escape))
                     {
                         state = GameState.MainMenu;
-                        arrowPosition = 0;  //Make sure the initial position is zero
+                        arrowPosition = 1;  //Make sure the initial position is one
                     }
                     break;
 
@@ -324,11 +324,9 @@ namespace Shiro
                     if (SingleKeyPress(Keys.Escape))
                     {
                         state = GameState.PauseMenu;
-                        arrowPosition = 0;  //Make sure the initial position is zero
+                        arrowPosition = 1;  //Make sure the initial position is one
                         previousState = GameState.Level;
                     }
-
-
                     break;
 
                 case GameState.PauseMenu:
@@ -353,7 +351,7 @@ namespace Shiro
                     if (SingleKeyPress(Keys.Up))
                     {
                         //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
-                        if (arrowPosition == 0 || arrowPosition == 1)
+                        if (arrowPosition == 1)
                         {
                             arrowPosition = 2;
                         }
@@ -392,7 +390,7 @@ namespace Shiro
                                 break;
                         }
 
-                        arrowPosition = 0;
+                        arrowPosition = 1; //Set Initial Arrow Position to One
                     }
                     break;
 
@@ -401,7 +399,7 @@ namespace Shiro
                     if (SingleKeyPress(Keys.Escape))
                     {
                         state = GameState.PauseMenu;
-                        arrowPosition = 0; //Set Initial Arrow Position to Zero
+                        arrowPosition = 1; //Set Initial Arrow Position to One
                         previousState = GameState.Battle;
                     }
 
@@ -417,7 +415,7 @@ namespace Shiro
                     if (currentBattle.GameOver)
                     {
                         state = GameState.GameOver;
-                        arrowPosition = 0;  //Make sure the initial position is zero
+                        arrowPosition = 1;  //Make sure the initial position is one
                     }
 
                     break;
@@ -446,7 +444,7 @@ namespace Shiro
                     if (SingleKeyPress(Keys.Up))
                     {
                         //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
-                        if (arrowPosition == 0 || arrowPosition == 1)
+                        if (arrowPosition == 1)
                         {
                             arrowPosition = 2;
                         }
