@@ -30,7 +30,7 @@ namespace Shiro
         private bool right;
 
         //Properties
-        public bool Active { get; private set; }
+        public bool Active { get; set; }
         public bool InBattle { get; set; }
 
 
@@ -260,7 +260,7 @@ namespace Shiro
             {
                 if (position.Intersects(check.Position)) //check if intersecting with the player
                 {
-                    InBattle = false;
+                    InBattle = true;
                     return true; //returns true to enter battle state
                 }
             }

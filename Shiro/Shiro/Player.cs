@@ -41,7 +41,7 @@ namespace Shiro
             KeyboardState kbState = Keyboard.GetState();
             if (kbState.IsKeyDown(Keys.Up))
             {
-                position.Y -= 5;
+                position.Y -= 5;                
             }
             if (kbState.IsKeyDown(Keys.Down))
             {
@@ -54,7 +54,29 @@ namespace Shiro
             if (kbState.IsKeyDown(Keys.Right))
             {
                 position.X += 5;
-            }            
+            }
+
+
+            //Prevents player from going off the screen from the bottom or right
+            if(position.Y >= 1450)
+            {
+                position.Y = 1449;
+            }
+            if (position.X >= 1450)
+            {
+                position.X = 1449;
+            }
+
+            //Prevents the player from going off the screen from the top or left
+            if (position.Y <= 0)
+            {
+                position.Y = 1;
+            }
+            if (position.X <= 0)
+            {
+                position.X = 1;
+            }
+            
         }
 
         public override void Draw(SpriteBatch sb)
