@@ -65,6 +65,7 @@ namespace LevelEditor
                     tmpButton.Top = start_x + (x * ButtonHeight + Distance);
                     tmpButton.Left = start_y + (y * ButtonWidth + Distance);
                     tmpButton.Width = ButtonWidth;
+                    tmpButton.Tag = baseTileIndex;
                     tmpButton.Height = ButtonHeight;
                     tmpButton.FlatAppearance.BorderSize = 0;
                     tmpButton.BackgroundImage = tilesCropped[baseTileIndex];
@@ -77,8 +78,17 @@ namespace LevelEditor
         private void button_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
+            int currentImg = (int) b.Tag;
+            if (currentImg < tileCounter - 1)
+            {
+                currentImg++;
+                b.Tag = currentImg;
+            } else
+            {
+                b.Tag = 0;
+            }
 
-            b.BackgroundImage = tilesCropped[backgroundTile];
+            b.BackgroundImage = tilesCropped[(int)b.Tag];
         }
     }
 }
