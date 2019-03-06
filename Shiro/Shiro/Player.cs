@@ -32,7 +32,7 @@ namespace Shiro
             Stamina = 100;
             windowWidth = width;
             windowHeight = height;
-            PrevPos = position;
+            PrevPos = position;            
         }
 
         //Overridden Update method, puts all of the player's update code into one place to be called once
@@ -54,13 +54,12 @@ namespace Shiro
             if (kbState.IsKeyDown(Keys.Right))
             {
                 position.X += 5;
-            }
+            }            
+        }
 
-            /* Wrap around the screen
-            position.X += windowWidth;
-            position.Y += windowHeight;
-            position.X %= windowWidth;
-            position.Y %= windowHeight;*/
+        public override void Draw(SpriteBatch sb)
+        {
+            sb.Draw(texture, position, Color.White);
         }
 
     }
