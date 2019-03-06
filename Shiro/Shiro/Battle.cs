@@ -71,7 +71,7 @@ namespace Shiro
             //attackTick is the number of frames before a new enemy attack will be created.
             //Although here it is a constant, it can be changed with different enemies.
             timer = 0;
-            attackTick = 50;
+            attackTick = 25;
 
             //Also hardcoded for now, eventually given by enemy?
             keySpeed = 5;
@@ -90,8 +90,18 @@ namespace Shiro
 
             //DEBUG: HARD-CODED ATTACK LIST
             queueAttacks.Enqueue(Keys.Up);
+            queueAttacks.Enqueue(Keys.Up);
+            queueAttacks.Enqueue(Keys.None);
+            queueAttacks.Enqueue(Keys.None);
             queueAttacks.Enqueue(Keys.Down);
+            queueAttacks.Enqueue(Keys.Down);
+            queueAttacks.Enqueue(Keys.None);
+            queueAttacks.Enqueue(Keys.None);
             queueAttacks.Enqueue(Keys.Left);
+            queueAttacks.Enqueue(Keys.Left);
+            queueAttacks.Enqueue(Keys.None);
+            queueAttacks.Enqueue(Keys.None);
+            queueAttacks.Enqueue(Keys.Right);
             queueAttacks.Enqueue(Keys.Right);
             queueAttacks.Enqueue(Keys.None);
             queueAttacks.Enqueue(Keys.None);
@@ -275,7 +285,7 @@ namespace Shiro
             {
                 keyToReturn = new AttackKey(
                     keyTexture,
-                    new Rectangle(800, 400, keyTexture.Width, keyTexture.Height ),
+                    new Rectangle(1200, 400, keyTexture.Width, keyTexture.Height ),
                     keyType,
                     keySpeed);
             }
