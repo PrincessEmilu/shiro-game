@@ -40,6 +40,7 @@ namespace Shiro
         private int viewportMoveY;
         public int width;
         public int height;
+       
         KeyboardState kbState;
 
         //Entities
@@ -67,6 +68,9 @@ namespace Shiro
         AttackKey keyDown;
         AttackKey keyRight;
         AttackKey keyLeft;
+
+        Viewport viewport;
+        Camera camera;
 
 
 
@@ -116,10 +120,18 @@ namespace Shiro
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
 
-            Rectangle pos = new Rectangle(50, 50, 50, 50);
+            camera = new Camera(graphics.GraphicsDevice.Viewport, 1280, 720, 1);
+            
+
+            Rectangle pos = new Rectangle(width/2, height/2, 50 , 50);
             Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
             player = new Player(testCat, pos, width, height);
+
+            //Viewport Object
+            viewport = new Viewport(0, 0, width, height);
+            //graphics.GraphicsDevice.Viewport = new Viewport(0, 0, width, height);
+            
 
             //Enemies eventually loaded elsewhere
             listEnemies.Add(new Enemy(enemyCat, pos2, width, height, rng.Next(1,5), 100));
@@ -233,8 +245,37 @@ namespace Shiro
 
                 case GameState.Level:
                     //Updated entities
+
+                    
                     player.Update(gameTime);
-                    foreach(Enemy e in listEnemies)
+                    
+
+                    Vector2 movement = Vector2.Zero;
+
+                    if (kbState.IsKeyDown(Keys.Up))
+                    {
+                        movement.Y--;
+                        //graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY -= 1, width, height);                
+                    }
+                    if (kbState.IsKeyDown(Keys.Down))
+                    {
+                        movement.Y++;
+                        //graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY += 1, width, height);
+                    }
+                    if (kbState.IsKeyDown(Keys.Left))
+                    {
+                        movement.X--;
+                        //graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX -= 1, 0, width, height);
+                    }
+                    if (kbState.IsKeyDown(Keys.Right))
+                    {
+                        movement.X++;
+                        //graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX += 1, 0, width, height);
+                    }
+
+                    camera.Pos += movement * 5;
+
+                    foreach (Enemy e in listEnemies)
                     {
                         //PRocesses enemy if it is active
                         if (e.Active)
@@ -394,22 +435,7 @@ namespace Shiro
                     break;
             }
 
-            /*if (kbState.IsKeyDown(Keys.Up))
-            {                
-                graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY -= 1, width, height);                
-            }
-            if (kbState.IsKeyDown(Keys.Down))
-            {
-                graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY += 1, width, height);
-            }
-            if (kbState.IsKeyDown(Keys.Left))
-            {
-                graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX -= 1, 0, width, height);
-            }
-            if (kbState.IsKeyDown(Keys.Right))
-            {                
-                graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX += 1, 0, width, height);
-            }*/
+            
 
             //Update the previous state
             pbState = kbState;
@@ -426,7 +452,9 @@ namespace Shiro
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront,
+                    null, null, null, null, null,
+                    camera.GetTransformation());
 
             //Switch for Game State
             switch (state)
