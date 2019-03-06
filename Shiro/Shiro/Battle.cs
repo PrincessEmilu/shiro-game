@@ -17,6 +17,7 @@ namespace Shiro
             Victory,
             Death
         }
+
     class Battle
     {
         //Fields
@@ -40,7 +41,7 @@ namespace Shiro
 
         //List of keys
         protected List<AttackKey> listKeys;
-        protected Queue<int> queueAttacks;
+        protected Queue<Keys> queueAttacks;
 
         //The hitbox for blocking enemy attacks
         protected Rectangle hitbox;
@@ -48,6 +49,7 @@ namespace Shiro
         //Location on battlescreen to draw the enemy and the player
         protected Point playerPosition;
         protected Point enemyPosition;
+
 
         //Battle starts out idle
         protected BattleState battleState = BattleState.Idle;
@@ -69,7 +71,7 @@ namespace Shiro
             //attackTick is the number of frames before a new enemy attack will be created.
             //Although here it is a constant, it can be changed with different enemies.
             timer = 0;
-            attackTick = 100;
+            attackTick = 50;
 
             //Also hardcoded for now, eventually given by enemy?
             keySpeed = 5;
@@ -83,14 +85,16 @@ namespace Shiro
             //listKeys holds the key attack objects. queueAttacks hold the attack pattern from the enemy in battle.
             //For now, it is a hard-coded value.
             listKeys = new List<AttackKey>();
-            queueAttacks = new Queue<int>();
+            queueAttacks = new Queue<Keys>();
 
-            queueAttacks.Enqueue(1);
-            queueAttacks.Enqueue(2);
-            queueAttacks.Enqueue(3);
-            queueAttacks.Enqueue(4);
-            queueAttacks.Enqueue(0);
-            queueAttacks.Enqueue(0);
+
+            //DEBUG: HARD-CODED ATTACK LIST
+            queueAttacks.Enqueue(Keys.Up);
+            queueAttacks.Enqueue(Keys.Down);
+            queueAttacks.Enqueue(Keys.Left);
+            queueAttacks.Enqueue(Keys.Right);
+            queueAttacks.Enqueue(Keys.None);
+            queueAttacks.Enqueue(Keys.None);
 
 
             //Hitbox for blocking enemy attacks- it is actually just a rectangle
@@ -131,33 +135,63 @@ namespace Shiro
                     //created. The attack pattern will loop by default.
                     //
 
+
+                    //Checks the key at the front of the list. Is it intersecting the hitbox?
+
+                    if (listKeys.Count != 0 && listKeys[0] != null)
+                    {
+                        AttackKey firstAttack = listKeys[0];
+
+                        if (firstAttack.Position.Intersects(hitbox))
+                        {
+                            //If it is intersecting the hitbox, we check if the player has pressed the appropriate key
+                            if (Helpers.SingleKeyPress(firstAttack.KeyType, pbState, kbState))
+                            {
+                                //If the player has pressed the key, then enemy stamina is lowered and the key is removed.
+                                listKeys.RemoveAt(0);
+                                enemy.Stamina -= 10;
+                            }
+                        }
+                    }
+
+                    //
+                    //Generate new attacks
+                    //
+
                     timer += 1;
 
                     if (timer % attackTick == 0)
                     {
-                        listKeys.Add(CreateKey(queueAttacks.Peek()));
+                        //Add a newly-created key to the list
 
-                        //Add first entry to the end of the list, remove it from the start.
+                        if (queueAttacks.Peek() != Keys.None)
+                        {
+                            listKeys.Add(CreateKey(queueAttacks.Peek()));
+                        }
+
+                        //Add first entry to the end of the queue, remove it from the start.
+                        //This behaviour is essentially looping an attack pattern.
                         queueAttacks.Enqueue(queueAttacks.Dequeue());
                     }
 
+
+                    //
                     //Update the keys
-                    foreach(AttackKey key in listKeys)
+                    //
+
+                    //Remove a key if it is passed the hitbox- and damages the player!
+                    if(listKeys.Count > 0 && (listKeys[0].Position.X + listKeys[0].Position.X < hitbox.X))
+                    {
+                        listKeys.RemoveAt(0);
+                        player.Stamina -= 10;
+                    }
+
+                    //Calls update on each key.
+                    foreach (AttackKey key in listKeys)
                     {
                         if (key != null) { key.Update(gameTime); }
                     }
 
-                    //DEBUG: DAMAGE PLAYER
-                    if (kbState.IsKeyDown(Keys.F) && pbState.IsKeyUp(Keys.F))
-                    {
-                        player.Stamina -= 10;
-                    }
-
-                    //DEBUG: DAMAGE ENEMY
-                    if (kbState.IsKeyDown(Keys.E) && pbState.IsKeyUp(Keys.E))
-                    {
-                        enemy.Stamina -= 10;
-                    }
 
                     //Then checks Win/Loss conditions
                     if (player.Stamina <= 0)
@@ -193,11 +227,12 @@ namespace Shiro
         {
             //Some objects get drawn regardless of state, mostly GUI stuff.
             //Draws the hitbox.
-            sb.Draw(hitboxTexture, hitbox, Color.White);
+            sb.Draw(hitboxTexture, hitbox, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);
 
             //Draws the screen differently based on current state.
             switch (battleState)
             {
+
                 case BattleState.Idle:
                     //Simply draws the options to fight (or not?) to the playe
                     break;
@@ -206,7 +241,7 @@ namespace Shiro
                     //Draws the attacks and any effects needed
                     foreach(AttackKey key in listKeys)
                     {
-                        if (key != null) { key.Draw(sb); }
+                        key.Draw(sb);
                     }
                     break;
 
@@ -231,17 +266,17 @@ namespace Shiro
         }
 
         //Creates a key object
-        protected AttackKey CreateKey(int keyValue)
+        protected AttackKey CreateKey(Keys keyType)
         {
             AttackKey keyToReturn = null;
 
             //Creates the appropriate type of key based on the integer supplied
-            if (keyValue != 0)
+            if (keyType != Keys.None)
             {
                 keyToReturn = new AttackKey(
                     keyTexture,
                     new Rectangle(800, 400, keyTexture.Width, keyTexture.Height ),
-                    keyValue,
+                    keyType,
                     keySpeed);
             }
 
