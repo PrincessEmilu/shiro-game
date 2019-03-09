@@ -9,6 +9,20 @@ This milestone was heavily based on communication. Most of our time was spent co
 Being able to communicate our ideas effectively is a very important lesson that will be very useful throughout the rest of the milestones. As a group project, we will need to listen to each others idea and be able to effectively handle any disagreements that arise. The ability to assign our own task and accept any remaining task will also prove useful in future milestones as we will be able to avoid unneccesary arguments about the assigning of tasks. All in all, we believe that the comunication lessons we learned and the relationship we have established as a group will prove very beneficial to us in future milestones.
 
 ## Milestone 2
+Working on Milestone 2 has been a very different experience from working on Milestone 1. The reason for this is definitely actually *working* on coding instead of simply
+creating plans. However, what hasn't changed is our group's efficiency in communication and our dedication to the project. While we have faced new challenges, we have
+continued to meet consistently and work as a team.
+
+For most of us, this project is our first time coding the same project as a team. Coding together is both exciting and challenging. On one hand, there's a very satisfying
+feeling of being able to work on one piece of coding, such as a battle system, while another person works on creating a scrolling overworld. By the time you're ready
+to show off progress on your segment of the project, another person is ready to show that they completed a task just as valuable as you have. On the other hand, it
+is sometimes difficult to interactivity between classes and game states. However, when one person gets stuck on a particular problem or two code segments conflict, we
+are  able to talk about the issue as a team and figure out a resolution.
+
+We have gotten better at communicating outside of class and at delegating tasks among group members. Thanks to Professor Mesh and TA Ben, we have also learned how to
+more effectively use Trello to organize and delegate tasks. We are using that in conjunction with group texting to make both make sure we finish tasks on-time and to
+keep track of issues that need to be fixed as they come up. With such a large project, minor issues can be very easy to miss, so we hope to make sure we don't forget
+any important details in our game moving forward.
 
 ## Milestone 3
 
