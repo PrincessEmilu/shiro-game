@@ -55,6 +55,7 @@ namespace Shiro
         protected BattleState battleState = BattleState.Idle;
 
         //Properties
+        //Properties that Game1 can check to know how to handle the current battle when it ends.
         public bool Victory { get; private set; }
         public bool GameOver { get; private set; }
 
@@ -63,7 +64,7 @@ namespace Shiro
         //the previous locations of the player and the enemies that were on the level.
         public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D keyTexture, Texture2D hitboxTexture, Player player, Enemy enemy)
         {
-            //The starts of the show...
+            //The stars of the show...
             this.player = player;
             this.enemy = enemy;
 
@@ -111,6 +112,7 @@ namespace Shiro
             hitbox = new Rectangle(100, 350, 100, 100);
             this.hitboxTexture = hitboxTexture;
 
+            //Graphical stuff for the battle
             this.font = font;
             this.keyTexture = keyTexture;
 
@@ -224,6 +226,8 @@ namespace Shiro
 
                 case BattleState.Victory:
                     //What happens when the enemy stamina reaches  0
+                    //Eventually, this should take some sort of transition time so the player can get  ready to go back into the game world.
+                    //Without it it's all a little disorienting.
                     if (!Victory)
                     {
                         Victory = true;
@@ -244,7 +248,7 @@ namespace Shiro
             {
 
                 case BattleState.Idle:
-                    //Simply draws the options to fight (or not?) to the playe
+                    //Simply draws the options to fight (or not?) to the player
                     break;
 
                 case BattleState.Fight:
