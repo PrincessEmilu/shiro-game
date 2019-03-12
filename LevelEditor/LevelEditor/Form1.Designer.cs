@@ -52,9 +52,10 @@
             // 
             this.pictureOfLogo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureOfLogo.BackgroundImage")));
             this.pictureOfLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureOfLogo.Location = new System.Drawing.Point(12, 12);
+            this.pictureOfLogo.Location = new System.Drawing.Point(16, 15);
+            this.pictureOfLogo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureOfLogo.Name = "pictureOfLogo";
-            this.pictureOfLogo.Size = new System.Drawing.Size(117, 50);
+            this.pictureOfLogo.Size = new System.Drawing.Size(156, 62);
             this.pictureOfLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureOfLogo.TabIndex = 0;
             this.pictureOfLogo.TabStop = false;
@@ -62,23 +63,26 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // openFileLabel
             // 
             this.openFileLabel.AutoSize = true;
             this.openFileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.openFileLabel.Location = new System.Drawing.Point(12, 65);
+            this.openFileLabel.Location = new System.Drawing.Point(16, 80);
+            this.openFileLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.openFileLabel.Name = "openFileLabel";
-            this.openFileLabel.Size = new System.Drawing.Size(103, 25);
+            this.openFileLabel.Size = new System.Drawing.Size(129, 29);
             this.openFileLabel.TabIndex = 1;
             this.openFileLabel.Text = "Open File:";
             this.openFileLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // loadPNGFile
             // 
-            this.loadPNGFile.Location = new System.Drawing.Point(111, 67);
+            this.loadPNGFile.Location = new System.Drawing.Point(148, 82);
+            this.loadPNGFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loadPNGFile.Name = "loadPNGFile";
-            this.loadPNGFile.Size = new System.Drawing.Size(75, 23);
+            this.loadPNGFile.Size = new System.Drawing.Size(100, 28);
             this.loadPNGFile.TabIndex = 2;
             this.loadPNGFile.Text = "Load PNG...";
             this.loadPNGFile.UseVisualStyleBackColor = true;
@@ -86,9 +90,10 @@
             // 
             // tileBoxPreview
             // 
-            this.tileBoxPreview.Location = new System.Drawing.Point(17, 96);
+            this.tileBoxPreview.Location = new System.Drawing.Point(23, 118);
+            this.tileBoxPreview.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tileBoxPreview.Name = "tileBoxPreview";
-            this.tileBoxPreview.Size = new System.Drawing.Size(752, 53);
+            this.tileBoxPreview.Size = new System.Drawing.Size(1003, 65);
             this.tileBoxPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.tileBoxPreview.TabIndex = 3;
             this.tileBoxPreview.TabStop = false;
@@ -97,9 +102,10 @@
             // 
             this.askForTilesLabel.AutoSize = true;
             this.askForTilesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.askForTilesLabel.Location = new System.Drawing.Point(17, 156);
+            this.askForTilesLabel.Location = new System.Drawing.Point(23, 192);
+            this.askForTilesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.askForTilesLabel.Name = "askForTilesLabel";
-            this.askForTilesLabel.Size = new System.Drawing.Size(128, 20);
+            this.askForTilesLabel.Size = new System.Drawing.Size(160, 25);
             this.askForTilesLabel.TabIndex = 4;
             this.askForTilesLabel.Text = "How many tiles?:";
             // 
@@ -107,9 +113,10 @@
             // 
             this.sizeOfTileLabel.AutoSize = true;
             this.sizeOfTileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.sizeOfTileLabel.Location = new System.Drawing.Point(17, 188);
+            this.sizeOfTileLabel.Location = new System.Drawing.Point(23, 231);
+            this.sizeOfTileLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.sizeOfTileLabel.Name = "sizeOfTileLabel";
-            this.sizeOfTileLabel.Size = new System.Drawing.Size(107, 20);
+            this.sizeOfTileLabel.Size = new System.Drawing.Size(136, 25);
             this.sizeOfTileLabel.TabIndex = 5;
             this.sizeOfTileLabel.Text = "Size of Tiles?:";
             // 
@@ -117,22 +124,24 @@
             // 
             this.backgroundLabel.AutoSize = true;
             this.backgroundLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.backgroundLabel.Location = new System.Drawing.Point(17, 221);
+            this.backgroundLabel.Location = new System.Drawing.Point(23, 272);
+            this.backgroundLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.backgroundLabel.Name = "backgroundLabel";
-            this.backgroundLabel.Size = new System.Drawing.Size(224, 20);
+            this.backgroundLabel.Size = new System.Drawing.Size(279, 25);
             this.backgroundLabel.TabIndex = 7;
             this.backgroundLabel.Text = "Which one is background tile?:";
             // 
             // howManyTileCounter
             // 
-            this.howManyTileCounter.Location = new System.Drawing.Point(152, 155);
+            this.howManyTileCounter.Location = new System.Drawing.Point(203, 191);
+            this.howManyTileCounter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.howManyTileCounter.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.howManyTileCounter.Name = "howManyTileCounter";
-            this.howManyTileCounter.Size = new System.Drawing.Size(120, 20);
+            this.howManyTileCounter.Size = new System.Drawing.Size(160, 22);
             this.howManyTileCounter.TabIndex = 11;
             this.howManyTileCounter.Value = new decimal(new int[] {
             1,
@@ -143,14 +152,15 @@
             // 
             // backgroundTileSelection
             // 
-            this.backgroundTileSelection.Location = new System.Drawing.Point(256, 221);
+            this.backgroundTileSelection.Location = new System.Drawing.Point(341, 272);
+            this.backgroundTileSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.backgroundTileSelection.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.backgroundTileSelection.Name = "backgroundTileSelection";
-            this.backgroundTileSelection.Size = new System.Drawing.Size(120, 20);
+            this.backgroundTileSelection.Size = new System.Drawing.Size(160, 22);
             this.backgroundTileSelection.TabIndex = 13;
             this.backgroundTileSelection.Value = new decimal(new int[] {
             1,
@@ -161,9 +171,10 @@
             // 
             // previewMapButton
             // 
-            this.previewMapButton.Location = new System.Drawing.Point(498, 200);
+            this.previewMapButton.Location = new System.Drawing.Point(664, 246);
+            this.previewMapButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.previewMapButton.Name = "previewMapButton";
-            this.previewMapButton.Size = new System.Drawing.Size(194, 41);
+            this.previewMapButton.Size = new System.Drawing.Size(259, 50);
             this.previewMapButton.TabIndex = 14;
             this.previewMapButton.Text = "Preview Map...";
             this.previewMapButton.UseVisualStyleBackColor = true;
@@ -171,7 +182,8 @@
             // 
             // sizeOfTilesDropdown
             // 
-            this.sizeOfTilesDropdown.Location = new System.Drawing.Point(134, 188);
+            this.sizeOfTilesDropdown.Location = new System.Drawing.Point(179, 231);
+            this.sizeOfTilesDropdown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.sizeOfTilesDropdown.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -183,7 +195,7 @@
             0,
             0});
             this.sizeOfTilesDropdown.Name = "sizeOfTilesDropdown";
-            this.sizeOfTilesDropdown.Size = new System.Drawing.Size(120, 20);
+            this.sizeOfTilesDropdown.Size = new System.Drawing.Size(160, 22);
             this.sizeOfTilesDropdown.TabIndex = 15;
             this.sizeOfTilesDropdown.Value = new decimal(new int[] {
             100,
@@ -194,9 +206,9 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.sizeOfTilesDropdown);
             this.Controls.Add(this.previewMapButton);
             this.Controls.Add(this.backgroundTileSelection);
@@ -208,6 +220,7 @@
             this.Controls.Add(this.loadPNGFile);
             this.Controls.Add(this.openFileLabel);
             this.Controls.Add(this.pictureOfLogo);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureOfLogo)).EndInit();
