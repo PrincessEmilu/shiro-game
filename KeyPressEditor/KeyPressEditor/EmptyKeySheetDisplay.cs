@@ -114,10 +114,8 @@ namespace KeyPressEditor
                 Keys keyAssigned = ReturnActualKey(keyNum);
                 keys.Add(keyAssigned);
             }
-            foreach(Keys key in keys)
-            {
-                Console.Write(key.ToString() + ",");
-            }
+
+            SaveToFile();
         }
 
         public Keys ReturnActualKey(int key)
@@ -146,8 +144,35 @@ namespace KeyPressEditor
 
         public void SaveToFile()
         {
-            StreamWriter writer = new StreamWriter("file");
-            //https://support.microsoft.com/en-us/help/304430/how-to-do-basic-file-i-o-in-visual-c
+            SaveFileDialog save = new SaveFileDialog();
+
+            save.FileName = "Arrow_Key_Text_File_Shiro.txt";
+
+            save.Filter = "Text File | *.txt";
+
+            if (save.ShowDialog() == DialogResult.OK)
+
+            {
+
+                StreamWriter writer = new StreamWriter(save.OpenFile());
+
+                for(int i = 0; i < keys.Count; i++)
+
+                {
+                    if (i != keys.Count - 1)
+                    {
+                        writer.Write("Keys." + keys[i].ToString() + ",");
+                    } else
+                    {
+                        writer.Write("Keys." + keys[i].ToString());
+                    }
+
+                }
+
+                writer.Dispose();
+
+                writer.Close();
+            }
         }
     }
 }
