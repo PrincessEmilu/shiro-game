@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+
 
 namespace levelEditor
 {
@@ -15,23 +17,21 @@ namespace levelEditor
         //Fields
         Random rng = new Random();
 
-        int tileWidth;
-        int tileHeight;
+        List<Image> listTiles;
+        MapPanel[,] mapPanels;
 
-        int tilesPerScreenWidth;
-        int tilesPerScreenHeight;
+        const string outputFileName = "myMap.txt";
 
-        int screensHorizontal;
-        int screensVertical;
 
-        int gridPanelWidth;
-        int gridPanelHeight;
-
-        Panel[,] buttons;
+        //Value of paintbrush will represent which value in the tilemap to paint with
+        private int paintbrush;
 
         public mainEditor()
         {
             InitializeComponent();
+
+            //TODO: Actually let user select the tile
+            paintbrush = 3;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -51,43 +51,108 @@ namespace levelEditor
         }
 
         //Method for generating the new map
-        public void GenerateMap()
+        public void GenerateMap(
+            Image tileset,
+            int tilesInImage,
+            int tileWidth, 
+            int tileHeight, 
+            int tilesPerScreenWidth, 
+            int tilesPerScreenHeight, 
+            int screensHorizontal,
+            int screensVertical)
         {
-            //Sets values
-            /*
-            tileWidth = 50;
-            tileHeight = tileWidth;
 
-            tilesPerScreenWidth = 16;
-            tilesPerScreenHeight = 9;
+            //Crops supplied image into a list of images (tileset)
+            listTiles = CroppedImage(tileset, tilesInImage, tileWidth);
 
-            screensHorizontal = 2;
-            screensVertical = 2;
+            //Total array sizes
+            int gridPanelWidth = tilesPerScreenWidth * screensHorizontal;
+            int gridPanelHeight = tilesPerScreenHeight * screensVertical;
 
-            gridPanelWidth = tilesPerScreenWidth * screensHorizontal;
-            gridPanelHeight = tilesPerScreenHeight * screensVertical;
-            */
 
-            //Generate that map
-
-            /*
-            buttons = new Panel[gridPanelWidth, gridPanelHeight];
+            //Generate the map
+            mapPanels = new MapPanel[gridPanelWidth, gridPanelHeight];
 
             for(int j = 0; j < gridPanelHeight; j ++)
             {
                 for(int i = 0; i < gridPanelWidth; i ++)
                 {
-                    buttons[i, j] = new Panel();
-                    buttons[i, j].Location = new Point(i * tileWidth, j * tileHeight + toolbarMain.Height);
-                    buttons[i, j].Size = new Size(tileWidth, tileHeight);
-                    buttons[i, j].BackColor = Color.FromArgb(rng.Next(0, 256), rng.Next(0, 256), rng.Next(0, 256));
+                    mapPanels[i, j] = new MapPanel();
+                    mapPanels[i, j].Location = new Point(i * tileWidth, j * tileHeight + toolbarMain.Height);
+                    mapPanels[i, j].Size = new Size(tileWidth, tileHeight);
+                    mapPanels[i, j].BackgroundImage = listTiles[0];
+                    mapPanels[i, j].tileID = 0;
 
-                    Controls.Add(buttons[i, j]);
+                    //Adds event handler
+                    mapPanels[i, j].Click += new EventHandler(NextTile);
+
+                    Controls.Add(mapPanels[i, j]);
                 }
             }
+        }
 
-            Console.WriteLine("Done");
-            */
+        //Crops images and sorts them into a list
+        //Alexa figured out the general code for cropping an image.
+        private List<Image> CroppedImage(Image tiles, int tilesInImage, int tileSize)
+        {
+            int tilesHorizontal = tiles.Width / tileSize;
+            int tilesVertical = tiles.Height / tileSize;
+
+            //Could turn this into an array
+            List<Image> listOfImages = new List<Image>(tilesInImage);
+
+            if (tiles != null)
+            {
+                Bitmap imgCloned = (Bitmap)tiles;
+
+                //i columns, j rows
+                for (int j = 0; j < tilesVertical; j++)
+                {
+                    for (int i = 0; i < tilesHorizontal; i++)
+                    {
+                        Rectangle cropRectangle = new Rectangle(tileSize * i, tileSize * j, tileSize, tileSize);
+                        Bitmap newBitmap = imgCloned.Clone(cropRectangle, imgCloned.PixelFormat);
+                        listOfImages.Add(newBitmap);
+                    }
+                }
+            }
+            Console.WriteLine(listOfImages.Count);
+            return listOfImages;
+        }
+
+        //Changes panel to next tile
+        private void NextTile(object sender, EventArgs e)
+        {
+            ((Panel)sender).BackgroundImage = listTiles[paintbrush];
+        }
+
+        //Saves the map as a text file
+        private void SaveMap()
+        {
+            StreamWriter output = new StreamWriter(outputFileName);
+            //Write a header here
+            //TODO: Header should have info about the map, such as total size
+            //Could also specify the tileset
+
+            //Read array of panels
+            for(int j = 0; j < mapPanels.GetLength(1); j++)
+            {
+                for (int i = 0; i < mapPanels.GetLength(0); i++)
+                {
+                    //Write the value of the map panel
+                    output.Write(mapPanels[i, j].tileID + ",");
+                }
+
+                output.WriteLine();
+            }
+
+            output.Close();
+            Console.WriteLine("File saved!");
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            SaveMap();
         }
     }
 }

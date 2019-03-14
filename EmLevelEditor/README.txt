@@ -1,0 +1,1 @@
+Included tileset has tiles that are 160*160. However the code should work with any png tileset the has square tiles.

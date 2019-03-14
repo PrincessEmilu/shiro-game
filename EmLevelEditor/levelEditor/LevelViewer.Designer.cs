@@ -43,7 +43,7 @@
             this.buttonGenerate});
             this.toolbarMain.Location = new System.Drawing.Point(0, 0);
             this.toolbarMain.Name = "toolbarMain";
-            this.toolbarMain.Size = new System.Drawing.Size(1902, 27);
+            this.toolbarMain.Size = new System.Drawing.Size(1023, 27);
             this.toolbarMain.TabIndex = 0;
             this.toolbarMain.Text = "toolbarMain";
             // 
@@ -56,6 +56,7 @@
             this.buttonSave.Size = new System.Drawing.Size(24, 24);
             this.buttonSave.Text = "Save";
             this.buttonSave.ToolTipText = "Save";
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonGenerate
             // 
@@ -69,11 +70,13 @@
             // 
             // mainEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1902, 1033);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(1023, 609);
             this.Controls.Add(this.toolbarMain);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "mainEditor";
             this.Text = "Level Editor";
             this.Load += new System.EventHandler(this.Form1_Load);

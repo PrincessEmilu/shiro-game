@@ -29,153 +29,227 @@
         private void InitializeComponent()
         {
             this.buttonGenerate = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericTilesPerRow = new System.Windows.Forms.NumericUpDown();
+            this.numericTilesPerColumn = new System.Windows.Forms.NumericUpDown();
             this.labelPerColumn = new System.Windows.Forms.Label();
             this.labelPerRow = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.labelTileSize = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.numericTileSize = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.labelScreensRow = new System.Windows.Forms.Label();
             this.labelScreenColumn = new System.Windows.Forms.Label();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.numericScreensPerRow = new System.Windows.Forms.NumericUpDown();
+            this.numericScreensPerColumn = new System.Windows.Forms.NumericUpDown();
             this.labaleMapSettings = new System.Windows.Forms.Label();
             this.openFileImage = new System.Windows.Forms.OpenFileDialog();
             this.buttonLoadPNG = new System.Windows.Forms.Button();
             this.tileBoxPreview = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTilesPerRow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTilesPerColumn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTileSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericScreensPerRow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericScreensPerColumn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileBoxPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonGenerate
             // 
-            this.buttonGenerate.Location = new System.Drawing.Point(109, 394);
+            this.buttonGenerate.Location = new System.Drawing.Point(82, 320);
+            this.buttonGenerate.Margin = new System.Windows.Forms.Padding(2);
             this.buttonGenerate.Name = "buttonGenerate";
-            this.buttonGenerate.Size = new System.Drawing.Size(89, 23);
+            this.buttonGenerate.Size = new System.Drawing.Size(67, 19);
             this.buttonGenerate.TabIndex = 0;
             this.buttonGenerate.Text = "Generate!";
             this.buttonGenerate.UseVisualStyleBackColor = true;
             this.buttonGenerate.Click += new System.EventHandler(this.button1_Click);
             // 
-            // numericUpDown1
+            // numericTilesPerRow
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(170, 205);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown1.TabIndex = 1;
+            this.numericTilesPerRow.Location = new System.Drawing.Point(128, 167);
+            this.numericTilesPerRow.Margin = new System.Windows.Forms.Padding(2);
+            this.numericTilesPerRow.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericTilesPerRow.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericTilesPerRow.Name = "numericTilesPerRow";
+            this.numericTilesPerRow.Size = new System.Drawing.Size(90, 20);
+            this.numericTilesPerRow.TabIndex = 1;
+            this.numericTilesPerRow.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericTilesPerRow.ValueChanged += new System.EventHandler(this.numericTilesPerRow_ValueChanged);
             // 
-            // numericUpDown2
+            // numericTilesPerColumn
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(170, 246);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown2.TabIndex = 2;
+            this.numericTilesPerColumn.Location = new System.Drawing.Point(128, 200);
+            this.numericTilesPerColumn.Margin = new System.Windows.Forms.Padding(2);
+            this.numericTilesPerColumn.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericTilesPerColumn.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericTilesPerColumn.Name = "numericTilesPerColumn";
+            this.numericTilesPerColumn.Size = new System.Drawing.Size(90, 20);
+            this.numericTilesPerColumn.TabIndex = 2;
+            this.numericTilesPerColumn.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericTilesPerColumn.ValueChanged += new System.EventHandler(this.numericTilesPerColumn_ValueChanged);
             // 
             // labelPerColumn
             // 
             this.labelPerColumn.AutoSize = true;
-            this.labelPerColumn.Location = new System.Drawing.Point(26, 246);
+            this.labelPerColumn.Location = new System.Drawing.Point(20, 200);
+            this.labelPerColumn.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPerColumn.Name = "labelPerColumn";
-            this.labelPerColumn.Size = new System.Drawing.Size(115, 17);
+            this.labelPerColumn.Size = new System.Drawing.Size(86, 13);
             this.labelPerColumn.TabIndex = 3;
             this.labelPerColumn.Text = "Tiles Per Column";
             // 
             // labelPerRow
             // 
             this.labelPerRow.AutoSize = true;
-            this.labelPerRow.Location = new System.Drawing.Point(46, 205);
+            this.labelPerRow.Location = new System.Drawing.Point(34, 167);
+            this.labelPerRow.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPerRow.Name = "labelPerRow";
-            this.labelPerRow.Size = new System.Drawing.Size(95, 17);
+            this.labelPerRow.Size = new System.Drawing.Size(73, 13);
             this.labelPerRow.TabIndex = 4;
             this.labelPerRow.Text = "Tiles Per Row";
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(170, 109);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown3.TabIndex = 5;
             // 
             // labelTileSize
             // 
             this.labelTileSize.AutoSize = true;
-            this.labelTileSize.Location = new System.Drawing.Point(56, 69);
+            this.labelTileSize.Location = new System.Drawing.Point(34, 97);
+            this.labelTileSize.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTileSize.Name = "labelTileSize";
-            this.labelTileSize.Size = new System.Drawing.Size(85, 17);
+            this.labelTileSize.Size = new System.Drawing.Size(64, 13);
             this.labelTileSize.TabIndex = 6;
             this.labelTileSize.Text = "Size of Tiles";
             // 
-            // label1
+            // numericTileSize
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 111);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 17);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Tiles in Image";
-            // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Location = new System.Drawing.Point(170, 69);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown4.TabIndex = 8;
+            this.numericTileSize.Location = new System.Drawing.Point(128, 95);
+            this.numericTileSize.Margin = new System.Windows.Forms.Padding(2);
+            this.numericTileSize.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.numericTileSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericTileSize.Name = "numericTileSize";
+            this.numericTileSize.Size = new System.Drawing.Size(90, 20);
+            this.numericTileSize.TabIndex = 8;
+            this.numericTileSize.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericTileSize.ValueChanged += new System.EventHandler(this.numericTileSize_ValueChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(95, 293);
+            this.label2.Location = new System.Drawing.Point(71, 238);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 17);
+            this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "label2";
             // 
             // labelScreensRow
             // 
             this.labelScreensRow.AutoSize = true;
-            this.labelScreensRow.Location = new System.Drawing.Point(26, 293);
+            this.labelScreensRow.Location = new System.Drawing.Point(20, 238);
+            this.labelScreensRow.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelScreensRow.Name = "labelScreensRow";
-            this.labelScreensRow.Size = new System.Drawing.Size(116, 17);
+            this.labelScreensRow.Size = new System.Drawing.Size(89, 13);
             this.labelScreensRow.TabIndex = 9;
             this.labelScreensRow.Text = "Screens per Row";
             // 
             // labelScreenColumn
             // 
             this.labelScreenColumn.AutoSize = true;
-            this.labelScreenColumn.Location = new System.Drawing.Point(6, 335);
+            this.labelScreenColumn.Location = new System.Drawing.Point(4, 272);
+            this.labelScreenColumn.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelScreenColumn.Name = "labelScreenColumn";
-            this.labelScreenColumn.Size = new System.Drawing.Size(136, 17);
+            this.labelScreenColumn.Size = new System.Drawing.Size(102, 13);
             this.labelScreenColumn.TabIndex = 10;
             this.labelScreenColumn.Text = "Screens per Column";
             // 
-            // numericUpDown5
+            // numericScreensPerRow
             // 
-            this.numericUpDown5.Location = new System.Drawing.Point(170, 293);
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown5.TabIndex = 11;
+            this.numericScreensPerRow.Location = new System.Drawing.Point(128, 238);
+            this.numericScreensPerRow.Margin = new System.Windows.Forms.Padding(2);
+            this.numericScreensPerRow.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericScreensPerRow.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericScreensPerRow.Name = "numericScreensPerRow";
+            this.numericScreensPerRow.Size = new System.Drawing.Size(90, 20);
+            this.numericScreensPerRow.TabIndex = 11;
+            this.numericScreensPerRow.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericScreensPerRow.ValueChanged += new System.EventHandler(this.numericScreensPerRow_ValueChanged);
             // 
-            // numericUpDown6
+            // numericScreensPerColumn
             // 
-            this.numericUpDown6.Location = new System.Drawing.Point(170, 333);
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown6.TabIndex = 12;
+            this.numericScreensPerColumn.Location = new System.Drawing.Point(128, 271);
+            this.numericScreensPerColumn.Margin = new System.Windows.Forms.Padding(2);
+            this.numericScreensPerColumn.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericScreensPerColumn.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericScreensPerColumn.Name = "numericScreensPerColumn";
+            this.numericScreensPerColumn.Size = new System.Drawing.Size(90, 20);
+            this.numericScreensPerColumn.TabIndex = 12;
+            this.numericScreensPerColumn.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericScreensPerColumn.ValueChanged += new System.EventHandler(this.numericScreensPerColumn_ValueChanged);
             // 
             // labaleMapSettings
             // 
             this.labaleMapSettings.AutoSize = true;
-            this.labaleMapSettings.Location = new System.Drawing.Point(132, 167);
+            this.labaleMapSettings.Location = new System.Drawing.Point(99, 136);
+            this.labaleMapSettings.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labaleMapSettings.Name = "labaleMapSettings";
-            this.labaleMapSettings.Size = new System.Drawing.Size(90, 17);
+            this.labaleMapSettings.Size = new System.Drawing.Size(69, 13);
             this.labaleMapSettings.TabIndex = 13;
             this.labaleMapSettings.Text = "Map Settings";
             // 
@@ -186,9 +260,10 @@
             // 
             // buttonLoadPNG
             // 
-            this.buttonLoadPNG.Location = new System.Drawing.Point(59, 24);
+            this.buttonLoadPNG.Location = new System.Drawing.Point(11, 10);
+            this.buttonLoadPNG.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLoadPNG.Name = "buttonLoadPNG";
-            this.buttonLoadPNG.Size = new System.Drawing.Size(75, 23);
+            this.buttonLoadPNG.Size = new System.Drawing.Size(56, 19);
             this.buttonLoadPNG.TabIndex = 14;
             this.buttonLoadPNG.Text = "Load PNG";
             this.buttonLoadPNG.UseVisualStyleBackColor = true;
@@ -196,43 +271,42 @@
             // 
             // tileBoxPreview
             // 
-            this.tileBoxPreview.Location = new System.Drawing.Point(170, 12);
+            this.tileBoxPreview.Location = new System.Drawing.Point(82, 10);
+            this.tileBoxPreview.Margin = new System.Windows.Forms.Padding(2);
             this.tileBoxPreview.Name = "tileBoxPreview";
-            this.tileBoxPreview.Size = new System.Drawing.Size(100, 50);
+            this.tileBoxPreview.Size = new System.Drawing.Size(160, 76);
             this.tileBoxPreview.TabIndex = 15;
             this.tileBoxPreview.TabStop = false;
             // 
             // Generate
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 450);
+            this.ClientSize = new System.Drawing.Size(253, 366);
             this.Controls.Add(this.tileBoxPreview);
             this.Controls.Add(this.buttonLoadPNG);
             this.Controls.Add(this.labaleMapSettings);
-            this.Controls.Add(this.numericUpDown6);
-            this.Controls.Add(this.numericUpDown5);
+            this.Controls.Add(this.numericScreensPerColumn);
+            this.Controls.Add(this.numericScreensPerRow);
             this.Controls.Add(this.labelScreenColumn);
             this.Controls.Add(this.labelScreensRow);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.numericUpDown4);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.numericTileSize);
             this.Controls.Add(this.labelTileSize);
-            this.Controls.Add(this.numericUpDown3);
             this.Controls.Add(this.labelPerRow);
             this.Controls.Add(this.labelPerColumn);
-            this.Controls.Add(this.numericUpDown2);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numericTilesPerColumn);
+            this.Controls.Add(this.numericTilesPerRow);
             this.Controls.Add(this.buttonGenerate);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Generate";
             this.Text = "Generate";
             this.Load += new System.EventHandler(this.Generate_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTilesPerRow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTilesPerColumn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTileSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericScreensPerRow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericScreensPerColumn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileBoxPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -242,19 +316,17 @@
         #endregion
 
         private System.Windows.Forms.Button buttonGenerate;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericTilesPerRow;
+        private System.Windows.Forms.NumericUpDown numericTilesPerColumn;
         private System.Windows.Forms.Label labelPerColumn;
         private System.Windows.Forms.Label labelPerRow;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.Label labelTileSize;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.NumericUpDown numericTileSize;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelScreensRow;
         private System.Windows.Forms.Label labelScreenColumn;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
-        private System.Windows.Forms.NumericUpDown numericUpDown6;
+        private System.Windows.Forms.NumericUpDown numericScreensPerRow;
+        private System.Windows.Forms.NumericUpDown numericScreensPerColumn;
         private System.Windows.Forms.Label labaleMapSettings;
         private System.Windows.Forms.OpenFileDialog openFileImage;
         private System.Windows.Forms.Button buttonLoadPNG;
