@@ -147,7 +147,7 @@ namespace KeyPressEditor
                         writer.Write("Keys." + keys[i].ToString() + ",");
                     } else
                     {
-                        writer.Write(keys[i].ToString());
+                        writer.Write("Keys." + keys[i].ToString());
                     }
                 }
                 writer.Dispose();
