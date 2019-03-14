@@ -11,23 +11,16 @@ using System.Windows.Forms;
 
 namespace KeyPressEditor
 {
-
-    enum KeysAvailable
-    {
-        None,
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
     public partial class EmptyKeySheetDisplay : Form
     {
+        //properties
         private int keyAmount;
         private List<Button> buttonsList;
         private List<Image> arrowImages;
         private List<Keys> keys;
 
+        //constructor
+        //generates images and makes the key+image list
         public EmptyKeySheetDisplay(int keyAmount)
         {
             this.keyAmount = keyAmount;
@@ -49,17 +42,8 @@ namespace KeyPressEditor
             generateButtonList();
         }
 
-        public bool isEven(int amt)
-        {
-            bool isEven = false;
-            if (amt % 2 == 0)
-            {
-                isEven = true;
-            }
-            return isEven;
-        }
-
         //add buttons to the layout panel.
+        //without this, the buttons will create on top of each other.
         public void generateMaping(int amt)
         {
 
@@ -69,7 +53,7 @@ namespace KeyPressEditor
             }
         }
 
-        //generate a list of buttons based on how many the user set.
+        //generate a list of buttons based on 
         public void generateButtonList()
         {
 
@@ -85,7 +69,7 @@ namespace KeyPressEditor
             }
         }
 
-        //click on button.
+        //click on buttons and change their images + tags
         private void button_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
@@ -101,11 +85,14 @@ namespace KeyPressEditor
             b.BackgroundImage = arrowImages[newTag];
         }
 
+        //Create the controls of the buttons based on the amount.
         private void EmptyKeySheetDisplay_Load(object sender, EventArgs e)
         {
             generateMaping(keyAmount);
         }
 
+        //when the save button is pressed,
+        //assign the tag number to an actual key and save to file
         private void saveKeyPressesButton_Click(object sender, EventArgs e)
         {
             foreach(Button b in buttonsList)
@@ -114,10 +101,11 @@ namespace KeyPressEditor
                 Keys keyAssigned = ReturnActualKey(keyNum);
                 keys.Add(keyAssigned);
             }
-
             SaveToFile();
         }
 
+        //returns the key name itself based on what number is placed into the 
+        //method itself.
         public Keys ReturnActualKey(int key)
         {
             Keys keyPress = Keys.None;
@@ -142,35 +130,27 @@ namespace KeyPressEditor
             return keyPress;
         }
 
+        //saves the created keys to a custom file location
         public void SaveToFile()
         {
             SaveFileDialog save = new SaveFileDialog();
-
             save.FileName = "Arrow_Key_Text_File_Shiro.txt";
-
             save.Filter = "Text File | *.txt";
-
+        
             if (save.ShowDialog() == DialogResult.OK)
-
             {
-
                 StreamWriter writer = new StreamWriter(save.OpenFile());
-
                 for(int i = 0; i < keys.Count; i++)
-
                 {
                     if (i != keys.Count - 1)
                     {
                         writer.Write("Keys." + keys[i].ToString() + ",");
                     } else
                     {
-                        writer.Write("Keys." + keys[i].ToString());
+                        writer.Write(keys[i].ToString());
                     }
-
                 }
-
                 writer.Dispose();
-
                 writer.Close();
             }
         }
