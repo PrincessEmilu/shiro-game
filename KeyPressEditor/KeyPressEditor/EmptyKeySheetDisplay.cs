@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,7 +108,6 @@ namespace KeyPressEditor
 
         private void saveKeyPressesButton_Click(object sender, EventArgs e)
         {
-            //do something!
             foreach(Button b in buttonsList)
             {
                 int keyNum = (int)b.Tag;
@@ -142,6 +142,12 @@ namespace KeyPressEditor
                     break;
             }
             return keyPress;
+        }
+
+        public void SaveToFile()
+        {
+            StreamWriter writer = new StreamWriter("file");
+            //https://support.microsoft.com/en-us/help/304430/how-to-do-basic-file-i-o-in-visual-c
         }
     }
 }
