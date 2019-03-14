@@ -55,5 +55,10 @@ namespace LevelEditor
             NumericUpDown sizeOfTilesSelection = (NumericUpDown)sender;
             sizeOfTiles = (int)sizeOfTilesSelection.Value;
         }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
     }
 }
