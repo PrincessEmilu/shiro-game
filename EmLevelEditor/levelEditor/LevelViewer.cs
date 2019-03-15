@@ -101,7 +101,6 @@ namespace levelEditor
             int tilesHorizontal = tiles.Width / tileSize;
             int tilesVertical = tiles.Height / tileSize;
 
-            //Could turn this into an array
             List<Image> listOfImages = new List<Image>(tilesInImage);
 
             if (tiles != null)
