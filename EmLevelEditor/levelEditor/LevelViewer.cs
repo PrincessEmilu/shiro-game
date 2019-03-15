@@ -82,7 +82,6 @@ namespace levelEditor
                     mapPanels[i, j].BackgroundImage = listTiles[0];
                     mapPanels[i, j].tileID = 0;
 
-                    //Adds event handler
                     mapPanels[i, j].Click += new EventHandler(NextTile);
 
                     Controls.Add(mapPanels[i, j]);
@@ -92,6 +91,7 @@ namespace levelEditor
             //Create the paintbox
             Paintbox paintbox = new Paintbox(this, listTiles, tileset, tileset.Width, tileset.Height, tileWidth);
             paintbox.Show();
+            paintbox.TopMost = true;
         }
 
         //Crops images and sorts them into a list
@@ -134,25 +134,32 @@ namespace levelEditor
         //Saves the map as a text file
         private void SaveMap()
         {
-            StreamWriter output = new StreamWriter(outputFileName);
-            //Write a header here
-            //TODO: Header should have info about the map, such as total size
-            //Could also specify the tileset
-
-            //Read array of panels
-            for(int j = 0; j < mapPanels.GetLength(1); j++)
+            if (mapPanels != null)
             {
-                for (int i = 0; i < mapPanels.GetLength(0); i++)
+                StreamWriter output = new StreamWriter(outputFileName);
+                //Write a header here
+                //TODO: Header should have info about the map, such as total size
+                //Could also specify the tileset
+
+                //Read array of panels
+                for (int j = 0; j < mapPanels.GetLength(1); j++)
                 {
-                    //Write the value of the map panel
-                    output.Write(mapPanels[i, j].tileID + ",");
+                    for (int i = 0; i < mapPanels.GetLength(0); i++)
+                    {
+                        //Write the value of the map panel
+                        output.Write(mapPanels[i, j].tileID + ",");
+                    }
+
+                    output.WriteLine();
                 }
 
-                output.WriteLine();
+                output.Close();
             }
-
-            output.Close();
-            Console.WriteLine("File saved!");
+            else
+            {
+                ErrorMessage saveError = new ErrorMessage("Error: You don't have a level to save!");
+                saveError.ShowDialog();
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)

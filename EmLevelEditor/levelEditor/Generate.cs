@@ -38,10 +38,18 @@ namespace levelEditor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Generates the map
-            mapEditor.GenerateMap(tileBoxPreview.Image, tilesInImage, tileWidth, tileHeight, tilesPerScreenWidth, tilesPerScreenHeight, screensHorizontal, screensVertical);
-
-            Close();
+            //Makes sure there's not a crash
+            if (tileBoxPreview.Image != null)
+            {
+                //Generates the map
+                mapEditor.GenerateMap(tileBoxPreview.Image, tilesInImage, tileWidth, tileHeight, tilesPerScreenWidth, tilesPerScreenHeight, screensHorizontal, screensVertical);
+                Close();
+            }
+            else
+            {
+                ErrorMessage noImage = new ErrorMessage("Error: You need to select a valid .png!");
+                noImage.ShowDialog();
+            }
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)

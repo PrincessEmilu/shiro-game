@@ -55,14 +55,10 @@ namespace levelEditor
             }
         }
 
-        private void Paintbox_Load(object sender, EventArgs e)
-        {
-
-        }
-
         //Selects the tile to paint with
         private void TileSelect(object sender, EventArgs e)
         {
+            ((MapPanel)sender).BorderStyle = BorderStyle.FixedSingle;
             mainForm.Paintbrush = ((MapPanel)sender).tileID;
         }
     }
