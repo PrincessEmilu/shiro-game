@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace levelEditor
 {
-    class MapPanel : Panel
+    public class MapPanel : Panel
     {
         //Properties
         public int tileID { get; set; }

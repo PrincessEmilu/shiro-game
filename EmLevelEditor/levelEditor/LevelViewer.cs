@@ -12,7 +12,7 @@ using System.IO;
 
 namespace levelEditor
 {
-    public partial class mainEditor : Form
+    public partial class LevelViewer : Form
     {
         //Fields
         Random rng = new Random();
@@ -22,16 +22,15 @@ namespace levelEditor
 
         const string outputFileName = "myMap.txt";
 
+        //Properties
+        public int Paintbrush { get; set; }
 
-        //Value of paintbrush will represent which value in the tilemap to paint with
-        private int paintbrush;
-
-        public mainEditor()
+        public LevelViewer()
         {
             InitializeComponent();
 
             //TODO: Actually let user select the tile
-            paintbrush = 3;
+            Paintbrush = 0;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -89,6 +88,10 @@ namespace levelEditor
                     Controls.Add(mapPanels[i, j]);
                 }
             }
+
+            //Create the paintbox
+            Paintbox paintbox = new Paintbox(this, listTiles, tileset, tileset.Width, tileset.Height, tileWidth);
+            paintbox.Show();
         }
 
         //Crops images and sorts them into a list
@@ -123,7 +126,9 @@ namespace levelEditor
         //Changes panel to next tile
         private void NextTile(object sender, EventArgs e)
         {
-            ((Panel)sender).BackgroundImage = listTiles[paintbrush];
+            ((Panel)sender).BackgroundImage = listTiles[Paintbrush];
+            ((MapPanel)sender).tileID = Paintbrush;
+
         }
 
         //Saves the map as a text file

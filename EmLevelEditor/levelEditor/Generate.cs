@@ -14,7 +14,7 @@ namespace levelEditor
     {
         //Fields
         //Reference to editor
-        mainEditor mapEditor;
+        LevelViewer mapEditor;
 
         int tileWidth = 32;
         int tileHeight = 32;
@@ -26,7 +26,7 @@ namespace levelEditor
 
         
 
-        public Generate(mainEditor mapEditor)
+        public Generate(LevelViewer mapEditor)
         {
             this.mapEditor = mapEditor;
             InitializeComponent();
@@ -41,7 +41,7 @@ namespace levelEditor
             //Generates the map
             mapEditor.GenerateMap(tileBoxPreview.Image, tilesInImage, tileWidth, tileHeight, tilesPerScreenWidth, tilesPerScreenHeight, screensHorizontal, screensVertical);
 
-            this.Close();
+            Close();
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)

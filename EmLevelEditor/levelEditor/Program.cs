@@ -16,7 +16,7 @@ namespace levelEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new mainEditor());
+            Application.Run(new LevelViewer());
         }
     }
 }

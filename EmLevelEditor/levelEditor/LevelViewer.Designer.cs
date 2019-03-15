@@ -1,6 +1,6 @@
 ﻿namespace levelEditor
 {
-    partial class mainEditor
+    partial class LevelViewer
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainEditor));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelViewer));
             this.toolbarMain = new System.Windows.Forms.ToolStrip();
             this.buttonSave = new System.Windows.Forms.ToolStripButton();
             this.buttonGenerate = new System.Windows.Forms.ToolStripButton();
