@@ -65,6 +65,9 @@ namespace Shiro
         //Fields for Pause Menu
         Texture2D pauseBackground;
 
+        //Field for Game Over Menu
+        Texture2D gameOverBackground;
+
         //The battle object that represents current battle
         Battle currentBattle;
 
@@ -142,6 +145,9 @@ namespace Shiro
             menuBackground = Content.Load<Texture2D>("ShiroMenuScreen");
             pawPrint = Content.Load<Texture2D>("PawPrint");
             instructionsBackground = Content.Load<Texture2D>("InstructionsScreen");
+            pauseBackground = Content.Load<Texture2D>("ShiroPause");
+            gameOverBackground = Content.Load<Texture2D>("GameOverShiro");
+            
 
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
@@ -387,6 +393,21 @@ namespace Shiro
                                 break;
                             case 2:
                                 state = GameState.MainMenu;
+
+                                //Reset the Level
+
+                                //Reset the Player's Stamina and Position
+                                player.Stamina = 100;
+                                player.Center();
+
+                                //Reset All Enemies in the Level
+                                foreach (Enemy e in listEnemies)
+                                {
+                                    e.Active = true;
+                                    e.Stamina = 100;
+                                    e.InBattle = false;
+                                }
+
                                 break;
                             default:
                                 break;
@@ -476,10 +497,10 @@ namespace Shiro
                         switch (arrowPosition)
                         {
                             case 1:
-                                state = GameState.Level;
+                                state = GameState.MainMenu;
                                 break;
                             case 2:
-                                state = GameState.MainMenu;
+                                Exit();
                                 break;
                             default:
                                 break;
@@ -546,6 +567,18 @@ namespace Shiro
                     break;
                 case GameState.PauseMenu:
                     camera.Pos = new Vector2(0, 0);
+                    spriteBatch.Draw(pauseBackground, new Vector2(0, 0), Color.White);
+                    switch (arrowPosition)
+                    {
+                        case 1:
+                            spriteBatch.Draw(pawPrint, new Rectangle(610, 415, 60, 60), Color.White);
+                            break;
+                        case 2:
+                            spriteBatch.Draw(pawPrint, new Rectangle(610, 500, 60, 60), Color.White);
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case GameState.Battle:
                     camera.Pos = new Vector2(0, 0);
@@ -553,6 +586,18 @@ namespace Shiro
                     break;
                 case GameState.GameOver:
                     camera.Pos = new Vector2(0, 0);
+                    spriteBatch.Draw(gameOverBackground, new Vector2(0, 0), Color.White);
+                    switch (arrowPosition)
+                    {
+                        case 1:
+                            spriteBatch.Draw(pawPrint, new Rectangle(80, 530, 60, 60), Color.White);
+                            break;
+                        case 2:
+                            spriteBatch.Draw(pawPrint, new Rectangle(80, 600, 60, 60), Color.White);
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;
