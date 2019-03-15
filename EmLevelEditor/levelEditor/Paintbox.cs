@@ -17,34 +17,36 @@ namespace levelEditor
         MapPanel[,] tilePanels;
         List<Image> listImages;
         LevelViewer mainForm;
-        int tileSize;
         int arrayHeight;
         int arrayWidth;
 
-        public Paintbox(LevelViewer mainForm, List<Image> listImages, Image tileSet, int width, int height, int tileSize)
+        const int tileSize = 32;
+
+        public Paintbox(LevelViewer mainForm, List<Image> listImages, Image tileSet, int width, int height, int nativeSize)
         {
             InitializeComponent();
 
             //Init variables
-            Width = width;
-            Height = height;
-            this.tileSize = tileSize;
             this.mainForm = mainForm;
-            this.tileSize = tileSize;
             this.listImages = listImages;
 
-             arrayWidth = tileSet.Width / tileSize;
-             arrayHeight = tileSet.Height / tileSize;
+            arrayWidth = tileSet.Width / nativeSize;
+            arrayHeight = tileSet.Height / nativeSize;
+
+            //window dimensions
+            Width = 32 * (arrayWidth + 1);
+            Height = 32 * (arrayHeight +1);
 
             tilePanels = new MapPanel[arrayWidth, arrayHeight];
+
             for (int j = 0; j < arrayHeight; j++)
             {
                 for (int i = 0; i < arrayWidth; i++)
                 {
                     tilePanels[i, j] = new MapPanel();
+                    tilePanels[i, j].BackgroundImage = new Bitmap(listImages[i + j * arrayWidth], new Size(tileSize, tileSize));
                     tilePanels[i, j].Location = new Point(i * tileSize, j * tileSize);
                     tilePanels[i, j].Size = new Size(tileSize, tileSize);
-                    tilePanels[i, j].BackgroundImage = listImages[i + j * arrayWidth];
                     tilePanels[i, j].tileID = i + j * arrayWidth;
 
                     //Adds event handler
@@ -60,6 +62,11 @@ namespace levelEditor
         {
             ((MapPanel)sender).BorderStyle = BorderStyle.FixedSingle;
             mainForm.Paintbrush = ((MapPanel)sender).tileID;
+        }
+
+        private void Paintbox_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
