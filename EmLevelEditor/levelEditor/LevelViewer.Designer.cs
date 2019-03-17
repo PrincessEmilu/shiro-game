@@ -68,7 +68,7 @@
             this.buttonGenerate.Text = "Generate";
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
             // 
-            // mainEditor
+            // LevelViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -77,7 +77,7 @@
             this.ClientSize = new System.Drawing.Size(1023, 609);
             this.Controls.Add(this.toolbarMain);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "mainEditor";
+            this.Name = "LevelViewer";
             this.Text = "Level Editor";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolbarMain.ResumeLayout(false);

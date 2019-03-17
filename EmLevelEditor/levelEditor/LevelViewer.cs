@@ -19,6 +19,7 @@ namespace levelEditor
 
         List<Image> listTiles;
         MapPanel[,] mapPanels;
+        Paintbox paintbox;
 
         const string outputFileName = "myMap.txt";
 
@@ -28,8 +29,6 @@ namespace levelEditor
         public LevelViewer()
         {
             InitializeComponent();
-
-            //TODO: Actually let user select the tile
             Paintbrush = 0;
         }
 
@@ -88,8 +87,10 @@ namespace levelEditor
                 }
             }
 
-            //Create the paintbox
-            Paintbox paintbox = new Paintbox(this, listTiles, tileset, tileset.Width, tileset.Height, tileWidth);
+            //Create a paintbox- the tile-selector, essentially
+
+            if (paintbox != null) { paintbox.Close(); }
+            paintbox = new Paintbox(this, listTiles, tileset, tileset.Width, tileset.Height, tileWidth);
             paintbox.Show();
             paintbox.TopMost = true;
         }
@@ -135,24 +136,35 @@ namespace levelEditor
         {
             if (mapPanels != null)
             {
-                StreamWriter output = new StreamWriter(outputFileName);
-                //Write a header here
-                //TODO: Header should have info about the map, such as total size
-                //Could also specify the tileset
 
-                //Read array of panels
-                for (int j = 0; j < mapPanels.GetLength(1); j++)
+                SaveFileDialog save = new SaveFileDialog();
+                save.FileName = "level.txt";
+                save.Filter = "Text File | *.txt";
+
+                if (save.ShowDialog() == DialogResult.OK)
                 {
-                    for (int i = 0; i < mapPanels.GetLength(0); i++)
+
+                    StreamWriter output = new StreamWriter(save.FileName);
+
+                    //Write file header- gives map info to level-drawing class
+                    output.WriteLine(mapPanels.GetLength(0));
+                    output.WriteLine(mapPanels.GetLength(1));
+
+
+                    //Read array of panels
+                    for (int j = 0; j < mapPanels.GetLength(1); j++)
                     {
-                        //Write the value of the map panel
-                        output.Write(mapPanels[i, j].tileID + ",");
+                        for (int i = 0; i < mapPanels.GetLength(0); i++)
+                        {
+                            //Write the value of the map panel
+                            output.Write(mapPanels[i, j].tileID + ",");
+                        }
+
+                        output.WriteLine();
                     }
 
-                    output.WriteLine();
+                    output.Close();
                 }
-
-                output.Close();
             }
             else
             {
