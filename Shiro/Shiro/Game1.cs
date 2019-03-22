@@ -74,6 +74,8 @@ namespace Shiro
         //The battle object that represents current battle
         Battle currentBattle;
 
+        Level currentLevel;
+
         //Debug for testing Keys
         Texture2D key;
         AttackKey keyUp;
@@ -262,6 +264,7 @@ namespace Shiro
                         {
                             case 1:
                                 state = GameState.Level;
+                                currentLevel = new Level(1);
                                 break;
                             case 2:
                                 state = GameState.Instructions;
