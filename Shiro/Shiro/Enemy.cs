@@ -270,11 +270,11 @@ namespace Shiro
             return false;
         }
 
-        public override void Draw(SpriteBatch sb, Vector2 loc)
+        public override void Draw(SpriteBatch sb)
         {
             if (Active == true)
             {
-                base.Draw(sb, loc);
+                base.Draw(sb);
             }
         }
 
