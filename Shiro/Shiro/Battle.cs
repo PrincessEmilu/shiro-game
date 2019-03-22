@@ -270,7 +270,6 @@ namespace Shiro
             }
 
             //Draws player and enemy
-
             player.Draw(sb);
             enemy.Draw(sb);
 
