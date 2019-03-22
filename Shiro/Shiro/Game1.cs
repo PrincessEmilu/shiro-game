@@ -164,7 +164,7 @@ namespace Shiro
             float camHeight = camera.Pos.X / 2;
             height = (int)camHeight;
             */
-            Rectangle pos = new Rectangle(width / 2, height / 2, 50, 50);
+            Rectangle pos = new Rectangle(50, 50, 50, 50);
             Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
             player = new Player(testCat, pos, width, height);
@@ -311,7 +311,10 @@ namespace Shiro
                         //graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX += 1, 0, width, height);
                     }
 
-                    camera.Pos += movement * 5;
+                    if (player.Position.X + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.X - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)))
+                    {
+                        camera.Pos += movement * 5;                        
+                    }     
 
                     foreach (Enemy e in listEnemies)
                     {
