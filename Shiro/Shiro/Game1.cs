@@ -49,7 +49,7 @@ namespace Shiro
         private Enemy enemy;
 
         //test
-        ImportAttackPatterns tester = new ImportAttackPatterns("AttackPatterns/ratAttackOne.txt");
+        ImportAttackPatterns tester = new ImportAttackPatterns("ratAttackOne.txt");
 
         List<Enemy> listEnemies;
 
@@ -175,9 +175,9 @@ namespace Shiro
 
 
             //Enemies eventually loaded elsewhere
-            listEnemies.Add(new Enemy(enemyCat, pos2, width, height, rng.Next(1, 5), 100));
-            listEnemies.Add(new Enemy(enemyCat, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100));
-            listEnemies.Add(new Enemy(enemyCat, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100));
+            listEnemies.Add(new Enemy(enemyCat, pos2, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyCat, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyCat, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
         }
 
         /// <summary>

@@ -23,7 +23,6 @@ namespace Shiro
         //Fields
         protected int timer;
         protected int attackTick;
-
         protected int keySpeed;
 
         //References to player and enemy in battle
@@ -42,6 +41,7 @@ namespace Shiro
         //List of keys
         protected List<AttackKey> listKeys;
         protected Queue<Keys> queueAttacks;
+        protected ImportAttackPatterns patternReader;
 
         //The hitbox for blocking enemy attacks
         protected Rectangle hitbox;
@@ -88,9 +88,16 @@ namespace Shiro
             listKeys = new List<AttackKey>();
             queueAttacks = new Queue<Keys>();
 
+            //Import the Attack Patterns
+            patternReader = new ImportAttackPatterns(enemy.PatternFileName);
+
+            for (int i = 0; i < patternReader.AttackPattern.Count; i++)
+            {
+                queueAttacks.Enqueue(patternReader.AttackPattern[i]);
+            }
 
             //DEBUG: HARD-CODED ATTACK LIST
-            queueAttacks.Enqueue(Keys.Up);
+            /*queueAttacks.Enqueue(Keys.Up);
             queueAttacks.Enqueue(Keys.Up);
             queueAttacks.Enqueue(Keys.None);
             queueAttacks.Enqueue(Keys.None);
@@ -105,7 +112,7 @@ namespace Shiro
             queueAttacks.Enqueue(Keys.Right);
             queueAttacks.Enqueue(Keys.Right);
             queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.None);
+            queueAttacks.Enqueue(Keys.None);*/
 
 
             //Hitbox for blocking enemy attacks- it is actually just a rectangle
