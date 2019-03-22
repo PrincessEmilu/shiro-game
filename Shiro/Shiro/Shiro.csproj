@@ -44,18 +44,15 @@
     <Compile Include="Battle.cs" />
     <Compile Include="Boss.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="City.cs" />
     <Compile Include="Enemy.cs" />
-    <Compile Include="Forest.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="AttackKey.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="ImportAttackPatterns.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sewer.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
