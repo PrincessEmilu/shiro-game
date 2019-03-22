@@ -71,6 +71,11 @@ namespace Shiro
         //Field for Game Over Menu
         Texture2D gameOverBackground;
 
+        //Field for Battle Screen background
+        Texture2D battleBackground;
+        Texture2D hitboxPretty;
+        Texture2D battleBar;
+
         //The battle object that represents current battle
         Battle currentBattle;
 
@@ -151,9 +156,13 @@ namespace Shiro
             instructionsBackground = Content.Load<Texture2D>("InstructionsScreen");
             pauseBackground = Content.Load<Texture2D>("ShiroPause");
             gameOverBackground = Content.Load<Texture2D>("GameOverShiro");
-            
+            battleBackground = Content.Load<Texture2D>("BackgroundAlley");
 
-            width = graphics.GraphicsDevice.Viewport.Width;
+            //bar for battle
+            battleBar = Content.Load<Texture2D>("BottomBar");
+            hitboxPretty = Content.Load<Texture2D>("HitboxKeys");
+
+           width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
             
 
