@@ -33,6 +33,7 @@ namespace Shiro
         KeyboardState pbState;
         
         Texture2D background;
+        Texture2D testTileset;
         Texture2D testCat;
         Texture2D enemyCat;
         Texture2D hitbox;
@@ -142,6 +143,7 @@ namespace Shiro
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            testTileset = Content.Load<Texture2D>("testTileset");
             testCat = Content.Load<Texture2D>("cat");
             enemyCat = Content.Load<Texture2D>("enemy cat");
             background = Content.Load<Texture2D>("cat");
@@ -273,7 +275,7 @@ namespace Shiro
                         {
                             case 1:
                                 state = GameState.Level;
-                                currentLevel = new Level(1);
+                                currentLevel = new Level(1, testTileset);
                                 break;
                             case 2:
                                 state = GameState.Instructions;

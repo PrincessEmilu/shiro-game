@@ -27,12 +27,16 @@ namespace Shiro
         int levelWidth;
         int levelHeight;
 
+        int tileSize;
+
         //Spawn is for when the player enters the are from the begnining; B is when returning from later screen
         Point playerSpawnA;
         Point playerSpawnB;
 
-        public Level(int levelNumber)
+        public Level(int levelNumber, Texture2D tileset)
         {
+            this.levelNumber = levelNumber;
+
             string fileName = "level" + levelNumber + ".txt";
             LoadFromFile(fileName);
         }
@@ -68,9 +72,26 @@ namespace Shiro
 
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
+            //Draws every tile in the array
+            for(int j = 0; j < levelHeight; j++)
+            {
+                for(int i = 0; i < levelWidth; j++)
+                {
+                    int tileID = mapTiles[i, j];
+                    int xOffset = tileSize;
+                    int yOffset = tileSize;
+                    //tilePanels[i, j].tileID = i + j * arrayWidth;
 
+
+                    spriteBatch.Draw(
+                        tilesetImage, //Image
+                        new Rectangle(i * tileSize, j * tileSize, tileSize, tileSize), //Spot on the screen
+                        new Rectangle(xOffset, yOffset,tileSize, tileSize), //Section of the image to draw
+                        Color.White); //Blend
+                }
+            }
         }
     }
 }
