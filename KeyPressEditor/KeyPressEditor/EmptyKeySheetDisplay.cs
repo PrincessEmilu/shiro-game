@@ -140,6 +140,7 @@ namespace KeyPressEditor
             if (save.ShowDialog() == DialogResult.OK)
             {
                 StreamWriter writer = new StreamWriter(save.OpenFile());
+                writer.WriteLine(keyAmount);
                 for(int i = 0; i < keys.Count; i++)
                 {
                     if (i != keys.Count - 1)
