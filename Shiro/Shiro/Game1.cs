@@ -49,7 +49,7 @@ namespace Shiro
         private Enemy enemy;
 
         //test
-        ImportAttackPatterns tester = new ImportAttackPatterns("AttackPatterns/ratAttackOne.txt");
+        ImportAttackPatterns tester = new ImportAttackPatterns("ratAttackOne.txt");
 
         List<Enemy> listEnemies;
 
@@ -71,8 +71,15 @@ namespace Shiro
         //Field for Game Over Menu
         Texture2D gameOverBackground;
 
+        //Field for Battle Screen background
+        Texture2D battleBackground;
+        Texture2D hitboxPretty;
+        Texture2D battleBar;
+
         //The battle object that represents current battle
         Battle currentBattle;
+
+        Level currentLevel;
 
         //Debug for testing Keys
         Texture2D key;
@@ -151,9 +158,13 @@ namespace Shiro
             instructionsBackground = Content.Load<Texture2D>("InstructionsScreen");
             pauseBackground = Content.Load<Texture2D>("ShiroPause");
             gameOverBackground = Content.Load<Texture2D>("GameOverShiro");
-            
+            battleBackground = Content.Load<Texture2D>("BackgroundAlley");
 
-            width = graphics.GraphicsDevice.Viewport.Width;
+            //bar for battle
+            battleBar = Content.Load<Texture2D>("BottomBar");
+            hitboxPretty = Content.Load<Texture2D>("HitboxKeys");
+
+           width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
             
 
@@ -175,9 +186,9 @@ namespace Shiro
 
 
             //Enemies eventually loaded elsewhere
-            listEnemies.Add(new Enemy(enemyCat, pos2, width, height, rng.Next(1, 5), 100));
-            listEnemies.Add(new Enemy(enemyCat, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100));
-            listEnemies.Add(new Enemy(enemyCat, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100));
+            listEnemies.Add(new Enemy(enemyCat, pos2, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyCat, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyCat, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
         }
 
         /// <summary>
@@ -262,6 +273,7 @@ namespace Shiro
                         {
                             case 1:
                                 state = GameState.Level;
+                                currentLevel = new Level(1);
                                 break;
                             case 2:
                                 state = GameState.Instructions;
@@ -589,6 +601,7 @@ namespace Shiro
                     break;
                 case GameState.Battle:
                     camera.Pos = new Vector2(0, 0);
+                    //spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
                     currentBattle.Draw(spriteBatch);
                     break;
                 case GameState.GameOver:

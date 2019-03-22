@@ -21,6 +21,21 @@ namespace Shiro
         private AttackPattern pattern;
         private List<Texture2D> animations;
 
+        //Fields Used For the SpriteSheet
+        int frame;              // The current animation frame
+        double timeCounter;     // The amount of time that has passed
+        double fps;             // The speed of the animation
+        double timePerFrame;    // The amount of time (in fractional seconds) per frame
+
+        // Constants for "source" rectangle in Sprite Sheet
+        //These numbers are placeholders and need to be changed eventually
+
+        const int frameCount = 0;       // The number of frames in the animation
+        const int rectOffsetX = 0;     // How far right in the image are the frames?
+        const int rectOffsetY = 0;   // How far down in the image are the frames?
+        const int rectHeight = 0;     // The height of a single frame
+        const int rectWidth = 0;      // The width of a single frame
+
 
         //Properties
         public AttackPattern Pattern
@@ -30,16 +45,51 @@ namespace Shiro
         }
 
         //Constructor
-        public Boss(Texture2D texture, Rectangle position, int width, int height, Random rng, List<Texture2D> animations) : base(texture, position, width, height, rng)
+        public Boss(Texture2D texture, Rectangle position, int width, int height, Random rng, String patterneFileName, List<Texture2D> animations) 
+            : base(texture, position, width, height, rng, patterneFileName)
         {
             this.animations = animations;
             pattern = AttackPattern.Pattern1;
-            
+
+            // More Animation Variables that Exist to be changed later
+            fps = 10.0;                     // Will cycle through 10 walk frames per second
+            timePerFrame = 1.0 / fps;       // Time per frame = amount of time in a single walk image
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            //To Make Sure the Boss Does Not Move
+            if (InBattle)
+            {
+                //Handle Animation Timing
+
+                timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
+
+                // If enough time has passed:
+                if (timeCounter >= timePerFrame)
+                {
+                    frame += 1;                     // Adjust the frame to the next image
+
+                    if (frame > frameCount)     // Check the bounds - have we reached the end of walk cycle?
+                        frame = 1;                  // Back to 1 (since 0 is the "standing" frame)
+
+                    timeCounter -= timePerFrame;    // Remove the time we "used" - don't reset to 0
+                                                    // This keeps the time passed 
+                }
+            }
+
+        }
+
+        public override void Draw(SpriteBatch sb)
+        {
+            if (InBattle)
+            {
+                sb.Draw(texture, position, new Rectangle(rectOffsetX, rectOffsetY, rectWidth, rectHeight), Color.White);
+            }
+            else
+            {
+                base.Draw(sb);
+            }
         }
     }
 }
