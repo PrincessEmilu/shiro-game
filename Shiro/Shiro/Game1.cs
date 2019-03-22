@@ -595,6 +595,7 @@ namespace Shiro
                     break;
                 case GameState.Battle:
                     camera.Pos = new Vector2(0, 0);
+                    //spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
                     currentBattle.Draw(spriteBatch);
                     break;
                 case GameState.GameOver:
