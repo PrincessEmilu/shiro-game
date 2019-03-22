@@ -49,6 +49,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="AttackKey.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="ImportAttackPatterns.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
