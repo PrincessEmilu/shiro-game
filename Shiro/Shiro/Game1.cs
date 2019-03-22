@@ -48,6 +48,9 @@ namespace Shiro
         private Player player;
         private Enemy enemy;
 
+        //test
+        ImportAttackPatterns tester = new ImportAttackPatterns("AttackPatterns/ratAttackOne.txt");
+
         List<Enemy> listEnemies;
 
         public Random rng;
@@ -114,6 +117,7 @@ namespace Shiro
             graphics.PreferredBackBufferHeight = 720;
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
+
 
             float scaleX = graphics.PreferredBackBufferWidth / TargetWidth;
             float scaleY = graphics.PreferredBackBufferHeight / TargetHeight;

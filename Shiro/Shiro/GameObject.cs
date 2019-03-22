@@ -21,6 +21,7 @@ namespace Shiro
             set { position = value; }
         }
 
+
         //Constructor that takes two parameters
         protected GameObject(Texture2D texture, Rectangle position)
         {

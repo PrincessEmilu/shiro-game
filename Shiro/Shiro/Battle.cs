@@ -239,6 +239,7 @@ namespace Shiro
 
         public void Draw(SpriteBatch sb)
         {
+
             //Some objects get drawn regardless of state, mostly GUI stuff.
             //Draws the hitbox.
             sb.Draw(hitboxTexture, hitbox, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);
@@ -269,6 +270,7 @@ namespace Shiro
             }
 
             //Draws player and enemy
+
             player.Draw(sb);
             enemy.Draw(sb);
 
