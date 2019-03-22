@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,14 +12,20 @@ class ImportAttackPatterns
     String fileName;
     List<Keys> attackPattern;
     StreamReader input;
+    int numOfKeys;
 
     public ImportAttackPatterns(String fileName)
     {
-        this.fileName = fileName;
-        if (isAFile(fileName))
+        //D:\Profiles\dkt7290\Source\Repos\gdaps2-2185-section_2_Team_32\Shiro\Shiro\bin\Windows\x86\Debug\AttackPatterns\ratAttackOne.txt
+        string originalLoc = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
+        this.fileName = (Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(originalLoc).FullName).FullName).FullName).FullName).FullName) 
+            + ("\\AttackPatterns\\" + fileName);
+        //this.fileName = fileName;
+        if (isAFile(this.fileName))
         {
-            int numOfKeys = int.Parse(input.ReadLine());
-            generatePattern(numOfKeys);
+
+            numOfKeys = int.Parse(input.ReadLine());
+            generatePattern();
             Console.WriteLine("keys generated");
             //generate keys
         }
@@ -49,7 +56,7 @@ class ImportAttackPatterns
         }
     }
 
-    public void generatePattern(int numOfKeys)
+    public void generatePattern()
     {
         attackPattern = new List<Keys>(numOfKeys);
 

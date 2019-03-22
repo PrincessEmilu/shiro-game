@@ -19,6 +19,7 @@ namespace Shiro
         protected int windowWidth;
         protected Rectangle prevPos;
         protected Random rng;
+        protected string patternFileName;
 
         protected int endPointY;
         protected int startPointY;
@@ -32,8 +33,12 @@ namespace Shiro
         //Properties
         public bool Active { get; set; }
         public bool InBattle { get; set; }
+        public string PatternFileName
+        {
+            get { return patternFileName; }
+        }
 
-        public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng) : base(texture, position) //random movement
+        public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng, string patternFileName) : base(texture, position) //random movement
         {
             //this constructor is for random movement type at a set distance of 100
 
@@ -42,6 +47,7 @@ namespace Shiro
             windowHeight = height;
             prevPos = position;
             this.rng = rng;
+            this.patternFileName = patternFileName;
 
             Active = true;
             InBattle = false;
@@ -57,7 +63,7 @@ namespace Shiro
             right = true;
         }
 
-        public Enemy(Texture2D texture, Rectangle position, int width, int height, int enemyRng, int distance) : base(texture, position)
+        public Enemy(Texture2D texture, Rectangle position, int width, int height, int enemyRng, int distance, String patternFileName) : base(texture, position)
         {
             //this constructor is for a set movement type and distance, if you only want distance, you need to use rng.Next(1,5)
 
@@ -65,6 +71,7 @@ namespace Shiro
             windowWidth = width;
             windowHeight = height;
             prevPos = position;
+            this.patternFileName = patternFileName;
 
             Active = true;
             InBattle = false;

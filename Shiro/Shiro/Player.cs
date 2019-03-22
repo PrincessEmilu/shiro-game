@@ -86,5 +86,7 @@ namespace Shiro
             sb.Draw(texture, position, Color.White);
         }
 
+        
+
     }
 }
