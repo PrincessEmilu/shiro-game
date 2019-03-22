@@ -42,7 +42,7 @@ namespace Shiro
             }
         }
 
-        public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb, Vector2 loc)
         {
             switch (KeyType)
             {

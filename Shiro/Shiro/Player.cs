@@ -16,10 +16,27 @@ namespace Shiro
         private int windowHeight;
         private int windowWidth;
 
+        
+
         //Property for the amount of stamina and previous position  
         public int Stamina { get; set; }
 
         public Rectangle PrevPos { get; set; }
+
+        //Properties/fields that will be used for the sprite sheet animations
+        public Texture2D Texture { get; set; }
+
+        public int Rows { get; set; }
+
+        public int Columns { get; set; }
+
+        private int currentFrame;
+
+        private int totalFrames;
+
+        private int timeSinceLastFrame = 0;
+
+        private int millisecondsPerFrame = 50;
 
         public void Center()
         {
@@ -27,17 +44,23 @@ namespace Shiro
             position.Y = windowHeight / 2;
         }
 
-        public Player(Texture2D texture, Rectangle position, int width, int height) : base(texture, position)
+        public Player(Texture2D texture, Rectangle position, int width, int height, int rows, int columns) : base(texture, position)
         {            
             Stamina = 100;
             windowWidth = width;
             windowHeight = height;
-            PrevPos = position;            
+            PrevPos = position;
+            Texture = texture;
+            Rows = rows;
+            Columns = columns;
+            currentFrame = 0;
+            totalFrames = Rows * Columns;
         }
 
         //Overridden Update method, puts all of the player's update code into one place to be called once
         public override void Update(GameTime gameTime)
         {
+            //Moves the player based on key presses
             KeyboardState kbState = Keyboard.GetState();
             if (kbState.IsKeyDown(Keys.Up))
             {
@@ -76,12 +99,38 @@ namespace Shiro
             {
                 position.X = 1;
             }
-            
+
+            //Update logic for the frames of the sprite sheet, moves the current frame up by one once the time since last frame is greater than the limit for milliseconds per frame
+            timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
+            if (timeSinceLastFrame > millisecondsPerFrame)
+            {
+                
+                timeSinceLastFrame -= millisecondsPerFrame;
+                currentFrame++;
+
+                //Resets the time since last frame
+                timeSinceLastFrame = 0;
+
+                if(currentFrame == totalFrames)
+                {
+                    //Resets the current frame back to zero once it reaches the total frames
+                    currentFrame = 0;
+                }
+            }
         }
 
-        public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb, Vector2 loc)
         {
-            sb.Draw(texture, position, Color.White);
+            int width = Texture.Width / Columns;
+            int height = Texture.Height / Rows;
+            int row = (int)((float) currentFrame /Columns);
+            int column = currentFrame % Columns;
+
+            Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+            Rectangle destinationRectangle = new Rectangle((int)loc.X, (int)loc.Y, width, height);
+            
+
+            sb.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
         }
 
     }

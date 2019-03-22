@@ -31,7 +31,7 @@ namespace Shiro
         int arrowPosition;  //For Menu Systems
         SpriteFont font;
         KeyboardState pbState;
-
+        
         Texture2D background;
         Texture2D testCat;
         Texture2D enemyCat;
@@ -163,7 +163,7 @@ namespace Shiro
             Rectangle pos = new Rectangle(width / 2, height / 2, 50, 50);
             Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
-            player = new Player(testCat, pos, width, height);
+            player = new Player(testCat, pos, width, height, 1, 4);
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);

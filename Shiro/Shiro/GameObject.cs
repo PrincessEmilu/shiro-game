@@ -29,7 +29,7 @@ namespace Shiro
         }
 
         //Draw method
-        public virtual void Draw(SpriteBatch sb)
+        public virtual void Draw(SpriteBatch sb, Vector2 loc)
         {
             sb.Draw(texture, position, Color.White);
         }
