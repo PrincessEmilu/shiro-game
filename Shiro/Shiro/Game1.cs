@@ -49,6 +49,7 @@ namespace Shiro
         private Enemy enemy;
 
         //test
+        ImportAttackPatterns tester = new ImportAttackPatterns("AttackPatterns/ratAttackOne.txt");
 
         List<Enemy> listEnemies;
 

@@ -19,11 +19,20 @@ class ImportAttackPatterns
         {
             int numOfKeys = int.Parse(input.ReadLine());
             generatePattern(numOfKeys);
+            Console.WriteLine("keys generated");
             //generate keys
         }
         else
         {
             Console.WriteLine("error generating key files from file path " + fileName);
+        }
+    }
+
+    public List<Keys> AttackPattern
+    {
+        get
+        {
+            return attackPattern;
         }
     }
 
@@ -40,7 +49,7 @@ class ImportAttackPatterns
         }
     }
 
-    public List<Keys> generatePattern(int numOfKeys)
+    public void generatePattern(int numOfKeys)
     {
         attackPattern = new List<Keys>(numOfKeys);
 
@@ -52,13 +61,27 @@ class ImportAttackPatterns
             Keys key = ConvertFromString(word);
             attackPattern.Add(key);
         }
-
-        return attackPattern;
     }
 
     public static Keys ConvertFromString(string keystr)
     {
-        return (Keys)Enum.Parse(typeof(Keys), keystr);
+       switch(keystr)
+        {
+            case "Keys.Down":
+                return Keys.Down;
+
+            case "Keys.Left":
+                return Keys.Left;
+
+            case "Keys.Right":
+                return Keys.Right;
+
+            case "Keys.Up":
+                return Keys.Up;
+
+            default:
+                return Keys.None;
+        }
     }
 }
 
