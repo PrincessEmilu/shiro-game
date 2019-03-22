@@ -1,0 +1,2 @@
+10
+Keys.Down,Keys.Down,Keys.Left,Keys.Right,Keys.Up,Keys.None,Keys.None,Keys.Down,Keys.Up,Keys.None
