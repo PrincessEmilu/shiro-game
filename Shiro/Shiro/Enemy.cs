@@ -14,26 +14,24 @@ namespace Shiro
     class Enemy : GameObject
     {
         //Fields        
-        private int stamina;
-        private int windowHeight;
-        private int windowWidth;
-        private Rectangle prevPos;
-        private Random rng;
+        protected int stamina;
+        protected int windowHeight;
+        protected int windowWidth;
+        protected Rectangle prevPos;
+        protected Random rng;
 
-        private int endPointY;
-        private int startPointY;
-        private int endPointX;
-        private int startPointX;
+        protected int endPointY;
+        protected int startPointY;
+        protected int endPointX;
+        protected int startPointX;
 
-        private int enemyRng;
-        private bool top;
-        private bool right;
+        protected int enemyRng;
+        protected bool top;
+        protected bool right;
 
         //Properties
         public bool Active { get; set; }
         public bool InBattle { get; set; }
-
-
 
         public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng) : base(texture, position) //random movement
         {
