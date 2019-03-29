@@ -16,7 +16,9 @@ namespace Shiro
         private int windowHeight;
         private int windowWidth;
 
-        
+        public Camera camera;
+
+        public Rectangle boundBox;
 
         //Property for the amount of stamina and previous position  
         public int Stamina { get; set; }
@@ -29,12 +31,14 @@ namespace Shiro
             position.Y = windowHeight / 2;
         }
 
-        public Player(Texture2D texture, Rectangle position, int width, int height) : base(texture, position)
+        public Player(Texture2D texture, Rectangle position, int width, int height, Camera camera) : base(texture, position)
         {            
             Stamina = 100;
             windowWidth = width;
             windowHeight = height;
-            PrevPos = position;            
+            PrevPos = position;
+            this.camera = camera;
+            boundBox = new Rectangle(200, 200, windowWidth / 2, windowHeight / 2);
         }
 
         //Overridden Update method, puts all of the player's update code into one place to be called once
@@ -42,22 +46,29 @@ namespace Shiro
         {
             //Moves the player based on key presses
             KeyboardState kbState = Keyboard.GetState();
-            if (kbState.IsKeyDown(Keys.Up))
-            {
-                position.Y -= 5;                
-            }
-            if (kbState.IsKeyDown(Keys.Down))
-            {
-                position.Y += 5;
-            }
-            if (kbState.IsKeyDown(Keys.Left))
-            {
-                position.X -= 5;
-            }
-            if (kbState.IsKeyDown(Keys.Right))
-            {
-                position.X += 5;
-            }
+
+            
+           
+                if (kbState.IsKeyDown(Keys.Up))
+                {
+                    position.Y -= 5;
+                }
+                if (kbState.IsKeyDown(Keys.Down))
+                {
+                    position.Y += 5;
+                }
+                if (kbState.IsKeyDown(Keys.Left))
+                {
+                    position.X -= 5;
+                }
+                if (kbState.IsKeyDown(Keys.Right))
+                {
+                    position.X += 5;
+                }
+            
+            
+
+
 
 
             //Prevents player from going off the screen from the bottom or right
@@ -84,9 +95,6 @@ namespace Shiro
         public override void Draw(SpriteBatch sb)
         {        
             sb.Draw(texture, position, Color.White);
-        }
-
-        
-
+        }        
     }
 }

@@ -166,7 +166,7 @@ namespace Shiro
             battleBar = Content.Load<Texture2D>("BottomBar");
             hitboxPretty = Content.Load<Texture2D>("HitboxKeys");
 
-           width = graphics.GraphicsDevice.Viewport.Width;
+            width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
             
 
@@ -180,7 +180,7 @@ namespace Shiro
             Rectangle pos = new Rectangle(50, 50, 50, 50);
             Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
-            player = new Player(testCat, pos, width, height);
+            player = new Player(testCat, pos, width, height, camera);
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
@@ -325,10 +325,13 @@ namespace Shiro
                         //graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX += 1, 0, width, height);
                     }
 
-                    if (player.Position.X + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.X - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)))
-                    {
-                        camera.Pos += movement * 5;                        
-                    }     
+                    //player.Position.X + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.X - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2))
+
+                    //if (player.Position.X >= graphics.GraphicsDevice.Viewport.X || player.Position.Y >= graphics.GraphicsDevice.Viewport.Y)
+                    //{
+                    //camera.Pos += movement * new Vector2(5.5f, 5.5f);
+                    camera.Pos += movement * 5;
+                    //}     
 
                     foreach (Enemy e in listEnemies)
                     {
