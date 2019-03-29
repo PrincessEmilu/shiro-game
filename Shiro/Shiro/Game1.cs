@@ -100,6 +100,8 @@ namespace Shiro
 
         Viewport viewport;
         Camera camera;
+        CollisionItem door;
+        Texture2D doorTexture;
 
         public Game1()
         {
@@ -149,6 +151,7 @@ namespace Shiro
             background = Content.Load<Texture2D>("cat");
 
             font = Content.Load<SpriteFont>("font");
+            doorTexture = Content.Load<Texture2D>("hitbox");
 
             hitbox = Content.Load<Texture2D>("hitbox");
             //Arrow for Debug
@@ -194,6 +197,8 @@ namespace Shiro
             listEnemies.Add(new Enemy(enemyCat, pos2, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
             listEnemies.Add(new Enemy(enemyCat, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
             listEnemies.Add(new Enemy(enemyCat, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+
+            door = new CollisionItem(doorTexture, 400, 400, player);
         }
 
         /// <summary>
@@ -303,6 +308,7 @@ namespace Shiro
 
 
                     player.Update(gameTime);
+                    door.Update(gameTime, false);
 
 
                     Vector2 movement = Vector2.Zero;
@@ -349,7 +355,7 @@ namespace Shiro
                                 state = GameState.Battle;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitbox, player, e);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, player, e);
                             }
                         }
                     }
@@ -594,6 +600,7 @@ namespace Shiro
                 case GameState.Level:
                     currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
+                    door.Draw(spriteBatch, false);
 
                     foreach (Enemy e in listEnemies)
                     {
@@ -617,7 +624,8 @@ namespace Shiro
                     break;
                 case GameState.Battle:
                     camera.Pos = new Vector2(0, 0);
-                    //spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
+                    spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
+                    spriteBatch.Draw(battleBar, new Rectangle(10, 335, 825, 135), Color.White);
                     currentBattle.Draw(spriteBatch);
                     break;
                 case GameState.GameOver:
