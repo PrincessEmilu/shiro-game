@@ -66,6 +66,9 @@ namespace Shiro
         Texture2D menuBackground;
         Texture2D pawPrint;
 
+        Texture2D boundBox;
+        Rectangle boundBoxPos;
+
         //Fields for Pause Menu
         Texture2D pauseBackground;
 
@@ -149,6 +152,8 @@ namespace Shiro
             enemyCat = Content.Load<Texture2D>("enemy cat");
             background = Content.Load<Texture2D>("cat");
 
+            boundBox = Content.Load<Texture2D>("rectangle");
+
             font = Content.Load<SpriteFont>("font");
 
             hitbox = Content.Load<Texture2D>("hitbox");
@@ -181,10 +186,12 @@ namespace Shiro
             float camHeight = camera.Pos.X / 2;
             height = (int)camHeight;
             */
-            Rectangle pos = new Rectangle(50, 50, 50, 50);
+            Rectangle pos = new Rectangle(200, 200, 50, 50);
             Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
-            player = new Player(testCat, pos, width, height, camera);
+            boundBoxPos = new Rectangle(50, 50, 600, 600);
+
+            player = new Player(testCat, pos, width, height, camera, boundBox, boundBoxPos);
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
@@ -305,38 +312,30 @@ namespace Shiro
 
                     player.Update(gameTime);
 
-
                     Vector2 movement = Vector2.Zero;
 
                     if (kbState.IsKeyDown(Keys.Up))
                     {
                         movement.Y--;
-                        //graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY -= 1, width, height);                
+                        player.BoundBoxY -= 5;                
                     }
                     if (kbState.IsKeyDown(Keys.Down))
                     {
                         movement.Y++;
-                        //graphics.GraphicsDevice.Viewport = new Viewport(0, viewportMoveY += 1, width, height);
+                        player.BoundBoxY += 5;
                     }
                     if (kbState.IsKeyDown(Keys.Left))
                     {
                         movement.X--;
-                        //graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX -= 1, 0, width, height);
+                        player.BoundBoxX -= 5;
                     }
                     if (kbState.IsKeyDown(Keys.Right))
                     {
                         movement.X++;
-                        //graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX += 1, 0, width, height);
+                        player.BoundBoxX += 5;
                     }
-
-                    //player.Position.X + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.X - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2))
-
-                    //if (player.Position.X >= graphics.GraphicsDevice.Viewport.X || player.Position.Y >= graphics.GraphicsDevice.Viewport.Y)
-                    //{
-                    //camera.Pos += movement * new Vector2(5.5f, 5.5f);
                     camera.Pos += movement * 5;
-                    //}     
-
+                    
                     foreach (Enemy e in listEnemies)
                     {
                         //PRocesses enemy if it is active
@@ -347,6 +346,8 @@ namespace Shiro
                             //Enemy Encounter
                             if (e.CheckCollision(player))
                             {
+                                player.BoxPrevPos = boundBoxPos;
+
                                 state = GameState.Battle;
 
                                 //Create a new battle object with player and enemy collided\
@@ -459,6 +460,7 @@ namespace Shiro
                     //Checks battle state
                     if (currentBattle.Victory)
                     {
+                        boundBoxPos = player.BoxPrevPos;
                         //Might need to do more logic than this in final version...
                         state = GameState.Level;
                     }
@@ -594,6 +596,8 @@ namespace Shiro
                     break;
                 case GameState.Level:
                     player.Draw(spriteBatch);
+
+                    
 
                     foreach (Enemy e in listEnemies)
                     {

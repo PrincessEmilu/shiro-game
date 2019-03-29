@@ -15,15 +15,41 @@ namespace Shiro
         //Fields        
         private int windowHeight;
         private int windowWidth;
+        private bool topBounding;
+        private bool bottomBounding;
+        private bool rightBounding;
+        private bool leftBounding;
 
         public Camera camera;
 
         public Rectangle boundBox;
 
+        Texture2D box;
+
         //Property for the amount of stamina and previous position  
         public int Stamina { get; set; }
 
         public Rectangle PrevPos { get; set; }        
+
+        public Rectangle BoxPrevPos { get; set; }
+
+        public int BoundBoxY
+        {
+            get {return boundBox.Y; }
+            set
+            {
+                boundBox.Y = value;
+            }
+        }
+
+        public int BoundBoxX
+        {
+            get { return boundBox.X; }
+            set
+            {
+                boundBox.X = value;
+            }
+        }
 
         public void Center()
         {
@@ -31,14 +57,19 @@ namespace Shiro
             position.Y = windowHeight / 2;
         }
 
-        public Player(Texture2D texture, Rectangle position, int width, int height, Camera camera) : base(texture, position)
+        public Player(Texture2D texture, Rectangle position, int width, int height, Camera camera, Texture2D box, Rectangle boundBox) : base(texture, position)
         {            
             Stamina = 100;
             windowWidth = width;
             windowHeight = height;
             PrevPos = position;
             this.camera = camera;
-            boundBox = new Rectangle(200, 200, windowWidth / 2, windowHeight / 2);
+            this.boundBox = boundBox;
+            this.box = box;
+            topBounding = false;
+            bottomBounding = false;
+            rightBounding = false;
+            leftBounding = false;
         }
 
         //Overridden Update method, puts all of the player's update code into one place to be called once
@@ -47,54 +78,94 @@ namespace Shiro
             //Moves the player based on key presses
             KeyboardState kbState = Keyboard.GetState();
 
-            
-           
-                if (kbState.IsKeyDown(Keys.Up))
-                {
-                    position.Y -= 5;
-                }
-                if (kbState.IsKeyDown(Keys.Down))
-                {
-                    position.Y += 5;
-                }
-                if (kbState.IsKeyDown(Keys.Left))
-                {
-                    position.X -= 5;
-                }
-                if (kbState.IsKeyDown(Keys.Right))
-                {
-                    position.X += 5;
-                }
-            
-            
+            //Prevents player from going out of the boundbox
 
-
-
-
-            //Prevents player from going off the screen from the bottom or right
-            if(position.Y >= 1450)
+            if (position.Bottom + 100 >= boundBox.Bottom)
             {
-                position.Y = 1449;
+                bottomBounding = true;
             }
-            if (position.X >= 1450)
+            else
             {
-                position.X = 1449;
+                bottomBounding = false;
             }
 
-            //Prevents the player from going off the screen from the top or left
-            if (position.Y <= 0)
+            if (position.Right + 100 >= boundBox.Right)
             {
-                position.Y = 1;
+                rightBounding = true;
             }
-            if (position.X <= 0)
+            else
             {
-                position.X = 1;
-            }           
+                rightBounding = false;
+            }
+
+            if (position.Top - 100 <= boundBox.Top)
+            {
+                topBounding = true;
+            }
+            else
+            {
+                topBounding = false;
+            }
+
+            if (position.Left - 100 <= boundBox.Left)
+            {
+                leftBounding = true;
+            }
+            else
+            {
+                leftBounding = false;
+            }
+
+             if (kbState.IsKeyDown(Keys.Up) && topBounding == false)
+             {
+                 position.Y -= 5;
+
+             }
+
+             if (kbState.IsKeyDown(Keys.Down) && bottomBounding == false)
+             {
+                 position.Y += 5;
+
+             }
+
+             if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
+             {
+                 position.X -= 5;
+
+             }
+             if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
+             {
+                 position.X += 5;
+
+             }
+
+             //Prevents bound box from going off screen
+             if (boundBox.Right >= 1500)
+             {
+                 boundBox.X = 900;
+             }
+
+             if (boundBox.Bottom >= 1500)
+             {
+                 boundBox.Y = 900;
+             }
+
+             if (boundBox.Left <= 0)
+             {
+                 boundBox.X = 1;
+             }
+
+             if (boundBox.Top <= 0)
+             {
+                 boundBox.Y = 1;
+             }
+            
         }
 
         public override void Draw(SpriteBatch sb)
-        {        
-            sb.Draw(texture, position, Color.White);
+        {
+            //sb.Draw(box, boundBox, Color.Green);
+            sb.Draw(texture, position, Color.White);            
         }        
     }
 }
