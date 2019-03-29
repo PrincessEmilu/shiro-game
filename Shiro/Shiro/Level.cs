@@ -14,6 +14,7 @@ namespace Shiro
     {
         //Metadata
         int levelNumber;
+        string fileName;
 
         //Data for what to spawn/draw
         List<GameObject> listEntities;
@@ -27,7 +28,10 @@ namespace Shiro
         int levelWidth;
         int levelHeight;
 
+        //Information about tiles from file
         int tileSize;
+        int tilesPerRow;
+        int tilesPerColumn;
 
         //Spawn is for when the player enters the are from the begnining; B is when returning from later screen
         Point playerSpawnA;
@@ -35,9 +39,19 @@ namespace Shiro
 
         public Level(int levelNumber, Texture2D tileset)
         {
+            tilesetImage = tileset;
+
             this.levelNumber = levelNumber;
 
-            string fileName = "level" + levelNumber + ".txt";
+            //Base filename...
+            fileName = "level" + levelNumber + ".txt";
+
+            //Cocantenate the directory path
+            string originalLoc = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
+            fileName = (Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(originalLoc).FullName).FullName).FullName).FullName).FullName)
+            + ("\\Levels\\" + fileName);
+
+            //Now loads it from file
             LoadFromFile(fileName);
         }
 
@@ -68,6 +82,13 @@ namespace Shiro
                 }
             }
 
+            //TODO: tileSize needs to be loaded from file
+            tileSize = 160;
+
+            //Calculates tiles per row for drawing the correct section of hte sprite sheet
+            tilesPerRow = tilesetImage.Width / tileSize;
+            tilesPerColumn = tilesetImage.Height / tileSize;
+
             input.Close();
 
         }
@@ -77,18 +98,18 @@ namespace Shiro
             //Draws every tile in the array
             for(int j = 0; j < levelHeight; j++)
             {
-                for(int i = 0; i < levelWidth; j++)
+                for(int i = 0; i < levelWidth; i++)
                 {
                     int tileID = mapTiles[i, j];
-                    int xOffset = tileSize;
-                    int yOffset = tileSize;
-                    //tilePanels[i, j].tileID = i + j * arrayWidth;
+
+                    int xOffset = (tileID - (tileID/tilesPerColumn)) * tileSize;
+                    int yOffset = (tileID - (tileID/tilesPerRow))  * tileSize;
 
 
                     spriteBatch.Draw(
                         tilesetImage, //Image
-                        new Rectangle(i * tileSize, j * tileSize, tileSize, tileSize), //Spot on the screen
-                        new Rectangle(xOffset, yOffset,tileSize, tileSize), //Section of the image to draw
+                        new Vector2(i * tileSize, j * tileSize), //Spot on the screen
+                        new Rectangle(xOffset, yOffset, tileSize, tileSize), //Section of the image to draw
                         Color.White); //Blend
                 }
             }

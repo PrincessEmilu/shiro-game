@@ -80,6 +80,7 @@ namespace Shiro
         //The battle object that represents current battle
         Battle currentBattle;
 
+        //Represents the current level
         Level currentLevel;
 
         //Debug for testing Keys
@@ -579,6 +580,9 @@ namespace Shiro
                     spriteBatch.Draw(instructionsBackground, new Vector2(0, 0), Color.White);
                     break;
                 case GameState.Level:
+
+                    currentLevel.Draw(spriteBatch);
+
                     player.Draw(spriteBatch);
 
                     foreach (Enemy e in listEnemies)
