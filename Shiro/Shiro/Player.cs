@@ -116,50 +116,50 @@ namespace Shiro
                 leftBounding = false;
             }
 
-             if (kbState.IsKeyDown(Keys.Up) && topBounding == false)
-             {
-                 position.Y -= 5;
+            if (kbState.IsKeyDown(Keys.Up) && topBounding == false)
+            {
+                position.Y -= 5;
 
-             }
+            }
 
-             if (kbState.IsKeyDown(Keys.Down) && bottomBounding == false)
-             {
-                 position.Y += 5;
+            if (kbState.IsKeyDown(Keys.Down) && bottomBounding == false)
+            {
+                position.Y += 5;
 
-             }
+            }
 
-             if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
-             {
-                 position.X -= 5;
+            if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
+            {
+                position.X -= 5;
 
-             }
-             if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
-             {
-                 position.X += 5;
+            }
+            if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
+            {
+                position.X += 5;
 
-             }
+            }
 
-             //Prevents bound box from going off screen
-             if (boundBox.Right >= 1500)
-             {
-                 boundBox.X = 900;
-             }
+            //Prevents bound box from going off screen
+            if (boundBox.Right >= 1500)
+            {
+                boundBox.X = 900;
+            }
 
-             if (boundBox.Bottom >= 1500)
-             {
-                 boundBox.Y = 900;
-             }
+            if (boundBox.Bottom >= 1500)
+            {
+                boundBox.Y = 900;
+            }
 
-             if (boundBox.Left <= 0)
-             {
-                 boundBox.X = 1;
-             }
+            if (boundBox.Left <= 0)
+            {
+                boundBox.X = 1;
+            }
 
-             if (boundBox.Top <= 0)
-             {
-                 boundBox.Y = 1;
-             }
-            
+            if (boundBox.Top <= 0)
+            {
+                boundBox.Y = 1;
+            }
+
         }
 
         public override void Draw(SpriteBatch sb)
