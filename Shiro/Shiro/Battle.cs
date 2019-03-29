@@ -31,7 +31,10 @@ namespace Shiro
 
         //Resources
         protected SpriteFont font;
-        protected Texture2D keyTexture;
+        protected Texture2D UpArrow;
+        protected Texture2D DownArrow;
+        protected Texture2D LeftArrow;
+        protected Texture2D RightArrow;
         protected Texture2D hitboxTexture;
         
         //Keyboard
@@ -62,7 +65,8 @@ namespace Shiro
         //Constructor
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
         //the previous locations of the player and the enemies that were on the level.
-        public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D keyTexture, Texture2D hitboxTexture, Player player, Enemy enemy)
+        public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D UpArrow, Texture2D DownArrow, Texture2D LeftArrow, Texture2D RightArrow,
+            Texture2D hitboxTexture, Player player, Enemy enemy)
         {
             //The stars of the show...
             this.player = player;
@@ -80,8 +84,8 @@ namespace Shiro
             //Positions to draw player and enemy
             player.PrevPos = player.Position;
 
-            player.Position = new Rectangle(50, 200, 50, 50);
-            enemy.Position = new Rectangle(600, 200, 50, 50);
+            player.Position = new Rectangle(100, 200, 100, 100);
+            enemy.Position = new Rectangle(700, 200, 100, 100);
 
             //listKeys holds the key attack objects. queueAttacks hold the attack pattern from the enemy in battle.
             //For now, it is a hard-coded value.
@@ -121,7 +125,10 @@ namespace Shiro
 
             //Graphical stuff for the battle
             this.font = font;
-            this.keyTexture = keyTexture;
+            this.UpArrow = UpArrow;
+            this.DownArrow = DownArrow;
+            this.LeftArrow = LeftArrow;
+            this.RightArrow = RightArrow;
 
             Victory = false;
             GameOver = false;
@@ -295,11 +302,44 @@ namespace Shiro
             //Creates the appropriate type of key based on the integer supplied
             if (keyType != Keys.None)
             {
-                keyToReturn = new AttackKey(
+                switch (keyType)
+                {
+                    case Keys.Up:
+                        keyToReturn = new AttackKey(
+                            UpArrow,
+                            new Rectangle(1200, 375, UpArrow.Width/10, UpArrow.Height/10),
+                            keyType,
+                            keySpeed);
+                        break;
+                    case Keys.Down:
+                        keyToReturn = new AttackKey(
+                            DownArrow,
+                            new Rectangle(1200, 375, DownArrow.Width/10, DownArrow.Height/10),
+                            keyType,
+                            keySpeed);
+                        break;
+                    case Keys.Left:
+                        keyToReturn = new AttackKey(
+                            LeftArrow,
+                            new Rectangle(1200, 350, LeftArrow.Width/10, LeftArrow.Height/10),
+                            keyType,
+                            keySpeed);
+                        break;
+                    case Keys.Right:
+                        keyToReturn = new AttackKey(
+                            RightArrow,
+                            new Rectangle(1200, 350, RightArrow.Width/10, RightArrow.Height/10),
+                            keyType,
+                            keySpeed);
+                        break;
+                    default:
+                        break;
+                }
+                /*keyToReturn = new AttackKey(
                     keyTexture,
                     new Rectangle(1200, 400, keyTexture.Width, keyTexture.Height ),
                     keyType,
-                    keySpeed);
+                    keySpeed);*/
             }
 
             return keyToReturn;

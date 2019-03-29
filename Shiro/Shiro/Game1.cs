@@ -50,7 +50,7 @@ namespace Shiro
         private Enemy enemy;
 
         //test
-        ImportAttackPatterns tester = new ImportAttackPatterns("ratAttackOne.txt");
+        //ImportAttackPatterns tester = new ImportAttackPatterns("ratAttackOne.txt");
 
         List<Enemy> listEnemies;
 
@@ -80,18 +80,21 @@ namespace Shiro
         //The battle object that represents current battle
         Battle currentBattle;
 
-        Level currentLevel;
+        //Level currentLevel;
 
         //Debug for testing Keys
-        Texture2D key;
-        AttackKey keyUp;
+        Texture2D UpArrow;
+        Texture2D DownArrow;
+        Texture2D RightArrow;
+        Texture2D LeftArrow;
+        /*AttackKey keyUp;
         AttackKey keyDown;
         AttackKey keyRight;
-        AttackKey keyLeft;
+        AttackKey keyLeft;*/
 
         //Debug stuff
-        const int TargetWidth = 1300;
-        const int TargetHeight = 720;
+        //const int TargetWidth = 1300;
+        //const int TargetHeight = 720;
         Matrix scale;
 
         Viewport viewport;
@@ -126,10 +129,8 @@ namespace Shiro
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
-
-            float scaleX = graphics.PreferredBackBufferWidth / TargetWidth;
-            float scaleY = graphics.PreferredBackBufferHeight / TargetHeight;
-            scale = Matrix.CreateScale(new Vector3(scaleX, scaleY, 1));
+            //Initialize Scale for Battle Class
+            scale = Matrix.CreateScale(new Vector3((float)1.5, (float)1.5, 1));
 
             base.Initialize();
         }
@@ -152,7 +153,10 @@ namespace Shiro
 
             hitbox = Content.Load<Texture2D>("hitbox");
             //Arrow for Debug
-            key = Content.Load<Texture2D>("Up Arrow");
+            UpArrow = Content.Load<Texture2D>("UpArrow");
+            DownArrow = Content.Load<Texture2D>("DownArrow");
+            LeftArrow = Content.Load<Texture2D>("LeftArrow");
+            RightArrow = Content.Load<Texture2D>("RightArrow");
 
             //Menu Screens 
             menuBackground = Content.Load<Texture2D>("ShiroMenuScreen");
@@ -275,7 +279,7 @@ namespace Shiro
                         {
                             case 1:
                                 state = GameState.Level;
-                                currentLevel = new Level(1, testTileset);
+                                //currentLevel = new Level(1, testTileset);
                                 break;
                             case 2:
                                 state = GameState.Instructions;
@@ -346,7 +350,7 @@ namespace Shiro
                                 state = GameState.Battle;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, key, hitbox, player, e);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitbox, player, e);
                             }
                         }
                     }
@@ -551,10 +555,17 @@ namespace Shiro
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            //spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
-            spriteBatch.Begin(SpriteSortMode.BackToFront,
+            if (state == GameState.Battle)
+            {
+                spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
+            }
+            else
+            {
+
+                spriteBatch.Begin(SpriteSortMode.BackToFront,
                     null, null, null, null, null,
                     camera.GetTransformation());
+            }
 
             //Switch for Game State
             switch (state)
