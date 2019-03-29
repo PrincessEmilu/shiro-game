@@ -121,7 +121,6 @@ namespace levelEditor
                     }
                 }
             }
-            Console.WriteLine(listOfImages.Count);
             return listOfImages;
         }
 

@@ -569,7 +569,7 @@ namespace Shiro
             else
             {
 
-                spriteBatch.Begin(SpriteSortMode.BackToFront,
+                spriteBatch.Begin(SpriteSortMode.Immediate,
                     null, null, null, null, null,
                     camera.GetTransformation());
             }
