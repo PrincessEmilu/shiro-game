@@ -28,6 +28,8 @@ namespace levelEditor
         public Generate(LevelViewer mapEditor)
         {
             this.mapEditor = mapEditor;
+
+
             InitializeComponent();
         }
 
@@ -41,7 +43,7 @@ namespace levelEditor
             if (tileBoxPreview.Image != null)
             {
                 //Generates the map
-                mapEditor.GenerateMap(tileBoxPreview.Image, tilesInImage, tileSize, tilesPerScreenWidth, tilesPerScreenHeight, screensHorizontal, screensVertical);
+                mapEditor.GenerateMap(tileBoxPreview.Image, tileSize, tilesPerScreenWidth, tilesPerScreenHeight, screensHorizontal, screensVertical);
                 Close();
             }
             else

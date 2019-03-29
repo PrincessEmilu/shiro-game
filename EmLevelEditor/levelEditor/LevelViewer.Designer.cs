@@ -32,6 +32,7 @@
             this.toolbarMain = new System.Windows.Forms.ToolStrip();
             this.buttonSave = new System.Windows.Forms.ToolStripButton();
             this.buttonGenerate = new System.Windows.Forms.ToolStripButton();
+            this.Load = new System.Windows.Forms.ToolStripButton();
             this.toolbarMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,6 +40,7 @@
             // 
             this.toolbarMain.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolbarMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Load,
             this.buttonSave,
             this.buttonGenerate});
             this.toolbarMain.Location = new System.Drawing.Point(0, 0);
@@ -68,6 +70,16 @@
             this.buttonGenerate.Text = "Generate";
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
             // 
+            // Load
+            // 
+            this.Load.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Load.Image = ((System.Drawing.Image)(resources.GetObject("Load.Image")));
+            this.Load.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Load.Name = "Load";
+            this.Load.Size = new System.Drawing.Size(24, 24);
+            this.Load.Text = "toolStripButtonLoad";
+            this.Load.Click += new System.EventHandler(this.toolStripButtonLoad_onClick);
+            // 
             // LevelViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -79,7 +91,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LevelViewer";
             this.Text = "Level Editor";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.toolbarMain.ResumeLayout(false);
             this.toolbarMain.PerformLayout();
             this.ResumeLayout(false);
@@ -92,6 +103,7 @@
         private System.Windows.Forms.ToolStrip toolbarMain;
         private System.Windows.Forms.ToolStripButton buttonSave;
         private System.Windows.Forms.ToolStripButton buttonGenerate;
+        private System.Windows.Forms.ToolStripButton Load;
     }
 }
 

@@ -53,7 +53,6 @@ namespace levelEditor
         //Method for generating the new map
         public void GenerateMap(
             Image tileset,
-            int tilesInImage,
             int tileSize,
             int tilesPerScreenWidth, 
             int tilesPerScreenHeight, 
@@ -64,7 +63,7 @@ namespace levelEditor
             this.tileSize = tileSize;
 
             //Crops supplied image into a list of images (tileset)
-            listTiles = CroppedImage(tileset, tilesInImage, tileSize);
+            listTiles = CroppedImage(tileset, tileSize);
 
             //Total array sizes
             int gridPanelWidth = tilesPerScreenWidth * screensHorizontal;
@@ -85,7 +84,6 @@ namespace levelEditor
                     mapPanels[i, j].tileID = 14;
 
                     mapPanels[i, j].Click += new EventHandler(ClickTile);
-                    mapPanels[i, j].MouseEnter += new EventHandler(EnterTile);
                     mapPanels[i, j].BorderStyle = BorderStyle.FixedSingle;
 
                     Controls.Add(mapPanels[i, j]);
@@ -93,7 +91,6 @@ namespace levelEditor
             }
 
             //Create a paintbox- the tile-selector, essentially
-
             if (paintbox != null) { paintbox.Close(); }
             paintbox = new Paintbox(this, listTiles, tileset, tileset.Width, tileset.Height, tileSize);
             paintbox.Show();
@@ -102,12 +99,12 @@ namespace levelEditor
 
         //Crops images and sorts them into a list
         //Alexa figured out the general code for cropping an image.
-        private List<Image> CroppedImage(Image tiles, int tilesInImage, int tileSize)
+        private List<Image> CroppedImage(Image tiles, int tileSize)
         {
             int tilesHorizontal = tiles.Width / tileSize;
             int tilesVertical = tiles.Height / tileSize;
 
-            List<Image> listOfImages = new List<Image>(tilesInImage);
+            List<Image> listOfImages = new List<Image>();
 
             if (tiles != null)
             {
@@ -136,19 +133,8 @@ namespace levelEditor
 
         }
 
-        //Same behaviour as above, but changes tile on enter if mouse is down
-        private void EnterTile(object sender, EventArgs e)
-        {
-            //Checks if left mouse is down
-            if (MouseButtons == MouseButtons.Left)
-            {
-                ((Panel)sender).BackgroundImage = listTiles[Paintbrush];
-                ((MapPanel)sender).tileID = Paintbrush;
-            }
-        }
-
-        //Saves the map as a text file
-        private void SaveMap()
+        //Saves the map to a text file
+        private void buttonSave_Click(object sender, EventArgs e)
         {
             if (mapPanels != null)
             {
@@ -190,9 +176,95 @@ namespace levelEditor
             }
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        //User pressed load- load a file
+        private void toolStripButtonLoad_onClick(object sender, EventArgs e)
         {
-            SaveMap();
+            //user prompted to open a file
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Title = "Open Map File";
+            dlg.Filter = "png files (*.txt)|*.txt";
+
+            //If that works, load the text file.
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                var filePath = dlg.FileName;
+
+                StreamReader input = new StreamReader(filePath);
+
+                //Read header values 
+                int levelWidth = int.Parse(input.ReadLine());
+                int levelHeight = int.Parse(input.ReadLine());
+                int tileSize = int.Parse(input.ReadLine());
+
+                int[,] tileIDArray = new int[levelWidth, levelHeight];
+
+                //Nested for loop will read each line and parse it into the 2D array of tile IDs
+                string fullLine;
+                string[] splitLine;
+
+                for (int j = 0; j < levelHeight; j++)
+                {
+                    //Reads a row and saves it into a 1D array.
+                    fullLine = input.ReadLine();
+                    splitLine = fullLine.Split(',');
+
+                    for (int i = 0; i < levelWidth; i++)
+                    {
+                        //Stores each value in the 1D array into the tilemap 2D array.
+                        tileIDArray[i, j] = int.Parse(splitLine[i]);
+                    }
+                }
+                dlg.Dispose();
+
+                Image tileSet;
+
+                //Now, open the tileset
+                dlg = new OpenFileDialog();
+                dlg.Title = "Open Image";
+                dlg.Filter = "png files (*.png)|*.png";
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    tileSet = Image.FromFile(dlg.FileName);
+
+                    //Crops supplied image into a list of images (tileset)
+                    listTiles = CroppedImage(tileSet, tileSize);
+
+                    //Total array sizes
+                    int gridPanelWidth = levelWidth;
+                    int gridPanelHeight = levelHeight;
+
+
+                    //Generate the map
+                    mapPanels = new MapPanel[gridPanelWidth, gridPanelHeight];
+
+                    for (int j = 0; j < gridPanelHeight; j++)
+                    {
+                        for (int i = 0; i < gridPanelWidth; i++)
+                        {
+                            mapPanels[i, j] = new MapPanel();
+                            mapPanels[i, j].Location = new Point(i * tileSize, j * tileSize + toolbarMain.Height);
+                            mapPanels[i, j].Size = new Size(tileSize, tileSize);
+                            mapPanels[i, j].BackgroundImage = listTiles[tileIDArray[i, j]];
+                            mapPanels[i, j].tileID = tileIDArray[i, j];
+
+                            mapPanels[i, j].Click += new EventHandler(ClickTile);
+                            mapPanels[i, j].BorderStyle = BorderStyle.FixedSingle;
+
+                            Controls.Add(mapPanels[i, j]);
+                        }
+                    }
+
+                    //Create a paintbox- the tile-selector, essentially
+                    if (paintbox != null) { paintbox.Close(); }
+                    paintbox = new Paintbox(this, listTiles, tileSet, tileSet.Width, tileSet.Height, tileSize);
+                    paintbox.Show();
+                    paintbox.TopMost = true;
+                }
+                dlg.Dispose();
+            }
+            dlg.Dispose();
+
+
         }
     }
 }
