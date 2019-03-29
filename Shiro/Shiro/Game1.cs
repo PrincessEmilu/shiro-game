@@ -275,7 +275,7 @@ namespace Shiro
                         {
                             case 1:
                                 state = GameState.Level;
-                                currentLevel = new Level(1, testTileset);
+                                //currentLevel = new Level(1, testTileset);
                                 break;
                             case 2:
                                 state = GameState.Instructions;
