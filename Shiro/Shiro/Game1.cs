@@ -83,7 +83,8 @@ namespace Shiro
         //The battle object that represents current battle
         Battle currentBattle;
 
-        //Level currentLevel;
+        //The current level the player is in
+        Level currentLevel;
 
         //Debug for testing Keys
         Texture2D UpArrow;
@@ -102,8 +103,8 @@ namespace Shiro
 
         Viewport viewport;
         Camera camera;
-
-
+        CollisionItem door;
+        Texture2D doorTexture;
 
         public Game1()
         {
@@ -155,6 +156,7 @@ namespace Shiro
             boundBox = Content.Load<Texture2D>("rectangle");
 
             font = Content.Load<SpriteFont>("font");
+            doorTexture = Content.Load<Texture2D>("hitbox");
 
             hitbox = Content.Load<Texture2D>("hitbox");
             //Arrow for Debug
@@ -202,6 +204,8 @@ namespace Shiro
             listEnemies.Add(new Enemy(enemyCat, pos2, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
             listEnemies.Add(new Enemy(enemyCat, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
             listEnemies.Add(new Enemy(enemyCat, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+
+            door = new CollisionItem(doorTexture, 400, 400, player);
         }
 
         /// <summary>
@@ -286,7 +290,7 @@ namespace Shiro
                         {
                             case 1:
                                 state = GameState.Level;
-                                //currentLevel = new Level(1, testTileset);
+                                currentLevel = new Level(1, testTileset);
                                 break;
                             case 2:
                                 state = GameState.Instructions;
@@ -311,6 +315,7 @@ namespace Shiro
 
 
                     player.Update(gameTime);
+                    door.Update(gameTime, false);
 
                     Vector2 movement = Vector2.Zero;
 
@@ -351,7 +356,7 @@ namespace Shiro
                                 state = GameState.Battle;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitbox, player, e);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, player, e);
                             }
                         }
                     }
@@ -595,7 +600,9 @@ namespace Shiro
                     spriteBatch.Draw(instructionsBackground, new Vector2(0, 0), Color.White);
                     break;
                 case GameState.Level:
+                    currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
+                    door.Draw(spriteBatch, false);
 
                     
 
@@ -621,7 +628,8 @@ namespace Shiro
                     break;
                 case GameState.Battle:
                     camera.Pos = new Vector2(0, 0);
-                    //spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
+                    spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
+                    spriteBatch.Draw(battleBar, new Rectangle(10, 335, 825, 135), Color.White);
                     currentBattle.Draw(spriteBatch);
                     break;
                 case GameState.GameOver:
@@ -644,7 +652,7 @@ namespace Shiro
             }
 
             //DEBUG: Draw current state
-            spriteBatch.DrawString(font, state.ToString(), new Vector2(50, 50), Color.Beige);
+            spriteBatch.DrawString(font, width + "," + height, new Vector2(50, 50), Color.Beige);
 
 
             //spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);

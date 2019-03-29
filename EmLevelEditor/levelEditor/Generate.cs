@@ -16,8 +16,7 @@ namespace levelEditor
         //Reference to editor
         LevelViewer mapEditor;
 
-        int tileWidth = 32;
-        int tileHeight = 32;
+        int tileSize = 32;
         int tilesInImage = 1;
         int tilesPerScreenWidth = 1;
         int tilesPerScreenHeight = 1;
@@ -42,7 +41,7 @@ namespace levelEditor
             if (tileBoxPreview.Image != null)
             {
                 //Generates the map
-                mapEditor.GenerateMap(tileBoxPreview.Image, tilesInImage, tileWidth, tileHeight, tilesPerScreenWidth, tilesPerScreenHeight, screensHorizontal, screensVertical);
+                mapEditor.GenerateMap(tileBoxPreview.Image, tilesInImage, tileSize, tilesPerScreenWidth, tilesPerScreenHeight, screensHorizontal, screensVertical);
                 Close();
             }
             else
@@ -72,8 +71,7 @@ namespace levelEditor
         //These are the value changes for each numericUpDown
         private void numericTileSize_ValueChanged(object sender, EventArgs e)
         {
-            tileWidth = (int)((NumericUpDown)sender).Value;
-            tileHeight = tileWidth;
+            tileSize = (int)((NumericUpDown)sender).Value;
         }
 
         private void numericTilesInImage_ValueChanged(object sender, EventArgs e)

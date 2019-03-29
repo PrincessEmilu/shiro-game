@@ -83,7 +83,7 @@ namespace Shiro
             }
 
             //TODO: tileSize needs to be loaded from file
-            tileSize = 160;
+            tileSize = 80;
 
             //Calculates tiles per row for drawing the correct section of hte sprite sheet
             tilesPerRow = tilesetImage.Width / tileSize;
@@ -102,8 +102,9 @@ namespace Shiro
                 {
                     int tileID = mapTiles[i, j];
 
-                    int xOffset = (tileID - (tileID/tilesPerColumn)) * tileSize;
-                    int yOffset = (tileID - (tileID/tilesPerRow))  * tileSize;
+                    //Calculated offset tells the draw method where to find the right tile from the tile set
+                    int xOffset = (tileID % tilesPerRow) * tileSize;
+                    int yOffset = (tileID/tilesPerRow) * tileSize;
 
 
                     spriteBatch.Draw(
