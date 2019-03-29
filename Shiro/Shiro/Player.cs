@@ -65,10 +65,6 @@ namespace Shiro
                 {
                     position.X += 5;
                 }
-            
-            
-
-
 
 
             //Prevents player from going off the screen from the bottom or right

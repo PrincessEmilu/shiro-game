@@ -60,7 +60,7 @@ namespace Shiro
         public bool CheckCollision(GameObject obj)
         {
             //if the player's box collides with collision box
-            if(collisionBox.Contains(obj.Position)) {
+            if(collisionBox.Intersects(obj.Position)) {
                 return true;
             }
             return false;
