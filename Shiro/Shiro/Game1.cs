@@ -639,6 +639,9 @@ namespace Shiro
                     break;
             }
 
+            //DEBUG: Draw current state
+            spriteBatch.DrawString(font, width + "," + height, new Vector2(50, 50), Color.Beige);
+
 
             //spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);
 

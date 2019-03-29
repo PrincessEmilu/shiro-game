@@ -21,6 +21,8 @@ namespace levelEditor
         MapPanel[,] mapPanels;
         Paintbox paintbox;
 
+        int tileSize;
+
         const string outputFileName = "myMap.txt";
 
         //Properties
@@ -52,16 +54,17 @@ namespace levelEditor
         public void GenerateMap(
             Image tileset,
             int tilesInImage,
-            int tileWidth, 
-            int tileHeight, 
+            int tileSize,
             int tilesPerScreenWidth, 
             int tilesPerScreenHeight, 
             int screensHorizontal,
             int screensVertical)
         {
+            //Tilesize variable saved for saving the file
+            this.tileSize = tileSize;
 
             //Crops supplied image into a list of images (tileset)
-            listTiles = CroppedImage(tileset, tilesInImage, tileWidth);
+            listTiles = CroppedImage(tileset, tilesInImage, tileSize);
 
             //Total array sizes
             int gridPanelWidth = tilesPerScreenWidth * screensHorizontal;
@@ -76,12 +79,14 @@ namespace levelEditor
                 for(int i = 0; i < gridPanelWidth; i ++)
                 {
                     mapPanels[i, j] = new MapPanel();
-                    mapPanels[i, j].Location = new Point(i * tileWidth, j * tileHeight + toolbarMain.Height);
-                    mapPanels[i, j].Size = new Size(tileWidth, tileHeight);
+                    mapPanels[i, j].Location = new Point(i * tileSize, j * tileSize + toolbarMain.Height);
+                    mapPanels[i, j].Size = new Size(tileSize, tileSize);
                     mapPanels[i, j].BackgroundImage = listTiles[0];
-                    mapPanels[i, j].tileID = 0;
+                    mapPanels[i, j].tileID = 14;
 
-                    mapPanels[i, j].Click += new EventHandler(NextTile);
+                    mapPanels[i, j].Click += new EventHandler(ClickTile);
+                    mapPanels[i, j].MouseEnter += new EventHandler(EnterTile);
+                    mapPanels[i, j].BorderStyle = BorderStyle.FixedSingle;
 
                     Controls.Add(mapPanels[i, j]);
                 }
@@ -90,7 +95,7 @@ namespace levelEditor
             //Create a paintbox- the tile-selector, essentially
 
             if (paintbox != null) { paintbox.Close(); }
-            paintbox = new Paintbox(this, listTiles, tileset, tileset.Width, tileset.Height, tileWidth);
+            paintbox = new Paintbox(this, listTiles, tileset, tileset.Width, tileset.Height, tileSize);
             paintbox.Show();
             paintbox.TopMost = true;
         }
@@ -123,12 +128,23 @@ namespace levelEditor
             return listOfImages;
         }
 
-        //Changes panel to next tile
-        private void NextTile(object sender, EventArgs e)
+        //Changes the clicked tile to the paintbrush tile
+        private void ClickTile(object sender, EventArgs e)
         {
             ((Panel)sender).BackgroundImage = listTiles[Paintbrush];
             ((MapPanel)sender).tileID = Paintbrush;
 
+        }
+
+        //Same behaviour as above, but changes tile on enter if mouse is down
+        private void EnterTile(object sender, EventArgs e)
+        {
+            //Checks if left mouse is down
+            if (MouseButtons == MouseButtons.Left)
+            {
+                ((Panel)sender).BackgroundImage = listTiles[Paintbrush];
+                ((MapPanel)sender).tileID = Paintbrush;
+            }
         }
 
         //Saves the map as a text file
@@ -149,6 +165,7 @@ namespace levelEditor
                     //Write file header- gives map info to level-drawing class
                     output.WriteLine(mapPanels.GetLength(0));
                     output.WriteLine(mapPanels.GetLength(1));
+                    output.WriteLine(tileSize);
 
 
                     //Read array of panels
