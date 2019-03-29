@@ -355,7 +355,7 @@ namespace Shiro
                                 state = GameState.Battle;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitbox, player, e);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, player, e);
                             }
                         }
                     }
@@ -624,7 +624,8 @@ namespace Shiro
                     break;
                 case GameState.Battle:
                     camera.Pos = new Vector2(0, 0);
-                    //spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
+                    spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
+                    spriteBatch.Draw(battleBar, new Rectangle(10, 335, 825, 135), Color.White);
                     currentBattle.Draw(spriteBatch);
                     break;
                 case GameState.GameOver:
