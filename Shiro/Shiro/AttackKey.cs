@@ -42,7 +42,7 @@ namespace Shiro
             }
         }
 
-        public override void Draw(SpriteBatch sb)
+        /*public override void Draw(SpriteBatch sb)
         {
             switch (KeyType)
             {
@@ -61,6 +61,6 @@ namespace Shiro
                 default:
                     break;
             }
-        }
+        }*/
     }
 }

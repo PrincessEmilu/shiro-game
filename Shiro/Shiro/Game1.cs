@@ -50,7 +50,7 @@ namespace Shiro
         private Enemy enemy;
 
         //test
-        ImportAttackPatterns tester = new ImportAttackPatterns("ratAttackOne.txt");
+        //ImportAttackPatterns tester = new ImportAttackPatterns("ratAttackOne.txt");
 
         List<Enemy> listEnemies;
 
@@ -80,19 +80,21 @@ namespace Shiro
         //The battle object that represents current battle
         Battle currentBattle;
 
-        //Represents the current level
-        Level currentLevel;
+        //Level currentLevel;
 
         //Debug for testing Keys
-        Texture2D key;
-        AttackKey keyUp;
+        Texture2D UpArrow;
+        Texture2D DownArrow;
+        Texture2D RightArrow;
+        Texture2D LeftArrow;
+        /*AttackKey keyUp;
         AttackKey keyDown;
         AttackKey keyRight;
-        AttackKey keyLeft;
+        AttackKey keyLeft;*/
 
         //Debug stuff
-        const int TargetWidth = 1300;
-        const int TargetHeight = 720;
+        //const int TargetWidth = 1300;
+        //const int TargetHeight = 720;
         Matrix scale;
 
         Viewport viewport;
@@ -127,10 +129,8 @@ namespace Shiro
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
-
-            float scaleX = graphics.PreferredBackBufferWidth / TargetWidth;
-            float scaleY = graphics.PreferredBackBufferHeight / TargetHeight;
-            scale = Matrix.CreateScale(new Vector3(scaleX, scaleY, 1));
+            //Initialize Scale for Battle Class
+            scale = Matrix.CreateScale(new Vector3((float)1.5, (float)1.5, 1));
 
             base.Initialize();
         }
@@ -153,7 +153,10 @@ namespace Shiro
 
             hitbox = Content.Load<Texture2D>("hitbox");
             //Arrow for Debug
-            key = Content.Load<Texture2D>("Up Arrow");
+            UpArrow = Content.Load<Texture2D>("UpArrow");
+            DownArrow = Content.Load<Texture2D>("DownArrow");
+            LeftArrow = Content.Load<Texture2D>("LeftArrow");
+            RightArrow = Content.Load<Texture2D>("RightArrow");
 
             //Menu Screens 
             menuBackground = Content.Load<Texture2D>("ShiroMenuScreen");
@@ -167,7 +170,7 @@ namespace Shiro
             battleBar = Content.Load<Texture2D>("BottomBar");
             hitboxPretty = Content.Load<Texture2D>("HitboxKeys");
 
-           width = graphics.GraphicsDevice.Viewport.Width;
+            width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
             
 
@@ -181,7 +184,7 @@ namespace Shiro
             Rectangle pos = new Rectangle(50, 50, 50, 50);
             Rectangle pos2 = new Rectangle(250, 100, 50, 50);
 
-            player = new Player(testCat, pos, width, height);
+            player = new Player(testCat, pos, width, height, camera);
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
@@ -276,7 +279,7 @@ namespace Shiro
                         {
                             case 1:
                                 state = GameState.Level;
-                                currentLevel = new Level(1, testTileset);
+                                //currentLevel = new Level(1, testTileset);
                                 break;
                             case 2:
                                 state = GameState.Instructions;
@@ -326,10 +329,13 @@ namespace Shiro
                         //graphics.GraphicsDevice.Viewport = new Viewport(viewportMoveX += 1, 0, width, height);
                     }
 
-                    if (player.Position.X + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.X - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)))
-                    {
-                        camera.Pos += movement * 5;                        
-                    }     
+                    //player.Position.X + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y + 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.X - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2)) || player.Position.Y - 200 >= ((camera.Pos.X / 2) + (camera.Pos.Y / 2))
+
+                    //if (player.Position.X >= graphics.GraphicsDevice.Viewport.X || player.Position.Y >= graphics.GraphicsDevice.Viewport.Y)
+                    //{
+                    //camera.Pos += movement * new Vector2(5.5f, 5.5f);
+                    camera.Pos += movement * 5;
+                    //}     
 
                     foreach (Enemy e in listEnemies)
                     {
@@ -344,7 +350,7 @@ namespace Shiro
                                 state = GameState.Battle;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, key, hitbox, player, e);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitbox, player, e);
                             }
                         }
                     }
@@ -549,10 +555,17 @@ namespace Shiro
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            //spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
-            spriteBatch.Begin(SpriteSortMode.BackToFront,
+            if (state == GameState.Battle)
+            {
+                spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
+            }
+            else
+            {
+
+                spriteBatch.Begin(SpriteSortMode.BackToFront,
                     null, null, null, null, null,
                     camera.GetTransformation());
+            }
 
             //Switch for Game State
             switch (state)
@@ -580,9 +593,6 @@ namespace Shiro
                     spriteBatch.Draw(instructionsBackground, new Vector2(0, 0), Color.White);
                     break;
                 case GameState.Level:
-
-                    currentLevel.Draw(spriteBatch);
-
                     player.Draw(spriteBatch);
 
                     foreach (Enemy e in listEnemies)

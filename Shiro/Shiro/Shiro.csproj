@@ -7,7 +7,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7A9FF82C-E1C2-4115-A65F-F7D5591B2EEE}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Shiro</RootNamespace>
     <AssemblyName>Shiro</AssemblyName>
@@ -47,6 +47,7 @@
     <Compile Include="Battle.cs" />
     <Compile Include="Boss.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="CollisionItem.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />

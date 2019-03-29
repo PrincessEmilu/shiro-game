@@ -21,8 +21,8 @@ namespace Shiro
         private float _rotation;
         private int _viewportWidth;
         private int _viewportHeight;
-        private int _worldWidth;
-        private int _worldHeight;
+        public int _worldWidth;
+        public int _worldHeight;
 
         public Camera(Viewport viewport, int worldWidth,
            int worldHeight, float initialZoom)
