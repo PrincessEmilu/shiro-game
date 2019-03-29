@@ -102,8 +102,8 @@ namespace Shiro
                 {
                     int tileID = mapTiles[i, j];
 
-                    int xOffset = (tileID - (tileID/tilesPerColumn)) * tileSize;
-                    int yOffset = (tileID - (tileID/tilesPerRow))  * tileSize;
+                    int xOffset = (tileID % tilesPerRow) * tileSize;
+                    int yOffset = (tileID/tilesPerRow) * tileSize;
 
 
                     spriteBatch.Draw(

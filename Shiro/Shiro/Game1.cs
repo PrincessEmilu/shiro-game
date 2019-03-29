@@ -80,7 +80,8 @@ namespace Shiro
         //The battle object that represents current battle
         Battle currentBattle;
 
-        //Level currentLevel;
+        //The current level the player is in
+        Level currentLevel;
 
         //Debug for testing Keys
         Texture2D UpArrow;
@@ -99,8 +100,6 @@ namespace Shiro
 
         Viewport viewport;
         Camera camera;
-
-
 
         public Game1()
         {
@@ -279,7 +278,7 @@ namespace Shiro
                         {
                             case 1:
                                 state = GameState.Level;
-                                //currentLevel = new Level(1, testTileset);
+                                currentLevel = new Level(1, testTileset);
                                 break;
                             case 2:
                                 state = GameState.Instructions;
@@ -593,6 +592,7 @@ namespace Shiro
                     spriteBatch.Draw(instructionsBackground, new Vector2(0, 0), Color.White);
                     break;
                 case GameState.Level:
+                    currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
 
                     foreach (Enemy e in listEnemies)
@@ -638,9 +638,6 @@ namespace Shiro
                 default:
                     break;
             }
-
-            //DEBUG: Draw current state
-            spriteBatch.DrawString(font, state.ToString(), new Vector2(50, 50), Color.Beige);
 
 
             //spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);
