@@ -19,6 +19,7 @@ namespace Shiro
         //Data for what to spawn/draw
         List<GameObject> listEntities;
         int[,] mapTiles;
+        List<CollisionItem> collisionList;
 
         //Assets
         Texture2D backgroundImage;
@@ -39,6 +40,9 @@ namespace Shiro
 
         public Level(int levelNumber, Texture2D tileset)
         {
+            //Init variables
+            collisionList = new List<CollisionItem>();
+
             tilesetImage = tileset;
 
             this.levelNumber = levelNumber;
@@ -79,6 +83,22 @@ namespace Shiro
                 {
                     //Stores each value in the 1D array into the tilemap 2D array.
                     mapTiles[i, j] = int.Parse(splitLine[i]);
+                }
+            }
+
+            //This loop functions the same as above, but creates a list of collision items
+            for (int j = 0; j < levelHeight; j++)
+            {
+                //Reads a row and saves it into a 1D array.
+                fullLine = input.ReadLine();
+                splitLine = fullLine.Split(',');
+
+                for (int i = 0; i < levelWidth; i++)
+                {
+                    //Conceptually, this section of code should add a new collision item to the list of collision items,
+                    //specifiying its position (and maybe eventually, other properites)
+                    //However, I have class in nine minutes and will have to work on this later
+                    
                 }
             }
 
