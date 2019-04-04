@@ -59,6 +59,10 @@ namespace levelEditor
             int screensHorizontal,
             int screensVertical)
         {
+            //Instructions text goes away
+            labelInstructions.Visible = false;
+            labelInstructions.Enabled = false;
+
             //Tilesize variable saved for saving the file
             this.tileSize = tileSize;
 
@@ -83,7 +87,7 @@ namespace levelEditor
                     mapPanels[i, j].BackgroundImage = listTiles[0];
                     mapPanels[i, j].tileID = 14;
 
-                    mapPanels[i, j].Click += new EventHandler(ClickTile);
+                    mapPanels[i, j].MouseClick += new MouseEventHandler(ClickTile);
                     mapPanels[i, j].BorderStyle = BorderStyle.FixedSingle;
 
                     Controls.Add(mapPanels[i, j]);
@@ -124,11 +128,39 @@ namespace levelEditor
             return listOfImages;
         }
 
-        //Changes the clicked tile to the paintbrush tile
-        private void ClickTile(object sender, EventArgs e)
+        //Rightclick for placing collision
+        public void RightClick(object sender, MouseEventArgs e)
         {
-            ((Panel)sender).BackgroundImage = listTiles[Paintbrush];
-            ((MapPanel)sender).tileID = Paintbrush;
+            if (e.Button == MouseButtons.Right)
+            {
+                Console.WriteLine("boop");
+            }
+        }
+
+        //Changes the clicked tile to the paintbrush tile
+        private void ClickTile(object sender, MouseEventArgs e)
+        {
+
+            //right click adds collision
+            if (e.Button == MouseButtons.Right)
+            {
+                if (((MapPanel)sender).isCollision == true)
+                {
+                    Console.WriteLine(((MapPanel)sender).isCollision = false);
+                    ((MapPanel)sender).BackColor = DefaultBackColor;
+                }
+                else
+                {
+                    Console.WriteLine(((MapPanel)sender).isCollision = true);
+                    ((MapPanel)sender).BackColor = Color.Blue;
+                }
+            }
+            //Left click paints tile
+            else
+            {
+                ((Panel)sender).BackgroundImage = listTiles[Paintbrush];
+                ((MapPanel)sender).tileID = Paintbrush;
+            }
 
         }
 
@@ -165,6 +197,18 @@ namespace levelEditor
                         output.WriteLine();
                     }
 
+                    //Read array again, but this time maps collision
+                    for (int j = 0; j < mapPanels.GetLength(1); j++)
+                    {
+                        for (int i = 0; i < mapPanels.GetLength(0); i++)
+                        {
+                            //Write the value of the colision
+                            output.Write(mapPanels[i, j].isCollision + ",");
+                        }
+
+                        output.WriteLine();
+                    }
+
                     output.Close();
                 }
             }
@@ -196,8 +240,9 @@ namespace levelEditor
                 int tileSize = int.Parse(input.ReadLine());
 
                 int[,] tileIDArray = new int[levelWidth, levelHeight];
+                bool[,] collideArray = new bool[levelWidth, levelHeight];
 
-                //Nested for loop will read each line and parse it into the 2D array of tile IDs
+                //Nested for loop will read each line and parse it into the 2D array of tile IDs and collisions
                 string fullLine;
                 string[] splitLine;
 
@@ -213,6 +258,20 @@ namespace levelEditor
                         tileIDArray[i, j] = int.Parse(splitLine[i]);
                     }
                 }
+
+                for (int j = 0; j < levelHeight; j++)
+                {
+                    //Reads a row and saves it into a 1D array.
+                    fullLine = input.ReadLine();
+                    splitLine = fullLine.Split(',');
+
+                    for (int i = 0; i < levelWidth; i++)
+                    {
+                        //Stores each value in the 1D array into the tilemap 2D array.
+                        collideArray[i, j] = bool.Parse(splitLine[i]);
+                    }
+                }
+
                 dlg.Dispose();
 
                 Image tileSet;
@@ -244,14 +303,22 @@ namespace levelEditor
                             mapPanels[i, j].Location = new Point(i * tileSize, j * tileSize + toolbarMain.Height);
                             mapPanels[i, j].Size = new Size(tileSize, tileSize);
                             mapPanels[i, j].BackgroundImage = listTiles[tileIDArray[i, j]];
-                            mapPanels[i, j].tileID = tileIDArray[i, j];
 
-                            mapPanels[i, j].Click += new EventHandler(ClickTile);
+                            mapPanels[i, j].tileID = tileIDArray[i, j];
+                            //Sets collide status, changes color if it's true
+                            if (mapPanels[i, j].isCollision = collideArray[i, j])
+                            { mapPanels[i, j].BackColor = Color.Blue; }
+
+                            mapPanels[i, j].MouseClick += new MouseEventHandler(ClickTile);
                             mapPanels[i, j].BorderStyle = BorderStyle.FixedSingle;
 
                             Controls.Add(mapPanels[i, j]);
                         }
                     }
+
+                    //Instructions text goes away
+                    labelInstructions.Visible = false;
+                    labelInstructions.Enabled = false;
 
                     //Create a paintbox- the tile-selector, essentially
                     if (paintbox != null) { paintbox.Close(); }
@@ -263,6 +330,11 @@ namespace levelEditor
             }
             dlg.Dispose();
 
+
+        }
+
+        private void LevelViewer_Load(object sender, EventArgs e)
+        {
 
         }
     }

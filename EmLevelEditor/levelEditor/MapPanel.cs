@@ -11,5 +11,6 @@ namespace levelEditor
     {
         //Properties
         public int tileID { get; set; }
+        public bool isCollision { get; set; }
     }
 }

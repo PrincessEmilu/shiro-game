@@ -30,9 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelViewer));
             this.toolbarMain = new System.Windows.Forms.ToolStrip();
+            this.Load = new System.Windows.Forms.ToolStripButton();
             this.buttonSave = new System.Windows.Forms.ToolStripButton();
             this.buttonGenerate = new System.Windows.Forms.ToolStripButton();
-            this.Load = new System.Windows.Forms.ToolStripButton();
+            this.labelInstructions = new System.Windows.Forms.Label();
             this.toolbarMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +49,16 @@
             this.toolbarMain.Size = new System.Drawing.Size(1023, 27);
             this.toolbarMain.TabIndex = 0;
             this.toolbarMain.Text = "toolbarMain";
+            // 
+            // Load
+            // 
+            this.Load.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Load.Image = ((System.Drawing.Image)(resources.GetObject("Load.Image")));
+            this.Load.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Load.Name = "Load";
+            this.Load.Size = new System.Drawing.Size(24, 24);
+            this.Load.Text = "toolStripButtonLoad";
+            this.Load.Click += new System.EventHandler(this.toolStripButtonLoad_onClick);
             // 
             // buttonSave
             // 
@@ -70,15 +81,17 @@
             this.buttonGenerate.Text = "Generate";
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
             // 
-            // Load
+            // labelInstructions
             // 
-            this.Load.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Load.Image = ((System.Drawing.Image)(resources.GetObject("Load.Image")));
-            this.Load.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Load.Name = "Load";
-            this.Load.Size = new System.Drawing.Size(24, 24);
-            this.Load.Text = "toolStripButtonLoad";
-            this.Load.Click += new System.EventHandler(this.toolStripButtonLoad_onClick);
+            this.labelInstructions.AutoSize = true;
+            this.labelInstructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelInstructions.Location = new System.Drawing.Point(64, 163);
+            this.labelInstructions.Name = "labelInstructions";
+            this.labelInstructions.Size = new System.Drawing.Size(874, 168);
+            this.labelInstructions.TabIndex = 1;
+            this.labelInstructions.Text = "Welcome to the level editor!\r\nClick the first icon to load a level file (.txt)\r\nC" +
+    "lick the third icon to generate a new level.\r\nThe middle icon is to save, but yo" +
+    "u can\'t do that yet.";
             // 
             // LevelViewer
             // 
@@ -87,10 +100,12 @@
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1023, 609);
+            this.Controls.Add(this.labelInstructions);
             this.Controls.Add(this.toolbarMain);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LevelViewer";
             this.Text = "Level Editor";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.toolbarMain.ResumeLayout(false);
             this.toolbarMain.PerformLayout();
             this.ResumeLayout(false);
@@ -104,6 +119,7 @@
         private System.Windows.Forms.ToolStripButton buttonSave;
         private System.Windows.Forms.ToolStripButton buttonGenerate;
         private System.Windows.Forms.ToolStripButton Load;
+        private System.Windows.Forms.Label labelInstructions;
     }
 }
 
