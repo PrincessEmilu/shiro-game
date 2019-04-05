@@ -34,7 +34,7 @@ namespace Shiro
         
         Texture2D background;
         Texture2D testTileset;
-        Texture2D testCat;
+        Texture2D shiroIdle;
         Texture2D enemyCat;
         Texture2D hitbox;
 
@@ -154,7 +154,7 @@ namespace Shiro
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             testTileset = Content.Load<Texture2D>("testTileset");
-            testCat = Content.Load<Texture2D>("cat");
+            shiroIdle = Content.Load<Texture2D>("idle_sprite_fix");
             enemyCat = Content.Load<Texture2D>("enemy cat");
             background = Content.Load<Texture2D>("cat");
 
@@ -201,7 +201,7 @@ namespace Shiro
 
             pos = new Rectangle(200, 200, 50, 50);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
-            player = new Player(testCat, pos, width, height, camera, boundBox, boundBoxPos);
+            player = new Player(shiroIdle, pos, width, height, camera, boundBox, boundBoxPos);
 
             door = new CollisionItem(doorTexture, 400, 400, player);
         }
