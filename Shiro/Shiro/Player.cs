@@ -29,7 +29,12 @@ namespace Shiro
         //Property for the amount of stamina and previous position  
         public int Stamina { get; set; }
 
-        public Rectangle PrevPos { get; set; }        
+        public Rectangle PrevPos { get; set; } 
+        
+        public Rectangle Pos
+        {
+            set { position = value; }
+        }
 
         public Rectangle BoxPrevPos { get; set; }
 
