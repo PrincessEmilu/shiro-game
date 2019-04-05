@@ -362,10 +362,12 @@ namespace Shiro
                     //player
                     sb.Draw(healthBoxTexture, new Rectangle(45, 95, 210, 60), Color.Black);
                     sb.Draw(healthBoxTexture, new Rectangle(50, 100, 200, 50), Color.Red);
-                    sb.Draw(healthBoxTexture, new Rectangle(50, 100, player.Stamina *2, 50), Color.Green);
+                    sb.Draw(healthBoxTexture, new Vector2((float)50, (float)100), new Rectangle(50, 100, player.Stamina * 2, 50), Color.Green);
+
+
 
                     //Draws the attacks and any effects needed
-                    foreach(AttackKey key in listKeys)
+                    foreach (AttackKey key in listKeys)
                     {
                         key.Draw(sb);
                     }
