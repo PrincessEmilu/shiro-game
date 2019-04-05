@@ -54,7 +54,7 @@ namespace Shiro
             // More Animation Variables that Exist to be changed later
             fps = 10.0;                     // Will cycle through 10 walk frames per second
             timePerFrame = 1.0 / fps;       // Time per frame = amount of time in a single walk image
-
+            
         }
 
         public override void Update(GameTime gameTime)
