@@ -312,6 +312,7 @@ namespace Shiro
                     {
                         RanAway = true;
                         player.Position = player.PrevPos;
+                        enemy.Active = false;
                     }
                     break;
             }
