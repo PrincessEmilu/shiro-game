@@ -29,7 +29,7 @@ namespace Shiro
         protected int enemyRng;
         protected bool top;
         protected bool right;
-
+        
         //Properties
         public bool Active { get; set; }
         public bool InBattle { get; set; }
@@ -61,6 +61,7 @@ namespace Shiro
             
             top = true;
             right = true;
+
         }
 
         public Enemy(Texture2D texture, Rectangle position, int width, int height, int enemyRng, int distance, String patternFileName) : base(texture, position)
@@ -86,6 +87,7 @@ namespace Shiro
 
             top = true;
             right = true;
+
         }
 
         //Overridden Update method, puts all of the player's update code into one place to be called once

@@ -34,7 +34,7 @@ namespace Shiro
         
         Texture2D background;
         Texture2D testTileset;
-        Texture2D shiroIdle;
+        Texture2D testCat;
         Texture2D enemyCat;
         Texture2D hitbox;
 
@@ -106,6 +106,11 @@ namespace Shiro
         CollisionItem door;
         Texture2D doorTexture;
 
+        bool drawEnemiesOnce = true;
+
+        Rectangle pos;
+        Vector2 prevCamera;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -149,7 +154,7 @@ namespace Shiro
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             testTileset = Content.Load<Texture2D>("testTileset");
-            shiroIdle = Content.Load<Texture2D>("idle_sprite_fix");
+            testCat = Content.Load<Texture2D>("cat");
             enemyCat = Content.Load<Texture2D>("enemy cat");
             background = Content.Load<Texture2D>("cat");
 
@@ -181,29 +186,22 @@ namespace Shiro
             height = graphics.GraphicsDevice.Viewport.Height;
             
 
-            camera = new Camera(graphics.GraphicsDevice.Viewport, 1500, 1500, 1);
+            camera = new Camera(graphics.GraphicsDevice.Viewport, 1600, 1600, 1);
 
            /* float camWidth = camera.Pos.X / 2;
             width = (int)camWidth;
             float camHeight = camera.Pos.X / 2;
             height = (int)camHeight;
             */
-            Rectangle pos = new Rectangle(200, 200, 50, 50);
-            Rectangle pos2 = new Rectangle(250, 100, 50, 50);
-
-            boundBoxPos = new Rectangle(50, 50, 600, 600);
-
-            player = new Player(shiroIdle, pos, width, height, camera, boundBox, boundBoxPos);
+            
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
             //graphics.GraphicsDevice.Viewport = new Viewport(0, 0, width, height);
 
-
-            //Enemies eventually loaded elsewhere
-            listEnemies.Add(new Enemy(enemyCat, pos2, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-            listEnemies.Add(new Enemy(enemyCat, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-            listEnemies.Add(new Enemy(enemyCat, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            pos = new Rectangle(200, 200, 50, 50);
+            boundBoxPos = new Rectangle(50, 50, 600, 600);
+            player = new Player(testCat, pos, width, height, camera, boundBox, boundBoxPos);
 
             door = new CollisionItem(doorTexture, 400, 400, player);
         }
@@ -290,6 +288,8 @@ namespace Shiro
                         {
                             case 1:
                                 state = GameState.Level;
+                                drawEnemiesOnce = true;
+                                listEnemies.Clear();
                                 currentLevel = new Level(1, testTileset, doorTexture, player);
                                 break;
                             case 2:
@@ -317,6 +317,21 @@ namespace Shiro
                     player.Update(gameTime);
                     door.Update(gameTime, false);
 
+                    //Resets enemies and player back to starting point if user exits to main menu and restarts the game
+                    if(drawEnemiesOnce)
+                    {
+                        //Enemies eventually loaded elsewhere
+                        listEnemies.Add(new Enemy(enemyCat, new Rectangle(250, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyCat, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyCat, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+
+                        player.Pos = pos;
+
+                        camera.Pos = new Vector2(0, 0);
+
+                        drawEnemiesOnce = false;
+                    }
+
                     Vector2 movement = Vector2.Zero;
 
                     if (kbState.IsKeyDown(Keys.Up))
@@ -340,6 +355,7 @@ namespace Shiro
                         player.BoundBoxX += 5;
                     }
                     camera.Pos += movement * 5;
+                    prevCamera = camera.Pos;
                     
                     foreach (Enemy e in listEnemies)
                     {
@@ -356,7 +372,7 @@ namespace Shiro
                                 state = GameState.Battle;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, player, e);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e);
                             }
                         }
                     }
@@ -423,7 +439,10 @@ namespace Shiro
                         switch (arrowPosition)
                         {
                             case 1:
-                                state = GameState.Level;
+                                if (previousState == GameState.Level)
+                                    state = GameState.Level;
+                                else
+                                    state = GameState.Battle;
                                 break;
                             case 2:
                                 state = GameState.MainMenu;
@@ -474,6 +493,13 @@ namespace Shiro
                     {
                         state = GameState.GameOver;
                         arrowPosition = 1;  //Make sure the initial position is one
+                    }
+
+                    if (currentBattle.RanAway)
+                    {
+                        boundBoxPos = player.BoxPrevPos;
+                        //Need to add Penalty Logic
+                        state = GameState.Level;
                     }
 
                     break;
@@ -600,6 +626,7 @@ namespace Shiro
                     spriteBatch.Draw(instructionsBackground, new Vector2(0, 0), Color.White);
                     break;
                 case GameState.Level:
+                    camera.Pos = prevCamera;
                     currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
                     door.Draw(spriteBatch, false);

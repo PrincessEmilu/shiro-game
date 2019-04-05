@@ -31,7 +31,12 @@ namespace Shiro
         //Property for the amount of stamina and previous position  
         public int Stamina { get; set; }
 
-        public Rectangle PrevPos { get; set; }        
+        public Rectangle PrevPos { get; set; } 
+        
+        public Rectangle Pos
+        {
+            set { position = value; }
+        }
 
         public Rectangle BoxPrevPos { get; set; }
 
@@ -143,12 +148,12 @@ namespace Shiro
             }
 
             //Prevents bound box from going off screen
-            if (boundBox.Right >= 1500)
+            if (boundBox.Right >= 1600)
             {
                 boundBox.X = 900;
             }
 
-            if (boundBox.Bottom >= 1500)
+            if (boundBox.Bottom >= 1600)
             {
                 boundBox.Y = 900;
             }
