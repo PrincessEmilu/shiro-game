@@ -29,6 +29,7 @@ namespace Shiro
         GameState state;
         GameState previousState;
         int arrowPosition;  //For Menu Systems
+        int keySpeed = 5;
         SpriteFont font;
         KeyboardState pbState;
         
@@ -372,7 +373,7 @@ namespace Shiro
                                 state = GameState.Battle;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, keySpeed);
                             }
                         }
                     }
@@ -487,6 +488,11 @@ namespace Shiro
                         boundBoxPos = player.BoxPrevPos;
                         //Might need to do more logic than this in final version...
                         state = GameState.Level;
+
+                        if (keySpeed > 5)
+                        {
+                            keySpeed--;
+                        }
                     }
 
                     if (currentBattle.GameOver)
@@ -500,6 +506,7 @@ namespace Shiro
                         boundBoxPos = player.BoxPrevPos;
                         //Need to add Penalty Logic
                         state = GameState.Level;
+                        keySpeed++;
                     }
 
                     break;

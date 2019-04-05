@@ -71,7 +71,7 @@ namespace Shiro
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
         //the previous locations of the player and the enemies that were on the level.
         public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D UpArrow, Texture2D DownArrow, Texture2D LeftArrow, Texture2D RightArrow,
-            Texture2D hitboxTexture, Texture2D healthBox, Player player, Enemy enemy)
+            Texture2D hitboxTexture, Texture2D healthBox, Player player, Enemy enemy, int keySpeed)
         {
             //The stars of the show...
             this.player = player;
@@ -86,7 +86,7 @@ namespace Shiro
             timerOriginal = 0;
 
             //Also hardcoded for now, eventually given by enemy?
-            keySpeed = 5;
+            this.keySpeed = keySpeed;
 
             //Positions to draw player and enemy
             player.PrevPos = player.Position;
