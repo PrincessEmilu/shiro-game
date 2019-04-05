@@ -356,9 +356,9 @@ namespace Shiro
                 case BattleState.Fight:
                     //Draws the health bars for the player and enemy
                     //enemy
-                    sb.Draw(healthBoxTexture, new Rectangle(645, 95, 210, 60), Color.Black);
-                    sb.Draw(healthBoxTexture, new Rectangle(650, 100, 200, 50), Color.Red);
-                    sb.Draw(healthBoxTexture, new Rectangle(650, 100, enemy.Stamina*2, 50), Color.Green);
+                    sb.Draw(healthBoxTexture, new Vector2((float)645, (float)103), new Rectangle(650, 90, 210, 50), Color.Black);
+                    sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(650, 90, 200, 45), Color.Red);
+                    sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, enemy.Stamina*2, 45), Color.Green);
                     //player
                     sb.Draw(healthBoxTexture, new Vector2((float)41, (float)103), new Rectangle(40, 90, 205, 50), Color.Black);
                     sb.Draw(healthBoxTexture, new Vector2((float)40, (float)105), new Rectangle(40, 90, 200, 45), Color.Red);
