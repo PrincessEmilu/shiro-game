@@ -476,6 +476,13 @@ namespace Shiro
                         arrowPosition = 1;  //Make sure the initial position is one
                     }
 
+                    if (currentBattle.RanAway)
+                    {
+                        boundBoxPos = player.BoxPrevPos;
+                        //Need to add Penalty Logic
+                        state = GameState.Level;
+                    }
+
                     break;
 
                 case GameState.GameOver:
