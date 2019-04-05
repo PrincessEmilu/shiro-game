@@ -36,6 +36,7 @@ namespace Shiro
         Texture2D background;
         Texture2D testTileset;
         Texture2D shiroIdle;
+        Texture2D shiroWalk;
         Texture2D enemyCat;
         Texture2D hitbox;
 
@@ -156,6 +157,7 @@ namespace Shiro
 
             testTileset = Content.Load<Texture2D>("testTileset");
             shiroIdle = Content.Load<Texture2D>("idle_sprite_fix");
+            shiroWalk = Content.Load<Texture2D>("walk_sprite_fix");
             enemyCat = Content.Load<Texture2D>("enemy cat");
             background = Content.Load<Texture2D>("cat");
 
@@ -202,7 +204,7 @@ namespace Shiro
 
             pos = new Rectangle(200, 200, 50, 50);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
-            player = new Player(shiroIdle, pos, width, height, camera, boundBox, boundBoxPos);
+            player = new Player(shiroIdle, shiroWalk, pos, width, height, camera, boundBox, boundBoxPos);
 
             door = new CollisionItem(doorTexture, 400, 400, player);
         }
@@ -314,7 +316,6 @@ namespace Shiro
                 case GameState.Level:
                     //Updated entities
 
-
                     player.Update(gameTime);
                     door.Update(gameTime, false);
 
@@ -333,6 +334,7 @@ namespace Shiro
                         drawEnemiesOnce = false;
                     }
 
+                    //Player movement and states
                     Vector2 movement = Vector2.Zero;
 
                     if (kbState.IsKeyDown(Keys.Up))
@@ -355,6 +357,52 @@ namespace Shiro
                         movement.X++;
                         player.BoundBoxX += 5;
                     }
+
+                    //Changes player state to the corect animations
+                    switch (player.CurrentState)
+                    {
+                        case PlayerState.FaceLeft:
+                            if (kbState.IsKeyDown(Keys.Left) || kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down))
+                            {
+                                player.CurrentState = PlayerState.WalkLeft;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Right))
+                            {
+                                player.CurrentState = PlayerState.FaceRight;
+                            }
+                            break;
+                        case PlayerState.FaceRight:
+                            if (kbState.IsKeyDown(Keys.Right) || kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down))
+                            {
+                                player.CurrentState = PlayerState.WalkRight;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Left))
+                            {
+                                player.CurrentState = PlayerState.FaceLeft;
+                            }
+                            break;
+                        case PlayerState.WalkLeft:
+                            if (kbState.IsKeyDown(Keys.Right))
+                            {
+                                player.CurrentState = PlayerState.FaceLeft;
+                            }
+                            else if (!kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Up) && !kbState.IsKeyDown(Keys.Down))
+                            {
+                                player.CurrentState = PlayerState.FaceLeft;
+                            }
+                            break;
+                        case PlayerState.WalkRight:
+                            if (kbState.IsKeyDown(Keys.Left))
+                            {
+                                player.CurrentState = PlayerState.FaceLeft;
+                            }
+                            else if (!kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Up) && !kbState.IsKeyDown(Keys.Down))
+                            {
+                                player.CurrentState = PlayerState.FaceRight;
+                            }
+                            break;
+                    }
+
                     camera.Pos += movement * 5;
                     prevCamera = camera.Pos;
                     
@@ -370,7 +418,9 @@ namespace Shiro
                             {
                                 player.BoxPrevPos = boundBoxPos;
 
+                                //Change game state and player state
                                 state = GameState.Battle;
+                                player.CurrentState = PlayerState.FaceRight;
 
                                 //Create a new battle object with player and enemy collided\
                                 currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, keySpeed);

@@ -10,6 +10,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Shiro
 {
+    //Playerstate
+    enum PlayerState
+    {
+        FaceLeft,
+        FaceRight,
+        WalkLeft,
+        WalkRight
+    }
     class Player : GameObject
     {
         //Fields        
@@ -27,6 +35,7 @@ namespace Shiro
         public Rectangle boundBox;
 
         Texture2D box;
+        Texture2D walkTexture;
 
         //Property for the amount of stamina and previous position  
         public int Stamina { get; set; }
@@ -64,10 +73,16 @@ namespace Shiro
             position.Y = windowHeight / 2;
         }
 
-        public Player(Texture2D texture, Rectangle position, int width, int height, Camera camera, Texture2D box, Rectangle boundBox) : base(texture, position)
+        //Current game state
+        public PlayerState CurrentState { get; set; }
+
+        public Player(Texture2D texture, Texture2D walkTexture, Rectangle position, int width, int height, Camera camera, Texture2D box, Rectangle boundBox) : base(texture, position)
         {
+            CurrentState = PlayerState.FaceLeft;
+
             frame = 0;
             Stamina = 100;
+            this.walkTexture = walkTexture;
             windowWidth = width;
             windowHeight = height;
             PrevPos = position;
@@ -182,13 +197,54 @@ namespace Shiro
             int yDrawOffest = frame / 7 * (frameHeight + 10);
 
             frame += 1;
+
             if (frame == 60) { frame = 0; }
 
-            sb.Draw(
-                texture,
-                new Rectangle(position.X, position.Y, 180, 148),
-                new Rectangle(xDrawOffset, yDrawOffest, 570, 440),
-                Color.White);            
+
+            //Draw different sprite based on state
+            switch (CurrentState)
+            {
+                case PlayerState.FaceRight:
+                    //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
+                    sb.Draw(
+                        texture,                                                //Texture to draw
+                        new Rectangle(position.X, position.Y, 180, 148),        //Rectangle to draw to
+                        new Rectangle(xDrawOffset, yDrawOffest, 570, 440),      //Source rectangle to draw from file
+                        Color.White,                                            //Blend color
+                        0f,                                                     //Rotation
+                        new Vector2(0,0),                                       //Origin
+                        SpriteEffects.FlipHorizontally,                         //Sprite Effects
+                        0f                                                      //Layer to draw on
+                        );
+                    break;
+                case PlayerState.FaceLeft:
+                    sb.Draw(
+                        texture,                                                //Texture to draw
+                        new Rectangle(position.X, position.Y, 180, 148),        //Rectangle to draw to
+                        new Rectangle(xDrawOffset, yDrawOffest, 570, 440),      //Source rectangle to draw from file
+                        Color.White);                                           //Blend color
+                    break;
+                case PlayerState.WalkRight:
+                    sb.Draw(
+                        walkTexture,
+                        new Rectangle(position.X, position.Y, 180, 148),
+                        new Rectangle(xDrawOffset, yDrawOffest, 570, 440),
+                        Color.White,
+                        0f,
+                        new Vector2(0, 0),
+                        SpriteEffects.FlipHorizontally,
+                        0f
+                        );
+                    break;
+                case PlayerState.WalkLeft:
+                    sb.Draw(
+                        walkTexture,
+                        new Rectangle(position.X, position.Y, 180, 148),
+                        new Rectangle(xDrawOffset, yDrawOffest, 570, 440),
+                        Color.White);
+                    break;
+            }
+         
         }        
     }
 }
