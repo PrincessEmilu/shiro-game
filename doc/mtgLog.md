@@ -14,8 +14,11 @@
 - *03/06/19* (All members present) : Discussed issues and tweaks to work on. We each worked together on tricky coding problems then broke into groups for individual tasks. Project is looking good.
 
 ## Milestone 3
-- *Date* (# team members present): topics discussed
-- ...
+- *03/06/19* (All members present, no class) : Implemented a better camera system that stays inside a set box; The character doesn't stay centered to the camera. Added images to the menu screens, and finished up the sketches of our enemy characters.
+- *03/15/19* SPRING BREAK
+- *03/22/19* (All members present) : Added boundries to the game screen so the character doesn't go outside of it. Camera currently broken on following the character. Fixed up the Level Editor as well to correctly pull up a saved file. Finished working on our boss main character and his sprite sheet.
+- *03/29/19* (All members present) : Fixed up the camera so it follows the player and imported a generic tileset from the Level Editor as a test. Also added images for arrow keys, background, bar and hit box textures to our battle state.
+- *04/05/19* (All members present) : Worked on adding health bars to the battle screen, implementing our player spritesheet to animate and finishing tileset. Finished up the spirte sheet for our enemy and uploaded both the boss + enemy since we forgot to upload the spirte sheet export last time.
 
 ## Milestone 4
 - *Date* (# team members present): topics discussed
