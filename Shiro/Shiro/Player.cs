@@ -36,6 +36,12 @@ namespace Shiro
             set { position = value; }
         }
 
+        public int PosX
+        {
+            get { return position.X; }
+            set { position.X = value; }
+        }
+
         public Rectangle BoxPrevPos { get; set; }
 
         public int BoundBoxY

@@ -53,6 +53,7 @@ namespace Shiro
         //ImportAttackPatterns tester = new ImportAttackPatterns("ratAttackOne.txt");
 
         List<Enemy> listEnemies;
+        List<Rectangle> enemyPositions;
 
         public Random rng;
 
@@ -109,6 +110,10 @@ namespace Shiro
         bool drawEnemiesOnce = true;
 
         Rectangle pos;
+        Rectangle ePos1;
+        Rectangle ePos2;
+        Rectangle ePos3;
+
         Vector2 prevCamera;
 
         public Game1()
@@ -127,6 +132,7 @@ namespace Shiro
         protected override void Initialize()
         {
             listEnemies = new List<Enemy>();
+            enemyPositions = new List<Rectangle>();
             rng = new Random();
 
             //Start at the Title Screen
@@ -188,18 +194,11 @@ namespace Shiro
 
             camera = new Camera(graphics.GraphicsDevice.Viewport, 1600, 1600, 1);
 
-           /* float camWidth = camera.Pos.X / 2;
-            width = (int)camWidth;
-            float camHeight = camera.Pos.X / 2;
-            height = (int)camHeight;
-            */
-            
-
-            //Viewport Object
-            viewport = new Viewport(0, 0, width, height);
-            //graphics.GraphicsDevice.Viewport = new Viewport(0, 0, width, height);
-
             pos = new Rectangle(200, 200, 50, 50);
+            ePos1 = new Rectangle(250, 100, 50, 50);
+            ePos2 = new Rectangle(300, 100, 50, 50);
+            ePos3 = new Rectangle(400, 300, 50, 50);
+
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(testCat, pos, width, height, camera, boundBox, boundBoxPos);
 
@@ -290,6 +289,7 @@ namespace Shiro
                                 state = GameState.Level;
                                 drawEnemiesOnce = true;
                                 listEnemies.Clear();
+                                enemyPositions.Clear();
                                 currentLevel = new Level(1, testTileset, doorTexture, player);
                                 break;
                             case 2:
@@ -321,10 +321,14 @@ namespace Shiro
                     if(drawEnemiesOnce)
                     {
                         //Enemies eventually loaded elsewhere
-                        listEnemies.Add(new Enemy(enemyCat, new Rectangle(250, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyCat, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyCat, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        enemyPositions.Add(ePos1);
+                        enemyPositions.Add(ePos2);
+                        enemyPositions.Add(ePos3);
 
+                        listEnemies.Add(new Enemy(enemyCat, enemyPositions[0], width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyCat, enemyPositions[1], width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyCat, enemyPositions[2], width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        
                         player.Pos = pos;
 
                         camera.Pos = new Vector2(0, 0);
@@ -498,7 +502,7 @@ namespace Shiro
                     if (currentBattle.RanAway)
                     {
                         boundBoxPos = player.BoxPrevPos;
-                        //Need to add Penalty Logic
+                        //Need to add Penalty Logic                        
                         state = GameState.Level;
                     }
 

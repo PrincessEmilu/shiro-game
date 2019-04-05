@@ -38,6 +38,20 @@ namespace Shiro
             get { return patternFileName; }
         }
 
+        public Rectangle Pos
+        {
+            set { position = value; }
+        }
+
+        public int EnemyMovNum
+        {
+            get { return enemyRng; }
+            set
+            {
+                enemyRng = value;
+            }
+        }
+
         public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng, string patternFileName) : base(texture, position) //random movement
         {
             //this constructor is for random movement type at a set distance of 100
@@ -93,7 +107,7 @@ namespace Shiro
         //Overridden Update method, puts all of the player's update code into one place to be called once
         public override void Update(GameTime gameTime)
         {
-            //Turns off if stamins = 0
+            //Turns off if stamina = 0
             if (Stamina <= 0)
             {
                 Active = false;
