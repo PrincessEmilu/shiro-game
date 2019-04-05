@@ -24,6 +24,7 @@ namespace Shiro
         //Assets
         Texture2D backgroundImage;
         Texture2D tilesetImage;
+        Texture2D doorTexture;
 
         //Sizing/positioning
         int levelWidth;
@@ -38,14 +39,19 @@ namespace Shiro
         Point playerSpawnA;
         Point playerSpawnB;
 
-        public Level(int levelNumber, Texture2D tileset)
+        //Player object needed for collidable objects
+        Player player;
+
+        public Level(int levelNumber, Texture2D tileset, Texture2D doorTexture, Player player)
         {
             //Init variables
             collisionList = new List<CollisionItem>();
 
             tilesetImage = tileset;
+            this.doorTexture = doorTexture;
 
             this.levelNumber = levelNumber;
+            this.player = player;
 
             //Base filename...
             fileName = "level" + levelNumber + ".txt";
@@ -66,6 +72,7 @@ namespace Shiro
             //Reads in level dimensions and creates array in correct size
             levelWidth = int.Parse(input.ReadLine());
             levelHeight = int.Parse(input.ReadLine());
+            tileSize = int.Parse(input.ReadLine());
 
             mapTiles = new int[levelWidth, levelHeight];
 
@@ -98,6 +105,7 @@ namespace Shiro
                     //Conceptually, this section of code should add a new collision item to the list of collision items,
                     //specifiying its position (and maybe eventually, other properites)
                     //However, I have class in nine minutes and will have to work on this later
+                    collisionList.Add(new CollisionItem(doorTexture, tileSize * i, tileSize * j, player));
                     
                 }
             }
@@ -134,6 +142,14 @@ namespace Shiro
                         Color.White); //Blend
                 }
             }
+
+            /*
+            //Draw every collidable object
+            foreach(CollisionItem collisionItem in collisionList)
+            {
+                collisionItem.Draw(spriteBatch, false);
+            }
+            */
         }
     }
 }

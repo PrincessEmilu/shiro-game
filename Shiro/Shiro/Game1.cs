@@ -130,7 +130,7 @@ namespace Shiro
             //More Debug Stuff
             graphics.PreferredBackBufferWidth = 1300;
             graphics.PreferredBackBufferHeight = 720;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             //Initialize Scale for Battle Class
@@ -290,7 +290,7 @@ namespace Shiro
                         {
                             case 1:
                                 state = GameState.Level;
-                                currentLevel = new Level(1, testTileset);
+                                currentLevel = new Level(1, testTileset, doorTexture, player);
                                 break;
                             case 2:
                                 state = GameState.Instructions;
@@ -604,13 +604,12 @@ namespace Shiro
                     player.Draw(spriteBatch);
                     door.Draw(spriteBatch, false);
 
-                    
-
                     foreach (Enemy e in listEnemies)
                     {
                         e.Draw(spriteBatch);
                     }
                     break;
+
                 case GameState.PauseMenu:
                     camera.Pos = new Vector2(0, 0);
                     spriteBatch.Draw(pauseBackground, new Vector2(0, 0), Color.White);

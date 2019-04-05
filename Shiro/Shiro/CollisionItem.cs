@@ -28,6 +28,16 @@ namespace Shiro
             collisionBox = new Rectangle(xPos, yPos, texture.Width, texture.Height);
         }
 
+        //any collsion, no drawing
+        public CollisionItem( int xPos, int yPos, GameObject objToCollide)
+        {
+            this.xPos = xPos;
+            this.yPos = yPos;
+            this.objToCollide = objToCollide;
+
+            collisionBox = new Rectangle(xPos, yPos, texture.Width, texture.Height);
+        }
+
         //collision is a door
         public CollisionItem(Texture2D texture, int xPos, int yPos, GameObject objToCollide, Level levelNext, int xPosInNewLevel, int yPosInNewLevel)
         {
@@ -68,20 +78,24 @@ namespace Shiro
 
         public void Draw(SpriteBatch sb, bool isDoor)
         {
-            //if true and not a door
-            if (CheckCollision(objToCollide) && !isDoor)
+            //Only tries to draw if there is a texture
+            if (texture != null)
             {
-                sb.Draw(texture, collisionBox, Color.Red);
-            }
-            //if true but is a door
-            else if (isDoor)
-            {
-                sb.Draw(texture, collisionBox, Color.Green);
-            }
-            //draw it normally at it's rectangle position
-            else
-            {
-                sb.Draw(texture, collisionBox, Color.White);
+                //if true and not a door
+                if (CheckCollision(objToCollide) && !isDoor)
+                {
+                    sb.Draw(texture, collisionBox, Color.Red);
+                }
+                //if true but is a door
+                else if (isDoor)
+                {
+                    sb.Draw(texture, collisionBox, Color.Green);
+                }
+                //draw it normally at it's rectangle position
+                else
+                {
+                    sb.Draw(texture, collisionBox, Color.White);
+                }
             }
         }
     }
