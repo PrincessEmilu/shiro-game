@@ -36,6 +36,7 @@ namespace Shiro
         protected Texture2D LeftArrow;
         protected Texture2D RightArrow;
         protected Texture2D hitboxTexture;
+        protected Texture2D healthBoxTexture;
         
         //Keyboard
         protected KeyboardState kbState;
@@ -66,7 +67,7 @@ namespace Shiro
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
         //the previous locations of the player and the enemies that were on the level.
         public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D UpArrow, Texture2D DownArrow, Texture2D LeftArrow, Texture2D RightArrow,
-            Texture2D hitboxTexture, Player player, Enemy enemy)
+            Texture2D hitboxTexture, Texture2D healthBox, Player player, Enemy enemy)
         {
             //The stars of the show...
             this.player = player;
@@ -122,6 +123,9 @@ namespace Shiro
             //Hitbox for blocking enemy attacks- it is actually just a rectangle
             hitbox = new Rectangle(100, 350, 100, 100);
             this.hitboxTexture = hitboxTexture;
+
+            //Rectangle for drawing
+            healthBoxTexture = healthBox;
 
             //Graphical stuff for the battle
             this.font = font;
@@ -267,6 +271,16 @@ namespace Shiro
                     break;
 
                 case BattleState.Fight:
+                    //Draws the health bars for the player and enemy
+                    //enemy
+                    sb.Draw(healthBoxTexture, new Rectangle(645, 95, 210, 60), Color.Black);
+                    sb.Draw(healthBoxTexture, new Rectangle(650, 100, 200, 50), Color.Red);
+                    sb.Draw(healthBoxTexture, new Rectangle(650, 100, enemy.Stamina*2, 50), Color.Green);
+                    //player
+                    sb.Draw(healthBoxTexture, new Rectangle(45, 95, 210, 60), Color.Black);
+                    sb.Draw(healthBoxTexture, new Rectangle(50, 100, 200, 50), Color.Red);
+                    sb.Draw(healthBoxTexture, new Rectangle(50, 100, player.Stamina *2, 50), Color.Green);
+
                     //Draws the attacks and any effects needed
                     foreach(AttackKey key in listKeys)
                     {
