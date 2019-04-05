@@ -104,14 +104,13 @@ namespace Shiro
                 {
                     //Conceptually, this section of code should add a new collision item to the list of collision items,
                     //specifiying its position (and maybe eventually, other properites)
-                    //However, I have class in nine minutes and will have to work on this later
-                    collisionList.Add(new CollisionItem(doorTexture, tileSize * i, tileSize * j, player));
+                    if (bool.Parse(splitLine[i]))
+                    {
+                        collisionList.Add(new CollisionItem(doorTexture, tileSize * i, tileSize * j, player));
+                    }
                     
                 }
             }
-
-            //TODO: tileSize needs to be loaded from file
-            tileSize = 80;
 
             //Calculates tiles per row for drawing the correct section of hte sprite sheet
             tilesPerRow = tilesetImage.Width / tileSize;
@@ -123,8 +122,14 @@ namespace Shiro
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            //Draw every collidable object
+            foreach (CollisionItem collisionItem in collisionList)
+            {
+                collisionItem.Draw(spriteBatch, false);
+            }
+
             //Draws every tile in the array
-            for(int j = 0; j < levelHeight; j++)
+            for (int j = 0; j < levelHeight; j++)
             {
                 for(int i = 0; i < levelWidth; i++)
                 {
@@ -142,14 +147,6 @@ namespace Shiro
                         Color.White); //Blend
                 }
             }
-
-            /*
-            //Draw every collidable object
-            foreach(CollisionItem collisionItem in collisionList)
-            {
-                collisionItem.Draw(spriteBatch, false);
-            }
-            */
         }
     }
 }
