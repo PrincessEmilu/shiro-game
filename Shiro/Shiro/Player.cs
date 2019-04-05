@@ -20,6 +20,8 @@ namespace Shiro
         private bool rightBounding;
         private bool leftBounding;
 
+        private int frame;
+
         public Camera camera;
 
         public Rectangle boundBox;
@@ -63,7 +65,8 @@ namespace Shiro
         }
 
         public Player(Texture2D texture, Rectangle position, int width, int height, Camera camera, Texture2D box, Rectangle boundBox) : base(texture, position)
-        {            
+        {
+            frame = 0;
             Stamina = 100;
             windowWidth = width;
             windowHeight = height;
@@ -169,8 +172,23 @@ namespace Shiro
 
         public override void Draw(SpriteBatch sb)
         {
-            //sb.Draw(box, boundBox, Color.Green);
-            sb.Draw(texture, position, Color.White);            
+
+            //Increase the frame, which will animate the player.
+            int frameWidth = 550;
+            int frameHeight = 400;
+
+            //Calculates x/y offset to draw based on current frame and the tiles per row
+            int xDrawOffset = frame % 7 * (frameWidth + 10);//frame % 7 * frameWidth;
+            int yDrawOffest = frame / 7 * (frameHeight + 10);
+
+            frame += 1;
+            if (frame == 60) { frame = 0; }
+
+            sb.Draw(
+                texture,
+                new Rectangle(position.X, position.Y, 180, 148),
+                new Rectangle(xDrawOffset, yDrawOffest, 570, 440),
+                Color.White);            
         }        
     }
 }
