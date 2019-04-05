@@ -15,7 +15,8 @@ namespace Shiro
             Idle,
             Fight,
             Victory,
-            Death
+            Death,
+            RanAway
         }
 
     class Battle
@@ -24,6 +25,8 @@ namespace Shiro
         protected int timer;
         protected int attackTick;
         protected int keySpeed;
+        protected int arrowPosition;
+        protected int timerOriginal; //To help measure the time passed
 
         //References to player and enemy in battle
         protected Player player;
@@ -62,6 +65,7 @@ namespace Shiro
         //Properties that Game1 can check to know how to handle the current battle when it ends.
         public bool Victory { get; private set; }
         public bool GameOver { get; private set; }
+        public bool RanAway{ get;  private set; }
 
         //Constructor
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
@@ -78,6 +82,8 @@ namespace Shiro
             //Although here it is a constant, it can be changed with different enemies.
             timer = 0;
             attackTick = 25;
+            arrowPosition = 1;
+            timerOriginal = 0;
 
             //Also hardcoded for now, eventually given by enemy?
             keySpeed = 5;
@@ -136,6 +142,7 @@ namespace Shiro
 
             Victory = false;
             GameOver = false;
+            RanAway = false;
         }
 
         //Methods
@@ -151,9 +158,42 @@ namespace Shiro
                 case BattleState.Idle:
                     //Waits for the player to pick fight or runaway
                     //Player picks fight, change state
-                    if (kbState.IsKeyDown(Keys.F))
+
+                    //Update the arrow position to decide which choice the user in highlighting
+                    if (Helpers.SingleKeyPress(Keys.Up, pbState, kbState))
+                    {
+                        //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
+                        if (arrowPosition == 1)
+                        {
+                            arrowPosition = 2;
+                        }
+                        //Otherwise just move the position up 1
+                        else
+                        {
+                            arrowPosition--;
+                        }
+                    }
+                    else if (Helpers.SingleKeyPress(Keys.Down, pbState, kbState))
+                    {
+                        //If the bottom choice is selcted reset the position to the top choice.
+                        if (arrowPosition == 2)
+                        {
+                            arrowPosition = 1;
+                        }
+                        //Otherwise just move the position down 1
+                        else
+                        {
+                            arrowPosition++;
+                        }
+                    }
+
+                    if (kbState.IsKeyDown(Keys.Enter) && pbState.IsKeyUp(Keys.Enter) && arrowPosition == 1)
                     {
                         battleState = BattleState.Fight;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Enter) && arrowPosition == 2)
+                    {
+                        battleState = BattleState.RanAway;
                     }
                     break;
 
@@ -177,9 +217,24 @@ namespace Shiro
                             //If it is intersecting the hitbox, we check if the player has pressed the appropriate key
                             if (Helpers.SingleKeyPress(firstAttack.KeyType, pbState, kbState))
                             {
-                                //If the player has pressed the key, then enemy stamina is lowered and the key is removed.
+                                //Get the Pressed Keys and save as an array of keys 
+                                Keys[] keys = kbState.GetPressedKeys();
+
+                                //Find which key should be pressed
+                             
+                                //If the player has pressed the correct key, then enemy stamina is lowered otherwise player stamina is lowered.
+                                if (listKeys[0].KeyType == keys[0])
+                                {
+                                    enemy.Stamina -= 10;
+                                }
+                                else
+                                {
+                                    player.Stamina -= 10;
+                                }
+
+                                //Either way remove the key
                                 listKeys.RemoveAt(0);
-                                enemy.Stamina -= 10;
+
                             }
                         }
                     }
@@ -231,6 +286,7 @@ namespace Shiro
                     else if(enemy.Stamina <=0)
                     {
                         battleState = BattleState.Victory;
+                        timerOriginal = timer;
                     }
                     break;
 
@@ -246,9 +302,19 @@ namespace Shiro
                     //What happens when the enemy stamina reaches  0
                     //Eventually, this should take some sort of transition time so the player can get  ready to go back into the game world.
                     //Without it it's all a little disorienting.
-                    if (!Victory)
+                    //int temp = timer - timerOriginal;
+                    timer++;
+                    if (!Victory && (timer - timerOriginal) >= 200)
                     {
                         Victory = true;
+                        player.Position = player.PrevPos;
+                    }
+                    break;
+                case BattleState.RanAway:
+                    //If the player chooses to run away
+                    if (!RanAway)
+                    {
+                        RanAway = true;
                         player.Position = player.PrevPos;
                     }
                     break;
@@ -268,6 +334,23 @@ namespace Shiro
 
                 case BattleState.Idle:
                     //Simply draws the options to fight (or not?) to the player
+                    if (arrowPosition == 1)
+                    {
+                        sb.DrawString(font, "Fight", new Vector2(200, 250), Color.Red);
+                    }
+                    else
+                    {
+                        sb.DrawString(font, "Fight", new Vector2(200, 250), Color.Black);
+                    }
+                    if (arrowPosition == 2)
+                    {
+                        sb.DrawString(font, "Run Away", new Vector2(200, 280), Color.Red);
+                    }
+                    else
+                    {
+                        sb.DrawString(font, "Run Away", new Vector2(200, 280), Color.Black);
+                    }
+
                     break;
 
                 case BattleState.Fight:
@@ -293,6 +376,7 @@ namespace Shiro
                     break;
                 case BattleState.Victory:
                     //Show victory message and transition back to level
+                    sb.DrawString(font, "Victory!", new Vector2(500, 100), Color.Red);
                     break;
 
             }
