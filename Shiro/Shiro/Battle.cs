@@ -158,43 +158,49 @@ namespace Shiro
                 case BattleState.Idle:
                     //Waits for the player to pick fight or runaway
                     //Player picks fight, change state
+                    timerOriginal++;
+                    if (timerOriginal>=10)
+                    {
+                        //Update the arrow position to decide which choice the user in highlighting
+                        if (Helpers.SingleKeyPress(Keys.Up, pbState, kbState))
+                        {
+                            //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
+                            if (arrowPosition == 1)
+                            {
+                                arrowPosition = 2;
+                            }
+                            //Otherwise just move the position up 1
+                            else
+                            {
+                                arrowPosition--;
+                            }
+                        }
+                        else if (Helpers.SingleKeyPress(Keys.Down, pbState, kbState))
+                        {
+                            //If the bottom choice is selcted reset the position to the top choice.
+                            if (arrowPosition == 2)
+                            {
+                                arrowPosition = 1;
+                            }
+                            //Otherwise just move the position down 1
+                            else
+                            {
+                                arrowPosition++;
+                            }
+                        }
 
-                    //Update the arrow position to decide which choice the user in highlighting
-                    if (Helpers.SingleKeyPress(Keys.Up, pbState, kbState))
-                    {
-                        //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
-                        if (arrowPosition == 1)
+                        if (kbState.IsKeyDown(Keys.Enter) && pbState.IsKeyUp(Keys.Enter) && arrowPosition == 1)
                         {
-                            arrowPosition = 2;
+                            battleState = BattleState.Fight;
+                            timerOriginal = 0;
                         }
-                        //Otherwise just move the position up 1
-                        else
+                        else if (kbState.IsKeyDown(Keys.Enter) && arrowPosition == 2)
                         {
-                            arrowPosition--;
+                            battleState = BattleState.RanAway;
+                            timerOriginal = 0;
                         }
                     }
-                    else if (Helpers.SingleKeyPress(Keys.Down, pbState, kbState))
-                    {
-                        //If the bottom choice is selcted reset the position to the top choice.
-                        if (arrowPosition == 2)
-                        {
-                            arrowPosition = 1;
-                        }
-                        //Otherwise just move the position down 1
-                        else
-                        {
-                            arrowPosition++;
-                        }
-                    }
-
-                    if (kbState.IsKeyDown(Keys.Enter) && pbState.IsKeyUp(Keys.Enter) && arrowPosition == 1)
-                    {
-                        battleState = BattleState.Fight;
-                    }
-                    else if (kbState.IsKeyDown(Keys.Enter) && arrowPosition == 2)
-                    {
-                        battleState = BattleState.RanAway;
-                    }
+                    
                     break;
 
                 case BattleState.Fight:
