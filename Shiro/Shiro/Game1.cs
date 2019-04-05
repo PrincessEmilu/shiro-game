@@ -181,7 +181,7 @@ namespace Shiro
             height = graphics.GraphicsDevice.Viewport.Height;
             
 
-            camera = new Camera(graphics.GraphicsDevice.Viewport, 1500, 1500, 1);
+            camera = new Camera(graphics.GraphicsDevice.Viewport, 1600, 1600, 1);
 
            /* float camWidth = camera.Pos.X / 2;
             width = (int)camWidth;
