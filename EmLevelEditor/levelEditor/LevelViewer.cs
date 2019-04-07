@@ -85,7 +85,7 @@ namespace levelEditor
                     mapPanels[i, j].Location = new Point(i * tileSize, j * tileSize + toolbarMain.Height);
                     mapPanels[i, j].Size = new Size(tileSize, tileSize);
                     mapPanels[i, j].BackgroundImage = listTiles[0];
-                    mapPanels[i, j].tileID = 14;
+                    mapPanels[i, j].tileID = 0;
 
                     mapPanels[i, j].MouseClick += new MouseEventHandler(ClickTile);
                     mapPanels[i, j].BorderStyle = BorderStyle.FixedSingle;
@@ -237,7 +237,7 @@ namespace levelEditor
                 //Read header values 
                 int levelWidth = int.Parse(input.ReadLine());
                 int levelHeight = int.Parse(input.ReadLine());
-                int tileSize = int.Parse(input.ReadLine());
+                tileSize = int.Parse(input.ReadLine());
 
                 int[,] tileIDArray = new int[levelWidth, levelHeight];
                 bool[,] collideArray = new bool[levelWidth, levelHeight];
@@ -271,6 +271,8 @@ namespace levelEditor
                         collideArray[i, j] = bool.Parse(splitLine[i]);
                     }
                 }
+
+                input.Close();
 
                 dlg.Dispose();
 
@@ -334,6 +336,11 @@ namespace levelEditor
         }
 
         private void LevelViewer_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LevelViewer_Load_1(object sender, EventArgs e)
         {
 
         }

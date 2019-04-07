@@ -46,7 +46,8 @@
             this.buttonGenerate});
             this.toolbarMain.Location = new System.Drawing.Point(0, 0);
             this.toolbarMain.Name = "toolbarMain";
-            this.toolbarMain.Size = new System.Drawing.Size(1023, 27);
+            this.toolbarMain.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.toolbarMain.Size = new System.Drawing.Size(1534, 27);
             this.toolbarMain.TabIndex = 0;
             this.toolbarMain.Text = "toolbarMain";
             // 
@@ -85,9 +86,10 @@
             // 
             this.labelInstructions.AutoSize = true;
             this.labelInstructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelInstructions.Location = new System.Drawing.Point(64, 163);
+            this.labelInstructions.Location = new System.Drawing.Point(96, 251);
+            this.labelInstructions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInstructions.Name = "labelInstructions";
-            this.labelInstructions.Size = new System.Drawing.Size(874, 168);
+            this.labelInstructions.Size = new System.Drawing.Size(1312, 256);
             this.labelInstructions.TabIndex = 1;
             this.labelInstructions.Text = "Welcome to the level editor!\r\nClick the first icon to load a level file (.txt)\r\nC" +
     "lick the third icon to generate a new level.\r\nThe middle icon is to save, but yo" +
@@ -95,14 +97,13 @@
             // 
             // LevelViewer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1023, 609);
+            this.ClientSize = new System.Drawing.Size(1534, 937);
             this.Controls.Add(this.labelInstructions);
             this.Controls.Add(this.toolbarMain);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LevelViewer";
             this.Text = "Level Editor";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
