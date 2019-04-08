@@ -45,8 +45,8 @@ namespace Shiro
         }
 
         //Constructor
-        public Boss(Texture2D texture, Texture2D walkTexture, Rectangle position, int width, int height, Random rng, String patterneFileName, List<Texture2D> animations) 
-            : base(texture, walkTexture, position, width, height, rng, patterneFileName)
+        public Boss(Texture2D texture, Texture2D walkTexture, int xPositon, int yPosition, int width, int height, Random rng, String patterneFileName, List<Texture2D> animations) 
+            : base(texture, walkTexture, xPositon, yPosition, width, height, rng, patterneFileName)
         {
             this.animations = animations;
             pattern = AttackPattern.Pattern1;

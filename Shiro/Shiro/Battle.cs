@@ -91,8 +91,10 @@ namespace Shiro
             //Positions to draw player and enemy
             player.PrevPos = player.Position;
 
-            player.Position = new Rectangle(100, 200, 100, 100);
-            enemy.Position = new Rectangle(700, 200, 100, 100);
+            player.X = 100;
+            player.Y = 200;
+            enemy.X = 700;
+            enemy.Y = 200;
 
             //listKeys holds the key attack objects. queueAttacks hold the attack pattern from the enemy in battle.
             //For now, it is a hard-coded value.
@@ -106,25 +108,6 @@ namespace Shiro
             {
                 queueAttacks.Enqueue(patternReader.AttackPattern[i]);
             }
-
-            //DEBUG: HARD-CODED ATTACK LIST
-            /*queueAttacks.Enqueue(Keys.Up);
-            queueAttacks.Enqueue(Keys.Up);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.Down);
-            queueAttacks.Enqueue(Keys.Down);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.Left);
-            queueAttacks.Enqueue(Keys.Left);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.Right);
-            queueAttacks.Enqueue(Keys.Right);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.None);*/
-
 
             //Hitbox for blocking enemy attacks- it is actually just a rectangle
             hitbox = new Rectangle(100, 350, 100, 100);
@@ -313,7 +296,8 @@ namespace Shiro
                     if (!Victory && (timer - timerOriginal) >= 200)
                     {
                         Victory = true;
-                        player.Position = player.PrevPos;
+                        player.X = player.PrevPos.X;
+                        player.Y = player.PrevPos.Y;
                     }
                     break;
                 case BattleState.RanAway:
@@ -321,7 +305,8 @@ namespace Shiro
                     if (!RanAway)
                     {
                         RanAway = true;
-                        player.Position = player.PrevPos;
+                        player.X = player.PrevPos.X;
+                        player.Y = player.PrevPos.Y;
                         enemy.Active = false;
                     }
                     break;
@@ -395,10 +380,10 @@ namespace Shiro
             enemy.Draw(sb);
 
             //DEBUG: Draw battle info
-            sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);
-            sb.DrawString(font, "Player Stamina: " + player.Stamina, new Vector2(50, 150), Color.Beige);
-            sb.DrawString(font, "Enemy Stamina: " + enemy.Stamina, new Vector2(50, 200), Color.Beige);
-            sb.DrawString(font, "Elapsed Frames: " + timer, new Vector2(50, 250), Color.Beige);
+            //sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);
+            //sb.DrawString(font, "Player Stamina: " + player.Stamina, new Vector2(50, 150), Color.Beige);
+            //sb.DrawString(font, "Enemy Stamina: " + enemy.Stamina, new Vector2(50, 200), Color.Beige);
+            //sb.DrawString(font, "Elapsed Frames: " + timer, new Vector2(50, 250), Color.Beige);
         }
 
         //Creates a key object
@@ -414,28 +399,32 @@ namespace Shiro
                     case Keys.Up:
                         keyToReturn = new AttackKey(
                             UpArrow,
-                            new Rectangle(1200, 375, UpArrow.Width/10, UpArrow.Height/10),
+                            1200,
+                            375,
                             keyType,
                             keySpeed);
                         break;
                     case Keys.Down:
                         keyToReturn = new AttackKey(
                             DownArrow,
-                            new Rectangle(1200, 375, DownArrow.Width/10, DownArrow.Height/10),
+                            1200,
+                            350,
                             keyType,
                             keySpeed);
                         break;
                     case Keys.Left:
                         keyToReturn = new AttackKey(
                             LeftArrow,
-                            new Rectangle(1200, 350, LeftArrow.Width/10, LeftArrow.Height/10),
+                            1200,
+                            350,
                             keyType,
                             keySpeed);
                         break;
                     case Keys.Right:
                         keyToReturn = new AttackKey(
                             RightArrow,
-                            new Rectangle(1200, 350, RightArrow.Width/10, RightArrow.Height/10),
+                            1200,
+                            375,
                             keyType,
                             keySpeed);
                         break;
