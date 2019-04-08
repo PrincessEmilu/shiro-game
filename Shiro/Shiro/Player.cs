@@ -150,16 +150,18 @@ namespace Shiro
                 position.Y += 5;
 
             }
-
-            if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
+            if (CurrentState != PlayerState.FaceLeft && CurrentState != PlayerState.FaceRight)
             {
-                position.X -= 5;
+                if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
+                {
+                    position.X -= 5;
 
-            }
-            if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
-            {
-                position.X += 5;
+                }
+                if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
+                {
+                    position.X += 5;
 
+                }
             }
 
             //Prevents bound box from going off screen
