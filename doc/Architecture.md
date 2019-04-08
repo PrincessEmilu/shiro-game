@@ -56,6 +56,6 @@ the corresponding arrow key when it is in the hitbox.
 
 Below is a visualization of the other classes that are independent and have no inheritance.
 
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Other_Class_Diagram.png "Other Classes Diagram")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Other_Class_Diagrams.png "Other Classes Diagram")
 
 ## External Tool
