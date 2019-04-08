@@ -58,6 +58,11 @@ We will stick with one font throughout the game to stay consistent.
 ### Sound
 We will most likely get sound effects from an open-source site, such as freesound.org. We may need to employ a similar strategy with music.
 
+### What makes Shiro fun?
+Shiro is an exploration game that is desgined to make the player feel for the cat and become determined to get him home to his family. The battles with rhythm key presses make it fun 
+for the player to stay in a groove to make sure that they are not defeated. Without the rhythm, the player could potentially lose the groove. Shiro is a fun game to explore his world
+and discover how to get him home.
+
 ## Screenshots & Demo Videos
 See the Art document for concept are and screen mock-ups.
 
