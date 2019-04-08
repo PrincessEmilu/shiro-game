@@ -31,13 +31,17 @@ be implemented after getting our main mechanics working.
 ## Task Management
 Our group plans to utilize Trello to maintain deadlines and help with smooth task management and assignments.
 
+### Task Breakdowns
 Trello is being used in a different way now in a much more effective way. Currently, it is now being used in a four section layout. The first section is called "To-Do" where
 important tasks are created that are not done yet and marked with a color that signifies importance (red = most important, lighter colors = less important. The second is called "Doing"
 where the tasks are assigned to certain team members and are in the process of doing. The third is called "Done" where the assigned task member moves their doing task when they 
 finish the task. Here they also change the color to green for done. The last is called "Bugs" for bugs that are found and not fixed right away in something that is finished.
 
-### Task Breakdowns
 Our Trello Board can be located here: https://trello.com/b/n6mIV6kK/shiro-the-game
+
+Here is a screen cap of the board:
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Trello.png "Trello Board")
 
 ## Testing
 At this point, our plans for testing are simply to play the game amongst ourselves and to share it with others. We have yet to determine
