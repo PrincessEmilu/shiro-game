@@ -17,6 +17,8 @@
 # Concept Art - Main Character
 ## Shiro <A>
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Shiro_Concept.png "Shiro Concept Art")
+## Shiro In-Game Art
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/dirt_idle0001.png "Shiro In-Game Art")
 
 # Concept Art - Game Screens
 ## Overworld <A>
@@ -41,11 +43,9 @@
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Trashbag.png "Trash Enemy")
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Trashcan.png "Trash Can Enemy")
 
-## Boss Art <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Salsa.png "Boss Art")
+## Boss Art (Concept and In-Game) <A>
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Salsa.png "Boss Concept Art")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Salsaidle0001.png "Boss Art")
 
-## Battle Arrows <A>
+## Battle Arrow <A>
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Arrow.png "Left Arrow")
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section 2 Team 3/raw/master/doc/Art/RightArrow.png "Right Arrow")
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section 2 Team 3/raw/master/doc/Art/UpArrow.png "Up Arrow")
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section 2 Team 3/raw/master/doc/Art/DownArrow.png "Down Arrow")
