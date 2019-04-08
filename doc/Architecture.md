@@ -39,14 +39,19 @@ Level is designed to load in a tileset from the level editor external tool. Leve
 Camera is designed to handle the movement of the area that the user will be able to see. The postition of the camera is controlled with a vector and changes based on the key presses of the user.
 
 Battle reads the attack keys from the attack key generator external tool. This class also displays the attack keys and moves them across the screen and tests to make sure the user presses the correct key when it is in the drawn hitbox.
+It uses its own Draw method to draw the arrows and hitbox on the screen.
 Battle tests to see if the user has won, lost, or ran away from the battle.
 
-The characters consist of only the player and enemies they interact with and will be handled by their respective classes. The Player class will be similar in structure to the of Homework One with its own Update method and any other methods/variables (stats) the player will have. Enemy will be similar, it will have its own Update method with possible movement methods and its own stats.
+ImportAttackPatterns is a class that reads in the patterns from the attack key generator and allows them to be used in Battle.
 
-The common base classes are the GameObject and World classes because they extend to multiple different children classes.
+Helpers is a class that is designed to hold methods that are used frequently. It currently only has a method called SingleKeyPress which returns whether or not the key was pressed once.
 
-The abstract classes we have, as stated above, are GameObject, World, and Battle.
+CollisionItem creates items that the player can collide with and interact differently depending on what the intended item is. For example, if the item is a door, there will be a different interaction with the player if it was not a door.
 
-Input will be handled in two different ways, the first being the movement which will be put into Player's Update method and will move similarly to that of Homework One. The other type of input will be handled by the Battle class. In a Battle state, the player will have to time key presses at the right time so they can dodge attacks. There will be a method that takes the input from the key presses and tests to see if they were pressed at the right time.
+Input from the user is almost entirely with the arrow keys. On the main menu, the user will use the arrow keys to highlight start or instructions and enter to select either one. Escape can be used to go back and exit the game.
+Once the user is in the game, they can use the arrow keys to move the player around the screen. Escape is used to pause the game. The pause menu works the same way as the main menu does with the arrow keys and enter.
+Escape also works as resume when in the pause menu. When the user moves into collision with an enemy, it switches to battle mode. In battle, the user can either elect to run away or fight using the arrow keys and enter.
+If the user elects to run away they are punished with the attack keys becoming faster for other enemies. If they elect to fight, the arrow keys will be sent across the screen which the user will need to press
+the corresponding arrow key when it is in the hitbox.
 
 ## External Tool
