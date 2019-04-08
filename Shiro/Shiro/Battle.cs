@@ -109,25 +109,6 @@ namespace Shiro
                 queueAttacks.Enqueue(patternReader.AttackPattern[i]);
             }
 
-            //DEBUG: HARD-CODED ATTACK LIST
-            /*queueAttacks.Enqueue(Keys.Up);
-            queueAttacks.Enqueue(Keys.Up);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.Down);
-            queueAttacks.Enqueue(Keys.Down);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.Left);
-            queueAttacks.Enqueue(Keys.Left);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.Right);
-            queueAttacks.Enqueue(Keys.Right);
-            queueAttacks.Enqueue(Keys.None);
-            queueAttacks.Enqueue(Keys.None);*/
-
-
             //Hitbox for blocking enemy attacks- it is actually just a rectangle
             hitbox = new Rectangle(100, 350, 100, 100);
             this.hitboxTexture = hitboxTexture;

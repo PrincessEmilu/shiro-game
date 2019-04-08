@@ -23,6 +23,9 @@ namespace Shiro
         {
             this.speed = speed;
             KeyType = key;
+
+            position.Width /= 10;
+            position.Height /= 10;
         }
 
         public override void Update(GameTime gameTime)
@@ -40,32 +43,6 @@ namespace Shiro
             {
                 return false;
             }
-        }
-
-        public override void Draw(SpriteBatch sb)
-        {
-            /*
-            //DEBUG: draw hitbox
-            sb.Draw(texture, position, Color.Red);
-
-            switch (KeyType)
-            {
-                case Keys.Up:
-                    sb.Draw(texture, position, null, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), SpriteEffects.None, 0.9f);
-                    break;
-                case Keys.Down:
-                    sb.Draw(texture, position, null, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), SpriteEffects.FlipVertically, 1.0f);
-                    break;
-                case Keys.Left:
-                    sb.Draw(texture, position, null, Color.White, (float)(3*Math.PI/2), new Vector2(texture.Width / 2, texture.Height / 2), SpriteEffects.None, 1.0f);
-                    break;
-                case Keys.Right:
-                    sb.Draw(texture, position, null, Color.White, (float)(Math.PI / 2), new Vector2(texture.Width / 2, texture.Height / 2), SpriteEffects.None, 0.9f);
-                    break;
-                default:
-                    break;
-            }
-            */
         }
     }
 }
