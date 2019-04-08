@@ -32,6 +32,15 @@ The inheritance can be visualized with this diagram that also shows each class' 
 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/GameObject_Class_Diagram.png "GameObject Class Diagram")
 
+Other classes that our game utilizes are Level, Camera, Battle, ImportAttackPatterns, Helpers, and CollisionItem.
+
+Level is designed to load in a tileset from the level editor external tool. Level also has its own Draw method that will draw all of the tiles based on how they are selected in the editor.
+
+Camera is designed to handle the movement of the area that the user will be able to see. The postition of the camera is controlled with a vector and changes based on the key presses of the user.
+
+Battle reads the attack keys from the attack key generator external tool. This class also displays the attack keys and moves them across the screen and tests to make sure the user presses the correct key when it is in the drawn hitbox.
+Battle tests to see if the user has won, lost, or ran away from the battle.
+
 The characters consist of only the player and enemies they interact with and will be handled by their respective classes. The Player class will be similar in structure to the of Homework One with its own Update method and any other methods/variables (stats) the player will have. Enemy will be similar, it will have its own Update method with possible movement methods and its own stats.
 
 The common base classes are the GameObject and World classes because they extend to multiple different children classes.

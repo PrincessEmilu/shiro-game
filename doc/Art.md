@@ -33,3 +33,19 @@
 
 ## Rat(s) <A>
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Rat_Concept_Art.jpg "Rats")
+
+## Final Shadow Art <A>
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-section 2 Team 3/raw/master/doc/Art/Shadow.png "Final Shadow")
+
+## Enemy Art <A>
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-section 2 Team 3/raw/master/doc/Art/Trashbag.png "Trash Enemy")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-section 2 Team 3/raw/master/doc/Art/Trashcan.png "Trash Can Enemy")
+
+## Boss Art <A>
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-section 2 Team 3/raw/master/doc/Art/Salsa.png "Boss Art")
+
+## Battle Arrows <A>
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-section 2 Team 3/raw/master/doc/Art/Arrow.png "Left Arrow")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-section 2 Team 3/raw/master/doc/Art/RightArrow.png "Right Arrow")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-section 2 Team 3/raw/master/doc/Art/UpArrow.png "Up Arrow")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-section 2 Team 3/raw/master/doc/Art/DownArrow.png "Down Arrow")
