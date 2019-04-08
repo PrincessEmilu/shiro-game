@@ -44,5 +44,8 @@ Here is a screen cap of the board:
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/trello.PNG "Trello Board")
 
 ## Testing
-At this point, our plans for testing are simply to play the game amongst ourselves and to share it with others. We have yet to determine
-any special test cases or methods that we will need to handle.
+At this point, our plans for testing are simply to play the game amongst ourselves and to share it with others. 
+
+New testing methods include drawing the boxes around the player and enemy temporarily to show where their collisions are happening. There is also a large bounding box around the player
+that he can not leave and it can not leave the screen to add buffer space. We also draw that for testing purposes to see how the bounding is working to make sure the view looks good for the user.
+Drawing these boxes has helped significantly show where some issues have come from.
