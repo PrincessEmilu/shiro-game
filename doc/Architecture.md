@@ -26,7 +26,11 @@ The Battle state machine will 4 states an attack state, an idle state, victory s
 
 ## OO Design
 
-The classes we will be using in our game consist of three abstract classes (GameObject, World, and Battle), their children classes, and the defualt classes created by MonoGame. The first abstract class, GameObject has the children classes of Player and Enemy. World has the children classes City, Forest, and Sewer. Battle has one child class which is Boss. 
+The classes in our game consists of one abstract class called GameObject which has three children, Player, Enemy and AttackKey. GameObject is very basic which has a Draw and Update method along with a Position property.
+Enemy also has a child and that is the Boss class which is very similar to just a regular enemy. Boss is projected to have more uniqueness to it in Milestone 4 when the game is polished.
+The inheritance can be visualized with this diagram that also shows each class' different methods and properties.
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/GameObject_Class_Diagram.png "GameObject Class Diagram")
 
 The characters consist of only the player and enemies they interact with and will be handled by their respective classes. The Player class will be similar in structure to the of Homework One with its own Update method and any other methods/variables (stats) the player will have. Enemy will be similar, it will have its own Update method with possible movement methods and its own stats.
 
