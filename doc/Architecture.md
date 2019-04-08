@@ -76,11 +76,14 @@ the attack pattern you are generating. Once you set your number between one and 
 As you can see in the GIF, while it starts out empty, you can click on the empty slots to set keys which consist of: Up, Down, Left, Right and back to None. Once you are satisfied with the attack keys you have made, the button below can be clicked.
 Once this button is clicked, it will pop up a "Save As.." pop up, which will save the file as whatever name you want as a .TXT file. 
 
+Here is a example output of the file:
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/ExportedTileSheet.png "Output file of the tool")
+
 For our game, we are saving all the text files into this folder:
 https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/tree/master/Shiro/AttackPatterns
 
 This folder is hard coded as the only folder to look in for a file name that is passed into the constructor of a class in our main game called ImportAttackPatterns. What this class does is on creation, it will ask for a file name. If the file exists,
 it will print into the console window that the keys were generated, while grabbing the number of keys from the top of the read file. Then, it will use the readed amount of keys to create an array of that size, as well as split the second read line 
 by each comma into a string array. Finally, for each string inside of the array, it will use the static method ConvertFromString to convert each string to a key based on a switch statement. This new key gets passed into a key array, which finally gets
-passed into the enemy of the same file name if it exists.
+passed into the enemy of the same file name if it exists. 
 
