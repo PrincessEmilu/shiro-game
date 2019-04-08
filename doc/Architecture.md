@@ -87,3 +87,5 @@ it will print into the console window that the keys were generated, while grabbi
 by each comma into a string array. Finally, for each string inside of the array, it will use the static method ConvertFromString to convert each string to a key based on a switch statement. This new key gets passed into a key array, which finally gets
 passed into the enemy of the same file name if it exists. 
 
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/KeyPressGenerator.png "KeyPressGenerator Diagram")
+
