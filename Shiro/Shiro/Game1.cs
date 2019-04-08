@@ -293,7 +293,7 @@ namespace Shiro
                                 state = GameState.Level;
                                 drawEnemiesOnce = true;
                                 listEnemies.Clear();
-                                currentLevel = new Level(1, testTileset, doorTexture, player);
+                                currentLevel = new Level(1, cityTileset, doorTexture, player);
                                 player.CurrentState = PlayerState.FaceRight;
                                 break;
                             case 2:
