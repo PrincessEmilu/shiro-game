@@ -32,12 +32,58 @@ The inheritance can be visualized with this diagram that also shows each class' 
 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/GameObject_Class_Diagram.png "GameObject Class Diagram")
 
-The characters consist of only the player and enemies they interact with and will be handled by their respective classes. The Player class will be similar in structure to the of Homework One with its own Update method and any other methods/variables (stats) the player will have. Enemy will be similar, it will have its own Update method with possible movement methods and its own stats.
+Other classes that our game utilizes are Level, Camera, Battle, ImportAttackPatterns, Helpers, and CollisionItem.
 
-The common base classes are the GameObject and World classes because they extend to multiple different children classes.
+Level is designed to load in a tileset from the level editor external tool. Level also has its own Draw method that will draw all of the tiles based on how they are selected in the editor.
 
-The abstract classes we have, as stated above, are GameObject, World, and Battle.
+Camera is designed to handle the movement of the area that the user will be able to see. The postition of the camera is controlled with a vector and changes based on the key presses of the user.
 
-Input will be handled in two different ways, the first being the movement which will be put into Player's Update method and will move similarly to that of Homework One. The other type of input will be handled by the Battle class. In a Battle state, the player will have to time key presses at the right time so they can dodge attacks. There will be a method that takes the input from the key presses and tests to see if they were pressed at the right time.
+Battle reads the attack keys from the attack key generator external tool. This class also displays the attack keys and moves them across the screen and tests to make sure the user presses the correct key when it is in the drawn hitbox.
+It uses its own Draw method to draw the arrows and hitbox on the screen.
+Battle tests to see if the user has won, lost, or ran away from the battle.
+
+ImportAttackPatterns is a class that reads in the patterns from the attack key generator and allows them to be used in Battle.
+
+Helpers is a class that is designed to hold methods that are used frequently. It currently only has a method called SingleKeyPress which returns whether or not the key was pressed once.
+
+CollisionItem creates items that the player can collide with and interact differently depending on what the intended item is. For example, if the item is a door, there will be a different interaction with the player if it was not a door.
+
+Input from the user is almost entirely with the arrow keys. On the main menu, the user will use the arrow keys to highlight start or instructions and enter to select either one. Escape can be used to go back and exit the game.
+Once the user is in the game, they can use the arrow keys to move the player around the screen. Escape is used to pause the game. The pause menu works the same way as the main menu does with the arrow keys and enter.
+Escape also works as resume when in the pause menu. When the user moves into collision with an enemy, it switches to battle mode. In battle, the user can either elect to run away or fight using the arrow keys and enter.
+If the user elects to run away they are punished with the attack keys becoming faster for other enemies. If they elect to fight, the arrow keys will be sent across the screen which the user will need to press
+the corresponding arrow key when it is in the hitbox.
+
+Below is a visualization of the other classes that are independent and have no inheritance.
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Other_Class_Diagrams.png "Other Classes Diagram")
 
 ## External Tool
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/AttackKeyPopUpStart.PNG "Pop up window for attack key tool")
+
+- The overall intent of the tool (what it does, why that is helpful, etc.)
+- How it works (basic forms/classes)
+- File format
+- Where the files are saved by the tool
+- Where the files need to be copied to in order for your game to use them
+
+One of our external tools is a key attack generator, which is being used to generate all the attack patterns for our boss and enemies. Above, is a picture of what pops up when you run the program; It will ask you for how many keys will be in
+the attack pattern you are generating. Once you set your number between one and four hundred, it will pop up with this screen below which generates the set number of empty key slots you entered:
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/GIFofKeys.gif "GIF of external tool")
+
+As you can see in the GIF, while it starts out empty, you can click on the empty slots to set keys which consist of: Up, Down, Left, Right and back to None. Once you are satisfied with the attack keys you have made, the button below can be clicked.
+Once this button is clicked, it will pop up a "Save As.." pop up, which will save the file as whatever name you want as a .TXT file. 
+
+Here is a example output of the file:
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/ExportedTileSheet.png "Output file of the tool")
+
+For our game, we are saving all the text files into this folder:
+https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/tree/master/Shiro/AttackPatterns
+
+This folder is hard coded as the only folder to look in for a file name that is passed into the constructor of a class in our main game called ImportAttackPatterns. What this class does is on creation, it will ask for a file name. If the file exists,
+it will print into the console window that the keys were generated, while grabbing the number of keys from the top of the read file. Then, it will use the readed amount of keys to create an array of that size, as well as split the second read line 
+by each comma into a string array. Finally, for each string inside of the array, it will use the static method ConvertFromString to convert each string to a key based on a switch statement. This new key gets passed into a key array, which finally gets
+passed into the enemy of the same file name if it exists. 
+

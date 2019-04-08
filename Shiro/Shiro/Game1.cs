@@ -38,6 +38,7 @@ namespace Shiro
         Texture2D shiroIdle;
         Texture2D shiroWalk;
         Texture2D enemyShadowWalkTexture;
+        Texture2D enemyShadowIdleTexture;
         Texture2D hitbox;
 
         private int viewportMoveX;
@@ -159,6 +160,7 @@ namespace Shiro
             shiroIdle = Content.Load<Texture2D>("idle_sprite_fix");
             shiroWalk = Content.Load<Texture2D>("walk_sprite_fix");
             enemyShadowWalkTexture = Content.Load<Texture2D>("EnemyWalkSpriteSheet");
+            enemyShadowIdleTexture = Content.Load<Texture2D>("EnemyIdleSpriteSheet");
 
             boundBox = Content.Load<Texture2D>("rectangle");
 
@@ -201,7 +203,7 @@ namespace Shiro
             viewport = new Viewport(0, 0, width, height);
             //graphics.GraphicsDevice.Viewport = new Viewport(0, 0, width, height);
 
-            pos = new Rectangle(200, 200, 50, 50);
+            pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, pos, width, height, camera, boundBox, boundBoxPos);
 
@@ -322,10 +324,12 @@ namespace Shiro
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
                     if(drawEnemiesOnce)
                     {
+                        /*
                         //Enemies eventually loaded elsewhere
-                        listEnemies.Add(new Enemy(enemyShadowWalkTexture, new Rectangle(250, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowWalkTexture, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowWalkTexture, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, new Rectangle(250, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        */
 
                         player.Pos = pos;
 
@@ -347,15 +351,19 @@ namespace Shiro
                         movement.Y++;
                         player.BoundBoxY += 5;
                     }
-                    if (kbState.IsKeyDown(Keys.Left))
+
+                    if (player.CurrentState != PlayerState.FaceRight && player.CurrentState != PlayerState.FaceLeft)
                     {
-                        movement.X--;
-                        player.BoundBoxX -= 5;
-                    }
-                    if (kbState.IsKeyDown(Keys.Right))
-                    {
-                        movement.X++;
-                        player.BoundBoxX += 5;
+                        if (kbState.IsKeyDown(Keys.Left))
+                        {
+                            movement.X--;
+                            player.BoundBoxX -= 5;
+                        }
+                        if (kbState.IsKeyDown(Keys.Right))
+                        {
+                            movement.X++;
+                            player.BoundBoxX += 5;
+                        }
                     }
 
                     //Changes player state to the corect animations
@@ -363,42 +371,52 @@ namespace Shiro
                     {
                         case PlayerState.FaceRight:
 
-                            if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
+                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                            {
+                                player.CurrentState = PlayerState.FaceRight;
+                                break;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
                             {
                                 player.CurrentState = PlayerState.WalkRight;
                                 break;
                             }
-
-                            if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Left))
+                            else if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Left))
                             {
                                 player.CurrentState = PlayerState.WalkRight;
                                 break;
                             }
-
-                            if (kbState.IsKeyDown(Keys.Left))
+                            else if (kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Right))
                                 player.CurrentState = PlayerState.FaceLeft;
                            
                             break;
 
                         case PlayerState.FaceLeft:
 
-                            if (kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Right)) {
+                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                            {
+                                player.CurrentState = PlayerState.FaceLeft;
+                                break;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Right)) {
                                 player.CurrentState = PlayerState.WalkLeft;
                                 break;
                             }
-
-                            if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Right))
+                            else if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Right))
                             {
                                 player.CurrentState = PlayerState.WalkLeft;
                                 break;
                             }
-
-                            if (kbState.IsKeyDown(Keys.Right))
+                            else if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
                                 player.CurrentState = PlayerState.FaceRight;
                             break;
 
                         case PlayerState.WalkLeft:
-                            if (kbState.IsKeyDown(Keys.Right))
+                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                            {
+                                player.CurrentState = PlayerState.FaceLeft;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Right))
                             {
                                 player.CurrentState = PlayerState.FaceLeft;
                             }
@@ -408,7 +426,11 @@ namespace Shiro
                             }
                             break;
                         case PlayerState.WalkRight:
-                            if (kbState.IsKeyDown(Keys.Left))
+                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                            {
+                                player.CurrentState = PlayerState.FaceRight;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Left))
                             {
                                 player.CurrentState = PlayerState.FaceLeft;
                             }

@@ -4,7 +4,7 @@
 |-----------|-------------------|
 | 1: Design and Architecture | [Milestone 1 Presentation](https://docs.google.com/presentation/d/1gOebAI5hHMdvS1KRNkfDIXmCK7SdPW3a1ij9g-Fm3xw/edit?usp=sharing) |
 | 2: Bare Bones Game | [Milestone 2 Presentation](https://docs.google.com/presentation/d/1APWOuEi4CWbLe6sKxaiqfur56ZRc5Z7aivgbUW-TQEA/edit#slide=id.p) |
-| 3: First Playable | [Milestone 3 Presentation](https://docs.google.com/presentation/....) |
+| 3: First Playable | [Milestone 3 Presentation](https://docs.google.com/presentation/d/1Gx5mDTkYiS9aSs4-Zq24-1XWpaxmPmtpR3t9EUOBiNY/edit#slide=id.p) |
 | 4: A Polished Game | [Milestone 4 Presentation](https://docs.google.com/presentation/....) |
 
 ## Instructions

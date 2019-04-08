@@ -150,16 +150,18 @@ namespace Shiro
                 position.Y += 5;
 
             }
-
-            if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
+            if (CurrentState != PlayerState.FaceLeft && CurrentState != PlayerState.FaceRight)
             {
-                position.X -= 5;
+                if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
+                {
+                    position.X -= 5;
 
-            }
-            if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
-            {
-                position.X += 5;
+                }
+                if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
+                {
+                    position.X += 5;
 
+                }
             }
 
             //Prevents bound box from going off screen
@@ -188,6 +190,8 @@ namespace Shiro
         public override void Draw(SpriteBatch sb)
         {
 
+            sb.Draw(walkTexture, boundBox, Color.Red);
+            sb.Draw(walkTexture, position, Color.Blue);
             //Increase the frame, which will animate the player.
             int frameWidth = 550;
             int frameHeight = 400;
