@@ -34,7 +34,7 @@ namespace Shiro
         KeyboardState pbState;
         
         Texture2D background;
-        Texture2D testTileset;
+        Texture2D cityTileset;
         Texture2D shiroIdle;
         Texture2D shiroWalk;
         Texture2D enemyCat;
@@ -155,7 +155,7 @@ namespace Shiro
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            testTileset = Content.Load<Texture2D>("testTileset");
+            cityTileset = Content.Load<Texture2D>("cityTileset");
             shiroIdle = Content.Load<Texture2D>("idle_sprite_fix");
             shiroWalk = Content.Load<Texture2D>("walk_sprite_fix");
             enemyCat = Content.Load<Texture2D>("enemy cat");
