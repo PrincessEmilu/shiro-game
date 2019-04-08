@@ -41,7 +41,7 @@ Our Trello Board can be located here: https://trello.com/b/n6mIV6kK/shiro-the-ga
 
 Here is a screen cap of the board:
 
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/blob/master/doc/Documents/trello.PNG "Trello Board")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/trello.PNG "Trello Board")
 
 ## Testing
 At this point, our plans for testing are simply to play the game amongst ourselves and to share it with others. We have yet to determine
