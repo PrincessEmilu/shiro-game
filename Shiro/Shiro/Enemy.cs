@@ -11,6 +11,16 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Shiro
 {
+
+    //Enemy states
+    enum EnemyState
+    {
+        FaceRight,
+        FaceLeft,
+        WalkRight,
+        WalkLeft
+    }
+
     class Enemy : GameObject
     {
         //Fields        
@@ -30,7 +40,10 @@ namespace Shiro
         protected bool top;
         protected bool right;
 
+        protected EnemyState currentState;
+
         private int frame;
+        private Texture2D walkTexture;
 
 
         //Properties
@@ -61,7 +74,7 @@ namespace Shiro
             }
         }
 
-        public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng, string patternFileName) : base(texture, position) //random movement
+        public Enemy(Texture2D texture, Texture2D walkTexture, Rectangle position, int width, int height, Random rng, string patternFileName) : base(texture, position) //random movement
         {
             //this constructor is for random movement type at a set distance of 100
             frame = 0;
@@ -85,9 +98,11 @@ namespace Shiro
             top = true;
             right = true;
 
+            this.walkTexture = walkTexture;
+            currentState = EnemyState.FaceRight;
         }
 
-        public Enemy(Texture2D texture, Rectangle position, int width, int height, int enemyRng, int distance, String patternFileName) : base(texture, position)
+        public Enemy(Texture2D texture, Texture2D walkTexture, Rectangle position, int width, int height, int enemyRng, int distance, String patternFileName) : base(texture, position)
         {
             //this constructor is for a set movement type and distance, if you only want distance, you need to use rng.Next(1,5)
 
@@ -110,6 +125,9 @@ namespace Shiro
 
             top = true;
             right = true;
+
+            this.walkTexture = walkTexture;
+            currentState = EnemyState.WalkRight;
 
         }
 
@@ -161,7 +179,7 @@ namespace Shiro
                         if (position.X >= startPointX)
                         {
                             position.X += 1;
-
+                            currentState = EnemyState.WalkRight;
                             if (position.X == endPointX)
                             {
                                 right = false;
@@ -173,6 +191,7 @@ namespace Shiro
                         if (position.X <= endPointX)
                         {
                             position.X -= 1;
+                            currentState = EnemyState.WalkLeft;
                             if (position.X == startPointX)
                             {
                                 right = true;
@@ -218,7 +237,7 @@ namespace Shiro
                                 if (position.X <= endPointX)
                                 {
                                     position.X -= 1;
-
+                                    currentState = EnemyState.WalkLeft;
                                     if (position.X == startPointX)
                                     {
                                         right = true;
@@ -236,6 +255,7 @@ namespace Shiro
                     {
                         if (position.X >= startPointX)
                         {
+                            currentState = EnemyState.WalkRight;
                             position.X += 1;
 
                             if (position.X >= endPointX) //reached max x
@@ -259,6 +279,7 @@ namespace Shiro
                     {
                         if (position.X <= endPointX)
                         {
+                            currentState = EnemyState.WalkLeft;
                             position.X -= 1;
                             if (position.X <= startPointX)
                             {
@@ -291,6 +312,7 @@ namespace Shiro
                 if (position.Intersects(check.Position)) //check if intersecting with the player
                 {
                     InBattle = true;
+                    currentState = EnemyState.FaceLeft;
                     return true; //returns true to enter battle state
                 }
             }
@@ -319,17 +341,56 @@ namespace Shiro
             if (frame == 60) { frame = 0; }
 
             //Actualy logic for drawing the sprite
-            //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
-            sb.Draw(
-                texture,                                                //Texture to draw
-                new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
-                new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                Color.White,                                            //Blend color
-                0f,                                                     //Rotation
-                new Vector2(0, 0),                                       //Origin
-                SpriteEffects.FlipHorizontally,                         //Sprite Effects
-                0f                                                      //Layer to draw on
-                );
+
+            switch (currentState)
+            {
+                case EnemyState.FaceLeft:
+                //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
+                sb.Draw(
+                    texture,                                                //Texture to draw
+                    new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
+                    new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
+                    Color.White,                                            //Blend color
+                    0f,                                                     //Rotation
+                    new Vector2(0, 0),                                       //Origin
+                    SpriteEffects.FlipHorizontally,                         //Sprite Effects
+                    0f                                                      //Layer to draw on
+                    );
+                    break;
+
+                case EnemyState.FaceRight:
+                    //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
+                    sb.Draw(
+                        texture,                                                //Texture to draw
+                        new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
+                        new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
+                        Color.White                                            //Blend color
+                        );
+                    break;
+                case EnemyState.WalkLeft:
+                    //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
+                    sb.Draw(
+                        walkTexture,                                                //Texture to draw
+                        new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
+                        new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
+                        Color.White,                                            //Blend color
+                        0f,                                                     //Rotation
+                        new Vector2(0, 0),                                       //Origin
+                        SpriteEffects.FlipHorizontally,                         //Sprite Effects
+                        0f                                                      //Layer to draw on
+                        );
+                    break;
+
+                case EnemyState.WalkRight:
+                    //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
+                    sb.Draw(
+                        walkTexture,                                                //Texture to draw
+                        new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
+                        new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
+                        Color.White                                            //Blend color
+                        );
+                    break;
+            }
 
         }
     }

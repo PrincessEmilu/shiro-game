@@ -38,6 +38,7 @@ namespace Shiro
         Texture2D shiroIdle;
         Texture2D shiroWalk;
         Texture2D enemyShadowWalkTexture;
+        Texture2D enemyShadowIdleTexture;
         Texture2D hitbox;
 
         private int viewportMoveX;
@@ -159,6 +160,7 @@ namespace Shiro
             shiroIdle = Content.Load<Texture2D>("idle_sprite_fix");
             shiroWalk = Content.Load<Texture2D>("walk_sprite_fix");
             enemyShadowWalkTexture = Content.Load<Texture2D>("EnemyWalkSpriteSheet");
+            enemyShadowIdleTexture = Content.Load<Texture2D>("EnemyIdleSpriteSheet");
 
             boundBox = Content.Load<Texture2D>("rectangle");
 
@@ -323,9 +325,9 @@ namespace Shiro
                     if(drawEnemiesOnce)
                     {
                         //Enemies eventually loaded elsewhere
-                        listEnemies.Add(new Enemy(enemyShadowWalkTexture, new Rectangle(250, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowWalkTexture, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowWalkTexture, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, new Rectangle(250, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
 
                         player.Pos = pos;
 
