@@ -29,7 +29,10 @@ namespace Shiro
         protected int enemyRng;
         protected bool top;
         protected bool right;
-        
+
+        private int frame;
+
+
         //Properties
         public bool Active { get; set; }
         public bool InBattle { get; set; }
@@ -38,10 +41,30 @@ namespace Shiro
             get { return patternFileName; }
         }
 
+        //Property for the amount of stamina and previous position  
+        public int Stamina
+        {
+            get { return stamina; }
+
+            set
+            {
+                stamina = value;
+            }
+        }
+
+        public Rectangle PrevPos
+        {
+            get { return prevPos; }
+            set
+            {
+                prevPos = value;
+            }
+        }
+
         public Enemy(Texture2D texture, Rectangle position, int width, int height, Random rng, string patternFileName) : base(texture, position) //random movement
         {
             //this constructor is for random movement type at a set distance of 100
-
+            frame = 0;
             stamina = 1000;
             windowWidth = width;
             windowHeight = height;
@@ -279,34 +302,35 @@ namespace Shiro
             return false;
         }
 
+
         public override void Draw(SpriteBatch sb)
         {
-            if (Active == true)
-            {
-                base.Draw(sb);
-            }
+
+            //Increase the frame, which will animate the player.
+            int frameWidth = 300;
+            int frameHeight = 350;
+
+            //Calculates x/y offset to draw based on current frame and the tiles per row
+            int xDrawOffset = frame % 7 * (frameWidth + 10);//frame % 7 * frameWidth;
+            int yDrawOffest = frame / 7 * (frameHeight + 10);
+
+            frame += 1;
+
+            if (frame == 60) { frame = 0; }
+
+            //Actualy logic for drawing the sprite
+            //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
+            sb.Draw(
+                texture,                                                //Texture to draw
+                new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
+                new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
+                Color.White,                                            //Blend color
+                0f,                                                     //Rotation
+                new Vector2(0, 0),                                       //Origin
+                SpriteEffects.FlipHorizontally,                         //Sprite Effects
+                0f                                                      //Layer to draw on
+                );
+
         }
-
-
-        //Property for the amount of stamina and previous position  
-        public int Stamina
-        {
-            get { return stamina; }
-
-            set
-            {
-                stamina = value;
-            }
-        }
-
-        public Rectangle PrevPos
-        {
-            get { return prevPos; }
-            set
-            {
-                prevPos = value;
-            }
-        }        
-
     }
 }
