@@ -347,15 +347,19 @@ namespace Shiro
                         movement.Y++;
                         player.BoundBoxY += 5;
                     }
-                    if (kbState.IsKeyDown(Keys.Left))
+
+                    if (player.CurrentState != PlayerState.FaceRight && player.CurrentState != PlayerState.FaceLeft)
                     {
-                        movement.X--;
-                        player.BoundBoxX -= 5;
-                    }
-                    if (kbState.IsKeyDown(Keys.Right))
-                    {
-                        movement.X++;
-                        player.BoundBoxX += 5;
+                        if (kbState.IsKeyDown(Keys.Left))
+                        {
+                            movement.X--;
+                            player.BoundBoxX -= 5;
+                        }
+                        if (kbState.IsKeyDown(Keys.Right))
+                        {
+                            movement.X++;
+                            player.BoundBoxX += 5;
+                        }
                     }
 
                     //Changes player state to the corect animations
@@ -363,42 +367,52 @@ namespace Shiro
                     {
                         case PlayerState.FaceRight:
 
-                            if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
+                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                            {
+                                player.CurrentState = PlayerState.FaceRight;
+                                break;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
                             {
                                 player.CurrentState = PlayerState.WalkRight;
                                 break;
                             }
-
-                            if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Left))
+                            else if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Left))
                             {
                                 player.CurrentState = PlayerState.WalkRight;
                                 break;
                             }
-
-                            if (kbState.IsKeyDown(Keys.Left))
+                            else if (kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Right))
                                 player.CurrentState = PlayerState.FaceLeft;
                            
                             break;
 
                         case PlayerState.FaceLeft:
 
-                            if (kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Right)) {
+                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                            {
+                                player.CurrentState = PlayerState.FaceLeft;
+                                break;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Right)) {
                                 player.CurrentState = PlayerState.WalkLeft;
                                 break;
                             }
-
-                            if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Right))
+                            else if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Right))
                             {
                                 player.CurrentState = PlayerState.WalkLeft;
                                 break;
                             }
-
-                            if (kbState.IsKeyDown(Keys.Right))
+                            else if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
                                 player.CurrentState = PlayerState.FaceRight;
                             break;
 
                         case PlayerState.WalkLeft:
-                            if (kbState.IsKeyDown(Keys.Right))
+                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                            {
+                                player.CurrentState = PlayerState.FaceLeft;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Right))
                             {
                                 player.CurrentState = PlayerState.FaceLeft;
                             }
@@ -408,7 +422,11 @@ namespace Shiro
                             }
                             break;
                         case PlayerState.WalkRight:
-                            if (kbState.IsKeyDown(Keys.Left))
+                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                            {
+                                player.CurrentState = PlayerState.FaceRight;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Left))
                             {
                                 player.CurrentState = PlayerState.FaceLeft;
                             }
