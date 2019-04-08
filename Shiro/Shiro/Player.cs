@@ -76,7 +76,7 @@ namespace Shiro
         //Current game state
         public PlayerState CurrentState { get; set; }
 
-        public Player(Texture2D texture, Texture2D walkTexture, Rectangle position, int width, int height, Camera camera, Texture2D box, Rectangle boundBox) : base(texture, position)
+        public Player(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Camera camera, Texture2D box, Rectangle boundBox) : base(texture, xPosition, yPosition)
         {
             CurrentState = PlayerState.FaceLeft;
 
@@ -93,6 +93,10 @@ namespace Shiro
             bottomBounding = false;
             rightBounding = false;
             leftBounding = false;
+
+            //Set collision box width to be the target box width/height for the object
+            position.Width = 180;
+            position.Height = 148;
         }
 
         //Overridden Update method, puts all of the player's update code into one place to be called once

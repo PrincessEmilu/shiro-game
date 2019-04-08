@@ -19,7 +19,7 @@ namespace Shiro
         public Keys KeyType { get; protected set; }
 
         //Constructor
-        public AttackKey(Texture2D texture, Rectangle position, Keys key, int speed) : base(texture, position)
+        public AttackKey(Texture2D texture, int xPosition, int yPosition, Keys key, int speed) : base(texture, xPosition, yPosition)
         {
             this.speed = speed;
             KeyType = key;
@@ -42,8 +42,12 @@ namespace Shiro
             }
         }
 
-        /*public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb)
         {
+            /*
+            //DEBUG: draw hitbox
+            sb.Draw(texture, position, Color.Red);
+
             switch (KeyType)
             {
                 case Keys.Up:
@@ -61,6 +65,7 @@ namespace Shiro
                 default:
                     break;
             }
-        }*/
+            */
+        }
     }
 }

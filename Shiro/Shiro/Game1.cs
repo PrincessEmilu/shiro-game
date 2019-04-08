@@ -205,7 +205,7 @@ namespace Shiro
 
             pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
-            player = new Player(shiroIdle, shiroWalk, pos, width, height, camera, boundBox, boundBoxPos);
+            player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, camera, boundBox, boundBoxPos);
 
             door = new CollisionItem(doorTexture, 400, 400, player);
         }
@@ -324,12 +324,12 @@ namespace Shiro
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
                     if(drawEnemiesOnce)
                     {
-                        /*
+                        
                         //Enemies eventually loaded elsewhere
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, new Rectangle(250, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, new Rectangle(300, 100, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, new Rectangle(400, 300, 50, 50), width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        */
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 500, 500, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 500, 500, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 500, 500, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        
 
                         player.Pos = pos;
 

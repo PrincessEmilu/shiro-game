@@ -18,14 +18,25 @@ namespace Shiro
         public Rectangle Position
         {
             get { return position; }
-            set { position = value; }
+        }
+
+        //Allows for quickly getting 
+        public int X
+        {
+            get { return position.X; }
+            set { position.X = value; }
+        }
+        public int Y
+        {
+            get { return position.Y; }
+            set { position.Y = value; }
         }
 
         //Constructor that takes two parameters
-        protected GameObject(Texture2D texture, Rectangle position)
+        protected GameObject(Texture2D texture, int xPosition, int yPosition)
         {
             this.texture = texture;
-            this.position = position;
+            position = new Rectangle(xPosition, yPosition, texture.Width, texture.Height);
         }
 
         //Draw method

@@ -74,7 +74,7 @@ namespace Shiro
             }
         }
 
-        public Enemy(Texture2D texture, Texture2D walkTexture, Rectangle position, int width, int height, Random rng, string patternFileName) : base(texture, position) //random movement
+        public Enemy(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
         {
             //this constructor is for random movement type at a set distance of 100
             frame = 0;
@@ -100,9 +100,13 @@ namespace Shiro
 
             this.walkTexture = walkTexture;
             currentState = EnemyState.FaceRight;
+
+            //Set collision box width to be the target box width/height for the object
+            position.Width = 100;
+            position.Height = 115;
         }
 
-        public Enemy(Texture2D texture, Texture2D walkTexture, Rectangle position, int width, int height, int enemyRng, int distance, String patternFileName) : base(texture, position)
+        public Enemy(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, int enemyRng, int distance, String patternFileName) : base(texture, xPosition, yPosition)
         {
             //this constructor is for a set movement type and distance, if you only want distance, you need to use rng.Next(1,5)
 
@@ -128,6 +132,10 @@ namespace Shiro
 
             this.walkTexture = walkTexture;
             currentState = EnemyState.WalkRight;
+
+            //Set collision box width to be the target box width/height for the object
+            position.Width = 100;
+            position.Height = 115;
 
         }
 
@@ -327,6 +335,8 @@ namespace Shiro
 
         public override void Draw(SpriteBatch sb)
         {
+            //DEBUG: draw hitbox
+            sb.Draw(texture, position, Color.Red);
 
             //Increase the frame, which will animate the player.
             int frameWidth = 300;
