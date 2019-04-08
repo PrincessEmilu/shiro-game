@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:BottomBar.png
 
+#begin BrickWall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:BrickWall.png
+
 #begin cat.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -176,6 +188,18 @@
 /processorParam:TextureFormat=Color
 /build:idle_sprite_fix.png
 
+#begin InstructionsIndividual.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:InstructionsIndividual.png
+
 #begin InstructionsScreen.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -212,6 +236,18 @@
 /processorParam:TextureFormat=Color
 /build:PawPrint.png
 
+#begin PressEnter.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PressEnter.png
+
 #begin rectangle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -236,6 +272,18 @@
 /processorParam:TextureFormat=Color
 /build:RightArrow.png
 
+#begin ShiroImageSide.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ShiroImageSide.png
+
 #begin ShiroMenuScreen.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -259,6 +307,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ShiroPause.png
+
+#begin ShiroTitleIndividual.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ShiroTitleIndividual.png
+
+#begin StartIndividual.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:StartIndividual.png
 
 #begin testTileset.png
 /importer:TextureImporter

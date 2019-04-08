@@ -51,6 +51,7 @@ namespace Shiro
         //Entities
         private Player player;
         private Enemy enemy;
+        private Boss salsa;
 
         //test
         //ImportAttackPatterns tester = new ImportAttackPatterns("ratAttackOne.txt");
@@ -61,6 +62,16 @@ namespace Shiro
 
         //Fields for Title Screen
         Texture2D titleBackground;
+        Texture2D title;
+        Texture2D enter;
+        private float opacity = 0;
+        private float titleOpacity = 0;
+        private bool increasing = true;
+        Texture2D sideImage;
+        private int x = 0;
+        private int initialX;
+        private int initialY;
+        private bool draw;
 
         //Fields for Instructions
         Texture2D instructionsBackground;
@@ -68,6 +79,9 @@ namespace Shiro
         //Fields for Menu
         Texture2D menuBackground;
         Texture2D pawPrint;
+
+        Texture2D start;
+        Texture2D instructions;
 
         Texture2D boundBox;
         Rectangle boundBoxPos;
@@ -144,6 +158,10 @@ namespace Shiro
             //Initialize Scale for Battle Class
             scale = Matrix.CreateScale(new Vector3((float)1.5, (float)1.5, 1));
 
+            //Initialize variables
+            initialX = graphics.GraphicsDevice.Viewport.Width;
+            initialY = graphics.GraphicsDevice.Viewport.Height;
+
             base.Initialize();
         }
 
@@ -174,6 +192,12 @@ namespace Shiro
             LeftArrow = Content.Load<Texture2D>("LeftArrow");
             RightArrow = Content.Load<Texture2D>("RightArrow");
 
+            //Title Screen
+            titleBackground = Content.Load<Texture2D>("BrickWall");
+            title = Content.Load<Texture2D>("ShiroTitleIndividual");
+            enter = Content.Load<Texture2D>("PressEnter");
+            sideImage = Content.Load<Texture2D>("ShiroImageSide");
+
             //Menu Screens 
             menuBackground = Content.Load<Texture2D>("ShiroMenuScreen");
             pawPrint = Content.Load<Texture2D>("PawPrint");
@@ -181,6 +205,8 @@ namespace Shiro
             pauseBackground = Content.Load<Texture2D>("ShiroPause");
             gameOverBackground = Content.Load<Texture2D>("GameOverShiro");
             battleBackground = Content.Load<Texture2D>("BackgroundAlley");
+            start = Content.Load<Texture2D>("StartIndividual");
+            instructions = Content.Load<Texture2D>("InstructionsIndividual");
 
             //bar for battle
             battleBar = Content.Load<Texture2D>("BottomBar");
@@ -239,6 +265,9 @@ namespace Shiro
                     if (Helpers.SingleKeyPress(Keys.Enter, pbState, kbState))
                     {
                         state = GameState.MainMenu;
+                        opacity = 1;
+                        increasing = false;
+                        titleOpacity = 1;
                         arrowPosition = 1;  //Make sure the initial position is one
                     }
 
@@ -264,11 +293,13 @@ namespace Shiro
                         if (arrowPosition == 1)
                         {
                             arrowPosition = 2;
+                            opacity = 1;
                         }
                         //Otherwise just move the position up 1
                         else
                         {
                             arrowPosition--;
+                            opacity = 1;
                         }
                     }
                     else if (Helpers.SingleKeyPress(Keys.Down, pbState, kbState))
@@ -277,11 +308,13 @@ namespace Shiro
                         if (arrowPosition == 2)
                         {
                             arrowPosition = 1;
+                            opacity = 1;
                         }
                         //Otherwise just move the position down 1
                         else
                         {
                             arrowPosition++;
+                            opacity = 1;
                         }
                     }
 
@@ -698,20 +731,92 @@ namespace Shiro
             {
                 case GameState.TitleScreen:
                     camera.Pos = new Vector2(0, 0);
+                    spriteBatch.Draw(titleBackground, new Rectangle(0,0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height),Color.White);
+                    spriteBatch.Draw(title, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * titleOpacity);
+                    spriteBatch.Draw(enter, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * opacity);
+
+                    //Handle the chang in opacity
+                    if (titleOpacity != 1)
+                    {
+                        titleOpacity += .01f;
+                    }
+
+                    if (opacity >= 1)
+                    {
+                        increasing = false;
+                    }
+                    else if (opacity <= .2f)
+                    {
+                        increasing = true;
+                    }
+
+                    if (increasing)
+                    {
+                        opacity += .01f;
+                    }
+                    else
+                    {
+                        opacity -= .01f;
+                    }
+
                     break;
                 case GameState.MainMenu:
                     camera.Pos = new Vector2(0, 0);
-                    spriteBatch.Draw(menuBackground, new Vector2(0, 0), Color.White);
-                    switch (arrowPosition)
+
+
+                    spriteBatch.Draw(titleBackground, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
+                    spriteBatch.Draw(sideImage, new Rectangle(initialX - 800, 0, 1000, graphics.GraphicsDevice.Viewport.Height), 
+                        Color.White);
+
+                    spriteBatch.Draw(title, new Rectangle(x, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * titleOpacity);
+
+                    if (x >= -250)
                     {
-                        case 1:
-                            spriteBatch.Draw(pawPrint, new Rectangle(100, 450, 40, 40), Color.White);
-                            break;
-                        case 2:
-                            spriteBatch.Draw(pawPrint, new Rectangle(100, 530, 40, 40), Color.White);
-                            break;
-                        default:
-                            break;
+                        x -= 5;
+                        initialX -= 5;
+                    }
+                    else
+                    {
+                        draw = true;
+                    }
+
+                    if (draw)
+                    {
+
+                        switch (arrowPosition)
+                        {
+                            case 1:
+                                spriteBatch.Draw(pawPrint, new Rectangle(100, 455, 60, 60), Color.White);
+                                spriteBatch.Draw(start, new Rectangle(-200, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * opacity);
+                                spriteBatch.Draw(instructions, new Rectangle(-200, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
+                                break;
+                            case 2:
+                                spriteBatch.Draw(pawPrint, new Rectangle(100, 535, 60, 60), Color.White);
+                                spriteBatch.Draw(instructions, new Rectangle(-200, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * opacity);
+                                spriteBatch.Draw(start, new Rectangle(-200, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    //Change Text Opacity
+                    if (opacity >= 1)
+                    {
+                        increasing = false;
+                    }
+                    else if (opacity <= .2f)
+                    {
+                        increasing = true;
+                    }
+
+                    if (increasing)
+                    {
+                        opacity += .01f;
+                    }
+                    else
+                    {
+                        opacity -= .01f;
                     }
                     break;
                 case GameState.Instructions:
@@ -732,7 +837,7 @@ namespace Shiro
 
                 case GameState.PauseMenu:
                     camera.Pos = new Vector2(0, 0);
-                    spriteBatch.Draw(pauseBackground, new Vector2(0, 0), Color.White);
+                    spriteBatch.Draw(pauseBackground, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
                     switch (arrowPosition)
                     {
                         case 1:
@@ -753,7 +858,7 @@ namespace Shiro
                     break;
                 case GameState.GameOver:
                     camera.Pos = new Vector2(0, 0);
-                    spriteBatch.Draw(gameOverBackground, new Vector2(0, 0), Color.White);
+                    spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
                     switch (arrowPosition)
                     {
                         case 1:

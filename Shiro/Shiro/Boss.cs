@@ -59,37 +59,37 @@ namespace Shiro
 
         public override void Update(GameTime gameTime)
         {
-            if (InBattle)
-            {
-                //Handle Animation Timing
-
-                timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
-
-                // If enough time has passed:
-                if (timeCounter >= timePerFrame)
-                {
-                    frame += 1;                     // Adjust the frame to the next image
-
-                    if (frame > frameCount)     // Check the bounds - have we reached the end of walk cycle?
-                        frame = 1;                  // Back to 1 (since 0 is the "standing" frame)
-
-                    timeCounter -= timePerFrame;    // Remove the time we "used" - don't reset to 0
-                                                    // This keeps the time passed 
-                }
-            }
+            //if (InBattle)
+            //{
+            //    //Handle Animation Timing
+            //
+            //    timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
+            //
+            //    // If enough time has passed:
+            //    if (timeCounter >= timePerFrame)
+            //    {
+            //        frame += 1;                     // Adjust the frame to the next image
+            //
+            //        if (frame > frameCount)     // Check the bounds - have we reached the end of walk cycle?
+            //            frame = 1;                  // Back to 1 (since 0 is the "standing" frame)
+            //
+            //        timeCounter -= timePerFrame;    // Remove the time we "used" - don't reset to 0
+            //                                        // This keeps the time passed 
+            //    }
+            //}
 
         }
 
-        public override void Draw(SpriteBatch sb)
-        {
-            if (InBattle)
-            {
-                sb.Draw(texture, position, new Rectangle(rectOffsetX, rectOffsetY, rectWidth, rectHeight), Color.White);
-            }
-            else
-            {
-                base.Draw(sb);
-            }
-        }
+        //public override void Draw(SpriteBatch sb)
+        //{
+        //    if (InBattle)
+        //    {
+        //        sb.Draw(texture, position, new Rectangle(rectOffsetX, rectOffsetY, rectWidth, rectHeight), Color.White);
+        //    }
+        //    else
+        //    {
+        //        base.Draw(sb);
+        //    }
+        //}
     }
 }
