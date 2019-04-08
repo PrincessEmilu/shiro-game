@@ -56,6 +56,36 @@ the corresponding arrow key when it is in the hitbox.
 
 Below is a visualization of the other classes that are independent and have no inheritance.
 
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Other_Class_Diagram.png "Other Classes Diagram")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Other_Class_Diagrams.png "Other Classes Diagram")
 
 ## External Tool
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/AttackKeyPopUpStart.PNG "Pop up window for attack key tool")
+
+- The overall intent of the tool (what it does, why that is helpful, etc.)
+- How it works (basic forms/classes)
+- File format
+- Where the files are saved by the tool
+- Where the files need to be copied to in order for your game to use them
+
+One of our external tools is a key attack generator, which is being used to generate all the attack patterns for our boss and enemies. Above, is a picture of what pops up when you run the program; It will ask you for how many keys will be in
+the attack pattern you are generating. Once you set your number between one and four hundred, it will pop up with this screen below which generates the set number of empty key slots you entered:
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/GIFofKeys.gif "GIF of external tool")
+
+As you can see in the GIF, while it starts out empty, you can click on the empty slots to set keys which consist of: Up, Down, Left, Right and back to None. Once you are satisfied with the attack keys you have made, the button below can be clicked.
+Once this button is clicked, it will pop up a "Save As.." pop up, which will save the file as whatever name you want as a .TXT file. 
+
+Here is a example output of the file:
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/ExportedTileSheet.png "Output file of the tool")
+
+For our game, we are saving all the text files into this folder:
+https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/tree/master/Shiro/AttackPatterns
+
+This folder is hard coded as the only folder to look in for a file name that is passed into the constructor of a class in our main game called ImportAttackPatterns. What this class does is on creation, it will ask for a file name. If the file exists,
+it will print into the console window that the keys were generated, while grabbing the number of keys from the top of the read file. Then, it will use the readed amount of keys to create an array of that size, as well as split the second read line 
+by each comma into a string array. Finally, for each string inside of the array, it will use the static method ConvertFromString to convert each string to a key based on a switch statement. This new key gets passed into a key array, which finally gets
+passed into the enemy of the same file name if it exists. 
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/KeyPressGenerator.png "KeyPressGenerator Diagram")
+
