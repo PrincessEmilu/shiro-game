@@ -19,7 +19,8 @@
 - *03/22/19* (All members present) : Added boundries to the game screen so the character doesn't go outside of it. Camera currently broken on following the character. Fixed up the Level Editor as well to correctly pull up a saved file. Finished working on our boss main character and his sprite sheet.
 - *03/29/19* (All members present) : Fixed up the camera so it follows the player and imported a generic tileset from the Level Editor as a test. Also added images for arrow keys, background, bar and hit box textures to our battle state.
 - *04/05/19* (All members present) : Worked on adding health bars to the battle screen, implementing our player spritesheet to animate and finishing tileset. Finished up the spirte sheet for our enemy and uploaded both the boss + enemy since we forgot to upload the spirte sheet export last time.
-
+- *04/09/19* (All members present) : Changed our documentation, and started to finalize our presentation and milestone 3 version of the game.
+- 
 ## Milestone 4
 - *Date* (# team members present): topics discussed
 - ...
