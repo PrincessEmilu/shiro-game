@@ -126,12 +126,18 @@ Click on the button on the right on the toolbar. This button will open up a dial
 choose how many *screens* wide/tall their desired level will be. The previous dimensions for tiles per row/column will be multiplied by these dimensions to create a
 map of the appropriate size. The user can simply leave these values at 1 if they prefer just measuring their overall level size in tiles.
 
+![alt text](https://i.imgur.com/1EkFo41.png "Generate Level")
+![alt text](https://i.imgur.com/3t27rJ2.png "Generate Level Example Values")
+
+
 Once the user clicks generate, the generate window will close, a new grid of panels will be created i nthe main window,, and a paintbox window will open up. It may
 take a moment or two to complete the map generation, based on the size of the level to be generated.
 
 **Editing a Level**
 Edit the level by click on the desired tile in the painbox, then by clicking on the desired square in the level editor. In order to mark a tile as being solid or
 collidable, right-click on the tile. The tile will be given a blue background to denote it is solid. Right-click again to remove the collision.
+
+![alt text](https://i.imgur.com/NTrFrMN.png "Example of level editing")
 
 **Saving/Loading a Level**
 Click on the center button on the toolbar in order to save the current level. This button opens up a dialogue window for saving a file, allowing the user to select
@@ -142,6 +148,8 @@ computer.
 
 Level files are saved as plain .txt files that contain the size of the level, the size of the tiles, and two arrays, one of integers representing which tile from the
 tileset is in that position, and the other mapping which tiles are meant to have collision.
+
+![alt text](https://i.imgur.com/T4fc5i6.png "Level data under the hood")
 
 ### Known Issues
 The level editor is currently fully-functional and seems to have no bugs. However, there are some quality-of-life issues that we are aware of and may improve as
