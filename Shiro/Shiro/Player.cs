@@ -34,6 +34,10 @@ namespace Shiro
         private bool rightWall;
         private bool bottomWall;
 
+        //Debug
+        Rectangle temp;
+        Rectangle[] temps = new Rectangle[20];
+
         private List<CollisionItem> itemsColliding;
 
         private int frame;
@@ -126,51 +130,6 @@ namespace Shiro
             //Moves the player based on key presses
             KeyboardState kbState = Keyboard.GetState();
 
-
-            //Prevents player from going into the collision item
-            if (itemsColliding.Count != 0)
-            {
-                foreach (CollisionItem a in itemsColliding)
-                {
-                    if (position.Bottom  >= a.CollisionBox.Top && position.Intersects(a.CollisionBox))
-                    {
-                        bottomWall = true;
-                    }
-                    else
-                    {
-                        bottomWall = false;
-                    }
-
-                    if (position.Right >= a.CollisionBox.Left && position.Intersects(a.CollisionBox))
-                    {
-                        rightWall = true;
-                    }
-                    else
-                    {
-                        rightWall = false;
-                    }
-
-                    if (position.Top <= a.CollisionBox.Bottom && position.Intersects(a.CollisionBox))
-                    {
-                        topWall = true;
-                    }
-                    else
-                    {
-                        topWall = false;
-                    }
-
-                    if (position.Left <= a.CollisionBox.Right && position.Intersects(a.CollisionBox))
-                    {
-                        leftWall = true;
-                    }
-                    else
-                    {
-                        leftWall = false;
-                    }
-                }
-            }
-
-
             //Prevents player from going out of the boundbox
 
             if (position.Bottom + 100 >= boundBox.Bottom)
@@ -209,32 +168,44 @@ namespace Shiro
                 leftBounding = false;
             }
 
-            if (kbState.IsKeyDown(Keys.Up) && topBounding == false && topWall == false)
+            if (kbState.IsKeyDown(Keys.Up) && topBounding == false)
             {
-                position.Y -= 5;
-
+                Collides(Keys.Up);
+                if (!topWall)
+                {
+                    position.Y -= 5;
+                }
             }
 
-            if (kbState.IsKeyDown(Keys.Down) && bottomBounding == false && bottomWall == false)
+            if (kbState.IsKeyDown(Keys.Down) && bottomBounding == false)
             {
-                position.Y += 5;
-
+                Collides(Keys.Down);
+                if (!bottomWall)
+                {
+                    position.Y += 5;
+                }
             }
             if (CurrentState != PlayerState.FaceLeft && CurrentState != PlayerState.FaceRight)
             {
-                if (kbState.IsKeyDown(Keys.Left) && leftBounding == false && leftWall == false)
+                if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
                 {
-                    position.X -= 5;
-
+                    Collides(Keys.Left);
+                    if (!leftWall)
+                    {
+                        position.X -= 5;
+                    }
                 }
                 else
                 {
 
                 }
-                if (kbState.IsKeyDown(Keys.Right) && rightBounding == false && rightWall == false)
+                if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
                 {
-                    position.X += 5;
-
+                    Collides(Keys.Right);
+                    if (!rightWall)
+                    {
+                        position.X += 5;
+                    }
                 }
                 else
                 {
@@ -279,6 +250,9 @@ namespace Shiro
             frame += 1;
 
             if (frame == 60) { frame = 0; }
+
+            //Debug
+            sb.Draw(box, temp, Color.Red);
 
 
             //Draw different sprite based on state
@@ -325,6 +299,160 @@ namespace Shiro
                     break;
             }
          
-        }        
+
+        }
+
+        //Helper Method
+        private void Collides(Keys pressedKey)
+        {
+            temp = new Rectangle(position.X, position.Y, position.Width, position.Height);
+
+            if (pressedKey == Keys.Up)
+            {
+                temp.Y -= 10;
+                temp.Height += 20;
+
+                //Prevents player from going into the collision item
+                if (itemsColliding.Count != 0)
+                {
+                    foreach (CollisionItem a in itemsColliding)
+                    {
+                        if (Enumerable.Range(a.CollisionBox.Y, a.CollisionBox.Y + a.CollisionBox.Height).Contains
+                            (temp.Y))
+                        {
+                                topWall = true;                            
+                        }
+                    }
+                }
+                else
+                {
+                    topWall = false;
+                }
+            }
+
+            if (pressedKey == Keys.Down)
+            {
+                temp.Y += 10;
+                temp.Height += 20;
+
+                //Prevents player from going into the collision item
+                if (itemsColliding.Count != 0)
+                {
+                    foreach (CollisionItem a in itemsColliding)
+                    {
+                        if (Enumerable.Range(a.CollisionBox.Y, a.CollisionBox.Y + a.CollisionBox.Height).Contains
+                            (temp.Y + temp.Height))
+                        {
+                            bottomWall = true;
+                        }
+                    }
+                }
+                else
+                {
+                    bottomWall = false;
+                }
+            }
+
+            if (pressedKey == Keys.Left)
+            {
+                temp.X -= 10;
+                temp.Width += 20;
+
+                //Prevents player from going into the collision item
+                if (itemsColliding.Count != 0)
+                {
+                    foreach (CollisionItem a in itemsColliding)
+                    {
+                        if (Enumerable.Range(a.CollisionBox.X, a.CollisionBox.X + a.CollisionBox.Width).Contains
+                            (temp.X))
+                        {
+                            leftWall = true;
+                        }
+                    }
+                }
+                else
+                {
+                    leftWall = false;
+                }
+            }
+
+            if (pressedKey == Keys.Right)
+            {
+                temp.X += 10;
+                temp.Width += 20;
+
+                //Prevents player from going into the collision item
+                if (itemsColliding.Count != 0)
+                {
+                    foreach (CollisionItem a in itemsColliding)
+                    {
+                        if (Enumerable.Range(a.CollisionBox.X, a.CollisionBox.X + a.CollisionBox.Width).Contains
+                            (temp.X + temp.Width))
+                        {
+                            rightWall = true;
+                        }
+                    }
+                }
+                else
+                {
+                    rightWall = false;
+                }
+            }
+            ////Prevents player from going into the collision item
+            //if (itemsColliding.Count != 0)
+            //{
+            //    foreach (CollisionItem a in itemsColliding)
+            //    {
+            //        if (a.CollisionBox.Intersects(temp))
+            //        {
+            //
+            //            if (temp.Bottom >= a.CollisionBox.Top)
+            //            {
+            //                bottomWall = true;
+            //            }
+            //            else
+            //            {
+            //                bottomWall = false;
+            //            }
+            //
+            //            if (temp.Top <= a.CollisionBox.Bottom)
+            //            {
+            //                topWall = true;
+            //            }
+            //            else
+            //            {
+            //                topWall = false;
+            //            }
+            //
+            //            if (temp.Right >= a.CollisionBox.Left)
+            //            {
+            //                rightWall = true;
+            //            }
+            //            else
+            //            {
+            //                rightWall = false;
+            //            }
+            //
+            //            if (temp.Left <= a.CollisionBox.Right)
+            //            {
+            //                leftWall = true;
+            //            }
+            //            else
+            //            {
+            //                leftWall = false;
+            //            }
+            //
+            //
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    topWall = false;
+            //    rightWall = false;
+            //    bottomWall = false;
+            //    topWall = false;
+            //}
+        }
     }
 }

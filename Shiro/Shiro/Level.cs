@@ -151,26 +151,26 @@ namespace Shiro
             }
         }
 
-        public List<CollisionItem> GetWalls()
-        {
-            List<CollisionItem> temp = new List<CollisionItem>();
-
-            foreach (CollisionItem i in collisionList)
-            {
-                if (i.CheckCollision(player))
-                {
-                    temp.Add(i);
-                }
-                else
-                {
-                    if (temp.Contains(i))
-                    {
-                        temp.Remove(i);
-                    }
-                }
-            }
-
-            return temp;
-        }
+        //public List<CollisionItem> GetWalls()
+        //{
+        //    List<CollisionItem> temp = new List<CollisionItem>();
+        //
+        //    foreach (CollisionItem i in collisionList)
+        //    {
+        //        if (i.CheckCollision(player))
+        //        {
+        //            temp.Add(i);
+        //        }
+        //        else
+        //        {
+        //            if (temp.Contains(i))
+        //            {
+        //                temp.Remove(i);
+        //            }
+        //        }
+        //    }
+        //
+        //    return temp;
+        //}
     }
 }
