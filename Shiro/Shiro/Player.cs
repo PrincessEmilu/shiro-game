@@ -28,6 +28,14 @@ namespace Shiro
         private bool rightBounding;
         private bool leftBounding;
 
+        //Even more bools
+        private bool topWall;
+        private bool leftWall;
+        private bool rightWall;
+        private bool bottomWall;
+
+        private List<CollisionItem> itemsColliding;
+
         private int frame;
 
         public Camera camera;
@@ -73,10 +81,22 @@ namespace Shiro
             position.Y = windowHeight / 2;
         }
 
+        public bool TopWall { get { return topWall; } }
+        public bool BottomWall { get { return bottomWall; } }
+        public bool LeftWall { get { return leftWall; } }
+        public bool RightWall { get { return rightWall; } }
+
+        public List<CollisionItem> ItemsColliding
+        {
+            get { return itemsColliding; }
+            set { itemsColliding = value; }
+        }
+
         //Current game state
         public PlayerState CurrentState { get; set; }
 
-        public Player(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Camera camera, Texture2D box, Rectangle boundBox) : base(texture, xPosition, yPosition)
+        public Player(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Camera camera, 
+            Texture2D box, Rectangle boundBox, List<CollisionItem> itemsColliding) : base(texture, xPosition, yPosition)
         {
             CurrentState = PlayerState.FaceLeft;
 
@@ -93,6 +113,7 @@ namespace Shiro
             bottomBounding = false;
             rightBounding = false;
             leftBounding = false;
+            this.itemsColliding = itemsColliding;
 
             //Set collision box width to be the target box width/height for the object
             position.Width = 180;
@@ -105,48 +126,49 @@ namespace Shiro
             //Moves the player based on key presses
             KeyboardState kbState = Keyboard.GetState();
 
+
             //Prevents player from going into the collision item
-            //if(itemsCollding.Count != 0)
-            //{
-            //    foreach(CollisionItem a in itemsColliding)
-            //    {
-            //        if (position.Bottom + 100 >= a.CollisionBox.Bottom)
-            //        {
-            //            bottomBounding = true;
-            //        }
-            //        else
-            //        {
-            //            bottomBounding = false;
-            //        }
+            if (itemsColliding.Count != 0)
+            {
+                foreach (CollisionItem a in itemsColliding)
+                {
+                    if (position.Bottom  >= a.CollisionBox.Top && position.Intersects(a.CollisionBox))
+                    {
+                        bottomWall = true;
+                    }
+                    else
+                    {
+                        bottomWall = false;
+                    }
 
-            //        if (position.Right + 100 >= a.CollisionBox.Right)
-            //        {
-            //            rightBounding = true;
-            //        }
-            //        else
-            //        {
-            //            rightBounding = false;
-            //        }
+                    if (position.Right >= a.CollisionBox.Left && position.Intersects(a.CollisionBox))
+                    {
+                        rightWall = true;
+                    }
+                    else
+                    {
+                        rightWall = false;
+                    }
 
-            //        if (position.Top - 100 <= a.CollisionBox.Top)
-            //        {
-            //            topBounding = true;
-            //        }
-            //        else
-            //        {
-            //            topBounding = false;
-            //        }
+                    if (position.Top <= a.CollisionBox.Bottom && position.Intersects(a.CollisionBox))
+                    {
+                        topWall = true;
+                    }
+                    else
+                    {
+                        topWall = false;
+                    }
 
-            //        if (position.Left - 100 <= a.CollisionBox.Left)
-            //        {
-            //            leftBounding = true;
-            //        }
-            //        else
-            //        {
-            //            leftBounding = false;
-            //        }
-            //    }
-            //}
+                    if (position.Left <= a.CollisionBox.Right && position.Intersects(a.CollisionBox))
+                    {
+                        leftWall = true;
+                    }
+                    else
+                    {
+                        leftWall = false;
+                    }
+                }
+            }
 
 
             //Prevents player from going out of the boundbox
@@ -187,27 +209,35 @@ namespace Shiro
                 leftBounding = false;
             }
 
-            if (kbState.IsKeyDown(Keys.Up) && topBounding == false)
+            if (kbState.IsKeyDown(Keys.Up) && topBounding == false && topWall == false)
             {
                 position.Y -= 5;
 
             }
 
-            if (kbState.IsKeyDown(Keys.Down) && bottomBounding == false)
+            if (kbState.IsKeyDown(Keys.Down) && bottomBounding == false && bottomWall == false)
             {
                 position.Y += 5;
 
             }
             if (CurrentState != PlayerState.FaceLeft && CurrentState != PlayerState.FaceRight)
             {
-                if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
+                if (kbState.IsKeyDown(Keys.Left) && leftBounding == false && leftWall == false)
                 {
                     position.X -= 5;
 
                 }
-                if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
+                else
+                {
+
+                }
+                if (kbState.IsKeyDown(Keys.Right) && rightBounding == false && rightWall == false)
                 {
                     position.X += 5;
+
+                }
+                else
+                {
 
                 }
             }

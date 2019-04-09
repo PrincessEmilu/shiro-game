@@ -165,6 +165,9 @@ namespace Shiro
             initialX = graphics.GraphicsDevice.Viewport.Width;
             initialY = graphics.GraphicsDevice.Viewport.Height;
 
+            items = new List<CollisionItem>();
+            itemsCollide = new List<CollisionItem>();
+
             base.Initialize();
         }
 
@@ -234,12 +237,11 @@ namespace Shiro
 
             pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
-            player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, camera, boundBox, boundBoxPos);
+            player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, camera, boundBox, boundBoxPos, itemsCollide);
 
-            items = new List<CollisionItem>(0);
-            itemsCollide = new List<CollisionItem>(items.Count);
             door = new CollisionItem(doorTexture, 400, 400, player);
             items.Add(door);
+            itemsCollide.Add(door);
         }
 
         /// <summary>
@@ -335,6 +337,7 @@ namespace Shiro
                                 listEnemies.Clear();
                                 currentLevel = new Level(1, cityTileset, doorTexture, player);
                                 player.CurrentState = PlayerState.FaceRight;
+                                //player.ItemsColliding = currentLevel.CollisonList;
                                 break;
                             case 2:
                                 state = GameState.Instructions;
@@ -361,6 +364,13 @@ namespace Shiro
                     door.Update(gameTime, false);
 
                     //checks all the items in the items if they are colliding.
+
+                    //itemsCollide = currentLevel.GetWalls();
+                    //foreach (CollisionItem i in itemsCollide)
+                    //{
+                    //    i.Update(gameTime, false);
+                    //}
+
                     foreach(CollisionItem a in items)
                     {
                         if (a.CheckCollision(player))
@@ -397,12 +407,12 @@ namespace Shiro
                     //Player movement and states
                     Vector2 movement = Vector2.Zero;
 
-                    if (kbState.IsKeyDown(Keys.Up))
+                    if (kbState.IsKeyDown(Keys.Up) && player.TopWall == false)
                     {
                         movement.Y--;
                         player.BoundBoxY -= 5;                
                     }
-                    if (kbState.IsKeyDown(Keys.Down))
+                    if (kbState.IsKeyDown(Keys.Down) && player.BottomWall == false)
                     {
                         movement.Y++;
                         player.BoundBoxY += 5;
@@ -410,12 +420,12 @@ namespace Shiro
 
                     if (player.CurrentState != PlayerState.FaceRight && player.CurrentState != PlayerState.FaceLeft)
                     {
-                        if (kbState.IsKeyDown(Keys.Left))
+                        if (kbState.IsKeyDown(Keys.Left) && player.LeftWall == false)
                         {
                             movement.X--;
                             player.BoundBoxX -= 5;
                         }
-                        if (kbState.IsKeyDown(Keys.Right))
+                        if (kbState.IsKeyDown(Keys.Right) && player.RightWall == false)
                         {
                             movement.X++;
                             player.BoundBoxX += 5;
