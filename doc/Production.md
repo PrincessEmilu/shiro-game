@@ -14,6 +14,8 @@ to fight or runaway with a slight penalty for running away. Currently the penalt
 For the level we minimally want a few (6-7) enemies on the screen moving in their positions with a door that the player can get to to finish it. We also want collidable tiles
 so the player will have to go around them to make it harder to get to the door.
 
+Based on our scope, we would like to have at least two levels, and then a boss level that uses the battle system used before, but with at least 3 different attack patterns to cycle through.
+
 ### Extra Features
 There are several extra features that would make our game shine and be more interesting. In a sense, these are stretch goals that can only
 be implemented after getting our main mechanics working.
