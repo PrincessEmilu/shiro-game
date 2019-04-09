@@ -117,6 +117,17 @@ tiles are represented by an integer, and the map is simply saved as an array of 
 Data for collisions is stored similarly by using a list of booleans.
 
 **Generate Level**
+Click on the button on the right on the toolbar. This button will open up a dialogue box asking the player for some specifications for their level.
+*  Tileset- Click load to open a load file dialogue to open a PNG to use as the tileset
+*  Tile Size- Provide the width/height value of individual tiles. The level editor assumes that tiles will be square-shaped, which is the standard for tilesets.
+*  Tiles per row- The width of the level, in tiles
+*  Tile per column- The height of the level, in tiles
+*  Screens per row/column- The client should have an idea of how many tiles wide/high a single 'screen' of a level in their game will be. If the user prefers, they can
+choose how many *screens* wide/tall their desired level will be. The previous dimensions for tiles per row/column will be multiplied by these dimensions to create a
+map of the appropriate size. The user can simply leave these values at 1 if they prefer just measuring their overall level size in tiles.
+
+Once the user clicks generate, the generate window will close, a new grid of panels will be created i nthe main window,, and a paintbox window will open up. It may
+take a moment or two to complete the map generation, based on the size of the level to be generated.
 
 **Editing a Level**
 
