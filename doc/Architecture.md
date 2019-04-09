@@ -109,10 +109,28 @@ Our level editor supports saving to a text file that is relatively easy to read 
 ### How
 
 **Overview**
+
 Because a level can be easily represented and flexibly built with interchangeable tiles, it made sense to represent level data as a 2D Array. Each spot in said array
 can hold some piece of data- anything from an integer to an image. The level editor built for our game works by accepting a tileset PNG, slicing it up into a list
 of individual images that the user can select to paint with, and providing a canvas that is as many tiles wide/high as the user specifies. Under the hood, the individual
 tiles are represented by an integer, and the map is simply saved as an array of integers. This design allows for tilesets with varying number of tiles and tile sizes.
 Data for collisions is stored similarly by using a list of booleans.
 
+**Generate Level**
 
+**Editing a Level**
+
+**Saving a Level**
+
+**Level.cs**
+
+### Known Issues
+The level editor is currently fully-functional and seems to have no bugs. However, there are some quality-of-life issues that we are aware of and may improve as
+part of milestone 4's polish.
+
+*  The user can close the paintbox window, and there isn't any way for them to get it back without loading a file again or generating a new map.
+*  The paintbox can be a little too small to work well with if the loaded tileset is very small.
+*  The paintbox tiles do no accurately reflect which tile is currently selected. ALthough a selected tile will have a border added to it, the border is never removed.
+*  No unique images for the toolbar buttons. The documentation should suffice for now.
+*  Representation of collision tiles could be improved for tiles that have no transparency in them.
+*  The user has to click individual tiles in order to paint tiles. Clicking and dragging to paint is more standard for editors such as this.
