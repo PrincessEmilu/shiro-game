@@ -105,6 +105,50 @@ namespace Shiro
             //Moves the player based on key presses
             KeyboardState kbState = Keyboard.GetState();
 
+            //Prevents player from going into the collision item
+            //if(itemsCollding.Count != 0)
+            //{
+            //    foreach(CollisionItem a in itemsColliding)
+            //    {
+            //        if (position.Bottom + 100 >= a.CollisionBox.Bottom)
+            //        {
+            //            bottomBounding = true;
+            //        }
+            //        else
+            //        {
+            //            bottomBounding = false;
+            //        }
+
+            //        if (position.Right + 100 >= a.CollisionBox.Right)
+            //        {
+            //            rightBounding = true;
+            //        }
+            //        else
+            //        {
+            //            rightBounding = false;
+            //        }
+
+            //        if (position.Top - 100 <= a.CollisionBox.Top)
+            //        {
+            //            topBounding = true;
+            //        }
+            //        else
+            //        {
+            //            topBounding = false;
+            //        }
+
+            //        if (position.Left - 100 <= a.CollisionBox.Left)
+            //        {
+            //            leftBounding = true;
+            //        }
+            //        else
+            //        {
+            //            leftBounding = false;
+            //        }
+            //    }
+            //}
+
+
             //Prevents player from going out of the boundbox
 
             if (position.Bottom + 100 >= boundBox.Bottom)

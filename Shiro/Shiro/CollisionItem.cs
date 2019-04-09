@@ -98,5 +98,13 @@ namespace Shiro
                 }
             }
         }
+
+        public Rectangle CollisionBox
+        {
+            get
+            {
+                return collisionBox;
+            }
+        }
     }
 }

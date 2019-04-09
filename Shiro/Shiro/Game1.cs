@@ -24,6 +24,7 @@ namespace Shiro
     /// </summary>
     public class Game1 : Game
     {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameState state;
@@ -121,6 +122,8 @@ namespace Shiro
         Viewport viewport;
         Camera camera;
         CollisionItem door;
+        List<CollisionItem> items;
+        List<CollisionItem> itemsCollide;
         Texture2D doorTexture;
 
         bool drawEnemiesOnce = true;
@@ -233,7 +236,10 @@ namespace Shiro
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, camera, boundBox, boundBoxPos);
 
+            items = new List<CollisionItem>(0);
+            itemsCollide = new List<CollisionItem>(items.Count);
             door = new CollisionItem(doorTexture, 400, 400, player);
+            items.Add(door);
         }
 
         /// <summary>
@@ -354,6 +360,21 @@ namespace Shiro
                     player.Update(gameTime);
                     door.Update(gameTime, false);
 
+                    //checks all the items in the items if they are colliding.
+                    foreach(CollisionItem a in items)
+                    {
+                        if (a.CheckCollision(player))
+                        {
+                            itemsCollide.Add(a);
+                        } else
+                        {
+                            if (itemsCollide.Contains(a))
+                            {
+                                itemsCollide.Remove(a);
+                            }
+                        }
+                    }
+
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
                     if(drawEnemiesOnce)
                     {
@@ -370,6 +391,8 @@ namespace Shiro
 
                         drawEnemiesOnce = false;
                     }
+
+                    
 
                     //Player movement and states
                     Vector2 movement = Vector2.Zero;
@@ -889,6 +912,4 @@ namespace Shiro
             base.Draw(gameTime);
         }
     }
-
-
 }
