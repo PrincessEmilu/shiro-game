@@ -58,7 +58,7 @@ Below is a visualization of the other classes that are independent and have no i
 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Other_Class_Diagrams.png "Other Classes Diagram")
 
-## External Tool
+## External Tool - Attack Creator
 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/AttackKeyPopUpStart.PNG "Pop up window for attack key tool")
 
@@ -88,4 +88,31 @@ by each comma into a string array. Finally, for each string inside of the array,
 passed into the enemy of the same file name if it exists. 
 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/KeyPressGenerator.png "KeyPressGenerator Diagram")
+
+## External Tool - Level Editor
+
+### Why
+MonoGame and the Microsoft Xna Graphics Framework are very powerful tools for game developers, but unlike platforms such as Unity or Unreal Engine, it lacks a way
+of graphically representing your game and the data involved in it. In some instances, that isn't a big deal, but many games have structured levels with hundreds, if
+not thousands of tiles pieced together to make a single room or level in a game. Hard-coding such a graphically-intensive aspect of a video game would not only require
+a lot of trial and error, but it would also be borderline illegible to read amongst a team.
+
+*If only there were a better way...*
+
+### What
+Our team's level editor aims to bridge the gap between the abstract, human-unreadable understanding of a level and the final output of what the player actually
+experiences when playing the game. This level editor allows a client to create levels of varying sizes and dimensions using tilesets of any size and number of tiles.
+In addition, the client can also add collision to tile spaces, allowing the user to add behaviour to tiles beyond simply being a graphical depiction of a game world.
+
+Our level editor supports saving to a text file that is relatively easy to read by a human, and easily loadable into a game project.
+
+### How
+
+**Overview**
+Because a level can be easily represented and flexibly built with interchangeable tiles, it made sense to represent level data as a 2D Array. Each spot in said array
+can hold some piece of data- anything from an integer to an image. The level editor built for our game works by accepting a tileset PNG, slicing it up into a list
+of individual images that the user can select to paint with, and providing a canvas that is as many tiles wide/high as the user specifies. Under the hood, the individual
+tiles are represented by an integer, and the map is simply saved as an array of integers. This design allows for tilesets with varying number of tiles and tile sizes.
+Data for collisions is stored similarly by using a list of booleans.
+
 
