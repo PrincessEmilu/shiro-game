@@ -12,7 +12,7 @@ Our general approach to the architecture of this game, is to create all our nece
 
 We are planning on having 4 total state machines. We will have an overarching game state machine that will detail the current context of what the player is seeing and the actions necessary for that scene. The player's movement state machine to describe the animations for the player asset as well as one for the enemy. The final state will be a battle specific state to detail the different states of the battle system.
 
-The game state machine will be the largest state machine we handle for this game. This state machine will have 6 different states, the title screen, the main menu, the level or game state, the pause menu, the battle state, and the game over state. The title screen state will be simple and display a large image as well as the title for our game. It will have litle user interactibility, other than pressing the Enter key to progress to the menu state. The menu state will also be simple with few images, but it will provide slightly more use interactibiliy. The menu state will basically draw text to provide the following options for the player to choose: start, load, and quit. Pressing Enter on start or load will transition to the level state and quit will transition to the title screen. The level state will be the most complex state to code as it will have to contain data for the levels, enemies, and the player. This is the state in which all the gameplay will happen.From this state, pressing the escape key will transition to the pause state. This state will keep the gameplay data as it was left beforehand and await user input in the form of a menu with the options to resume, load, and quit. Resume and load both lead back into the game state but with different actions and the quit option transitions to the menu state. Also during the game state, if the player encounters an enemy, the state transitions to the battle state. The battle state will also be complex as it has many interface options to handle. The main focus of this state will be to provide the battle interface for the player and keep track of the player and enemy stamina. If the battle is won or the player chooses to run away this state transitions back to the game state and gameplay resumes. If the player loses, they are transitioned to the final state, the game over state. The game over state is another simple menu with the options to load or quit. Load will transition back into the game state and quit will transition into the menu state.
+The game state machine will be the largest state machine we handle for this game. This state machine will have 6 different states, the title screen, the main menu, the level or game state, the pause menu, the battle state, and the game over state. The title screen state will be simple and display a large image as well as the title for our game. It will have little user intractability, other than pressing the Enter key to progress to the menu state. The menu state will also be simple with few images, but it will provide slightly more use intractability. The menu state will basically draw text to provide the following options for the player to choose: start, load, and quit. Pressing Enter on start or load will transition to the level state and quit will transition to the title screen. The level state will be the most complex state to code as it will have to contain data for the levels, enemies, and the player. This is the state in which all the gameplay will happen.From this state, pressing the escape key will transition to the pause state. This state will keep the gameplay data as it was left beforehand and await user input in the form of a menu with the options to resume, load, and quit. Resume and load both lead back into the game state but with different actions and the quit option transitions to the menu state. Also during the game state, if the player encounters an enemy, the state transitions to the battle state. The battle state will also be complex as it has many interface options to handle. The main focus of this state will be to provide the battle interface for the player and keep track of the player and enemy stamina. If the battle is won or the player chooses to run away this state transitions back to the game state and gameplay resumes. If the player loses, they are transitioned to the final state, the game over state. The game over state is another simple menu with the options to load or quit. Load will transition back into the game state and quit will transition into the menu state.
 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Game_State_Machine.png "Game State Machine")
 
@@ -20,7 +20,7 @@ The Player state machine will contain 8 states, two for each direction. One of t
 
 The Enemy state machine will be similar to the player state machine but the transition would be triggered by hard code instead of user input.
 
-The Battle state machine will 4 states an attack state, an idle state, victory state, and losing state. The battle will begin in the idle state in which the player is given two options, stay or leave. If the player leaves the game state will transition back to level and the enemy will remain in the world until defeated. If the player chooses to stay, the battle state machine will transition to the attack state. The attack state will be the main focus of the state machine. This state will contain the user interface for battle in which the player will the correct arrow at the aorrect time in order to dodge the incoming attacks. In this state the player will stamina for each arrow missed or pressed too early. After the timer runs out, we will transition back to the idle state. During the attack state, if a player runs out of stamina, the state will change to the losing state. Likewise, if the player manages to survive the battle by depleting the enemy's stamina, the state will switch to the victory state. Both states are simple screens that transitions back to the game state level either through a previous save, in the losing state, or from where the battle occurred, in the victory state.
+The Battle state machine will 4 states an attack state, an idle state, victory state, and losing state. The battle will begin in the idle state in which the player is given two options, stay or leave. If the player leaves the game state will transition back to level and the enemy will remain in the world until defeated. If the player chooses to stay, the battle state machine will transition to the attack state. The attack state will be the main focus of the state machine. This state will contain the user interface for battle in which the player will the correct arrow at the correct time in order to dodge the incoming attacks. In this state the player will stamina for each arrow missed or pressed too early. After the timer runs out, we will transition back to the idle state. During the attack state, if a player runs out of stamina, the state will change to the losing state. Likewise, if the player manages to survive the battle by depleting the enemy's stamina, the state will switch to the victory state. Both states are simple screens that transitions back to the game state level either through a previous save, in the losing state, or from where the battle occurred, in the victory state.
 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Battle_State_Machine.png "Game State Machine")
 
@@ -36,7 +36,7 @@ Other classes that our game utilizes are Level, Camera, Battle, ImportAttackPatt
 
 Level is designed to load in a tileset from the level editor external tool. Level also has its own Draw method that will draw all of the tiles based on how they are selected in the editor.
 
-Camera is designed to handle the movement of the area that the user will be able to see. The postition of the camera is controlled with a vector and changes based on the key presses of the user.
+Camera is designed to handle the movement of the area that the user will be able to see. The position of the camera is controlled with a vector and changes based on the key presses of the user.
 
 Battle reads the attack keys from the attack key generator external tool. This class also displays the attack keys and moves them across the screen and tests to make sure the user presses the correct key when it is in the drawn hitbox.
 It uses its own Draw method to draw the arrows and hitbox on the screen.
@@ -74,7 +74,7 @@ the attack pattern you are generating. Once you set your number between one and 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/GIFofKeys.gif "GIF of external tool")
 
 As you can see in the GIF, while it starts out empty, you can click on the empty slots to set keys which consist of: Up, Down, Left, Right and back to None. Once you are satisfied with the attack keys you have made, the button below can be clicked.
-Once this button is clicked, it will pop up a "Save As.." pop up, which will save the file as whatever name you want as a .TXT file. 
+Once this button is clicked, it will pop up a "Save As.." pop up, which will save the file as whatever name you want as a .TXT file.
 
 Here is a example output of the file:
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/ExportedTileSheet.png "Output file of the tool")
@@ -83,9 +83,9 @@ For our game, we are saving all the text files into this folder:
 https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/tree/master/Shiro/AttackPatterns
 
 This folder is hard coded as the only folder to look in for a file name that is passed into the constructor of a class in our main game called ImportAttackPatterns. What this class does is on creation, it will ask for a file name. If the file exists,
-it will print into the console window that the keys were generated, while grabbing the number of keys from the top of the read file. Then, it will use the readed amount of keys to create an array of that size, as well as split the second read line 
+it will print into the console window that the keys were generated, while grabbing the number of keys from the top of the read file. Then, it will use the readed amount of keys to create an array of that size, as well as split the second read line
 by each comma into a string array. Finally, for each string inside of the array, it will use the static method ConvertFromString to convert each string to a key based on a switch statement. This new key gets passed into a key array, which finally gets
-passed into the enemy of the same file name if it exists. 
+passed into the enemy of the same file name if it exists.
 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/KeyPressGenerator.png "KeyPressGenerator Diagram")
 
@@ -130,10 +130,18 @@ Once the user clicks generate, the generate window will close, a new grid of pan
 take a moment or two to complete the map generation, based on the size of the level to be generated.
 
 **Editing a Level**
+Edit the level by click on the desired tile in the painbox, then by clicking on the desired square in the level editor. In order to mark a tile as being solid or
+collidable, right-click on the tile. The tile will be given a blue background to denote it is solid. Right-click again to remove the collision.
 
-**Saving a Level**
+**Saving/Loading a Level**
+Click on the center button on the toolbar in order to save the current level. This button opens up a dialogue window for saving a file, allowing the user to select
+where they want to save the level.
 
-**Level.cs**
+In order to load an existing level, click on the button on the left of the toolbar. This will open up a window allowing the user to select the level file off of their
+computer.
+
+Level files are saved as plain .txt files that contain the size of the level, the size of the tiles, and two arrays, one of integers representing which tile from the
+tileset is in that position, and the other mapping which tiles are meant to have collision.
 
 ### Known Issues
 The level editor is currently fully-functional and seems to have no bugs. However, there are some quality-of-life issues that we are aware of and may improve as
