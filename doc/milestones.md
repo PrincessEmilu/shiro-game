@@ -25,6 +25,18 @@ keep track of issues that need to be fixed as they come up. With such a large pr
 any important details in our game moving forward.
 
 ## Milestone 3
+Milestone 3 has sene the implementation of all of our basic game algorithms and data structures. We've finally managed to start designing levels and importing them from files instead
+of simply hard-coding values for testing. What is most striking to our team is how our project is starting to look and feel like a game. Up until this point, it has always
+looked like and functioned like some sort of experimental tech demo- in a sense, that has been all it was.
+
+This milestone has requried a lot of additional work. We have held extra meetings to work on solving coding problems and implementing new features, and we have each worked individually
+on features more than we have in the past. As exciting as it is to see the scattered pieces of our game tech finally coming together, it has come with the realization that some
+of the pieces now need to be re-tooled to fit together properly, and as such some of our designs have changed. These changes are reflected in the documnetation.
+
+Our team has had to struggle with workload from our other classes as well. However, we have been managing to stick to our meeting schedules. We have also been communicating via
+text more frequently so that we can stay updated about various fixes and changes that need to be done, as well as our individual progress with what we have managed to fix.
+
+
 
 ## Milestone 4
 
