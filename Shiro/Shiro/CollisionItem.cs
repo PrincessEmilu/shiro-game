@@ -17,6 +17,8 @@ namespace Shiro
         Rectangle collisionBox;
         GameObject objToCollide;
 
+        public bool IsDoor { get; private set; }
+
         //any collsion
         public CollisionItem(Texture2D texture, int xPos, int yPos, GameObject objToCollide)
         {
@@ -55,6 +57,8 @@ namespace Shiro
 
         public void Update(GameTime gameTime, bool isDoor)
         {
+            IsDoor = isDoor;
+
             //if true and not a door
             if(CheckCollision(objToCollide) && !isDoor)
             {
@@ -96,6 +100,14 @@ namespace Shiro
                 {
                     sb.Draw(texture, collisionBox, Color.White);
                 }
+            }
+        }
+
+        public Rectangle CollisionBox
+        {
+            get
+            {
+                return collisionBox;
             }
         }
     }

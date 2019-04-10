@@ -66,5 +66,22 @@ and discover how to get him home.
 ## Screenshots & Demo Videos
 See the Art document for concept are and screen mock-ups.
 
+## Menu Screens
+
+Starting Menu:
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/src/Screenshots%20of%20game/ShiroPressEnter.PNG "Start menu - Press Enter")
+
+Main Menu:
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/src/Screenshots%20of%20game/StartMenu.PNG "Main Menu - Instructions and Start")
+
+Instructions Screen:
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/src/Screenshots%20of%20game/instructionsscreen.png "Instructions Screen")
+
+A Single Level with door collision shown:
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/src/Screenshots%20of%20game/Gameplay.PNG "A single level with a door collision shown")
+
+In Battle:
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/src/Screenshots%20of%20game/bbattle.PNG "Picture in battle")
+
 ## External References
 As of right now, we don't have any.

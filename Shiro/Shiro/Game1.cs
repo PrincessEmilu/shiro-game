@@ -24,6 +24,7 @@ namespace Shiro
     /// </summary>
     public class Game1 : Game
     {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameState state;
@@ -121,6 +122,8 @@ namespace Shiro
         Viewport viewport;
         Camera camera;
         CollisionItem door;
+        List<CollisionItem> items;
+        List<CollisionItem> itemsCollide;
         Texture2D doorTexture;
 
         bool drawEnemiesOnce = true;
@@ -152,7 +155,7 @@ namespace Shiro
             //More Debug Stuff
             graphics.PreferredBackBufferWidth = 1300;
             graphics.PreferredBackBufferHeight = 720;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             //Initialize Scale for Battle Class
@@ -161,6 +164,9 @@ namespace Shiro
             //Initialize variables
             initialX = graphics.GraphicsDevice.Viewport.Width;
             initialY = graphics.GraphicsDevice.Viewport.Height;
+
+            items = new List<CollisionItem>();
+            itemsCollide = new List<CollisionItem>();
 
             base.Initialize();
         }
@@ -231,7 +237,7 @@ namespace Shiro
 
             pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
-            player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, camera, boundBox, boundBoxPos);
+            player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, camera, boundBox, boundBoxPos, itemsCollide);
 
             //Commenting this out for cleaner playtesting
             //door = new CollisionItem(doorTexture, 400, 400, player);
@@ -330,6 +336,7 @@ namespace Shiro
                                 listEnemies.Clear();
                                 currentLevel = new Level(1, cityTileset, doorTexture, player);
                                 player.CurrentState = PlayerState.FaceRight;
+                                //player.ItemsColliding = currentLevel.CollisonList;
                                 break;
                             case 2:
                                 state = GameState.Instructions;
@@ -355,14 +362,36 @@ namespace Shiro
                     player.Update(gameTime);
                     //door.Update(gameTime, false);
 
+                    //checks all the items in the items if they are colliding.
+
+                    //itemsCollide = currentLevel.GetWalls();
+                    //foreach (CollisionItem i in itemsCollide)
+                    //{
+                    //    i.Update(gameTime, false);
+                    //}
+
+                    foreach(CollisionItem a in items)
+                    {
+                        if (a.CheckCollision(player))
+                        {
+                            itemsCollide.Add(a);
+                        } else
+                        {
+                            if (itemsCollide.Contains(a))
+                            {
+                                itemsCollide.Remove(a);
+                            }
+                        }
+                    }
+
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
                     if(drawEnemiesOnce)
                     {
                         
                         //Enemies eventually loaded elsewhere
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 500, 500, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 500, 500, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 500, 500, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                         
 
                         player.Pos = pos;
@@ -372,15 +401,17 @@ namespace Shiro
                         drawEnemiesOnce = false;
                     }
 
+                    
+
                     //Player movement and states
                     Vector2 movement = Vector2.Zero;
 
-                    if (kbState.IsKeyDown(Keys.Up))
+                    if (kbState.IsKeyDown(Keys.Up) && player.TopWall == false)
                     {
                         movement.Y--;
                         player.BoundBoxY -= 5;                
                     }
-                    if (kbState.IsKeyDown(Keys.Down))
+                    if (kbState.IsKeyDown(Keys.Down) && player.BottomWall == false)
                     {
                         movement.Y++;
                         player.BoundBoxY += 5;
@@ -388,12 +419,12 @@ namespace Shiro
 
                     if (player.CurrentState != PlayerState.FaceRight && player.CurrentState != PlayerState.FaceLeft)
                     {
-                        if (kbState.IsKeyDown(Keys.Left))
+                        if (kbState.IsKeyDown(Keys.Left) && player.LeftWall == false)
                         {
                             movement.X--;
                             player.BoundBoxX -= 5;
                         }
-                        if (kbState.IsKeyDown(Keys.Right))
+                        if (kbState.IsKeyDown(Keys.Right) && player.RightWall == false)
                         {
                             movement.X++;
                             player.BoundBoxX += 5;
@@ -738,7 +769,7 @@ namespace Shiro
                     spriteBatch.Draw(title, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * titleOpacity);
                     spriteBatch.Draw(enter, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * opacity);
 
-                    //Handle the chang in opacity
+                    //Handle the change in opacity
                     if (titleOpacity != 1)
                     {
                         titleOpacity += .01f;
@@ -878,18 +909,9 @@ namespace Shiro
                     break;
             }
 
-            //DEBUG: Draw current state
-            spriteBatch.DrawString(font, width + "," + height, new Vector2(50, 50), Color.Beige);
-
-
-            //spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);
-
-
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
     }
-
-
 }

@@ -42,6 +42,8 @@ namespace Shiro
         //Player object needed for collidable objects
         Player player;
 
+        public List<CollisionItem> CollisonList { get { return collisionList; } }
+
         public Level(int levelNumber, Texture2D tileset, Texture2D doorTexture, Player player)
         {
             //Init variables
@@ -148,5 +150,27 @@ namespace Shiro
                 }
             }
         }
+
+        //public List<CollisionItem> GetWalls()
+        //{
+        //    List<CollisionItem> temp = new List<CollisionItem>();
+        //
+        //    foreach (CollisionItem i in collisionList)
+        //    {
+        //        if (i.CheckCollision(player))
+        //        {
+        //            temp.Add(i);
+        //        }
+        //        else
+        //        {
+        //            if (temp.Contains(i))
+        //            {
+        //                temp.Remove(i);
+        //            }
+        //        }
+        //    }
+        //
+        //    return temp;
+        //}
     }
 }

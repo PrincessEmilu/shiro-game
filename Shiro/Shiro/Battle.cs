@@ -328,19 +328,19 @@ namespace Shiro
                     //Simply draws the options to fight (or not?) to the player
                     if (arrowPosition == 1)
                     {
-                        sb.DrawString(font, "Fight", new Vector2(200, 250), Color.Red);
+                        sb.DrawString(font, "Fight", new Vector2(600, 250), Color.Red);
                     }
                     else
                     {
-                        sb.DrawString(font, "Fight", new Vector2(200, 250), Color.Black);
+                        sb.DrawString(font, "Fight", new Vector2(600, 250), Color.Black);
                     }
                     if (arrowPosition == 2)
                     {
-                        sb.DrawString(font, "Run Away", new Vector2(200, 280), Color.Red);
+                        sb.DrawString(font, "Run Away", new Vector2(600, 280), Color.Red);
                     }
                     else
                     {
-                        sb.DrawString(font, "Run Away", new Vector2(200, 280), Color.Black);
+                        sb.DrawString(font, "Run Away", new Vector2(600, 280), Color.Black);
                     }
 
                     break;
