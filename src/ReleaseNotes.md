@@ -20,11 +20,15 @@ These notes should include what is done, how to launch/test it, and any known bu
 - ...
 
 ## Milestone 3
-**Release 3.0:** [Tag v3.0](https://kgcoe-git.rit.edu/<OWNER USERNAME>/<REPO NAME>/tags/v3.0)
+**Release 3.0:** [Tag v3.0](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/tags/3.0)
+
 
 **Release Notes:**
-- ...
-- ...
+- Collision implemented
+- Menus look good and navigate easily
+- Levels load from files correctly
+- ...as do enemy attack patterns.
+- Most placeholder assets have been replaced
 
 ## Milestone 4
 **Release 4.0:** [Tag v4.0](https://kgcoe-git.rit.edu/<OWNER USERNAME>/<REPO NAME>/tags/v4.0)
