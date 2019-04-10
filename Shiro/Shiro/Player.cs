@@ -252,7 +252,7 @@ namespace Shiro
             if (frame == 60) { frame = 0; }
 
             //Debug
-            sb.Draw(box, temp, Color.Red);
+            //sb.Draw(box, temp, Color.Red);
 
 
             //Draw different sprite based on state

@@ -770,7 +770,7 @@ namespace Shiro
                     spriteBatch.Draw(title, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * titleOpacity);
                     spriteBatch.Draw(enter, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * opacity);
 
-                    //Handle the chang in opacity
+                    //Handle the change in opacity
                     if (titleOpacity != 1)
                     {
                         titleOpacity += .01f;
@@ -909,13 +909,6 @@ namespace Shiro
                 default:
                     break;
             }
-
-            //DEBUG: Draw current state
-            spriteBatch.DrawString(font, width + "," + height, new Vector2(50, 50), Color.Beige);
-
-
-            //spriteBatch.Draw(background, new Rectangle(100, 100, 100, 100), Color.White);
-
 
             spriteBatch.End();
 
