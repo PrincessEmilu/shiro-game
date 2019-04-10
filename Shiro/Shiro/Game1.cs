@@ -233,7 +233,8 @@ namespace Shiro
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, camera, boundBox, boundBoxPos);
 
-            door = new CollisionItem(doorTexture, 400, 400, player);
+            //Commenting this out for cleaner playtesting
+            //door = new CollisionItem(doorTexture, 400, 400, player);
         }
 
         /// <summary>
@@ -352,7 +353,7 @@ namespace Shiro
                     //Updated entities
 
                     player.Update(gameTime);
-                    door.Update(gameTime, false);
+                    //door.Update(gameTime, false);
 
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
                     if(drawEnemiesOnce)
@@ -829,7 +830,7 @@ namespace Shiro
                     camera.Pos = prevCamera;
                     currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
-                    door.Draw(spriteBatch, false);
+                    //door.Draw(spriteBatch, false);
 
                     foreach (Enemy e in listEnemies)
                     {
