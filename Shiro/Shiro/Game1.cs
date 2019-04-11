@@ -25,6 +25,7 @@ namespace Shiro
     public class Game1 : Game
     {
 
+        #region Fields
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameState state;
@@ -34,6 +35,8 @@ namespace Shiro
         SpriteFont font;
         KeyboardState pbState;
         
+
+        //Textures
         Texture2D background;
         Texture2D cityTileset;
         Texture2D shiroIdle;
@@ -41,6 +44,7 @@ namespace Shiro
         Texture2D enemyShadowWalkTexture;
         Texture2D enemyShadowIdleTexture;
         Texture2D hitbox;
+        Texture2D doorTexture;
 
         private int viewportMoveX;
         private int viewportMoveY;
@@ -53,9 +57,6 @@ namespace Shiro
         private Player player;
         private Enemy enemy;
         private Boss salsa;
-
-        //test
-        //ImportAttackPatterns tester = new ImportAttackPatterns("ratAttackOne.txt");
 
         List<Enemy> listEnemies;
 
@@ -109,27 +110,20 @@ namespace Shiro
         Texture2D DownArrow;
         Texture2D RightArrow;
         Texture2D LeftArrow;
-        /*AttackKey keyUp;
-        AttackKey keyDown;
-        AttackKey keyRight;
-        AttackKey keyLeft;*/
 
-        //Debug stuff
-        //const int TargetWidth = 1300;
-        //const int TargetHeight = 720;
+        //Camera data
         Matrix scale;
-
         Viewport viewport;
         Camera camera;
+        Rectangle pos;
+        Vector2 prevCamera;
+
         CollisionItem door;
         List<CollisionItem> items;
         List<CollisionItem> itemsCollide;
-        Texture2D doorTexture;
 
         bool drawEnemiesOnce = true;
-
-        Rectangle pos;
-        Vector2 prevCamera;
+#endregion
 
         public Game1()
         {
@@ -146,27 +140,29 @@ namespace Shiro
         /// </summary>
         protected override void Initialize()
         {
+
+            //Initialize variables
+
             listEnemies = new List<Enemy>();
             rng = new Random();
 
             //Start at the Title Screen
             state = GameState.TitleScreen;
 
-            //More Debug Stuff
-            graphics.PreferredBackBufferWidth = 1300;
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
-
             //Initialize Scale for Battle Class
             scale = Matrix.CreateScale(new Vector3((float)1.5, (float)1.5, 1));
 
-            //Initialize variables
             initialX = graphics.GraphicsDevice.Viewport.Width;
             initialY = graphics.GraphicsDevice.Viewport.Height;
 
             items = new List<CollisionItem>();
             itemsCollide = new List<CollisionItem>();
+
+            //Screen size/settings
+            graphics.PreferredBackBufferWidth = 1300;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -185,14 +181,10 @@ namespace Shiro
             shiroWalk = Content.Load<Texture2D>("walk_sprite_fix");
             enemyShadowWalkTexture = Content.Load<Texture2D>("EnemyWalkSpriteSheet");
             enemyShadowIdleTexture = Content.Load<Texture2D>("EnemyIdleSpriteSheet");
-
             boundBox = Content.Load<Texture2D>("rectangle");
-
             font = Content.Load<SpriteFont>("font");
             doorTexture = Content.Load<Texture2D>("hitbox");
-
             hitbox = Content.Load<Texture2D>("hitbox");
-            //Arrow for Debug
             UpArrow = Content.Load<Texture2D>("UpArrow");
             DownArrow = Content.Load<Texture2D>("DownArrow");
             LeftArrow = Content.Load<Texture2D>("LeftArrow");
@@ -218,29 +210,20 @@ namespace Shiro
             battleBar = Content.Load<Texture2D>("BottomBar");
             hitboxPretty = Content.Load<Texture2D>("HitboxKeys");
 
+            //Sets fields for window width/height for easier access later.
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
             
-
+            //Create a new camera
             camera = new Camera(graphics.GraphicsDevice.Viewport, 1600, 1600, 1);
-
-           /* float camWidth = camera.Pos.X / 2;
-            width = (int)camWidth;
-            float camHeight = camera.Pos.X / 2;
-            height = (int)camHeight;
-            */
-            
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
-            //graphics.GraphicsDevice.Viewport = new Viewport(0, 0, width, height);
 
+            //Player variables
             pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, camera, boundBox, boundBoxPos, itemsCollide);
-
-            //Commenting this out for cleaner playtesting
-            //door = new CollisionItem(doorTexture, 400, 400, player);
         }
 
         /// <summary>
@@ -260,12 +243,13 @@ namespace Shiro
         protected override void Update(GameTime gameTime)
         {
 
-            //Keyboard State
+            //Keyboard State- updated every frame no matter the game state.
             kbState = Keyboard.GetState();
 
-            //Switch for Game State
+            //Switch for Game State- each state seperated by region for easier access
             switch (state)
             {
+                #region TitleScreen
                 case GameState.TitleScreen:
 
                     //Transition into Menu State when Enter is Pressed
@@ -284,7 +268,8 @@ namespace Shiro
                         Exit();
                     }
                     break;
-
+                #endregion
+                #region Main Menu
                 case GameState.MainMenu:
 
                     //Transition to the Title Screen when Escape is Pressed
@@ -346,7 +331,8 @@ namespace Shiro
                         }
                     }
                     break;
-
+                #endregion
+                #region Instructions
                 case GameState.Instructions:
                     //Change to the Menu State when Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
@@ -355,20 +341,12 @@ namespace Shiro
                         arrowPosition = 1;  //Make sure the initial position is one
                     }
                     break;
-
+                #endregion
+                #region Level
                 case GameState.Level:
+
                     //Updated entities
-
                     player.Update(gameTime);
-                    //door.Update(gameTime, false);
-
-                    //checks all the items in the items if they are colliding.
-
-                    //itemsCollide = currentLevel.GetWalls();
-                    //foreach (CollisionItem i in itemsCollide)
-                    //{
-                    //    i.Update(gameTime, false);
-                    //}
 
                     foreach(CollisionItem a in items)
                     {
@@ -400,8 +378,6 @@ namespace Shiro
 
                         drawEnemiesOnce = false;
                     }
-
-                    
 
                     //Player movement and states
                     Vector2 movement = Vector2.Zero;
@@ -540,7 +516,8 @@ namespace Shiro
                         previousState = GameState.Level;
                     }
                     break;
-
+                #endregion
+                #region Pause Menu
                 case GameState.PauseMenu:
                     //Transition to the Level State when Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
@@ -623,7 +600,8 @@ namespace Shiro
                         arrowPosition = 1; //Set Initial Arrow Position to One
                     }
                     break;
-
+                #endregion
+                #region Battle
                 case GameState.Battle:
                     //Change to the Pause Menu when Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
@@ -663,7 +641,8 @@ namespace Shiro
                     }
 
                     break;
-
+                #endregion
+                #region Game Over
                 case GameState.GameOver:
                     //Reset the Level
 
@@ -739,6 +718,7 @@ namespace Shiro
 
             base.Update(gameTime);
         }
+        #endregion
 
         /// <summary>
         /// This is called when the game should draw itself.
