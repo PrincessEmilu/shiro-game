@@ -401,5 +401,17 @@ namespace Shiro
             }
 
         }
+        public bool RunAway(int chance, Random rng)
+        {
+            int random = rng.Next(1, 11);
+            if (random <= chance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
