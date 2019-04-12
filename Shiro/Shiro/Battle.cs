@@ -27,6 +27,10 @@ namespace Shiro
         protected int keySpeed;
         protected int arrowPosition;
         protected int timerOriginal; //To help measure the time passed
+        protected int chance;
+        protected Random rng;
+        protected bool failedRun;
+        protected bool success;
 
         //References to player and enemy in battle
         protected Player player;
@@ -71,7 +75,7 @@ namespace Shiro
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
         //the previous locations of the player and the enemies that were on the level.
         public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D UpArrow, Texture2D DownArrow, Texture2D LeftArrow, Texture2D RightArrow,
-            Texture2D hitboxTexture, Texture2D healthBox, Player player, Enemy enemy, int keySpeed)
+            Texture2D hitboxTexture, Texture2D healthBox, Player player, Enemy enemy, int keySpeed, int runAwayChance, Random rng)
         {
             //The stars of the show...
             this.player = player;
@@ -84,6 +88,11 @@ namespace Shiro
             attackTick = 25;
             arrowPosition = 1;
             timerOriginal = 0;
+
+            chance = runAwayChance;
+            this.rng = rng;
+            failedRun = false;
+            success = false;
 
             //Also hardcoded for now, eventually given by enemy?
             this.keySpeed = keySpeed;
@@ -176,10 +185,24 @@ namespace Shiro
                         {
                             battleState = BattleState.Fight;
                             timerOriginal = 0;
+                            failedRun = false;
                         }
                         else if (kbState.IsKeyDown(Keys.Enter) && arrowPosition == 2)
                         {
-                            battleState = BattleState.RanAway;
+                            //Check to see if the player successfully ran away
+                            bool success = enemy.RunAway(chance, rng);
+                            if (success)
+                            {
+                                battleState = BattleState.RanAway;
+                                success = true;
+                                timerOriginal = timer;
+                            }
+                            else
+                            {
+                                player.Stamina -= 10;
+                                failedRun = true;
+                            }
+
                             timerOriginal = 0;
                         }
                     }
@@ -302,7 +325,8 @@ namespace Shiro
                     break;
                 case BattleState.RanAway:
                     //If the player chooses to run away
-                    if (!RanAway)
+                    timer++;
+                    if (!RanAway && (timer - timerOriginal) >= 200)
                     {
                         RanAway = true;
                         player.X = player.PrevPos.X;
@@ -326,6 +350,16 @@ namespace Shiro
             {
 
                 case BattleState.Idle:
+                    //Draws the health bars for the player and enemy
+                    //enemy
+                    sb.Draw(healthBoxTexture, new Vector2((float)645, (float)103), new Rectangle(650, 90, 210, 50), Color.Black);
+                    sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(650, 90, 200, 45), Color.Red);
+                    sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, enemy.Stamina * 2, 45), Color.Green);
+                    //player
+                    sb.Draw(healthBoxTexture, new Vector2((float)41, (float)103), new Rectangle(40, 90, 205, 50), Color.Black);
+                    sb.Draw(healthBoxTexture, new Vector2((float)40, (float)105), new Rectangle(40, 90, 200, 45), Color.Red);
+                    sb.Draw(healthBoxTexture, new Vector2((float)40, (float)105), new Rectangle(40, 90, player.Stamina * 2, 45), Color.Green);
+
                     //Simply draws the options to fight (or not?) to the player
                     if (arrowPosition == 1)
                     {
@@ -342,6 +376,11 @@ namespace Shiro
                     else
                     {
                         sb.DrawString(font, "Run Away", new Vector2(600, 280), Color.Black);
+                    }
+
+                    if (failedRun)
+                    {
+                        sb.DrawString(font, "Run Away Attempt Failed. Shiro has lost 10 Stamina. ", new Vector2(400, 175), Color.Red);
                     }
 
                     break;
@@ -372,6 +411,9 @@ namespace Shiro
                 case BattleState.Victory:
                     //Show victory message and transition back to level
                     sb.DrawString(font, "Victory!", new Vector2(500, 100), Color.Red);
+                    break;
+                case BattleState.RanAway:
+                    sb.DrawString(font, "Successfully Ran Away!", new Vector2(500, 100), Color.Red);
                     break;
 
             }
@@ -409,7 +451,7 @@ namespace Shiro
                         keyToReturn = new AttackKey(
                             DownArrow,
                             1200,
-                            350,
+                            375,
                             keyType,
                             keySpeed);
                         break;
@@ -425,7 +467,7 @@ namespace Shiro
                         keyToReturn = new AttackKey(
                             RightArrow,
                             1200,
-                            375,
+                            350,
                             keyType,
                             keySpeed);
                         break;

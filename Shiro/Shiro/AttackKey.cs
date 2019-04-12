@@ -15,6 +15,7 @@ namespace Shiro
         //Fields
         int speed;
 
+
         //Properties
         public Keys KeyType { get; protected set; }
 

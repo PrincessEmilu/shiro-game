@@ -30,7 +30,7 @@ namespace Shiro
         GameState state;
         GameState previousState;
         int arrowPosition;  //For Menu Systems
-        int keySpeed = 5;
+        int chance = 5;
         SpriteFont font;
         KeyboardState pbState;
         
@@ -461,7 +461,7 @@ namespace Shiro
                                 player.CurrentState = PlayerState.FaceRight;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, keySpeed);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, 5, chance, rng);
                             }
                         }
                     }
@@ -577,9 +577,9 @@ namespace Shiro
                         //Might need to do more logic than this in final version...
                         state = GameState.Level;
 
-                        if (keySpeed > 5)
+                        if (chance < 8)
                         {
-                            keySpeed--;
+                            chance++;
                         }
                     }
 
@@ -594,8 +594,11 @@ namespace Shiro
                     {
                         boundBoxPos = player.BoxPrevPos;
                         //Need to add Penalty Logic
+                        if (chance > 2)
+                        {
+                            chance--;
+                        }
                         state = GameState.Level;
-                        keySpeed++;
                     }
 
                     break;
@@ -743,7 +746,7 @@ namespace Shiro
 
 
                     spriteBatch.Draw(titleBackground, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
-                    spriteBatch.Draw(sideImage, new Rectangle(initialX - 800, 0, 1000, graphics.GraphicsDevice.Viewport.Height), 
+                    spriteBatch.Draw(sideImage, new Rectangle(initialX - 300, 0, 1000, graphics.GraphicsDevice.Viewport.Height), 
                         Color.White);
 
                     spriteBatch.Draw(title, new Rectangle(x, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * titleOpacity);
@@ -809,7 +812,6 @@ namespace Shiro
                     camera.Pos = prevCamera;
                     currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
-
                     //Draw each enemy that is active.
                     foreach (Enemy e in listEnemies)
                     {
