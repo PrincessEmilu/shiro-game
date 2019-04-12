@@ -394,6 +394,8 @@ namespace Shiro
 
 
                         player.Pos = pos;
+                        player.BoundBoxX = boundBoxPos.X;
+                        player.BoundBoxY = boundBoxPos.Y;
 
                         camera.Pos = new Vector2(0, 0);
 
