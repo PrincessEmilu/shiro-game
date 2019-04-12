@@ -20,6 +20,7 @@ namespace Shiro
         //Fields
         private AttackPattern pattern;
         private List<Texture2D> animations;
+        public Texture2D battleTexture;
 
         //Fields Used For the SpriteSheet
         int frame;              // The current animation frame
@@ -45,11 +46,13 @@ namespace Shiro
         }
 
         //Constructor
-        public Boss(Texture2D texture, Texture2D walkTexture, int xPositon, int yPosition, int width, int height, Random rng, String patterneFileName, List<Texture2D> animations) 
-            : base(texture, walkTexture, xPositon, yPosition, width, height, rng, patterneFileName)
+        public Boss(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPositon, int yPosition, int width, int height, Random rng, String patterneFileName, List<Texture2D> animations) 
+            : base(texture, walkTexture, battleTexture, xPositon, yPosition, width, height, rng, patterneFileName)
         {
             this.animations = animations;
             pattern = AttackPattern.Pattern1;
+
+            this.battleTexture = battleTexture;
 
             // More Animation Variables that Exist to be changed later
             fps = 10.0;                     // Will cycle through 10 walk frames per second

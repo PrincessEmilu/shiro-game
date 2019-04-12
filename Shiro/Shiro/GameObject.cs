@@ -18,6 +18,10 @@ namespace Shiro
         public Rectangle Position
         {
             get { return position; }
+            set
+            {
+                position = value;
+            }
         }
 
         //Allows for quickly getting 
@@ -36,13 +40,18 @@ namespace Shiro
         protected GameObject(Texture2D texture, int xPosition, int yPosition)
         {
             this.texture = texture;
-            position = new Rectangle(xPosition, yPosition, texture.Width, texture.Height);
+            position = new Rectangle(xPosition, yPosition, 100, 100);
         }
 
         //Draw method
         public virtual void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, Color.White);
+        }
+
+        public virtual void Draw(SpriteBatch sb, float opacity)
+        {
+            sb.Draw(texture, position, Color.White * opacity);
         }
 
         public abstract void Update(GameTime gameTime);
