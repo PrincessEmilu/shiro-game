@@ -332,6 +332,7 @@ namespace Shiro
                         player.X = player.PrevPos.X;
                         player.Y = player.PrevPos.Y;
                         enemy.Active = false;
+                        //enemy.InBattle = false? To reset texture
                     }
                     break;
             }
