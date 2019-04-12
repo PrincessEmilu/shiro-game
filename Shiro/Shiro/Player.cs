@@ -34,6 +34,8 @@ namespace Shiro
         private bool rightWall;
         private bool bottomWall;
 
+        int movementSpeed;
+
         //Debug
         Rectangle temp;
         Rectangle[] temps = new Rectangle[20];
@@ -98,11 +100,12 @@ namespace Shiro
 
         #region Constructor
         //Constructor
-        public Player(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Camera camera, 
+        public Player(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, int movementSpeed, Camera camera, 
             Texture2D box, Rectangle boundBox, List<CollisionItem> itemsColliding) : base(texture, xPosition, yPosition)
         {
             CurrentState = PlayerState.FaceLeft;
 
+            this.movementSpeed = movementSpeed;
             frame = 0;
             Stamina = 100;
             this.walkTexture = walkTexture;
@@ -127,7 +130,7 @@ namespace Shiro
         //Overridden Update method, puts all of the player's update code into one place to be called once
         public override void Update(GameTime gameTime)
         {
-            //Moves the player based on key presses
+
             KeyboardState kbState = Keyboard.GetState();
 
             //Prevents player from going out of the boundbox
@@ -173,7 +176,7 @@ namespace Shiro
                 Collides(Keys.Up);
                 if (!topWall)
                 {
-                    position.Y -= 5;
+                    position.Y -= movementSpeed;
                 }
             }
 
@@ -182,7 +185,7 @@ namespace Shiro
                 Collides(Keys.Down);
                 if (!bottomWall)
                 {
-                    position.Y += 5;
+                    position.Y += movementSpeed;
                 }
             }
             if (CurrentState != PlayerState.FaceLeft && CurrentState != PlayerState.FaceRight)
@@ -192,7 +195,7 @@ namespace Shiro
                     Collides(Keys.Left);
                     if (!leftWall)
                     {
-                        position.X -= 5;
+                        position.X -= movementSpeed;
                     }
                 }
                 else
@@ -204,7 +207,7 @@ namespace Shiro
                     Collides(Keys.Right);
                     if (!rightWall)
                     {
-                        position.X += 5;
+                        position.X += movementSpeed;
                     }
                 }
                 else

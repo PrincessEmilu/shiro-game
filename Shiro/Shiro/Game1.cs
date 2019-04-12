@@ -46,8 +46,6 @@ namespace Shiro
         Texture2D hitbox;
         Texture2D doorTexture;
 
-        private int viewportMoveX;
-        private int viewportMoveY;
         public int width;
         public int height;
 
@@ -74,6 +72,8 @@ namespace Shiro
         private int initialX;
         private int initialY;
         private bool draw;
+
+        private const int playerWalkSpeed = 4;
 
         //Fields for Instructions
         Texture2D instructionsBackground;
@@ -161,7 +161,7 @@ namespace Shiro
             //Screen size/settings
             graphics.PreferredBackBufferWidth = 1300;
             graphics.PreferredBackBufferHeight = 720;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             base.Initialize();
@@ -223,7 +223,7 @@ namespace Shiro
             //Player variables
             pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
-            player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, camera, boundBox, boundBoxPos, itemsCollide);
+            player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
         }
 
         /// <summary>
@@ -242,7 +242,6 @@ namespace Shiro
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
             //Keyboard State- updated every frame no matter the game state.
             kbState = Keyboard.GetState();
 
@@ -372,7 +371,6 @@ namespace Shiro
                         listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                         listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                         
-
                         player.Pos = pos;
 
                         camera.Pos = new Vector2(0, 0);
@@ -380,48 +378,50 @@ namespace Shiro
                         drawEnemiesOnce = false;
                     }
 
-                    //Player movement and states
-                    Vector2 movement = Vector2.Zero;
+                    //Player movement
+                    Vector2 cameraMovement = Vector2.Zero;
 
                     if (kbState.IsKeyDown(Keys.Up) && player.TopWall == false)
                     {
-                        movement.Y--;
-                        player.BoundBoxY -= 5;                
+                        cameraMovement.Y--;
+                        player.BoundBoxY -= playerWalkSpeed;                
                     }
                     if (kbState.IsKeyDown(Keys.Down) && player.BottomWall == false)
                     {
-                        movement.Y++;
-                        player.BoundBoxY += 5;
+                        cameraMovement.Y++;
+                        player.BoundBoxY += playerWalkSpeed;
                     }
 
                     if (player.CurrentState != PlayerState.FaceRight && player.CurrentState != PlayerState.FaceLeft)
                     {
                         if (kbState.IsKeyDown(Keys.Left) && player.LeftWall == false)
                         {
-                            movement.X--;
-                            player.BoundBoxX -= 5;
+                            cameraMovement.X--;
+                            player.BoundBoxX -= playerWalkSpeed;
                         }
                         if (kbState.IsKeyDown(Keys.Right) && player.RightWall == false)
                         {
-                            movement.X++;
-                            player.BoundBoxX += 5;
+                            cameraMovement.X++;
+                            player.BoundBoxX += playerWalkSpeed;
                         }
                     }
+
+                    //Adjusts the camera
+                    camera.Pos += cameraMovement * playerWalkSpeed;
+                    prevCamera = camera.Pos;
 
                     //Changes player state to the corect animation
                     player.UpdateAnimation(kbState);
 
-                    camera.Pos += movement * 5;
-                    prevCamera = camera.Pos;
-                    
+                    //Update all of the enemies
                     foreach (Enemy e in listEnemies)
                     {
-                        //PRocesses enemy if it is active
+                        //Processes enemy if it is active
                         if (e.Active)
                         {
                             e.Update(gameTime);
 
-                            //Enemy Encounter
+                            //Enemy Encounter- Battle time!
                             if (e.CheckCollision(player))
                             {
                                 player.BoxPrevPos = boundBoxPos;
@@ -435,7 +435,6 @@ namespace Shiro
                             }
                         }
                     }
-
 
                     //Change to the Pause Menu when Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
@@ -775,11 +774,11 @@ namespace Shiro
                     camera.Pos = prevCamera;
                     currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
-                    //door.Draw(spriteBatch, false);
 
+                    //Draw each enemy that is active.
                     foreach (Enemy e in listEnemies)
                     {
-                        e.Draw(spriteBatch);
+                        if (e.Active) { e.Draw(spriteBatch); }
                     }
                     break;
                 #endregion
