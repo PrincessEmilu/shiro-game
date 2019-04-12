@@ -15,12 +15,22 @@ namespace Shiro
         Pattern2
     }
 
+    enum AnimationState
+    {
+        Idle,
+        DownBow,
+        Bowing,
+        UpBow,
+    }
+
     class Boss : Enemy
     {
         //Fields
         private AttackPattern pattern;
-        private List<Texture2D> animations;
-        public Texture2D battleTexture;
+        private Texture2D idle;
+        private Texture2D bowing;
+        private Texture2D inBow;
+
 
         //Fields Used For the SpriteSheet
         int frame;              // The current animation frame
@@ -46,10 +56,13 @@ namespace Shiro
         }
 
         //Constructor
-        public Boss(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPositon, int yPosition, int width, int height, Random rng, String patterneFileName, List<Texture2D> animations) 
+        public Boss(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPositon, int yPosition, int width, int height, Random rng, String patterneFileName) 
             : base(texture, walkTexture, battleTexture, xPositon, yPosition, width, height, rng, patterneFileName)
         {
-            this.animations = animations;
+            this.idle = texture;
+            this.bowing = walkTexture;
+            this.inBow = battleTexture;
+
             pattern = AttackPattern.Pattern1;
 
             this.battleTexture = battleTexture;

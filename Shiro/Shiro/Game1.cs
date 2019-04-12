@@ -45,6 +45,11 @@ namespace Shiro
         Texture2D hitbox;
         Texture2D doorTexture;
 
+        //Salsa Textures
+        Texture2D salsaIdle;
+        Texture2D salsaBowDown;
+        Texture2D salsaBow;
+
         public int width;
         public int height;
 
@@ -188,6 +193,12 @@ namespace Shiro
             DownArrow = Content.Load<Texture2D>("DownArrow");
             LeftArrow = Content.Load<Texture2D>("LeftArrow");
             RightArrow = Content.Load<Texture2D>("RightArrow");
+
+            //Salsa
+            salsaIdle = Content.Load<Texture2D>("SalsaIdle");
+            salsaBow = Content.Load<Texture2D>("SalsaBow");
+            salsaBowDown = Content.Load<Texture2D>("SalsaStandToBow");
+            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 200, 200, 200, 200, rng, "ratAttackOne.txt");
 
             //Title Screen
             titleBackground = Content.Load<Texture2D>("BrickWall");
