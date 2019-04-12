@@ -42,6 +42,9 @@ namespace Shiro
         Texture2D shiroWalk;
         Texture2D enemyShadowWalkTexture;
         Texture2D enemyShadowIdleTexture;
+        Texture2D enemyGarbageBagTexture;
+        Texture2D enemyTrashCanTexture;
+        Texture2D enemyRatTexture;
         Texture2D hitbox;
         Texture2D doorTexture;
 
@@ -185,6 +188,9 @@ namespace Shiro
             shiroWalk = Content.Load<Texture2D>("walk_sprite_fix");
             enemyShadowWalkTexture = Content.Load<Texture2D>("EnemyWalkSpriteSheet");
             enemyShadowIdleTexture = Content.Load<Texture2D>("EnemyIdleSpriteSheet");
+            enemyGarbageBagTexture = Content.Load<Texture2D>("GarbageBagSprites");
+            enemyTrashCanTexture = Content.Load<Texture2D>("TrashCanSprites");
+
             boundBox = Content.Load<Texture2D>("rectangle");
             font = Content.Load<SpriteFont>("font");
             doorTexture = Content.Load<Texture2D>("hitbox");
@@ -395,11 +401,11 @@ namespace Shiro
                             }
                             else if(battleRNG == 2)
                             {
-                                enemy.BattleTexture = enemyShadowIdleTexture; //trashbag
+                                enemy.BattleTexture = enemyGarbageBagTexture; //trashbag
                             }
                             else if(battleRNG == 3)
                             {
-                                enemy.BattleTexture = enemyShadowIdleTexture; //trashcan
+                                enemy.BattleTexture = enemyTrashCanTexture; //trashcan
                             }
                         }
 
