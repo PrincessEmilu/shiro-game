@@ -40,7 +40,7 @@ namespace Shiro
         protected GameObject(Texture2D texture, int xPosition, int yPosition)
         {
             this.texture = texture;
-            position = new Rectangle(xPosition, yPosition, texture.Width, texture.Height);
+            position = new Rectangle(xPosition, yPosition, 100, 100);
         }
 
         //Draw method

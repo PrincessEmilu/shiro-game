@@ -324,6 +324,7 @@ namespace Shiro
         {
             //DEBUG: DRAW BOUND BOX
             sb.Draw(texture, boundBox, Color.Red);
+            sb.Draw(texture, position, Color.Blue);
 
             //Increase the frame, which will animate the player.
             int frameWidth = 550;

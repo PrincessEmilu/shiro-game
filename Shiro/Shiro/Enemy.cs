@@ -133,12 +133,12 @@ namespace Shiro
         }
 
         //random movement
-        public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition)
-        {
-        }
+       // public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition)
+        //{
+        //}
         
 
-        public Enemy(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
+        public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
         {
             //this constructor is for random movement type at a set distance of 100
             frame = 0;
@@ -422,6 +422,8 @@ namespace Shiro
             {
                 currentTexture = texture;
             }
+
+            sb.Draw(currentTexture, Position, Color.Red);
 
             //Increase the frame, which will animate the player.
             int frameWidth = 300;
