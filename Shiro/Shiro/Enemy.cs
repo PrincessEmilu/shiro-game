@@ -59,6 +59,7 @@ namespace Shiro
         public string PatternFileName
         {
             get { return patternFileName; }
+            set { patternFileName = value; }
         }
         public bool Transparent
         {

@@ -186,6 +186,7 @@ namespace Shiro
             enemyShadowIdleTexture = Content.Load<Texture2D>("EnemyIdleSpriteSheet");
             enemyGarbageBagTexture = Content.Load<Texture2D>("GarbageBagSprites");
             enemyTrashCanTexture = Content.Load<Texture2D>("TrashCanSprites");
+            enemyRatTexture = Content.Load<Texture2D>("ratSprite");
 
             boundBox = Content.Load<Texture2D>("rectangle");
             font = Content.Load<SpriteFont>("font");
@@ -387,7 +388,7 @@ namespace Shiro
 
                             if(battleRNG == 1)
                             {
-                                enemy.BattleTexture = enemyShadowIdleTexture; //rat
+                                enemy.BattleTexture = enemyRatTexture; //rat
                             }
                             else if(battleRNG == 2)
                             {
