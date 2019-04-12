@@ -39,6 +39,9 @@ namespace Shiro
         protected int enemyRng;
         protected bool top;
         protected bool right;
+        protected bool once;
+
+        protected int timer;
 
         protected EnemyState currentState;
 
@@ -47,12 +50,50 @@ namespace Shiro
         public Texture2D battleTexture;
         private Texture2D currentTexture;
 
+        protected bool transparent;
+
+
         //Properties
         public bool Active { get; set; }
         public bool InBattle { get; set; }
         public string PatternFileName
         {
             get { return patternFileName; }
+        }
+        public bool Transparent
+        {
+            get { return transparent; }
+            set
+            {
+                transparent = value;
+            }
+        }
+
+        public bool Top
+        {
+            get { return top; }
+            set
+            {
+                top = value;
+            }
+        }
+
+        public bool Right
+        {
+            get { return right; }
+            set
+            {
+                right = value;
+            }
+        }
+
+        public bool Once
+        {
+            get { return once; }
+            set
+            {
+                once = value;
+            }
         }
 
         //Property for the amount of stamina and previous position  
@@ -81,9 +122,23 @@ namespace Shiro
             set { battleTexture = value; }
         }
 
+        public int Timer
+        {
+            get { return timer; }
 
+            set
+            {
+                timer = value;
+            }
+        }
 
-        public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
+        //random movement
+        public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition)
+        {
+        }
+        
+
+        public Enemy(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
         {
             //this constructor is for random movement type at a set distance of 100
             frame = 0;
@@ -106,6 +161,9 @@ namespace Shiro
             
             top = true;
             right = true;
+            once = true;
+
+            timer = 0;
 
             this.walkTexture = walkTexture;
             currentState = EnemyState.FaceRight;
@@ -140,6 +198,9 @@ namespace Shiro
 
             top = true;
             right = true;
+            once = true;
+
+            timer = 0;
 
             this.walkTexture = walkTexture;
             currentState = EnemyState.WalkRight;
@@ -157,6 +218,13 @@ namespace Shiro
             if (Stamina <= 0)
             {
                 Active = false;
+            }
+
+            if(once)
+            {
+                startPointX = position.X;
+                startPointY = position.Y;
+                once = false;
             }
 
             //Only move around if not in battle
@@ -344,7 +412,7 @@ namespace Shiro
         }
 
 
-        public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb, float opacity)
         {
             if(InBattle == true)
             {
@@ -377,7 +445,7 @@ namespace Shiro
                     currentTexture,                                                //Texture to draw
                     new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                     new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                    Color.White,                                            //Blend color
+                    Color.White * opacity,                                  //Blend color
                     0f,                                                     //Rotation
                     new Vector2(0, 0),                                       //Origin
                     SpriteEffects.FlipHorizontally,                         //Sprite Effects
@@ -391,7 +459,7 @@ namespace Shiro
                         currentTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White                                            //Blend color
+                        Color.White * opacity                                   //Blend color
                         );
                     break;
                 case EnemyState.WalkLeft:
@@ -400,7 +468,7 @@ namespace Shiro
                         walkTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White,                                            //Blend color
+                        Color.White * opacity,                                  //Blend color
                         0f,                                                     //Rotation
                         new Vector2(0, 0),                                       //Origin
                         SpriteEffects.FlipHorizontally,                         //Sprite Effects
@@ -414,11 +482,10 @@ namespace Shiro
                         walkTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White                                            //Blend color
+                        Color.White * opacity                                   //Blend color
                         );
                     break;
             }
-
         }
         public bool RunAway(int chance, Random rng)
         {
