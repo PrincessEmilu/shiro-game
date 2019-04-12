@@ -49,7 +49,8 @@ namespace Shiro
         Texture2D box;
         Texture2D walkTexture;
 
-        //Property for the amount of stamina and previous position  
+        #region Properties
+        //Properties
         public int Stamina { get; set; }
 
         public Rectangle PrevPos { get; set; } 
@@ -79,12 +80,6 @@ namespace Shiro
             }
         }
 
-        public void Center()
-        {
-            position.X = windowWidth / 2;
-            position.Y = windowHeight / 2;
-        }
-
         public bool TopWall { get { return topWall; } }
         public bool BottomWall { get { return bottomWall; } }
         public bool LeftWall { get { return leftWall; } }
@@ -97,8 +92,11 @@ namespace Shiro
         }
 
         //Current game state
-        public PlayerState CurrentState { get; set; }
+        public PlayerState CurrentState { get; private set; }
+        #endregion
 
+        #region Constructor
+        //Constructor
         public Player(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Camera camera, 
             Texture2D box, Rectangle boundBox, List<CollisionItem> itemsColliding) : base(texture, xPosition, yPosition)
         {
@@ -123,6 +121,7 @@ namespace Shiro
             position.Width = 180;
             position.Height = 148;
         }
+        #endregion
 
         //Overridden Update method, puts all of the player's update code into one place to be called once
         public override void Update(GameTime gameTime)
@@ -236,6 +235,7 @@ namespace Shiro
 
         }
 
+        //Updates the player's animation state
         public void UpdateAnimation(KeyboardState kbState)
         {
             //Check the current state first.
@@ -314,6 +314,8 @@ namespace Shiro
                     break;
             }
         }
+
+        //Draws the player
         public override void Draw(SpriteBatch sb)
         {
 

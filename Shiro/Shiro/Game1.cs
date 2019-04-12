@@ -511,7 +511,6 @@ namespace Shiro
 
                                 //Reset the Player's Stamina and Position
                                 player.Stamina = 100;
-                                player.Center();
 
                                 //Reset All Enemies in the Level
                                 foreach (Enemy e in listEnemies)
@@ -573,11 +572,9 @@ namespace Shiro
                 #endregion
                 #region Game Over
                 case GameState.GameOver:
-                    //Reset the Level
 
-                    //Reset the Player's Stamina and Position
+                    //Reset the Player's Stamina
                     player.Stamina = 100;
-                    player.Center();
 
                     //Reset All Enemies in the Level
                     foreach (Enemy e in listEnemies)
