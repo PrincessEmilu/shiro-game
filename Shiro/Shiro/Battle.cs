@@ -340,7 +340,6 @@ namespace Shiro
                         enemy.Top = true; 
                         enemy.Right = true;
                         enemy.Once = true;
-                        enemy.Active = false;
                         //enemy.InBattle = false? To reset texture
                     }
                     break;

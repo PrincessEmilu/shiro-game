@@ -122,9 +122,6 @@ namespace Shiro
             set { battleTexture = value; }
         }
 
-
-
-        public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
         public int Timer
         {
             get { return timer; }
@@ -134,6 +131,12 @@ namespace Shiro
                 timer = value;
             }
         }
+
+        //random movement
+        public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition)
+        {
+        }
+        
 
         public Enemy(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
         {
