@@ -199,7 +199,11 @@ namespace Shiro
                             }
                             else
                             {
-                                player.Stamina -= 10;
+                                if (player.Stamina > 20)
+                                {
+                                    player.Stamina -= 10;
+                                }
+
                                 failedRun = true;
                             }
 
