@@ -374,6 +374,8 @@ namespace Shiro
                         listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                         
                         player.Pos = pos;
+                        player.BoundBoxX = boundBoxPos.X;
+                        player.BoundBoxY = boundBoxPos.Y;
 
                         camera.Pos = new Vector2(0, 0);
 
