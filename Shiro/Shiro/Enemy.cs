@@ -39,11 +39,16 @@ namespace Shiro
         protected int enemyRng;
         protected bool top;
         protected bool right;
+        protected bool once;
+
+        protected int timer;
 
         protected EnemyState currentState;
 
         private int frame;
         private Texture2D walkTexture;
+
+        protected bool transparent;
 
 
         //Properties
@@ -52,6 +57,41 @@ namespace Shiro
         public string PatternFileName
         {
             get { return patternFileName; }
+        }
+        public bool Transparent
+        {
+            get { return transparent; }
+            set
+            {
+                transparent = value;
+            }
+        }
+
+        public bool Top
+        {
+            get { return top; }
+            set
+            {
+                top = value;
+            }
+        }
+
+        public bool Right
+        {
+            get { return right; }
+            set
+            {
+                right = value;
+            }
+        }
+
+        public bool Once
+        {
+            get { return once; }
+            set
+            {
+                once = value;
+            }
         }
 
         //Property for the amount of stamina and previous position  
@@ -71,6 +111,16 @@ namespace Shiro
             set
             {
                 prevPos = value;
+            }
+        }
+
+        public int Timer
+        {
+            get { return timer; }
+
+            set
+            {
+                timer = value;
             }
         }
 
@@ -97,6 +147,9 @@ namespace Shiro
             
             top = true;
             right = true;
+            once = true;
+
+            timer = 0;
 
             this.walkTexture = walkTexture;
             currentState = EnemyState.FaceRight;
@@ -129,6 +182,9 @@ namespace Shiro
 
             top = true;
             right = true;
+            once = true;
+
+            timer = 0;
 
             this.walkTexture = walkTexture;
             currentState = EnemyState.WalkRight;
@@ -146,6 +202,13 @@ namespace Shiro
             if (Stamina <= 0)
             {
                 Active = false;
+            }
+
+            if(once)
+            {
+                startPointX = position.X;
+                startPointY = position.Y;
+                once = false;
             }
 
             //Only move around if not in battle
@@ -333,7 +396,7 @@ namespace Shiro
         }
 
 
-        public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb, float opacity)
         {
 
             //Increase the frame, which will animate the player.
@@ -358,7 +421,7 @@ namespace Shiro
                     texture,                                                //Texture to draw
                     new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                     new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                    Color.White,                                            //Blend color
+                    Color.White * opacity,                                  //Blend color
                     0f,                                                     //Rotation
                     new Vector2(0, 0),                                       //Origin
                     SpriteEffects.FlipHorizontally,                         //Sprite Effects
@@ -372,7 +435,7 @@ namespace Shiro
                         texture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White                                            //Blend color
+                        Color.White * opacity                                   //Blend color
                         );
                     break;
                 case EnemyState.WalkLeft:
@@ -381,7 +444,7 @@ namespace Shiro
                         walkTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White,                                            //Blend color
+                        Color.White * opacity,                                  //Blend color
                         0f,                                                     //Rotation
                         new Vector2(0, 0),                                       //Origin
                         SpriteEffects.FlipHorizontally,                         //Sprite Effects
@@ -395,11 +458,10 @@ namespace Shiro
                         walkTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White                                            //Blend color
+                        Color.White * opacity                                   //Blend color
                         );
                     break;
             }
-
         }
     }
 }

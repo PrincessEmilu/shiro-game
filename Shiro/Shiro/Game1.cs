@@ -122,6 +122,7 @@ namespace Shiro
         List<CollisionItem> itemsCollide;
 
         bool drawEnemiesOnce = true;
+        
 #endregion
 
         public Game1()
@@ -377,6 +378,11 @@ namespace Shiro
                         player.BoundBoxX = boundBoxPos.X;
                         player.BoundBoxY = boundBoxPos.Y;
 
+                        foreach(Enemy e in listEnemies)
+                        {
+                            e.Position = e.PrevPos;
+                        }
+
                         camera.Pos = new Vector2(0, 0);
 
                         drawEnemiesOnce = false;
@@ -420,15 +426,27 @@ namespace Shiro
                     //Update all of the enemies
                     foreach (Enemy e in listEnemies)
                     {
-                        //Processes enemy if it is active
-                        if (e.Active)
+                        //Will not check for collision when enemy is transparent
+                        if(e.Transparent)
                         {
-                            e.Update(gameTime);
+                            e.Timer++;
+
+                            if (e.Timer == 100)
+                            {
+                                e.Transparent = false;
+                            }
+                        }
+                        //Processes enemy if it is active
+                        else if (e.Active)
+                        {
+                            e.Update(gameTime);                            
 
                             //Enemy Encounter- Battle time!
                             if (e.CheckCollision(player))
                             {
                                 player.BoxPrevPos = boundBoxPos;
+
+                                //e.Position = e.PrevPos;
 
                                 //Change game state and player state
                                 state = GameState.Battle;
@@ -782,7 +800,8 @@ namespace Shiro
                     //Draw each enemy that is active.
                     foreach (Enemy e in listEnemies)
                     {
-                        if (e.Active) { e.Draw(spriteBatch); }
+                        if (e.Transparent) { e.Draw(spriteBatch, 0.5f); }
+                        else if (e.Active) { e.Draw(spriteBatch, 1); }                        
                     }
                     break;
                 #endregion

@@ -307,7 +307,15 @@ namespace Shiro
                         RanAway = true;
                         player.X = player.PrevPos.X;
                         player.Y = player.PrevPos.Y;
-                        enemy.Active = false;
+                        enemy.X = enemy.PrevPos.X;
+                        enemy.Y = enemy.PrevPos.Y;
+                        //enemy.Active = false;
+                        enemy.Transparent = true;
+                        enemy.Timer = 0;
+                        enemy.InBattle = false; 
+                        enemy.Top = true; 
+                        enemy.Right = true;
+                        enemy.Once = true;
                     }
                     break;
             }
@@ -377,7 +385,7 @@ namespace Shiro
 
             //Draws player and enemy
             player.Draw(sb);
-            enemy.Draw(sb);
+            enemy.Draw(sb, 1);
 
             //DEBUG: Draw battle info
             //sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);
