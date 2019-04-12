@@ -19,8 +19,8 @@ namespace Shiro
         WalkRight
     }
     class Player : GameObject
-    {
-        //Fields        
+    {       
+        #region Fields
         private int windowHeight;
         private int windowWidth;
         private bool topBounding;
@@ -48,6 +48,7 @@ namespace Shiro
 
         Texture2D box;
         Texture2D walkTexture;
+        #endregion
 
         #region Properties
         //Properties
@@ -92,7 +93,7 @@ namespace Shiro
         }
 
         //Current game state
-        public PlayerState CurrentState { get; private set; }
+        public PlayerState CurrentState { get; set; }
         #endregion
 
         #region Constructor
