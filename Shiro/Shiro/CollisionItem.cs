@@ -19,6 +19,10 @@ namespace Shiro
 
         public bool IsDoor { get; private set; }
 
+        public Rectangle Position
+        {
+            get { return collisionBox; }
+        }
         //any collsion
         public CollisionItem(Texture2D texture, int xPos, int yPos, GameObject objToCollide)
         {
@@ -37,7 +41,7 @@ namespace Shiro
             this.yPos = yPos;
             this.objToCollide = objToCollide;
 
-            collisionBox = new Rectangle(xPos, yPos, texture.Width, texture.Height);
+            //collisionBox = new Rectangle(xPos, yPos, texture.Width, texture.Height);
         }
 
         //collision is a door

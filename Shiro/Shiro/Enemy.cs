@@ -335,7 +335,7 @@ namespace Shiro
 
         public override void Draw(SpriteBatch sb)
         {
-
+            sb.Draw(texture, position, Color.Red);
             //Increase the frame, which will animate the player.
             int frameWidth = 300;
             int frameHeight = 350;
