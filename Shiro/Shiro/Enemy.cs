@@ -44,7 +44,8 @@ namespace Shiro
 
         private int frame;
         private Texture2D walkTexture;
-
+        public Texture2D battleTexture;
+        private Texture2D currentTexture;
 
         //Properties
         public bool Active { get; set; }
@@ -74,7 +75,15 @@ namespace Shiro
             }
         }
 
-        public Enemy(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
+        public Texture2D BattleTexture
+        {
+            get { return battleTexture; }
+            set { battleTexture = value; }
+        }
+
+
+
+        public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
         {
             //this constructor is for random movement type at a set distance of 100
             frame = 0;
@@ -100,13 +109,15 @@ namespace Shiro
 
             this.walkTexture = walkTexture;
             currentState = EnemyState.FaceRight;
+            this.battleTexture = battleTexture;
+            currentTexture = texture;
 
             //Set collision box width to be the target box width/height for the object
             position.Width = 100;
             position.Height = 115;
         }
 
-        public Enemy(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, int enemyRng, int distance, String patternFileName) : base(texture, xPosition, yPosition)
+        public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, int enemyRng, int distance, String patternFileName) : base(texture, xPosition, yPosition)
         {
             //this constructor is for a set movement type and distance, if you only want distance, you need to use rng.Next(1,5)
 
@@ -335,6 +346,14 @@ namespace Shiro
 
         public override void Draw(SpriteBatch sb)
         {
+            if(InBattle == true)
+            {
+                currentTexture = battleTexture;
+            }
+            else
+            {
+                currentTexture = texture;
+            }
 
             //Increase the frame, which will animate the player.
             int frameWidth = 300;
@@ -355,7 +374,7 @@ namespace Shiro
                 case EnemyState.FaceLeft:
                 //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
                 sb.Draw(
-                    texture,                                                //Texture to draw
+                    currentTexture,                                                //Texture to draw
                     new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                     new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
                     Color.White,                                            //Blend color
@@ -369,7 +388,7 @@ namespace Shiro
                 case EnemyState.FaceRight:
                     //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
                     sb.Draw(
-                        texture,                                                //Texture to draw
+                        currentTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
                         Color.White                                            //Blend color

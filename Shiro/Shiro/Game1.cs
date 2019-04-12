@@ -369,10 +369,30 @@ namespace Shiro
                     {
                         
                         //Enemies eventually loaded elsewhere
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                         
+                        //changing the battle textures based on RNG (and level?)
+                        foreach(Enemy enemy in listEnemies)
+                        {
+                            int battleRNG = rng.Next(1, 4);
+
+                            if(battleRNG == 1)
+                            {
+                                enemy.BattleTexture = enemyShadowIdleTexture; //rat
+                            }
+                            else if(battleRNG == 2)
+                            {
+                                enemy.BattleTexture = enemyShadowIdleTexture; //trashbag
+                            }
+                            else if(battleRNG == 3)
+                            {
+                                enemy.BattleTexture = enemyShadowIdleTexture; //trashcan
+                            }
+                        }
+
+
                         player.Pos = pos;
 
                         camera.Pos = new Vector2(0, 0);
@@ -557,6 +577,7 @@ namespace Shiro
 
                     if (currentBattle.GameOver)
                     {
+                        
                         state = GameState.GameOver;
                         arrowPosition = 1;  //Make sure the initial position is one
                     }
@@ -574,7 +595,7 @@ namespace Shiro
                 #region Game Over
                 case GameState.GameOver:
 
-                    //Reset the Player's Stamina
+                    /*//Reset the Player's Stamina
                     player.Stamina = 100;
 
                     //Reset All Enemies in the Level
@@ -584,10 +605,14 @@ namespace Shiro
                         e.Stamina = 100;
                         e.InBattle = false;
                     }
+                    */
+
+                    Reset();
 
                     //Transition to the Main Menu if Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
                     {
+                        Reset();
                         state = GameState.MainMenu;
                     }
                     //Update the arrow position to decide which choice the user in highlighting
@@ -832,5 +857,29 @@ namespace Shiro
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+        public void Reset()
+        {
+            //Player variables
+            pos = new Rectangle(200, 200, 160, 130);
+            boundBoxPos = new Rectangle(50, 50, 600, 600);
+            player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
+            player.Stamina = 100;
+
+            //camera
+            camera.Pos = new Vector2(0, 0);
+
+            //enemy data
+            foreach (Enemy enemy in listEnemies)
+            {
+                enemy.Active = true;
+                enemy.InBattle = false;
+                enemy.Stamina = 100;
+            }
+            
+        }
     }
+
+
+   
 }
