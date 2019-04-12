@@ -30,7 +30,7 @@ namespace Shiro
         GameState state;
         GameState previousState;
         int arrowPosition;  //For Menu Systems
-        int keySpeed = 5;
+        int chance = 5;
         SpriteFont font;
         KeyboardState pbState;
         
@@ -42,6 +42,9 @@ namespace Shiro
         Texture2D shiroWalk;
         Texture2D enemyShadowWalkTexture;
         Texture2D enemyShadowIdleTexture;
+        Texture2D enemyGarbageBagTexture;
+        Texture2D enemyTrashCanTexture;
+        Texture2D enemyRatTexture;
         Texture2D hitbox;
         Texture2D doorTexture;
 
@@ -181,6 +184,9 @@ namespace Shiro
             shiroWalk = Content.Load<Texture2D>("walk_sprite_fix");
             enemyShadowWalkTexture = Content.Load<Texture2D>("EnemyWalkSpriteSheet");
             enemyShadowIdleTexture = Content.Load<Texture2D>("EnemyIdleSpriteSheet");
+            enemyGarbageBagTexture = Content.Load<Texture2D>("GarbageBagSprites");
+            enemyTrashCanTexture = Content.Load<Texture2D>("TrashCanSprites");
+
             boundBox = Content.Load<Texture2D>("rectangle");
             font = Content.Load<SpriteFont>("font");
             doorTexture = Content.Load<Texture2D>("hitbox");
@@ -370,10 +376,30 @@ namespace Shiro
                     {
                         
                         //Enemies eventually loaded elsewhere
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                         
+                        //changing the battle textures based on RNG (and level?)
+                        foreach(Enemy enemy in listEnemies)
+                        {
+                            int battleRNG = rng.Next(1, 4);
+
+                            if(battleRNG == 1)
+                            {
+                                enemy.BattleTexture = enemyShadowIdleTexture; //rat
+                            }
+                            else if(battleRNG == 2)
+                            {
+                                enemy.BattleTexture = enemyGarbageBagTexture; //trashbag
+                            }
+                            else if(battleRNG == 3)
+                            {
+                                enemy.BattleTexture = enemyTrashCanTexture; //trashcan
+                            }
+                        }
+
+
                         player.Pos = pos;
                         player.BoundBoxX = boundBoxPos.X;
                         player.BoundBoxY = boundBoxPos.Y;
@@ -453,7 +479,7 @@ namespace Shiro
                                 player.CurrentState = PlayerState.FaceRight;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, keySpeed);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, 5, chance, rng);
                             }
                         }
                     }
@@ -569,14 +595,15 @@ namespace Shiro
                         //Might need to do more logic than this in final version...
                         state = GameState.Level;
 
-                        if (keySpeed > 5)
+                        if (chance < 8)
                         {
-                            keySpeed--;
+                            chance++;
                         }
                     }
 
                     if (currentBattle.GameOver)
                     {
+                        
                         state = GameState.GameOver;
                         arrowPosition = 1;  //Make sure the initial position is one
                     }
@@ -585,8 +612,11 @@ namespace Shiro
                     {
                         boundBoxPos = player.BoxPrevPos;
                         //Need to add Penalty Logic
+                        if (chance > 2)
+                        {
+                            chance--;
+                        }
                         state = GameState.Level;
-                        keySpeed++;
                     }
 
                     break;
@@ -594,7 +624,7 @@ namespace Shiro
                 #region Game Over
                 case GameState.GameOver:
 
-                    //Reset the Player's Stamina
+                    /*//Reset the Player's Stamina
                     player.Stamina = 100;
 
                     //Reset All Enemies in the Level
@@ -604,10 +634,14 @@ namespace Shiro
                         e.Stamina = 100;
                         e.InBattle = false;
                     }
+                    */
+
+                    Reset();
 
                     //Transition to the Main Menu if Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
                     {
+                        Reset();
                         state = GameState.MainMenu;
                     }
                     //Update the arrow position to decide which choice the user in highlighting
@@ -730,7 +764,7 @@ namespace Shiro
 
 
                     spriteBatch.Draw(titleBackground, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
-                    spriteBatch.Draw(sideImage, new Rectangle(initialX - 800, 0, 1000, graphics.GraphicsDevice.Viewport.Height), 
+                    spriteBatch.Draw(sideImage, new Rectangle(initialX - 300, 0, 1000, graphics.GraphicsDevice.Viewport.Height), 
                         Color.White);
 
                     spriteBatch.Draw(title, new Rectangle(x, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White * titleOpacity);
@@ -796,7 +830,6 @@ namespace Shiro
                     camera.Pos = prevCamera;
                     currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
-
                     //Draw each enemy that is active.
                     foreach (Enemy e in listEnemies)
                     {
@@ -853,5 +886,29 @@ namespace Shiro
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+        public void Reset()
+        {
+            //Player variables
+            pos = new Rectangle(200, 200, 160, 130);
+            boundBoxPos = new Rectangle(50, 50, 600, 600);
+            player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
+            player.Stamina = 100;
+
+            //camera
+            camera.Pos = new Vector2(0, 0);
+
+            //enemy data
+            foreach (Enemy enemy in listEnemies)
+            {
+                enemy.Active = true;
+                enemy.InBattle = false;
+                enemy.Stamina = 100;
+            }
+            
+        }
     }
+
+
+   
 }
