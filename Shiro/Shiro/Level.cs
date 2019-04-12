@@ -42,7 +42,12 @@ namespace Shiro
         //Player object needed for collidable objects
         Player player;
 
+
+        //Properties
         public List<CollisionItem> CollisonList { get { return collisionList; } }
+
+        public int LevelWidthPixels { get; private set; }
+        public int LevelHeightPixels { get; private set; }
 
         public Level(int levelNumber, Texture2D tileset, Texture2D doorTexture, Player player)
         {
@@ -75,6 +80,9 @@ namespace Shiro
             levelWidth = int.Parse(input.ReadLine());
             levelHeight = int.Parse(input.ReadLine());
             tileSize = int.Parse(input.ReadLine());
+
+            LevelWidthPixels = levelWidth * tileSize;
+            LevelHeightPixels = levelHeight * tileSize;
 
             mapTiles = new int[levelWidth, levelHeight];
 

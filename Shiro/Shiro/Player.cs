@@ -217,14 +217,14 @@ namespace Shiro
             }
 
             //Prevents bound box from going off screen
-            if (boundBox.Right >= 1600)
+            if (boundBox.Right >= 2000)
             {
-                boundBox.X = 900;
+                boundBox.X = 2000 - boundBox.Width;
             }
 
-            if (boundBox.Bottom >= 1600)
+            if (boundBox.Bottom >= 2000)
             {
-                boundBox.Y = 900;
+                boundBox.Y = 2000 - boundBox.Height;
             }
 
             if (boundBox.Left <= 0)
@@ -322,6 +322,8 @@ namespace Shiro
         //Draws the player
         public override void Draw(SpriteBatch sb)
         {
+            //DEBUG: DRAW BOUND BOX
+            sb.Draw(texture, boundBox, Color.Red);
 
             //Increase the frame, which will animate the player.
             int frameWidth = 550;

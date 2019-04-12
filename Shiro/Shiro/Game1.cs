@@ -18,7 +18,6 @@ namespace Shiro
         GameOver
     }
 
-
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -214,8 +213,8 @@ namespace Shiro
             width = graphics.GraphicsDevice.Viewport.Width;
             height = graphics.GraphicsDevice.Viewport.Height;
             
-            //Create a new camera
-            camera = new Camera(graphics.GraphicsDevice.Viewport, 1600, 1600, 1);
+            //Create a new camera. Initial size set to viewport size
+            camera = new Camera(graphics.GraphicsDevice.Viewport, width, height, 1);
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
@@ -320,6 +319,9 @@ namespace Shiro
                                 drawEnemiesOnce = true;
                                 listEnemies.Clear();
                                 currentLevel = new Level(1, cityTileset, doorTexture, player);
+
+                                //Creates a new camera
+                                camera = new Camera(graphics.GraphicsDevice.Viewport, currentLevel.LevelWidthPixels, currentLevel.LevelHeightPixels, 1);
                                 player.CurrentState = PlayerState.FaceRight;
                                 break;
 
@@ -652,7 +654,7 @@ namespace Shiro
         protected override void Draw(GameTime gameTime)
         {
             //Creates the sprite batch with different parameters based on the game state
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             if (state == GameState.Battle)
             {
