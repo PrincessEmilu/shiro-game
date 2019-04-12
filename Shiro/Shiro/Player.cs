@@ -236,6 +236,84 @@ namespace Shiro
 
         }
 
+        public void UpdateAnimation(KeyboardState kbState)
+        {
+            //Check the current state first.
+            switch (CurrentState)
+            {
+                case PlayerState.FaceRight:
+
+                    if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                    {
+                        CurrentState = PlayerState.FaceRight;
+                        break;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
+                    {
+                        CurrentState = PlayerState.WalkRight;
+                        break;
+                    }
+                    else if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Left))
+                    {
+                        CurrentState = PlayerState.WalkRight;
+                        break;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Right))
+                        CurrentState = PlayerState.FaceLeft;
+
+                    break;
+
+                case PlayerState.FaceLeft:
+
+                    if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                    {
+                        CurrentState = PlayerState.FaceLeft;
+                        break;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Right))
+                    {
+                        CurrentState = PlayerState.WalkLeft;
+                        break;
+                    }
+                    else if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Right))
+                    {
+                        CurrentState = PlayerState.WalkLeft;
+                        break;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
+                        CurrentState = PlayerState.FaceRight;
+                    break;
+
+                case PlayerState.WalkLeft:
+                    if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                    {
+                        CurrentState = PlayerState.FaceLeft;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Right))
+                    {
+                        CurrentState = PlayerState.FaceLeft;
+                    }
+                    else if (!kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Up) && !kbState.IsKeyDown(Keys.Down))
+                    {
+                        CurrentState = PlayerState.FaceLeft;
+                    }
+                    break;
+                case PlayerState.WalkRight:
+                    if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                    {
+                        CurrentState = PlayerState.FaceRight;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Left))
+                    {
+                        CurrentState = PlayerState.FaceLeft;
+                    }
+                    else if (!kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Up) && !kbState.IsKeyDown(Keys.Down))
+                    {
+                        CurrentState = PlayerState.FaceRight;
+                    }
+                    break;
+            }
+        }
         public override void Draw(SpriteBatch sb)
         {
 

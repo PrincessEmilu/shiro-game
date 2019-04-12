@@ -310,19 +310,20 @@ namespace Shiro
                         }
                     }
 
-                    //Change Game State if a choice is selected
+                    //Change Game State toif a choice is selected
                     if (Helpers.SingleKeyPress(Keys.Enter, pbState, kbState))
                     {
                         switch (arrowPosition)
                         {
                             case 1:
+                                //Level initialization here!
                                 state = GameState.Level;
                                 drawEnemiesOnce = true;
                                 listEnemies.Clear();
                                 currentLevel = new Level(1, cityTileset, doorTexture, player);
                                 player.CurrentState = PlayerState.FaceRight;
-                                //player.ItemsColliding = currentLevel.CollisonList;
                                 break;
+
                             case 2:
                                 state = GameState.Instructions;
                                 break;
@@ -407,80 +408,8 @@ namespace Shiro
                         }
                     }
 
-                    //Changes player state to the corect animations
-                    switch (player.CurrentState)
-                    {
-                        case PlayerState.FaceRight:
-
-                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
-                            {
-                                player.CurrentState = PlayerState.FaceRight;
-                                break;
-                            }
-                            else if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
-                            {
-                                player.CurrentState = PlayerState.WalkRight;
-                                break;
-                            }
-                            else if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Left))
-                            {
-                                player.CurrentState = PlayerState.WalkRight;
-                                break;
-                            }
-                            else if (kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Right))
-                                player.CurrentState = PlayerState.FaceLeft;
-                           
-                            break;
-
-                        case PlayerState.FaceLeft:
-
-                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
-                            {
-                                player.CurrentState = PlayerState.FaceLeft;
-                                break;
-                            }
-                            else if (kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Right)) {
-                                player.CurrentState = PlayerState.WalkLeft;
-                                break;
-                            }
-                            else if ((kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down)) && !kbState.IsKeyDown(Keys.Right))
-                            {
-                                player.CurrentState = PlayerState.WalkLeft;
-                                break;
-                            }
-                            else if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
-                                player.CurrentState = PlayerState.FaceRight;
-                            break;
-
-                        case PlayerState.WalkLeft:
-                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
-                            {
-                                player.CurrentState = PlayerState.FaceLeft;
-                            }
-                            else if (kbState.IsKeyDown(Keys.Right))
-                            {
-                                player.CurrentState = PlayerState.FaceLeft;
-                            }
-                            else if (!kbState.IsKeyDown(Keys.Left) && !kbState.IsKeyDown(Keys.Up) && !kbState.IsKeyDown(Keys.Down))
-                            {
-                                player.CurrentState = PlayerState.FaceLeft;
-                            }
-                            break;
-                        case PlayerState.WalkRight:
-                            if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
-                            {
-                                player.CurrentState = PlayerState.FaceRight;
-                            }
-                            else if (kbState.IsKeyDown(Keys.Left))
-                            {
-                                player.CurrentState = PlayerState.FaceLeft;
-                            }
-                            else if (!kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Up) && !kbState.IsKeyDown(Keys.Down))
-                            {
-                                player.CurrentState = PlayerState.FaceRight;
-                            }
-                            break;
-                    }
+                    //Changes player state to the corect animation
+                    player.UpdateAnimation(kbState);
 
                     camera.Pos += movement * 5;
                     prevCamera = camera.Pos;
@@ -726,6 +655,7 @@ namespace Shiro
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            //Creates the sprite batch with different parameters based on the game state
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             if (state == GameState.Battle)
@@ -743,6 +673,7 @@ namespace Shiro
             //Switch for Game State
             switch (state)
             {
+                #region Draw Title Screen
                 case GameState.TitleScreen:
                     camera.Pos = new Vector2(0, 0);
                     spriteBatch.Draw(titleBackground, new Rectangle(0,0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height),Color.White);
@@ -774,6 +705,8 @@ namespace Shiro
                     }
 
                     break;
+                #endregion
+                #region Draw Main Menu
                 case GameState.MainMenu:
                     camera.Pos = new Vector2(0, 0);
 
@@ -833,10 +766,14 @@ namespace Shiro
                         opacity -= .01f;
                     }
                     break;
+                #endregion
+                #region Draw Instructions
                 case GameState.Instructions:
                     camera.Pos = new Vector2(0, 0);
                     spriteBatch.Draw(instructionsBackground, new Vector2(0, 0), Color.White);
                     break;
+                #endregion
+                #region Draw Level
                 case GameState.Level:
                     camera.Pos = prevCamera;
                     currentLevel.Draw(spriteBatch);
@@ -848,7 +785,8 @@ namespace Shiro
                         e.Draw(spriteBatch);
                     }
                     break;
-
+                #endregion
+                #region Draw Pause Menu
                 case GameState.PauseMenu:
                     camera.Pos = new Vector2(0, 0);
                     spriteBatch.Draw(pauseBackground, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
@@ -864,12 +802,16 @@ namespace Shiro
                             break;
                     }
                     break;
+                #endregion
+                #region DrawBattle
                 case GameState.Battle:
                     camera.Pos = new Vector2(0, 0);
                     spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
                     spriteBatch.Draw(battleBar, new Rectangle(10, 335, 825, 135), Color.White);
                     currentBattle.Draw(spriteBatch);
                     break;
+                #endregion
+                #region Draw Game Over
                 case GameState.GameOver:
                     camera.Pos = new Vector2(0, 0);
                     spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
@@ -887,10 +829,9 @@ namespace Shiro
                     break;
                 default:
                     break;
+                    #endregion
             }
-
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }
