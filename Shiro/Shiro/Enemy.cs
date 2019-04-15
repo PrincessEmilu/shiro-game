@@ -412,10 +412,10 @@ namespace Shiro
             return false;
         }
 
-
+        /*Crashes because battleTexture is null
         public override void Draw(SpriteBatch sb, float opacity)
         {
-            if(InBattle == true)
+            if (InBattle == true)
             {
                 currentTexture = battleTexture;
             }
@@ -425,10 +425,13 @@ namespace Shiro
             }
 
             sb.Draw(currentTexture, Position, Color.Red);
+        }
+        */
 
         public override void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, Color.Red);
+
             //Increase the frame, which will animate the player.
             int frameWidth = 300;
             int frameHeight = 350;
@@ -451,7 +454,7 @@ namespace Shiro
                     currentTexture,                                                //Texture to draw
                     new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                     new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                    Color.White * opacity,                                  //Blend color
+                    Color.White,                                  //Blend color
                     0f,                                                     //Rotation
                     new Vector2(0, 0),                                       //Origin
                     SpriteEffects.FlipHorizontally,                         //Sprite Effects
@@ -465,7 +468,7 @@ namespace Shiro
                         currentTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White * opacity                                   //Blend color
+                        Color.White                                   //Blend color
                         );
                     break;
                 case EnemyState.WalkLeft:
@@ -474,7 +477,7 @@ namespace Shiro
                         walkTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White * opacity,                                  //Blend color
+                        Color.White,                                  //Blend color
                         0f,                                                     //Rotation
                         new Vector2(0, 0),                                       //Origin
                         SpriteEffects.FlipHorizontally,                         //Sprite Effects
@@ -488,7 +491,7 @@ namespace Shiro
                         walkTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White * opacity                                   //Blend color
+                        Color.White                                  //Blend color
                         );
                     break;
             }

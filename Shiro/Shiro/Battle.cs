@@ -156,7 +156,7 @@ namespace Shiro
                         //Update the arrow position to decide which choice the user in highlighting
                         if (Helpers.SingleKeyPress(Keys.Up, pbState, kbState))
                         {
-                            //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
+                            //If no choice has been selected yet or the top choice is selcted 
                             if (arrowPosition == 1)
                             {
                                 arrowPosition = 2;

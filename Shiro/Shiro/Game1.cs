@@ -75,6 +75,7 @@ namespace Shiro
         private int initialY;
         private bool draw;
 
+        bool drawEnemiesOnce;
         private const int playerWalkSpeed = 4;
 
         //Fields for Instructions
@@ -337,20 +338,6 @@ namespace Shiro
 
                     //Updated entities
                     player.Update(gameTime);
-
-                    foreach(CollisionItem a in items)
-                    {
-                        if (a.CheckCollision(player))
-                        {
-                            itemsCollide.Add(a);
-                        } else
-                        {
-                            if (itemsCollide.Contains(a))
-                            {
-                                itemsCollide.Remove(a);
-                            }
-                        }
-                    }
 
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
                     if(drawEnemiesOnce)
@@ -617,12 +604,9 @@ namespace Shiro
                     }
                     */
 
-                    Reset();
-
                     //Transition to the Main Menu if Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
                     {
-                        Reset();
                         state = GameState.MainMenu;
                     }
                     //Update the arrow position to decide which choice the user in highlighting
@@ -893,9 +877,10 @@ namespace Shiro
             player.CurrentState = PlayerState.FaceRight;
 
             //Enemies eventually loaded elsewhere
-            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            //Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, int enemyRng, int distance, String patternFileName
+            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
 
             //Player variables
             pos = new Rectangle(200, 200, 160, 130);
