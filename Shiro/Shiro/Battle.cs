@@ -71,6 +71,10 @@ namespace Shiro
         public bool Victory { get; private set; }
         public bool GameOver { get; private set; }
         public bool RanAway{ get;  private set; }
+        public Enemy currentEnemy
+        {
+            get { return enemy; }
+        }
 
         //Constructor
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
