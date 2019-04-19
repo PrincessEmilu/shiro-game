@@ -430,7 +430,8 @@ namespace Shiro
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, position, Color.Red);
+            //Debug: draw bounding box
+            //sb.Draw(texture, position, Color.Red);
 
             //Increase the frame, which will animate the player.
             int frameWidth = 300;
@@ -451,7 +452,7 @@ namespace Shiro
                 case EnemyState.FaceLeft:
                 //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
                 sb.Draw(
-                    currentTexture,                                                //Texture to draw
+                    texture,                                                //Texture to draw
                     new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                     new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
                     Color.White,                                  //Blend color
@@ -465,7 +466,7 @@ namespace Shiro
                 case EnemyState.FaceRight:
                     //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
                     sb.Draw(
-                        currentTexture,                                                //Texture to draw
+                        texture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
                         Color.White                                   //Blend color

@@ -428,7 +428,7 @@ namespace Shiro
 
             //Draws player and enemy
             player.Draw(sb);
-            enemy.Draw(sb, 1);
+            enemy.Draw(sb);
 
             //DEBUG: Draw battle info
             //sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);

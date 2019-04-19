@@ -316,8 +316,8 @@ namespace Shiro
         public override void Draw(SpriteBatch sb)
         {
             //DEBUG: DRAW BOUND BOX
-            sb.Draw(texture, boundBox, Color.Red);
-            sb.Draw(texture, position, Color.Blue);
+            //sb.Draw(texture, boundBox, Color.Red);
+            //sb.Draw(texture, position, Color.Blue);
 
             //Increase the frame, which will animate the player.
             int frameWidth = 550;
