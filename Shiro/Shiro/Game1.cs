@@ -208,7 +208,7 @@ namespace Shiro
             salsaIdle = Content.Load<Texture2D>("SalsaIdle");
             salsaBow = Content.Load<Texture2D>("SalsaBow");
             salsaBowDown = Content.Load<Texture2D>("SalsaStandToBow");
-            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 200, 200, 200, 200, "ratAttackOne.txt");
+            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 600, 600, 200, 200, rng, "ratAttackOne.txt");
 
             //Title Screen
             titleBackground = Content.Load<Texture2D>("BrickWall");
@@ -366,6 +366,12 @@ namespace Shiro
                         player.Stamina = 100;
                     }
 
+                    //Update Salsa if Active
+                    if (salsa.Active)
+                    {
+                        salsa.Update(gameTime);
+                    }
+
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
                     if(drawEnemiesOnce)
                     {
@@ -474,6 +480,21 @@ namespace Shiro
                             }
                         }
                     }
+
+                    ////Check for Collision with Salsa
+                    //if (salsa.CheckCollision(player))
+                    //{
+                    //    player.BoxPrevPos = boundBoxPos;
+                    //
+                    //    salsa.Position = new Rectangle(400,400,200,200);
+                    //
+                    //    //Change game state and player state
+                    //    state = GameState.Battle;
+                    //    player.CurrentState = PlayerState.FaceRight;
+                    //
+                    //    //Create a new battle object with player and enemy collided\
+                    //    currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, salsa, 5, chance, rng);
+                    //}
 
                     //Go to next level when you touch the door
                     if (exitDoor.CheckCollision(player))
@@ -827,6 +848,13 @@ namespace Shiro
                     camera.Pos = prevCamera;
                     currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
+
+                    //Draws Salsa if Active
+                    if (salsa.Active)
+                    {
+                        salsa.Draw(spriteBatch);
+                    }
+
                     salsa.Draw(spriteBatch);
                     healbox.Draw(spriteBatch);
                     exitDoor.Draw(spriteBatch, true);
@@ -868,6 +896,12 @@ namespace Shiro
                     spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
                     spriteBatch.Draw(battleBar, new Rectangle(10, 335, 825, 135), Color.White);
                     currentBattle.Draw(spriteBatch);
+
+                    //Draws Salsa if Active
+                    if (salsa.Active)
+                    {
+                        salsa.Draw(spriteBatch);
+                    }
                     break;
                 #endregion
                 #region Draw Game Over

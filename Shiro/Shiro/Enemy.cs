@@ -143,7 +143,7 @@ namespace Shiro
         {
             //this constructor is for random movement type at a set distance of 100
             frame = 0;
-            stamina = 1000;
+            stamina = 100;
             windowWidth = width;
             windowHeight = height;
             prevPos = position;
@@ -394,7 +394,7 @@ namespace Shiro
         }
 
         //Check Collison
-        public bool CheckCollision(GameObject check)
+        public virtual bool CheckCollision(GameObject check)
         {
             if (Active == true)
             {
@@ -515,7 +515,7 @@ namespace Shiro
                     break;
             }
         }
-        public bool RunAway(int chance, Random rng)
+        public virtual bool RunAway(int chance, Random rng)
         {
             int random = rng.Next(1, 11);
             if (random <= chance)
