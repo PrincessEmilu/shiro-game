@@ -370,10 +370,12 @@ namespace Shiro
                             else if(battleRNG == 2)
                             {
                                 enemy.BattleTexture = enemyGarbageBagTexture; //trashbag
+                                enemy.PatternFileName = "garbageBagAttack";
                             }
                             else if(battleRNG == 3)
                             {
                                 enemy.BattleTexture = enemyTrashCanTexture; //trashcan
+                                enemy.PatternFileName = "garbageCanAttack";
                             }
                         }
 
@@ -909,10 +911,12 @@ namespace Shiro
                 if(textureRng == 1)
                 {
                     enemy.BattleTexture = enemyTrashCanTexture;
+                    enemy.PatternFileName = "garbageCanAttack.txt";
                 }
                 if(textureRng == 2)
                 {
                     enemy.BattleTexture = enemyGarbageBagTexture;
+                    enemy.PatternFileName = "garbageBagAttack.txt";
                 }
                 if(textureRng == 3)
                 {
