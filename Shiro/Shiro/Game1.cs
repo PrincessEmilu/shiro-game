@@ -49,6 +49,7 @@ namespace Shiro
         Texture2D enemyRatTexture;
         Texture2D hitbox;
         Texture2D doorTexture;
+        Texture2D healBoxTexture;
 
         //Salsa Textures
         Texture2D salsaIdle;
@@ -67,6 +68,7 @@ namespace Shiro
         private Player player;
         private Enemy enemy;
         private Boss salsa;
+        private HealingBox healbox;
 
         List<Enemy> listEnemies;
 
@@ -189,6 +191,8 @@ namespace Shiro
             enemyGarbageBagTexture = Content.Load<Texture2D>("GarbageBagSprites");
             enemyTrashCanTexture = Content.Load<Texture2D>("TrashCanSprites");
             enemyRatTexture = Content.Load<Texture2D>("ratSprite");
+
+            healBoxTexture = Content.Load<Texture2D>("box");
 
             boundBox = Content.Load<Texture2D>("rectangle");
             font = Content.Load<SpriteFont>("font");
@@ -354,6 +358,12 @@ namespace Shiro
                     //Updated entities
                     player.Update(gameTime);
 
+                    //heals the player if they come in contact with the healing box
+                    if(healbox.CheckCollision(player) == true)
+                    {
+                        player.Stamina = 100;
+                    }
+
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
                     if(drawEnemiesOnce)
                     {
@@ -371,10 +381,12 @@ namespace Shiro
                             else if(battleRNG == 2)
                             {
                                 enemy.BattleTexture = enemyGarbageBagTexture; //trashbag
+                                enemy.PatternFileName = "garbageBagAttack";
                             }
                             else if(battleRNG == 3)
                             {
                                 enemy.BattleTexture = enemyTrashCanTexture; //trashcan
+                                enemy.PatternFileName = "garbageCanAttack";
                             }
                         }
 
@@ -815,7 +827,8 @@ namespace Shiro
                     camera.Pos = prevCamera;
                     currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
-                    //salsa.Draw(spriteBatch);
+                    salsa.Draw(spriteBatch);
+                    healbox.Draw(spriteBatch);
                     //Draw each enemy that is active.
                     foreach (Enemy e in listEnemies)
                     {
@@ -893,6 +906,11 @@ namespace Shiro
             pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
+
+            //creating the healing box
+            healbox = new HealingBox(healBoxTexture, 1000, 500);
+
+            currentLevel = new Level(1, cityTileset, doorTexture, player);
             
             currentLevel = new Level(levelNumber, cityTileset, doorTexture, player);
             itemsCollide = currentLevel.CollisonList;
@@ -920,10 +938,12 @@ namespace Shiro
                 if(textureRng == 1)
                 {
                     enemy.BattleTexture = enemyTrashCanTexture;
+                    enemy.PatternFileName = "garbageCanAttack.txt";
                 }
                 if(textureRng == 2)
                 {
                     enemy.BattleTexture = enemyGarbageBagTexture;
+                    enemy.PatternFileName = "garbageBagAttack.txt";
                 }
                 if(textureRng == 3)
                 {
