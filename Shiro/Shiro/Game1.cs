@@ -890,6 +890,24 @@ namespace Shiro
             listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1600, 300, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
             listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
 
+            foreach(Enemy enemy in listEnemies)
+            {
+                int textureRng = rng.Next(1, 4);
+
+                if(textureRng == 1)
+                {
+                    enemy.BattleTexture = enemyTrashCanTexture;
+                }
+                if(textureRng == 2)
+                {
+                    enemy.BattleTexture = enemyGarbageBagTexture;
+                }
+                if(textureRng == 3)
+                {
+                    enemy.BattleTexture = enemyRatTexture;
+                }
+            }
+
             //Player variables
             pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
