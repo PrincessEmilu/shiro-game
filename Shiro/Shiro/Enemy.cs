@@ -205,6 +205,7 @@ namespace Shiro
 
             this.walkTexture = walkTexture;
             currentState = EnemyState.WalkRight;
+            this.battleTexture = battleTexture;
 
             //Set collision box width to be the target box width/height for the object
             position.Width = 100;
@@ -412,7 +413,7 @@ namespace Shiro
             return false;
         }
 
-        /*Crashes because battleTexture is null
+        //Crashes because battleTexture is null
         public override void Draw(SpriteBatch sb, float opacity)
         {
             if (InBattle == true)
@@ -426,12 +427,21 @@ namespace Shiro
 
             sb.Draw(currentTexture, Position, Color.Red);
         }
-        */
+        
 
         public override void Draw(SpriteBatch sb)
         {
             //Debug: draw bounding box
             //sb.Draw(texture, position, Color.Red);
+
+            if (InBattle == true)
+            {
+                currentTexture = battleTexture;
+            }
+            if (InBattle == false)
+            {
+                currentTexture = texture;
+            }
 
             //Increase the frame, which will animate the player.
             int frameWidth = 300;
@@ -452,7 +462,7 @@ namespace Shiro
                 case EnemyState.FaceLeft:
                 //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
                 sb.Draw(
-                    texture,                                                //Texture to draw
+                    currentTexture,                                                //Texture to draw
                     new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                     new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
                     Color.White,                                  //Blend color
