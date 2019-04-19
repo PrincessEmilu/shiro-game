@@ -398,20 +398,19 @@ namespace Shiro
 
                     //Player movement
                     Vector2 cameraMovement = Vector2.Zero;
-
-                    if (kbState.IsKeyDown(Keys.Up) && player.TopWall == false)
-                    {
-                        cameraMovement.Y--;
-                        player.BoundBoxY -= playerWalkSpeed;                
-                    }
-                    if (kbState.IsKeyDown(Keys.Down) && player.BottomWall == false)
-                    {
-                        cameraMovement.Y++;
-                        player.BoundBoxY += playerWalkSpeed;
-                    }
-
+                    
                     if (player.CurrentState != PlayerState.FaceRight && player.CurrentState != PlayerState.FaceLeft)
                     {
+                        if (kbState.IsKeyDown(Keys.Up) && player.TopWall == false)
+                        {
+                            cameraMovement.Y--;
+                            player.BoundBoxY -= playerWalkSpeed;
+                        }
+                        if (kbState.IsKeyDown(Keys.Down) && player.BottomWall == false)
+                        {
+                            cameraMovement.Y++;
+                            player.BoundBoxY += playerWalkSpeed;
+                        }
                         if (kbState.IsKeyDown(Keys.Left) && player.LeftWall == false)
                         {
                             cameraMovement.X--;
