@@ -796,14 +796,15 @@ namespace Shiro
                     //Draw each enemy that is active.
                     foreach (Enemy e in listEnemies)
                     {
-                        /*
+                        
                         if (e.Transparent) { e.Draw(spriteBatch, 0.5f); }
                         else if (e.Active) { e.Draw(spriteBatch, 1); }   
-                        */
+                        
+                        /*
                         if(e.Active)
                         {
                             e.Draw(spriteBatch);
-                        }
+                        }*/
                     }
                     break;
                 #endregion

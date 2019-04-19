@@ -340,7 +340,7 @@ namespace Shiro
                         enemy.Top = true; 
                         enemy.Right = true;
                         enemy.Once = true;
-                        //enemy.InBattle = false? To reset texture
+                        
                     }
                     break;
             }
@@ -428,7 +428,7 @@ namespace Shiro
 
             //Draws player and enemy
             player.Draw(sb);
-            enemy.Draw(sb);
+            enemy.Draw(sb, 1);
 
             //DEBUG: Draw battle info
             //sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);
