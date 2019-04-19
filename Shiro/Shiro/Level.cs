@@ -116,7 +116,7 @@ namespace Shiro
                     //specifiying its position (and maybe eventually, other properites)
                     if (bool.Parse(splitLine[i]))
                     {
-                        collisionList.Add(new CollisionItem(doorTexture, tileSize * i, tileSize * j, player));
+                        collisionList.Add(new CollisionItem(tilesetImage, tileSize * i, tileSize * j, player));
                     }
                     
                 }
@@ -158,27 +158,5 @@ namespace Shiro
                 }
             }
         }
-
-        //public List<CollisionItem> GetWalls()
-        //{
-        //    List<CollisionItem> temp = new List<CollisionItem>();
-        //
-        //    foreach (CollisionItem i in collisionList)
-        //    {
-        //        if (i.CheckCollision(player))
-        //        {
-        //            temp.Add(i);
-        //        }
-        //        else
-        //        {
-        //            if (temp.Contains(i))
-        //            {
-        //                temp.Remove(i);
-        //            }
-        //        }
-        //    }
-        //
-        //    return temp;
-        //}
     }
 }

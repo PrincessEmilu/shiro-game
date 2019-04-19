@@ -59,6 +59,7 @@ namespace Shiro
         public string PatternFileName
         {
             get { return patternFileName; }
+            set { patternFileName = value; }
         }
         public bool Transparent
         {
@@ -133,12 +134,12 @@ namespace Shiro
         }
 
         //random movement
-        public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition)
-        {
-        }
+       // public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition)
+        //{
+        //}
         
 
-        public Enemy(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
+        public Enemy(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, Random rng, string patternFileName) : base(texture, xPosition, yPosition) //random movement
         {
             //this constructor is for random movement type at a set distance of 100
             frame = 0;
@@ -204,6 +205,7 @@ namespace Shiro
 
             this.walkTexture = walkTexture;
             currentState = EnemyState.WalkRight;
+            this.battleTexture = battleTexture;
 
             //Set collision box width to be the target box width/height for the object
             position.Width = 100;
@@ -411,14 +413,32 @@ namespace Shiro
             return false;
         }
 
-
-        public override void Draw(SpriteBatch sb, float opacity)
+        //Crashes because battleTexture is null
+        /*public override void Draw(SpriteBatch sb)
         {
-            if(InBattle == true)
+            if (InBattle == true)
             {
                 currentTexture = battleTexture;
             }
             else
+            {
+                currentTexture = texture;
+            }
+
+            sb.Draw(currentTexture, Position, Color.Red);
+        }
+        */
+        
+        public override void Draw(SpriteBatch sb, float opacity)
+        {
+            //Debug: draw bounding box
+            //sb.Draw(texture, position, Color.Red);
+
+            if (InBattle == true)
+            {
+                currentTexture = battleTexture;
+            }
+            if (InBattle == false)
             {
                 currentTexture = texture;
             }
@@ -456,7 +476,7 @@ namespace Shiro
                 case EnemyState.FaceRight:
                     //public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
                     sb.Draw(
-                        currentTexture,                                                //Texture to draw
+                        texture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
                         Color.White * opacity                                   //Blend color
@@ -482,7 +502,7 @@ namespace Shiro
                         walkTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White * opacity                                   //Blend color
+                        Color.White * opacity                                 //Blend color
                         );
                     break;
             }

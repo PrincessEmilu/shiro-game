@@ -80,6 +80,7 @@ namespace Shiro
         private int initialY;
         private bool draw;
 
+        bool drawEnemiesOnce;
         private const int playerWalkSpeed = 4;
 
         //Fields for Instructions
@@ -128,9 +129,6 @@ namespace Shiro
         CollisionItem door;
         List<CollisionItem> items;
         List<CollisionItem> itemsCollide;
-
-        bool drawEnemiesOnce = true;
-        
 #endregion
 
         public Game1()
@@ -138,7 +136,6 @@ namespace Shiro
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
-
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -150,8 +147,6 @@ namespace Shiro
         {
 
             //Initialize variables
-
-            listEnemies = new List<Enemy>();
             rng = new Random();
 
             //Start at the Title Screen
@@ -163,13 +158,10 @@ namespace Shiro
             initialX = graphics.GraphicsDevice.Viewport.Width;
             initialY = graphics.GraphicsDevice.Viewport.Height;
 
-            items = new List<CollisionItem>();
-            itemsCollide = new List<CollisionItem>();
-
             //Screen size/settings
             graphics.PreferredBackBufferWidth = 1300;
             graphics.PreferredBackBufferHeight = 720;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             base.Initialize();
@@ -237,11 +229,6 @@ namespace Shiro
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
-
-            //Player variables
-            pos = new Rectangle(200, 200, 160, 130);
-            boundBoxPos = new Rectangle(50, 50, 600, 600);
-            player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
         }
 
         /// <summary>
@@ -333,15 +320,8 @@ namespace Shiro
                         switch (arrowPosition)
                         {
                             case 1:
-                                //Level initialization here!
-                                state = GameState.Level;
-                                drawEnemiesOnce = true;
-                                listEnemies.Clear();
-                                currentLevel = new Level(1, cityTileset, doorTexture, player);
-
-                                //Creates a new camera
-                                camera = new Camera(graphics.GraphicsDevice.Viewport, currentLevel.LevelWidthPixels, currentLevel.LevelHeightPixels, 1);
-                                player.CurrentState = PlayerState.FaceRight;
+                                //Creates the first level
+                                CreateLevel(1);
                                 break;
 
                             case 2:
@@ -369,26 +349,12 @@ namespace Shiro
                     //Updated entities
                     player.Update(gameTime);
 
-                    foreach(CollisionItem a in items)
-                    {
-                        if (a.CheckCollision(player))
-                        {
-                            itemsCollide.Add(a);
-                        } else
-                        {
-                            if (itemsCollide.Contains(a))
-                            {
-                                itemsCollide.Remove(a);
-                            }
-                        }
-                    }
-
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
                     if(drawEnemiesOnce)
                     {
                         
                         //Enemies eventually loaded elsewhere
-                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                        listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, 100, 100, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                         listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                         listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                         
@@ -648,12 +614,9 @@ namespace Shiro
                     }
                     */
 
-                    Reset();
-
                     //Transition to the Main Menu if Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
                     {
-                        Reset();
                         state = GameState.MainMenu;
                     }
                     //Update the arrow position to decide which choice the user in highlighting
@@ -728,7 +691,6 @@ namespace Shiro
             }
             else
             {
-
                 spriteBatch.Begin(SpriteSortMode.Immediate,
                     null, null, null, null, null,
                     camera.GetTransformation());
@@ -846,8 +808,15 @@ namespace Shiro
                     //Draw each enemy that is active.
                     foreach (Enemy e in listEnemies)
                     {
+                        
                         if (e.Transparent) { e.Draw(spriteBatch, 0.5f); }
-                        else if (e.Active) { e.Draw(spriteBatch, 1); }                        
+                        else if (e.Active) { e.Draw(spriteBatch, 1); }   
+                        
+                        /*
+                        if(e.Active)
+                        {
+                            e.Draw(spriteBatch);
+                        }*/
                     }
                     break;
                 #endregion
@@ -900,25 +869,68 @@ namespace Shiro
             base.Draw(gameTime);
         }
 
-        public void Reset()
+        //Creates a new level
+        protected void CreateLevel(int levelNumber)
         {
+            //Level initialization here!
+            state = GameState.Level;
+
+            listEnemies = new List<Enemy>();
+            itemsCollide = new List<CollisionItem>();
+
             //Player variables
             pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
-            player.Stamina = 100;
 
-            //camera
-            camera.Pos = new Vector2(0, 0);
+            currentLevel = new Level(1, cityTileset, doorTexture, player);
+            itemsCollide = currentLevel.CollisonList;
 
-            //enemy data
-            foreach (Enemy enemy in listEnemies)
+            //Creates a new camera object
+            camera = new Camera(graphics.GraphicsDevice.Viewport, currentLevel.LevelWidthPixels, currentLevel.LevelHeightPixels, 1);
+
+            //Info for player handling movement
+            player.WorldHeight = currentLevel.LevelHeightPixels;
+            player.WorldWidth = currentLevel.LevelWidthPixels;
+            player.CurrentState = PlayerState.FaceRight;
+
+            //Enemies eventually loaded elsewhere
+            //Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, int enemyRng, int distance, String patternFileName
+            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1600, 300, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+
+            foreach(Enemy enemy in listEnemies)
             {
-                enemy.Active = true;
-                enemy.InBattle = false;
-                enemy.Stamina = 100;
+                int textureRng = rng.Next(1, 4);
+
+                if(textureRng == 1)
+                {
+                    enemy.BattleTexture = enemyTrashCanTexture;
+                }
+                if(textureRng == 2)
+                {
+                    enemy.BattleTexture = enemyGarbageBagTexture;
+                }
+                if(textureRng == 3)
+                {
+                    enemy.BattleTexture = enemyRatTexture;
+                }
             }
-            
+
+            //Player variables
+            pos = new Rectangle(200, 200, 160, 130);
+            boundBoxPos = new Rectangle(50, 50, 600, 600);
+
+            player.Pos = pos;
+            player.BoundBoxX = boundBoxPos.X;
+            player.BoundBoxY = boundBoxPos.Y;
+
+            camera.Pos = new Vector2(0, 0);
+            prevCamera = camera.Pos;
+
         }
     }
 

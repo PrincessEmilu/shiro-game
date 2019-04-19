@@ -83,6 +83,11 @@ namespace Shiro
             }
         }
 
+        //World size for bounding box
+        public int WorldWidth { get; set; }
+        public int WorldHeight { get; set; }
+
+
         public bool TopWall { get { return topWall; } }
         public bool BottomWall { get { return bottomWall; } }
         public bool LeftWall { get { return leftWall; } }
@@ -101,7 +106,7 @@ namespace Shiro
         #region Constructor
         //Constructor
         public Player(Texture2D texture, Texture2D walkTexture, int xPosition, int yPosition, int width, int height, int movementSpeed, Camera camera, 
-            Texture2D box, Rectangle boundBox, List<CollisionItem> itemsColliding) : base(texture, xPosition, yPosition)
+            Texture2D box, Rectangle boundBox, List<CollisionItem> listCollisions) : base(texture, xPosition, yPosition)
         {
             CurrentState = PlayerState.FaceLeft;
 
@@ -119,7 +124,7 @@ namespace Shiro
             bottomBounding = false;
             rightBounding = false;
             leftBounding = false;
-            this.itemsColliding = itemsColliding;
+            itemsColliding = listCollisions;
 
             //Set collision box width to be the target box width/height for the object
             position.Width = 180;
@@ -171,32 +176,28 @@ namespace Shiro
                 leftBounding = false;
             }
 
+            //Player movement
             if (kbState.IsKeyDown(Keys.Up) && topBounding == false)
             {
-                Collides(Keys.Up);
-                if (!topWall)
+                bool canContinue = true;
+
+                foreach(CollisionItem solidObject in itemsColliding)
                 {
-                    position.Y -= movementSpeed;
+                    if (CheckCollisions(solidObject)) { canContinue = false; }
                 }
+
+                if (canContinue) { position.Y -= movementSpeed; }
             }
 
             if (kbState.IsKeyDown(Keys.Down) && bottomBounding == false)
             {
-                Collides(Keys.Down);
-                if (!bottomWall)
-                {
                     position.Y += movementSpeed;
-                }
             }
             if (CurrentState != PlayerState.FaceLeft && CurrentState != PlayerState.FaceRight)
             {
                 if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
                 {
-                    Collides(Keys.Left);
-                    if (!leftWall)
-                    {
                         position.X -= movementSpeed;
-                    }
                 }
                 else
                 {
@@ -204,27 +205,19 @@ namespace Shiro
                 }
                 if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
                 {
-                    Collides(Keys.Right);
-                    if (!rightWall)
-                    {
                         position.X += movementSpeed;
-                    }
-                }
-                else
-                {
-
                 }
             }
 
             //Prevents bound box from going off screen
-            if (boundBox.Right >= 2000)
+            if (boundBox.Right >= WorldWidth)
             {
-                boundBox.X = 2000 - boundBox.Width;
+                boundBox.X = WorldWidth - boundBox.Width;
             }
 
-            if (boundBox.Bottom >= 2000)
+            if (boundBox.Bottom >= WorldHeight)
             {
-                boundBox.Y = 2000 - boundBox.Height;
+                boundBox.Y = WorldHeight - boundBox.Height;
             }
 
             if (boundBox.Left <= 0)
@@ -323,7 +316,8 @@ namespace Shiro
         public override void Draw(SpriteBatch sb)
         {
             //DEBUG: DRAW BOUND BOX
-            sb.Draw(texture, boundBox, Color.Red);
+            //sb.Draw(texture, boundBox, Color.Red);
+            //sb.Draw(texture, position, Color.Blue);
 
             //Increase the frame, which will animate the player.
             int frameWidth = 550;
@@ -384,161 +378,42 @@ namespace Shiro
                         Color.White);
                     break;
             }
-         
-
         }
 
-        //Helper Method
-        private void Collides(Keys pressedKey)
+        //Checks for collision with a solid object
+        //This method may go elsewhere at some point
+        public bool CheckCollisions(CollisionItem solidObject)
         {
-            temp = new Rectangle(position.X, position.Y, position.Width, position.Height);
-
-            if (pressedKey == Keys.Up)
+            //Moving right
+            if(position.Right + movementSpeed > solidObject.Position.Left
+                && position.Top <= solidObject.Position.Bottom
+                && position.Bottom >= solidObject.Position.Top)
             {
-                temp.Y -= 10;
-                temp.Height += 20;
-
-                //Prevents player from going into the collision item
-                if (itemsColliding.Count != 0)
-                {
-                    foreach (CollisionItem a in itemsColliding)
-                    {
-                        if (Enumerable.Range(a.CollisionBox.Y, a.CollisionBox.Y + a.CollisionBox.Height).Contains
-                            (temp.Y))
-                        {
-                                topWall = true;                            
-                        }
-                    }
-                }
-                else
-                {
-                    topWall = false;
-                }
+                return true;
+            }
+            /*
+            //Moving Left
+            if(position.Left - movementSpeed < solidObject.Position.Right)
+            {
+                return true;
             }
 
-            if (pressedKey == Keys.Down)
+            //Moving Down
+            if(position.Bottom + movementSpeed > solidObject.Position.Top)
             {
-                temp.Y += 10;
-                temp.Height += 20;
-
-                //Prevents player from going into the collision item
-                if (itemsColliding.Count != 0)
-                {
-                    foreach (CollisionItem a in itemsColliding)
-                    {
-                        if (Enumerable.Range(a.CollisionBox.Y, a.CollisionBox.Y + a.CollisionBox.Height).Contains
-                            (temp.Y + temp.Height))
-                        {
-                            bottomWall = true;
-                        }
-                    }
-                }
-                else
-                {
-                    bottomWall = false;
-                }
+                return true;
             }
 
-            if (pressedKey == Keys.Left)
+            //Moving up
+            if (position.Top - movementSpeed < solidObject.Position.Bottom)
             {
-                temp.X -= 10;
-                temp.Width += 20;
-
-                //Prevents player from going into the collision item
-                if (itemsColliding.Count != 0)
-                {
-                    foreach (CollisionItem a in itemsColliding)
-                    {
-                        if (Enumerable.Range(a.CollisionBox.X, a.CollisionBox.X + a.CollisionBox.Width).Contains
-                            (temp.X))
-                        {
-                            leftWall = true;
-                        }
-                    }
-                }
-                else
-                {
-                    leftWall = false;
-                }
+                return true;
             }
-
-            if (pressedKey == Keys.Right)
+            */
+            else
             {
-                temp.X += 10;
-                temp.Width += 20;
-
-                //Prevents player from going into the collision item
-                if (itemsColliding.Count != 0)
-                {
-                    foreach (CollisionItem a in itemsColliding)
-                    {
-                        if (Enumerable.Range(a.CollisionBox.X, a.CollisionBox.X + a.CollisionBox.Width).Contains
-                            (temp.X + temp.Width))
-                        {
-                            rightWall = true;
-                        }
-                    }
-                }
-                else
-                {
-                    rightWall = false;
-                }
+                return false;
             }
-            ////Prevents player from going into the collision item
-            //if (itemsColliding.Count != 0)
-            //{
-            //    foreach (CollisionItem a in itemsColliding)
-            //    {
-            //        if (a.CollisionBox.Intersects(temp))
-            //        {
-            //
-            //            if (temp.Bottom >= a.CollisionBox.Top)
-            //            {
-            //                bottomWall = true;
-            //            }
-            //            else
-            //            {
-            //                bottomWall = false;
-            //            }
-            //
-            //            if (temp.Top <= a.CollisionBox.Bottom)
-            //            {
-            //                topWall = true;
-            //            }
-            //            else
-            //            {
-            //                topWall = false;
-            //            }
-            //
-            //            if (temp.Right >= a.CollisionBox.Left)
-            //            {
-            //                rightWall = true;
-            //            }
-            //            else
-            //            {
-            //                rightWall = false;
-            //            }
-            //
-            //            if (temp.Left <= a.CollisionBox.Right)
-            //            {
-            //                leftWall = true;
-            //            }
-            //            else
-            //            {
-            //                leftWall = false;
-            //            }
-            //
-            //
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    topWall = false;
-            //    rightWall = false;
-            //    bottomWall = false;
-            //    topWall = false;
-            //}
         }
     }
 }

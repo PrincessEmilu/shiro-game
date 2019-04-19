@@ -158,7 +158,7 @@ namespace Shiro
                         //Update the arrow position to decide which choice the user in highlighting
                         if (Helpers.SingleKeyPress(Keys.Up, pbState, kbState))
                         {
-                            //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
+                            //If no choice has been selected yet or the top choice is selcted 
                             if (arrowPosition == 1)
                             {
                                 arrowPosition = 2;
@@ -350,7 +350,7 @@ namespace Shiro
                         enemy.Top = true; 
                         enemy.Right = true;
                         enemy.Once = true;
-                        //enemy.InBattle = false? To reset texture
+                        
                     }
                     break;
             }
@@ -477,7 +477,7 @@ namespace Shiro
                         keyToReturn = new AttackKey(
                             LeftArrow,
                             1200,
-                            350,
+                            375,
                             keyType,
                             keySpeed);
                         break;
@@ -485,7 +485,7 @@ namespace Shiro
                         keyToReturn = new AttackKey(
                             RightArrow,
                             1200,
-                            350,
+                            375,
                             keyType,
                             keySpeed);
                         break;
