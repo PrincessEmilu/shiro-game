@@ -428,7 +428,7 @@ namespace Shiro
             sb.Draw(currentTexture, Position, Color.Red);
         }
         */
-
+        
         public override void Draw(SpriteBatch sb, float opacity)
         {
             //Debug: draw bounding box
