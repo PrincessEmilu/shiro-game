@@ -45,7 +45,7 @@ namespace Shiro
 
         protected EnemyState currentState;
 
-        private int frame;
+        protected int frame;
         private Texture2D walkTexture;
         public Texture2D battleTexture;
         private Texture2D currentTexture;

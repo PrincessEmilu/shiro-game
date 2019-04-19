@@ -31,6 +31,7 @@ namespace Shiro
         protected Random rng;
         protected bool failedRun;
         protected bool success;
+        protected string runText;
 
         //References to player and enemy in battle
         protected Player player;
@@ -93,6 +94,7 @@ namespace Shiro
             this.rng = rng;
             failedRun = false;
             success = false;
+            runText = "Run Away Attempt Failed. Shiro has lost 10 Stamina. ";
 
             //Also hardcoded for now, eventually given by enemy?
             this.keySpeed = keySpeed;
@@ -191,7 +193,7 @@ namespace Shiro
                         {
                             //Check to see if the player successfully ran away
                             bool success = enemy.RunAway(chance, rng);
-                            if (success)
+                            if (success && player.Stamina > 20)
                             {
                                 battleState = BattleState.RanAway;
                                 success = true;
@@ -202,6 +204,10 @@ namespace Shiro
                                 if (player.Stamina > 20)
                                 {
                                     player.Stamina -= 10;
+                                }
+                                else
+                                {
+                                    runText = "Not enough stamina to run away!";
                                 }
 
                                 failedRun = true;
@@ -392,7 +398,7 @@ namespace Shiro
 
                     if (failedRun)
                     {
-                        sb.DrawString(font, "Run Away Attempt Failed. Shiro has lost 10 Stamina. ", new Vector2(400, 175), Color.Red);
+                        sb.DrawString(font, runText, new Vector2(400, 175), Color.Red);
                     }
 
                     break;

@@ -206,7 +206,7 @@ namespace Shiro
             salsaIdle = Content.Load<Texture2D>("SalsaIdle");
             salsaBow = Content.Load<Texture2D>("SalsaBow");
             salsaBowDown = Content.Load<Texture2D>("SalsaStandToBow");
-            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 200, 200, 200, 200, rng, "ratAttackOne.txt");
+            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 200, 200, 200, 200, "ratAttackOne.txt");
 
             //Title Screen
             titleBackground = Content.Load<Texture2D>("BrickWall");
@@ -842,6 +842,7 @@ namespace Shiro
                     camera.Pos = prevCamera;
                     currentLevel.Draw(spriteBatch);
                     player.Draw(spriteBatch);
+                    salsa.Draw(spriteBatch);
                     //Draw each enemy that is active.
                     foreach (Enemy e in listEnemies)
                     {
