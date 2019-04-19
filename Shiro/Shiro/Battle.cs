@@ -438,7 +438,14 @@ namespace Shiro
 
             //Draws player and enemy
             player.Draw(sb);
-            enemy.Draw(sb, 1);
+            if (enemy is Boss)
+            {
+                enemy.Draw(sb);
+            }
+            else
+            {
+                enemy.Draw(sb, 1);
+            }
 
             //DEBUG: Draw battle info
             //sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);
