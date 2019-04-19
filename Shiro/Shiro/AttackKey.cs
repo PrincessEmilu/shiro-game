@@ -26,6 +26,7 @@ namespace Shiro
             KeyType = key;
 
             position.Height /= 2;
+            position.Width /= 2;
         }
 
         public override void Update(GameTime gameTime)

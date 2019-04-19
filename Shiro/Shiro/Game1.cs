@@ -157,7 +157,7 @@ namespace Shiro
             //Screen size/settings
             graphics.PreferredBackBufferWidth = 1300;
             graphics.PreferredBackBufferHeight = 720;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             base.Initialize();
@@ -801,7 +801,10 @@ namespace Shiro
                         if (e.Transparent) { e.Draw(spriteBatch, 0.5f); }
                         else if (e.Active) { e.Draw(spriteBatch, 1); }   
                         */
-                        e.Draw(spriteBatch);
+                        if(e.Active)
+                        {
+                            e.Draw(spriteBatch);
+                        }
                     }
                     break;
                 #endregion
@@ -884,6 +887,8 @@ namespace Shiro
             listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
             listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
             listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1600, 300, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
 
             //Player variables
             pos = new Rectangle(200, 200, 160, 130);

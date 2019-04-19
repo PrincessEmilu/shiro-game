@@ -467,7 +467,7 @@ namespace Shiro
                         keyToReturn = new AttackKey(
                             LeftArrow,
                             1200,
-                            350,
+                            375,
                             keyType,
                             keySpeed);
                         break;
@@ -475,7 +475,7 @@ namespace Shiro
                         keyToReturn = new AttackKey(
                             RightArrow,
                             1200,
-                            350,
+                            375,
                             keyType,
                             keySpeed);
                         break;
