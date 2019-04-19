@@ -353,13 +353,14 @@ namespace Shiro
                     }
                     break;
                 #endregion
-                #region Level
+                                   #region Level
                 case GameState.Level:
 
                     //Updated entities
                     player.Update(gameTime);
 
                     //heals the player if they come in contact with the healing box
+
                     if(healbox.CheckCollision(player) == true)
                     {
                         player.Stamina = 100;
@@ -407,20 +408,19 @@ namespace Shiro
 
                     //Player movement
                     Vector2 cameraMovement = Vector2.Zero;
-
-                    if (kbState.IsKeyDown(Keys.Up) && player.TopWall == false)
-                    {
-                        cameraMovement.Y--;
-                        player.BoundBoxY -= playerWalkSpeed;                
-                    }
-                    if (kbState.IsKeyDown(Keys.Down) && player.BottomWall == false)
-                    {
-                        cameraMovement.Y++;
-                        player.BoundBoxY += playerWalkSpeed;
-                    }
-
+                    
                     if (player.CurrentState != PlayerState.FaceRight && player.CurrentState != PlayerState.FaceLeft)
                     {
+                        if (kbState.IsKeyDown(Keys.Up) && player.TopWall == false)
+                        {
+                            cameraMovement.Y--;
+                            player.BoundBoxY -= playerWalkSpeed;
+                        }
+                        if (kbState.IsKeyDown(Keys.Down) && player.BottomWall == false)
+                        {
+                            cameraMovement.Y++;
+                            player.BoundBoxY += playerWalkSpeed;
+                        }
                         if (kbState.IsKeyDown(Keys.Left) && player.LeftWall == false)
                         {
                             cameraMovement.X--;
