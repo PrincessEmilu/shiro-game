@@ -349,13 +349,14 @@ namespace Shiro
                     }
                     break;
                 #endregion
-                #region Level
+                                   #region Level
                 case GameState.Level:
 
                     //Updated entities
                     player.Update(gameTime);
 
                     //heals the player if they come in contact with the healing box
+
                     if(healbox.CheckCollision(player) == true)
                     {
                         player.Stamina = 100;
