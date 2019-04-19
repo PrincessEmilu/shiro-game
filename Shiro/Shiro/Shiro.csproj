@@ -52,6 +52,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="AttackKey.cs" />
+    <Compile Include="HealingBox.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="ImportAttackPatterns.cs" />
     <Compile Include="Level.cs" />

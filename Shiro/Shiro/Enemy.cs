@@ -440,7 +440,7 @@ namespace Shiro
             }
             if (InBattle == false)
             {
-                currentTexture = texture;
+                currentTexture = walkTexture;
             }
 
             //Increase the frame, which will animate the player.
@@ -479,7 +479,11 @@ namespace Shiro
                         texture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White * opacity                                   //Blend color
+                        Color.White * opacity,                                  //Blend color
+                        0f,
+                        new Vector2(0, 0),                                       //Origin
+                        SpriteEffects.None,                         //Sprite Effects
+                    0f
                         );
                     break;
                 case EnemyState.WalkLeft:
@@ -502,7 +506,11 @@ namespace Shiro
                         walkTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White * opacity                                 //Blend color
+                        Color.White * opacity,                                  //Blend color
+                        0f,
+                        new Vector2(0, 0),                                       //Origin
+                        SpriteEffects.None,                         //Sprite Effects
+                    0f
                         );
                     break;
             }

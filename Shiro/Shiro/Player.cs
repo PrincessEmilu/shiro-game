@@ -177,32 +177,31 @@ namespace Shiro
             }
 
             //Player movement
-            if (kbState.IsKeyDown(Keys.Up) && topBounding == false)
-            {
-                bool canContinue = true;
-
-                foreach(CollisionItem solidObject in itemsColliding)
-                {
-                    if (CheckCollisions(solidObject)) { canContinue = false; }
-                }
-
-                if (canContinue) { position.Y -= movementSpeed; }
-            }
-
-            if (kbState.IsKeyDown(Keys.Down) && bottomBounding == false)
-            {
-                    position.Y += movementSpeed;
-            }
+            
             if (CurrentState != PlayerState.FaceLeft && CurrentState != PlayerState.FaceRight)
             {
+                if (kbState.IsKeyDown(Keys.Up) && topBounding == false)
+                {
+                    bool canContinue = true;
+
+                    foreach (CollisionItem solidObject in itemsColliding)
+                    {
+                        //if (CheckCollisions(solidObject)) { canContinue = false; }
+                    }
+
+                    if (canContinue) { position.Y -= movementSpeed; }
+                }
+
+                if (kbState.IsKeyDown(Keys.Down) && bottomBounding == false)
+                {
+                    position.Y += movementSpeed;
+                }
+
                 if (kbState.IsKeyDown(Keys.Left) && leftBounding == false)
                 {
                         position.X -= movementSpeed;
                 }
-                else
-                {
-
-                }
+                
                 if (kbState.IsKeyDown(Keys.Right) && rightBounding == false)
                 {
                         position.X += movementSpeed;
@@ -245,6 +244,11 @@ namespace Shiro
                         CurrentState = PlayerState.FaceRight;
                         break;
                     }
+                    else if (kbState.IsKeyDown(Keys.Right) && kbState.IsKeyDown(Keys.Left) && (!kbState.IsKeyDown(Keys.Up) || !kbState.IsKeyDown(Keys.Down)))
+                    {
+                        CurrentState = PlayerState.FaceRight;
+                        break;
+                    }
                     else if (kbState.IsKeyDown(Keys.Right) && !kbState.IsKeyDown(Keys.Left))
                     {
                         CurrentState = PlayerState.WalkRight;
@@ -263,6 +267,11 @@ namespace Shiro
                 case PlayerState.FaceLeft:
 
                     if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
+                    {
+                        CurrentState = PlayerState.FaceLeft;
+                        break;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Right) && kbState.IsKeyDown(Keys.Left) && (!kbState.IsKeyDown(Keys.Up) || !kbState.IsKeyDown(Keys.Down)))
                     {
                         CurrentState = PlayerState.FaceLeft;
                         break;
@@ -286,6 +295,11 @@ namespace Shiro
                     {
                         CurrentState = PlayerState.FaceLeft;
                     }
+                    else if (kbState.IsKeyDown(Keys.Right) && kbState.IsKeyDown(Keys.Left) && (!kbState.IsKeyDown(Keys.Up) || !kbState.IsKeyDown(Keys.Down)))
+                    {
+                        CurrentState = PlayerState.FaceLeft;
+                        break;
+                    }
                     else if (kbState.IsKeyDown(Keys.Right))
                     {
                         CurrentState = PlayerState.FaceLeft;
@@ -299,6 +313,11 @@ namespace Shiro
                     if (kbState.IsKeyDown(Keys.Up) && kbState.IsKeyDown(Keys.Down) && (!kbState.IsKeyDown(Keys.Right) || !kbState.IsKeyDown(Keys.Left)))
                     {
                         CurrentState = PlayerState.FaceRight;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Right) && kbState.IsKeyDown(Keys.Left) && (!kbState.IsKeyDown(Keys.Up) || !kbState.IsKeyDown(Keys.Down)))
+                    {
+                        CurrentState = PlayerState.FaceRight;
+                        break;
                     }
                     else if (kbState.IsKeyDown(Keys.Left))
                     {
@@ -382,38 +401,11 @@ namespace Shiro
 
         //Checks for collision with a solid object
         //This method may go elsewhere at some point
-        public bool CheckCollisions(CollisionItem solidObject)
+        public void CheckCollisions(Rectangle solidObject)
         {
-            //Moving right
-            if(position.Right + movementSpeed > solidObject.Position.Left
-                && position.Top <= solidObject.Position.Bottom
-                && position.Bottom >= solidObject.Position.Top)
-            {
-                return true;
-            }
-            /*
-            //Moving Left
-            if(position.Left - movementSpeed < solidObject.Position.Right)
-            {
-                return true;
-            }
-
-            //Moving Down
-            if(position.Bottom + movementSpeed > solidObject.Position.Top)
-            {
-                return true;
-            }
-
-            //Moving up
-            if (position.Top - movementSpeed < solidObject.Position.Bottom)
-            {
-                return true;
-            }
-            */
-            else
-            {
-                return false;
-            }
+            
         }
+
+       
     }
 }
