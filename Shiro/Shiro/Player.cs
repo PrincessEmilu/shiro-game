@@ -183,7 +183,7 @@ namespace Shiro
 
                 foreach(CollisionItem solidObject in itemsColliding)
                 {
-                    if (CheckCollisions(solidObject)) { canContinue = false; }
+                    //if (CheckCollisions(solidObject)) { canContinue = false; }
                 }
 
                 if (canContinue) { position.Y -= movementSpeed; }
@@ -382,38 +382,11 @@ namespace Shiro
 
         //Checks for collision with a solid object
         //This method may go elsewhere at some point
-        public bool CheckCollisions(CollisionItem solidObject)
+        public void CheckCollisions(Rectangle solidObject)
         {
-            //Moving right
-            if(position.Right + movementSpeed > solidObject.Position.Left
-                && position.Top <= solidObject.Position.Bottom
-                && position.Bottom >= solidObject.Position.Top)
-            {
-                return true;
-            }
-            /*
-            //Moving Left
-            if(position.Left - movementSpeed < solidObject.Position.Right)
-            {
-                return true;
-            }
-
-            //Moving Down
-            if(position.Bottom + movementSpeed > solidObject.Position.Top)
-            {
-                return true;
-            }
-
-            //Moving up
-            if (position.Top - movementSpeed < solidObject.Position.Bottom)
-            {
-                return true;
-            }
-            */
-            else
-            {
-                return false;
-            }
+            
         }
+
+       
     }
 }

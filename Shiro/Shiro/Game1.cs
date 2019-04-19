@@ -18,6 +18,8 @@ namespace Shiro
         GameOver
     }
 
+    public delegate void playerCollided(Rectangle thing);
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -884,6 +886,7 @@ namespace Shiro
             pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
+            
 
             currentLevel = new Level(1, cityTileset, doorTexture, player);
             itemsCollide = currentLevel.CollisonList;
