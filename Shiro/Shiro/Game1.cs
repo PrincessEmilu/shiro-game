@@ -69,6 +69,7 @@ namespace Shiro
         private Enemy enemy;
         private Boss salsa;
         private HealingBox healbox;
+        private CollisionItem exitDoor;
 
         List<Enemy> listEnemies;
 
@@ -196,7 +197,7 @@ namespace Shiro
 
             boundBox = Content.Load<Texture2D>("rectangle");
             font = Content.Load<SpriteFont>("font");
-            doorTexture = Content.Load<Texture2D>("hitbox");
+            doorTexture = Content.Load<Texture2D>("door");
             hitbox = Content.Load<Texture2D>("hitbox");
             UpArrow = Content.Load<Texture2D>("UpArrow");
             DownArrow = Content.Load<Texture2D>("DownArrow");
@@ -207,7 +208,7 @@ namespace Shiro
             salsaIdle = Content.Load<Texture2D>("SalsaIdle");
             salsaBow = Content.Load<Texture2D>("SalsaBow");
             salsaBowDown = Content.Load<Texture2D>("SalsaStandToBow");
-            //salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 200, 200, 200, 200, "ratAttackOne.txt");
+            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 200, 200, 200, 200, "ratAttackOne.txt");
 
             //Title Screen
             titleBackground = Content.Load<Texture2D>("BrickWall");
@@ -474,9 +475,8 @@ namespace Shiro
                         }
                     }
 
-                    //TODO: Make this happen when touching a door
-                    //if there are no more enemies, create new level
-                    if (listEnemies.Count == 0)
+                    //Go to next level when you touch the door
+                    if (exitDoor.CheckCollision(player))
                     {
                         CreateLevel(2);
                         Console.WriteLine("Boops");
@@ -829,6 +829,7 @@ namespace Shiro
                     player.Draw(spriteBatch);
                     salsa.Draw(spriteBatch);
                     healbox.Draw(spriteBatch);
+                    exitDoor.Draw(spriteBatch, true);
                     //Draw each enemy that is active.
                     foreach (Enemy e in listEnemies)
                     {
@@ -907,10 +908,7 @@ namespace Shiro
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
 
-            //creating the healing box
-            healbox = new HealingBox(healBoxTexture, 1000, 500);
 
-            currentLevel = new Level(1, cityTileset, doorTexture, player);
             
             currentLevel = new Level(levelNumber, cityTileset, doorTexture, player);
             itemsCollide = currentLevel.CollisonList;
@@ -923,13 +921,27 @@ namespace Shiro
             player.WorldWidth = currentLevel.LevelWidthPixels;
             player.CurrentState = PlayerState.FaceRight;
 
-            //TODO: Enemy loading based on level?
-            //Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPosition, int yPosition, int width, int height, int enemyRng, int distance, String patternFileName
-            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-            listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-            //listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1600, 300, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-            //listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+            //Variables that change level-to-level
+            switch (levelNumber)
+            {
+                case 1:
+                    //Enemies
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1600, 300, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+
+                    //Healbox for the level
+                    healbox = new HealingBox(healBoxTexture, 2000, 150);
+
+                    //Exit
+                    exitDoor = new CollisionItem(doorTexture, 1000, 1000, player);
+
+                    break;
+                case 2:
+                    break;
+            }
 
             foreach(Enemy enemy in listEnemies)
             {
