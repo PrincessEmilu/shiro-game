@@ -23,7 +23,7 @@ namespace Shiro
         UpBow,
     }
 
-    class Boss : Enemy
+    class Boss : GameObject
     {
         //Fields
         private AttackPattern pattern;
@@ -35,6 +35,7 @@ namespace Shiro
         private int stamina;
         private int frameTimer;
         private int goalFrame;
+        private string patternFileName;
 
         private int timer;
 
@@ -60,10 +61,26 @@ namespace Shiro
             get { return pattern; }
             set { pattern = value; }
         }
-        
+
+        public bool Active { get; set; }
+
+        public bool InBattle { get; set; }
+
+        public int Stamina
+        {
+            get { return stamina; }
+            set { stamina = value; }
+        }
+
+        public string PatternFileName
+        {
+            get { return patternFileName; }
+            set { patternFileName = value; }
+        }
+
         //Constructor
         public Boss(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPositon, int yPosition, int width, int height, Random rng, String patterneFileName)
-            : base(texture, walkTexture, battleTexture, xPositon, yPosition, width, height, rng, patterneFileName)
+            : base(texture, xPositon, yPosition)
         {
             this.idle = texture;
             this.bowing = walkTexture;
@@ -73,9 +90,10 @@ namespace Shiro
             this.stamina = 100;
             this.frame = 0;
             this.frameTimer = 0;
+            this.patternFileName = patterneFileName;
             Active = true;
 
-            position = new Rectangle(200, 200, width, height);
+            position = new Rectangle(xPositon, yPosition, width, height);
 
             pattern = AttackPattern.Pattern1;
 
@@ -101,6 +119,7 @@ namespace Shiro
                     if (timer >= 200)
                     {
                         state = AnimationState.DownBow;
+                        frame = 0;
                         timer = 0;
                     }
                     break;
@@ -109,6 +128,7 @@ namespace Shiro
                     if (timer >= 200)
                     {
                         state = AnimationState.UpBow;
+                        frame = 29;
                         timer = 0;
                     }
                     break;
@@ -119,7 +139,10 @@ namespace Shiro
 
         public override void Draw(SpriteBatch sb)
         {
-
+            if (!Active)
+            {
+                return;
+            }
             //Increase the frame, which will animate the player.
             int frameWidth = 169;
             int frameHeight = 169;
@@ -134,8 +157,8 @@ namespace Shiro
             //Actualy logic for drawing the sprite
 
             switch (state)
-                {
-                    case AnimationState.Idle:
+            {
+                case AnimationState.Idle:
 
                     goalFrame = 3;
 
@@ -158,8 +181,23 @@ namespace Shiro
                         SpriteEffects.FlipHorizontally,                         //Sprite Effects
                         0f                                                      //Layer to draw on
                         );
-                        break;
-                    case AnimationState.DownBow:
+
+                    //Test
+                    frameTimer++;
+
+                    if (frameTimer >= goalFrame)
+                    {
+                        frame += 1;
+                        frameTimer = 0;
+                    }
+
+                    if (frame == 60)
+                    {
+                        frame = 0;
+                    }
+                    break;
+
+                case AnimationState.DownBow:
 
                     goalFrame = 7;
 
@@ -169,8 +207,8 @@ namespace Shiro
                     xPadding = 10;
                     yPadding = 10;
 
-                    xDrawOffset = frame % 7 * (frameWidth + xPadding);//frame % 7 * frameWidth;
-                    yDrawOffest = frame % 7 * (frameHeight + yPadding);
+                    xDrawOffset = frame % 5 * (frameWidth + xPadding);//frame % 7 * frameWidth;
+                    yDrawOffest = frame % 6 * (frameHeight + yPadding);
 
                     sb.Draw(
                         bowing,                                                //Texture to draw
@@ -183,13 +221,23 @@ namespace Shiro
                         0f                                                      //Layer to draw on
                         );
 
-                        if (frame >= 29)
-                        {
-                            state = AnimationState.Bowing;
-                        }
+                    //Test
+                    frameTimer++;
 
-                        break;
-                    case AnimationState.Bowing:
+                    if (frameTimer >= goalFrame)
+                    {
+                        frame += 1;
+                        frameTimer = 0;
+                    }
+
+                    if (frame == 5)
+                    {
+                        frame = 0;
+                        state = AnimationState.Bowing;
+                    }
+
+                    break;
+                case AnimationState.Bowing:
 
                     goalFrame = 5;
 
@@ -212,9 +260,23 @@ namespace Shiro
                         SpriteEffects.FlipHorizontally,                         //Sprite Effects
                         0f                                                      //Layer to draw on
                         );
-                        break;
 
-                    case AnimationState.UpBow:
+                    //Test
+                    frameTimer++;
+
+                    if (frameTimer >= goalFrame)
+                    {
+                        frame += 1;
+                        frameTimer = 0;
+                    }
+
+                    if (frame == 60)
+                    {
+                        frame = 0;
+                    }
+                    break;
+
+                case AnimationState.UpBow:
 
                     goalFrame = 7;
 
@@ -224,8 +286,8 @@ namespace Shiro
                     xPadding = 10;
                     yPadding = 10;
 
-                    xDrawOffset = frame % 7 * (frameWidth + xPadding);//frame % 7 * frameWidth;
-                    yDrawOffest = frame % 7 * (frameHeight + yPadding);
+                    xDrawOffset = frame % 5 * (frameWidth + xPadding);//frame % 7 * frameWidth;
+                    yDrawOffest = frame % 6 * (frameHeight + yPadding);
 
                     sb.Draw(
                         bowing,                                                //Texture to draw
@@ -238,52 +300,79 @@ namespace Shiro
                         0f                                                      //Layer to draw on
                         );
 
-                        if (frame <= 1)
-                        {
-                            state = AnimationState.Idle;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-   
+                    //Test
+                    frameTimer++;
 
-            if (state != AnimationState.UpBow)
-            {
-                frameTimer++;
+                    if (frameTimer >= goalFrame)
+                    {
+                        frame -= 1;
+                        frameTimer = 0;
+                    }
 
-                if (frameTimer >= goalFrame)
-                {
-                    frame += 1;
-                    frameTimer = 0;
-                }
+                    if (frame == 25)
+                    {
+                        state = AnimationState.Idle;
+                        //frame = 0;
 
-                if (frame == 60) { frame = 0; }
+                    }
 
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                frameTimer++;
 
-                if (frameTimer >= goalFrame)
-                {
-                    frame -= 1;
-                   frameTimer = 0;
-                }
+            //if (state != AnimationState.UpBow)
+            //{
+            //    frameTimer++;
+            //
+            //    if (frameTimer >= goalFrame)
+            //    {
+            //        frame += 1;
+            //        frameTimer = 0;
+            //    }
+            //
+            //    if (frame == 60 || (frame == 30 && state == AnimationState.DownBow))
+            //    {
+            //        if (state == AnimationState.DownBow)
+            //        {
+            //            state = AnimationState.Bowing;
+            //            frame = 0;
+            //        }
+            //
+            //        frame = 0;
+            //    }
+            //
+            //}
+            //else
+            //{
+            //    frameTimer++;
+            //
+            //    if (frameTimer >= goalFrame)
+            //    {
+            //        frame -= 1;
+            //        frameTimer = 0;
+            //    }
+            //
+            //    if (frame == 0)
+            //    {
+            //        state = AnimationState.Idle;
+            //        frame = 60;
+            //
+            //    }
+            //}
 
-                if (frame == 0)
-                {
-                    frame = 60;
-                }
-            }
         }
-        public override bool CheckCollision(GameObject check)
+
+       
+
+        public bool CheckCollision(GameObject check)
         {
             if (Active == true)
             {
                 if (position.Intersects(check.Position)) //check if intersecting with the player
                 {
                     InBattle = true;
+                    state = AnimationState.Idle;
                     return true; //returns true to enter battle state
                 }
             }
@@ -291,21 +380,21 @@ namespace Shiro
             {
                 return false;
             }
-        
+
             return false;
         }
 
-        public override bool RunAway(int chance, Random rng)
-        {
-            int random = rng.Next(1, 11);
-            if (random <= chance)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public override bool RunAway(int chance, Random rng)
+        //{
+        //    int random = rng.Next(1, 11);
+        //    if (random <= chance)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }
