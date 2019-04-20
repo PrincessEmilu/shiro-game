@@ -144,14 +144,14 @@ namespace Shiro
                 return;
             }
             //Increase the frame, which will animate the player.
-            int frameWidth = 169;
-            int frameHeight = 169;
-            int xPadding = 13;
-            int yPadding = 9;
-
-            //Calculates x/y offset to draw based on current frame and the tiles per row
-            int xDrawOffset = frame % 7 * (frameWidth + xPadding);//frame % 7 * frameWidth;
-            int yDrawOffest = frame % 7 * (frameHeight + yPadding);
+            //Change Variable for this specific spritesheet
+           int  frameWidth = 410;
+           int frameHeight = 400;
+           int xPadding = 10;
+           int yPadding = 10;
+ 
+           int xDrawOffset = frame % 7 * (frameWidth + xPadding);//frame % 7 * frameWidth;
+           int yDrawOffest = frame % 7 * (frameHeight + yPadding);
 
 
             //Actualy logic for drawing the sprite
@@ -160,16 +160,7 @@ namespace Shiro
             {
                 case AnimationState.Idle:
 
-                    goalFrame = 3;
-
-                    //Change Variable for this specific spritesheet
-                    frameWidth = 169;
-                    frameHeight = 169;
-                    xPadding = 13;
-                    yPadding = 9;
-
-                    xDrawOffset = frame % 7 * (frameWidth + xPadding);//frame % 7 * frameWidth;
-                    yDrawOffest = frame % 7 * (frameHeight + yPadding);
+                    goalFrame = 7;
 
                     sb.Draw(
                         idle,                                                //Texture to draw
@@ -200,12 +191,6 @@ namespace Shiro
                 case AnimationState.DownBow:
 
                     goalFrame = 7;
-
-                    //Change Variable for this specific spritesheet
-                    frameWidth = 410;
-                    frameHeight = 400;
-                    xPadding = 10;
-                    yPadding = 10;
 
                     xDrawOffset = frame % 5 * (frameWidth + xPadding);//frame % 7 * frameWidth;
                     yDrawOffest = frame % 6 * (frameHeight + yPadding);
@@ -241,15 +226,6 @@ namespace Shiro
 
                     goalFrame = 5;
 
-                    //Change Variable for this specific spritesheet
-                    frameWidth = 410;
-                    frameHeight = 400;
-                    xPadding = 10;
-                    yPadding = 10;
-
-                    xDrawOffset = frame % 7 * (frameWidth + xPadding);//frame % 7 * frameWidth;
-                    yDrawOffest = frame % 7 * (frameHeight + yPadding);
-
                     sb.Draw(
                         inBow,                                                //Texture to draw
                         position,        //Rectangle to draw to
@@ -280,11 +256,6 @@ namespace Shiro
 
                     goalFrame = 7;
 
-                    //Change Variable for this specific spritesheet
-                    frameWidth = 410;
-                    frameHeight = 400;
-                    xPadding = 10;
-                    yPadding = 10;
 
                     xDrawOffset = frame % 5 * (frameWidth + xPadding);//frame % 7 * frameWidth;
                     yDrawOffest = frame % 6 * (frameHeight + yPadding);
