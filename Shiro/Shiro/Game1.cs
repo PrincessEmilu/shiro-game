@@ -487,7 +487,7 @@ namespace Shiro
                         player.BoxPrevPos = boundBoxPos;
 
                         salsa.InBattle = true;
-                    
+
                         //Change game state and player state
                         state = GameState.Battle;
                         player.CurrentState = PlayerState.FaceRight;
@@ -645,6 +645,10 @@ namespace Shiro
                         state = GameState.Level;
                     }
 
+                    if (salsa.InBattle)
+                    {
+                        salsa.Update(gameTime);
+                    }
                     break;
                 #endregion
                 #region Game Over
@@ -743,6 +747,8 @@ namespace Shiro
                     null, null, null, null, null,
                     camera.GetTransformation());
             }
+
+            salsa.Draw(spriteBatch);
 
             //Switch for Game State
             switch (state)
@@ -902,7 +908,7 @@ namespace Shiro
                     currentBattle.Draw(spriteBatch);
 
                    // Draws Salsa if Active
-                    if (salsa.Active)
+                    if (salsa.InBattle)
                     {
                         salsa.Draw(spriteBatch);
                     }

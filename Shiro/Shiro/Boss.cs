@@ -78,6 +78,12 @@ namespace Shiro
             set { patternFileName = value; }
         }
 
+        public Rectangle Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
         //Constructor
         public Boss(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPositon, int yPosition, int width, int height, Random rng, String patterneFileName)
             : base(texture, xPositon, yPosition)
@@ -87,12 +93,12 @@ namespace Shiro
             this.inBow = battleTexture;
             this.state = AnimationState.Idle;
             this.timer = 0;
-            this.stamina = 100;
+            this.stamina = 500;
             this.frame = 0;
             this.frameTimer = 0;
             this.patternFileName = patterneFileName;
             Active = true;
-
+            InBattle = false;
             position = new Rectangle(xPositon, yPosition, width, height);
 
             pattern = AttackPattern.Pattern1;
@@ -143,6 +149,7 @@ namespace Shiro
             {
                 return;
             }
+
             //Increase the frame, which will animate the player.
             //Change Variable for this specific spritesheet
            int  frameWidth = 410;
@@ -166,7 +173,7 @@ namespace Shiro
                         idle,                                                //Texture to draw
                         position,        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, frameWidth, frameHeight + 3),      //Source rectangle to draw from file
-                        Color.White,                                  //Blend color
+                        Color.White,                                             //Blend color
                         0f,                                                     //Rotation
                         new Vector2(0, 0),                                       //Origin
                         SpriteEffects.FlipHorizontally,                         //Sprite Effects

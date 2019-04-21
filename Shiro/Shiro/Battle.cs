@@ -33,6 +33,8 @@ namespace Shiro
         protected bool success;
         protected string runText;
         protected bool isBoss;
+        protected int bossBar;
+        protected int hitCounter;
 
         //References to player and enemy in battle
         protected Player player;
@@ -180,8 +182,9 @@ namespace Shiro
 
             player.X = 100;
             player.Y = 200;
-            boss.Position = new Rectangle(200, 200, 200, 200);
-
+            boss.Position = new Rectangle(650, 150, 175, 175);
+            bossBar = 200;
+            hitCounter = 0;
 
             //listKeys holds the key attack objects. queueAttacks hold the attack pattern from the enemy in battle.
             //For now, it is a hard-coded value.
@@ -328,6 +331,12 @@ namespace Shiro
                                     if (isBoss)
                                     {
                                         boss.Stamina -= 10;
+                                        hitCounter++;
+
+                                        if (hitCounter % 5 == 0)
+                                        {
+                                            bossBar -= 20;
+                                        }
                                     }
                                     else
                                     {
@@ -344,6 +353,7 @@ namespace Shiro
                                 listKeys.RemoveAt(0);
 
                             }
+
                         }
                     }
 
@@ -366,7 +376,6 @@ namespace Shiro
                         //This behaviour is essentially looping an attack pattern.
                         queueAttacks.Enqueue(queueAttacks.Dequeue());
                     }
-
 
                     //
                     //Update the keys
@@ -470,15 +479,15 @@ namespace Shiro
                 case BattleState.Idle:
                     //Draws the health bars for the player and enemy
                     //enemy
-                    sb.Draw(healthBoxTexture, new Vector2((float)645, (float)103), new Rectangle(650, 90, 210, 50), Color.Black);
-                    sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(650, 90, 200, 45), Color.Red);
+                    sb.Draw(healthBoxTexture, new Vector2((float)625, (float)103), new Rectangle(650, 90, 210, 50), Color.Black);
+                    sb.Draw(healthBoxTexture, new Vector2((float)630, (float)105), new Rectangle(650, 90, 200, 45), Color.Red);
                     if (isBoss)
                     {
-                        sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, boss.Stamina * 2, 45), Color.Green);
+                        sb.Draw(healthBoxTexture, new Vector2((float)630, (float)105), new Rectangle(630, 90, bossBar, 45), Color.Green);
                     }
                     else
                     {
-                        sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, enemy.Stamina * 2, 45), Color.Green);
+                        sb.Draw(healthBoxTexture, new Vector2((float)630, (float)105), new Rectangle(630, 90, enemy.Stamina * 2, 45), Color.Green);
                     }
 
                     //player
@@ -514,15 +523,15 @@ namespace Shiro
                 case BattleState.Fight:
                     //Draws the health bars for the player and enemy
                     //enemy
-                    sb.Draw(healthBoxTexture, new Vector2((float)645, (float)103), new Rectangle(650, 90, 210, 50), Color.Black);
-                    sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(650, 90, 200, 45), Color.Red);
+                    sb.Draw(healthBoxTexture, new Vector2((float)625, (float)103), new Rectangle(650, 90, 210, 50), Color.Black);
+                    sb.Draw(healthBoxTexture, new Vector2((float)630, (float)105), new Rectangle(650, 90, 200, 45), Color.Red);
                     if (isBoss)
                     {
-                        sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, boss.Stamina * 2, 45), Color.Green);
+                        sb.Draw(healthBoxTexture, new Vector2((float)630, (float)105), new Rectangle(630, 90, bossBar, 45), Color.Green);
                     }
                     else
                     {
-                        sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, enemy.Stamina * 2, 45), Color.Green);
+                        sb.Draw(healthBoxTexture, new Vector2((float)630, (float)105), new Rectangle(630, 90, enemy.Stamina * 2, 45), Color.Green);
                     }
                     //player
                     sb.Draw(healthBoxTexture, new Vector2((float)41, (float)103), new Rectangle(40, 90, 205, 50), Color.Black);
@@ -555,7 +564,7 @@ namespace Shiro
             player.Draw(sb);
             if (isBoss)
             {
-                boss.Position = new Rectangle(0, 0, 200, 200);
+                //boss.Position = new Rectangle(0, 0, 200, 200);
                 boss.Draw(sb);
             }
             else
