@@ -890,6 +890,7 @@ namespace Shiro
             listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1600, 300, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
             listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
 
+            //changes enemy battle textures
             foreach(Enemy enemy in listEnemies)
             {
                 int textureRng = rng.Next(1, 4);
