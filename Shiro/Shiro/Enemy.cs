@@ -45,7 +45,7 @@ namespace Shiro
 
         protected EnemyState currentState;
 
-        private int frame;
+        protected int frame;
         private Texture2D walkTexture;
         public Texture2D battleTexture;
         private Texture2D currentTexture;
@@ -143,7 +143,7 @@ namespace Shiro
         {
             //this constructor is for random movement type at a set distance of 100
             frame = 0;
-            stamina = 1000;
+            stamina = 100;
             windowWidth = width;
             windowHeight = height;
             prevPos = position;
@@ -394,7 +394,7 @@ namespace Shiro
         }
 
         //Check Collison
-        public bool CheckCollision(GameObject check)
+        public virtual bool CheckCollision(GameObject check)
         {
             if (Active == true)
             {
@@ -414,7 +414,7 @@ namespace Shiro
         }
 
         //Crashes because battleTexture is null
-        public override void Draw(SpriteBatch sb, float opacity)
+        /*public override void Draw(SpriteBatch sb)
         {
             if (InBattle == true)
             {
@@ -427,9 +427,9 @@ namespace Shiro
 
             sb.Draw(currentTexture, Position, Color.Red);
         }
+        */
         
-
-        public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb, float opacity)
         {
             //Debug: draw bounding box
             //sb.Draw(texture, position, Color.Red);
@@ -440,7 +440,7 @@ namespace Shiro
             }
             if (InBattle == false)
             {
-                currentTexture = texture;
+                currentTexture = walkTexture;
             }
 
             //Increase the frame, which will animate the player.
@@ -465,7 +465,7 @@ namespace Shiro
                     currentTexture,                                                //Texture to draw
                     new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                     new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                    Color.White,                                  //Blend color
+                    Color.White * opacity,                                  //Blend color
                     0f,                                                     //Rotation
                     new Vector2(0, 0),                                       //Origin
                     SpriteEffects.FlipHorizontally,                         //Sprite Effects
@@ -479,7 +479,11 @@ namespace Shiro
                         texture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White                                   //Blend color
+                        Color.White * opacity,                                  //Blend color
+                        0f,
+                        new Vector2(0, 0),                                       //Origin
+                        SpriteEffects.None,                         //Sprite Effects
+                    0f
                         );
                     break;
                 case EnemyState.WalkLeft:
@@ -488,7 +492,7 @@ namespace Shiro
                         walkTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White,                                  //Blend color
+                        Color.White * opacity,                                  //Blend color
                         0f,                                                     //Rotation
                         new Vector2(0, 0),                                       //Origin
                         SpriteEffects.FlipHorizontally,                         //Sprite Effects
@@ -502,12 +506,16 @@ namespace Shiro
                         walkTexture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 100, 115),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest, 320, 370),      //Source rectangle to draw from file
-                        Color.White                                  //Blend color
+                        Color.White * opacity,                                  //Blend color
+                        0f,
+                        new Vector2(0, 0),                                       //Origin
+                        SpriteEffects.None,                         //Sprite Effects
+                    0f
                         );
                     break;
             }
         }
-        public bool RunAway(int chance, Random rng)
+        public virtual bool RunAway(int chance, Random rng)
         {
             int random = rng.Next(1, 11);
             if (random <= chance)

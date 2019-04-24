@@ -31,10 +31,13 @@ namespace Shiro
         protected Random rng;
         protected bool failedRun;
         protected bool success;
+        protected string runText;
+        protected bool isBoss;
 
         //References to player and enemy in battle
         protected Player player;
         protected Enemy enemy;
+        protected Boss boss;
 
         //Resources
         protected SpriteFont font;
@@ -70,6 +73,10 @@ namespace Shiro
         public bool Victory { get; private set; }
         public bool GameOver { get; private set; }
         public bool RanAway{ get;  private set; }
+        public Enemy currentEnemy
+        {
+            get { return enemy; }
+        }
 
         //Constructor
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
@@ -93,6 +100,9 @@ namespace Shiro
             this.rng = rng;
             failedRun = false;
             success = false;
+            isBoss = false;
+
+            runText = "Run Away Attempt Failed. Shiro has lost 10 Stamina. ";
 
             //Also hardcoded for now, eventually given by enemy?
             this.keySpeed = keySpeed;
@@ -102,8 +112,76 @@ namespace Shiro
 
             player.X = 100;
             player.Y = 200;
+
             enemy.X = 700;
             enemy.Y = 200;
+
+
+            //listKeys holds the key attack objects. queueAttacks hold the attack pattern from the enemy in battle.
+            //For now, it is a hard-coded value.
+            listKeys = new List<AttackKey>();
+            queueAttacks = new Queue<Keys>();
+
+            //Import the Attack Patterns
+            patternReader = new ImportAttackPatterns(enemy.PatternFileName);
+
+            for (int i = 0; i < patternReader.AttackPattern.Count; i++)
+            {
+                queueAttacks.Enqueue(patternReader.AttackPattern[i]);
+            }
+
+            //Hitbox for blocking enemy attacks- it is actually just a rectangle
+            hitbox = new Rectangle(100, 350, 100, 100);
+            this.hitboxTexture = hitboxTexture;
+
+            //Rectangle for drawing
+            healthBoxTexture = healthBox;
+
+            //Graphical stuff for the battle
+            this.font = font;
+            this.UpArrow = UpArrow;
+            this.DownArrow = DownArrow;
+            this.LeftArrow = LeftArrow;
+            this.RightArrow = RightArrow;
+
+            Victory = false;
+            GameOver = false;
+            RanAway = false;
+        }
+
+        //Constructor for a boss
+        public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D UpArrow, Texture2D DownArrow, Texture2D LeftArrow, Texture2D RightArrow,
+            Texture2D hitboxTexture, Texture2D healthBox, Player player, Boss enemy, int keySpeed, int runAwayChance, Random rng)
+        {
+            //The stars of the show...
+            this.player = player;
+            this.boss = enemy;
+
+
+            //attackTick is the number of frames before a new enemy attack will be created.
+            //Although here it is a constant, it can be changed with different enemies.
+            timer = 0;
+            attackTick = 25;
+            arrowPosition = 1;
+            timerOriginal = 0;
+
+            chance = runAwayChance;
+            this.rng = rng;
+            failedRun = false;
+            success = false;
+            isBoss = true;
+
+
+            //Also hardcoded for now, eventually given by enemy?
+            this.keySpeed = keySpeed;
+
+            //Positions to draw player and enemy
+            player.PrevPos = player.Position;
+
+            player.X = 100;
+            player.Y = 200;
+            boss.Position = new Rectangle(200, 200, 200, 200);
+
 
             //listKeys holds the key attack objects. queueAttacks hold the attack pattern from the enemy in battle.
             //For now, it is a hard-coded value.
@@ -187,11 +265,12 @@ namespace Shiro
                             timerOriginal = 0;
                             failedRun = false;
                         }
-                        else if (kbState.IsKeyDown(Keys.Enter) && arrowPosition == 2)
-                        {
+                        else if (kbState.IsKeyDown(Keys.Enter) && arrowPosition == 2 && !isBoss)
+                        {                         
+
                             //Check to see if the player successfully ran away
                             bool success = enemy.RunAway(chance, rng);
-                            if (success)
+                            if (success && player.Stamina > 20)
                             {
                                 battleState = BattleState.RanAway;
                                 success = true;
@@ -199,7 +278,16 @@ namespace Shiro
                             }
                             else
                             {
-                                player.Stamina -= 10;
+
+                                if (player.Stamina > 20)
+                                {
+                                    player.Stamina -= 10;
+                                }
+                                else
+                                {
+                                    runText = "Not enough stamina to run away!";
+                                }
+
                                 failedRun = true;
                             }
 
@@ -237,7 +325,15 @@ namespace Shiro
                                 //If the player has pressed the correct key, then enemy stamina is lowered otherwise player stamina is lowered.
                                 if (listKeys[0].KeyType == keys[0])
                                 {
-                                    enemy.Stamina -= 10;
+                                    if (isBoss)
+                                    {
+                                        boss.Stamina -= 10;
+                                    }
+                                    else
+                                    {
+                                        enemy.Stamina -= 10;
+                                    }
+
                                 }
                                 else
                                 {
@@ -295,10 +391,23 @@ namespace Shiro
                     {
                         battleState = BattleState.Death;
                     }
-                    else if(enemy.Stamina <=0)
+                    else if(isBoss)
                     {
-                        battleState = BattleState.Victory;
-                        timerOriginal = timer;
+                        if (boss.Stamina <= 0)
+                        {
+                            battleState = BattleState.Victory;
+                            timerOriginal = timer;
+                        }
+
+                    }
+                    else
+                    {
+                        if (enemy.Stamina <= 0)
+                        {
+                            battleState = BattleState.Victory;
+                            timerOriginal = timer;
+                        }
+
                     }
                     break;
 
@@ -326,6 +435,7 @@ namespace Shiro
                 case BattleState.RanAway:
                     //If the player chooses to run away
                     timer++;
+
                     if (!RanAway && (timer - timerOriginal) >= 200)
                     {
                         RanAway = true;
@@ -340,7 +450,7 @@ namespace Shiro
                         enemy.Top = true; 
                         enemy.Right = true;
                         enemy.Once = true;
-                        //enemy.InBattle = false? To reset texture
+                        
                     }
                     break;
             }
@@ -362,7 +472,15 @@ namespace Shiro
                     //enemy
                     sb.Draw(healthBoxTexture, new Vector2((float)645, (float)103), new Rectangle(650, 90, 210, 50), Color.Black);
                     sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(650, 90, 200, 45), Color.Red);
-                    sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, enemy.Stamina * 2, 45), Color.Green);
+                    if (isBoss)
+                    {
+                        sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, boss.Stamina * 2, 45), Color.Green);
+                    }
+                    else
+                    {
+                        sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, enemy.Stamina * 2, 45), Color.Green);
+                    }
+
                     //player
                     sb.Draw(healthBoxTexture, new Vector2((float)41, (float)103), new Rectangle(40, 90, 205, 50), Color.Black);
                     sb.Draw(healthBoxTexture, new Vector2((float)40, (float)105), new Rectangle(40, 90, 200, 45), Color.Red);
@@ -377,18 +495,18 @@ namespace Shiro
                     {
                         sb.DrawString(font, "Fight", new Vector2(600, 250), Color.Black);
                     }
-                    if (arrowPosition == 2)
+                    if (arrowPosition == 2 && !isBoss)
                     {
                         sb.DrawString(font, "Run Away", new Vector2(600, 280), Color.Red);
                     }
-                    else
+                    else if (!isBoss)
                     {
                         sb.DrawString(font, "Run Away", new Vector2(600, 280), Color.Black);
                     }
 
                     if (failedRun)
                     {
-                        sb.DrawString(font, "Run Away Attempt Failed. Shiro has lost 10 Stamina. ", new Vector2(400, 175), Color.Red);
+                        sb.DrawString(font, runText, new Vector2(400, 175), Color.Red);
                     }
 
                     break;
@@ -398,7 +516,14 @@ namespace Shiro
                     //enemy
                     sb.Draw(healthBoxTexture, new Vector2((float)645, (float)103), new Rectangle(650, 90, 210, 50), Color.Black);
                     sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(650, 90, 200, 45), Color.Red);
-                    sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, enemy.Stamina*2, 45), Color.Green);
+                    if (isBoss)
+                    {
+                        sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, boss.Stamina * 2, 45), Color.Green);
+                    }
+                    else
+                    {
+                        sb.Draw(healthBoxTexture, new Vector2((float)650, (float)105), new Rectangle(630, 90, enemy.Stamina * 2, 45), Color.Green);
+                    }
                     //player
                     sb.Draw(healthBoxTexture, new Vector2((float)41, (float)103), new Rectangle(40, 90, 205, 50), Color.Black);
                     sb.Draw(healthBoxTexture, new Vector2((float)40, (float)105), new Rectangle(40, 90, 200, 45), Color.Red);
@@ -428,7 +553,15 @@ namespace Shiro
 
             //Draws player and enemy
             player.Draw(sb);
-            enemy.Draw(sb);
+            if (isBoss)
+            {
+                boss.Position = new Rectangle(0, 0, 200, 200);
+                boss.Draw(sb);
+            }
+            else
+            {
+                enemy.Draw(sb, 1);
+            }
 
             //DEBUG: Draw battle info
             //sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);

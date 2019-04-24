@@ -22,5 +22,5 @@
 - *04/09/19* (All members present) : Changed our documentation, and started to finalize our presentation and milestone 3 version of the game.
 
 ## Milestone 4
-- *Date* (# team members present): topics discussed
+- *04/19/2019* (Alexa Missing): Fixed various bugs found after play testing session; adding more content such as new levels and enemy attacks
 - ...

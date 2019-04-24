@@ -1,0 +1,2 @@
+20
+Keys.Up,Keys.Up,Keys.Left,Keys.Left,Keys.Down,Keys.None,Keys.Right,Keys.Up,Keys.Left,Keys.Down,Keys.None,Keys.Up,Keys.Up,Keys.Right,Keys.Down,Keys.None,Keys.Up,Keys.Left,Keys.Down,Keys.None

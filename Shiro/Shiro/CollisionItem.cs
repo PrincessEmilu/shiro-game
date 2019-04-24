@@ -17,6 +17,8 @@ namespace Shiro
         Rectangle collisionBox;
         GameObject objToCollide;
 
+        public event playerCollided playerHit;
+
         public bool IsDoor { get; private set; }
 
         public Rectangle Position
@@ -97,7 +99,7 @@ namespace Shiro
                 //if true but is a door
                 else if (isDoor)
                 {
-                    sb.Draw(texture, collisionBox, Color.Green);
+                    sb.Draw(texture, collisionBox, Color.White);
                 }
                 //draw it normally at it's rectangle position
                 else
