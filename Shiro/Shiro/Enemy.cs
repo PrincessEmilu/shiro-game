@@ -238,10 +238,10 @@ namespace Shiro
             //Only move around if not in battle
 
             //Movement numbers for hard-coding
-            //1 = starts right (side to side)
-            //2 = starts left (side to side)
-            //3 = starts top (up and down)
-            //4 = starts bottom (up and dowm)
+            //1 = starts top (up and down)
+            //2 = starts bottom (up and dwon)
+            //3 = starts right (side to side)
+            //4 = starts left (side to side)
             //5 = counterclockwise (bottom right)
             //6 = clockwise (top left)
 
