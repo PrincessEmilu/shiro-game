@@ -964,7 +964,7 @@ namespace Shiro
             {
                 case 1:
                     //Enemies
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, 4, 100, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1600, 300, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
