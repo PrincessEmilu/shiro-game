@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 
@@ -137,6 +139,11 @@ namespace Shiro
         CollisionItem door;
         List<CollisionItem> items;
         List<CollisionItem> itemsCollide;
+
+        //Audio
+        List<SoundEffect> listSoundEffects;
+        Song menuSong;
+        Song cityLoop;
 #endregion
 
         public Game1()
@@ -156,6 +163,7 @@ namespace Shiro
 
             //Initialize variables
             rng = new Random();
+            listSoundEffects = new List<SoundEffect>();
 
             //Start at the Title Screen
             state = GameState.TitleScreen;
@@ -203,6 +211,18 @@ namespace Shiro
             DownArrow = Content.Load<Texture2D>("DownArrow");
             LeftArrow = Content.Load<Texture2D>("LeftArrow");
             RightArrow = Content.Load<Texture2D>("RightArrow");
+
+
+            //Audio
+            /*
+             * listSoundEffects.Add(Content.Load<SoundEffect>("myAwesomeSound");
+            */
+            menuSong = Content.Load<Song>("heavenlyLoop");
+            cityLoop = Content.Load<Song>("cityMusic");
+
+            MediaPlayer.Play(menuSong);
+            MediaPlayer.Volume = 0.01f;
+            MediaPlayer.IsRepeating = true;
 
             //Salsa
             salsaIdle = Content.Load<Texture2D>("SalsaIdle");
@@ -266,6 +286,9 @@ namespace Shiro
                 #region TitleScreen
                 case GameState.TitleScreen:
 
+                    //Fade in for menu music.
+                    if (MediaPlayer.Volume < 1.0f) { MediaPlayer.Volume += 0.01f; }
+
                     //Transition into Menu State when Enter is Pressed
                     if (Helpers.SingleKeyPress(Keys.Enter, pbState, kbState))
                     {
@@ -285,6 +308,8 @@ namespace Shiro
                 #endregion
                 #region Main Menu
                 case GameState.MainMenu:
+                    //Fade in for menu music.
+                    if (MediaPlayer.Volume < 1.0f) { MediaPlayer.Volume += 0.01f; }
 
                     //Transition to the Title Screen when Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
@@ -330,7 +355,11 @@ namespace Shiro
                         switch (arrowPosition)
                         {
                             case 1:
-                                //Creates the first level
+                                //Creates the first level and stops menu music
+                                MediaPlayer.Stop();
+                                MediaPlayer.Play(cityLoop);
+                                MediaPlayer.IsRepeating = true;
+                                MediaPlayer.Volume = 1.0f;
                                 CreateLevel(1);
                                 break;
 
@@ -345,6 +374,9 @@ namespace Shiro
                 #endregion
                 #region Instructions
                 case GameState.Instructions:
+                    //Fade in for menu music.
+                    if (MediaPlayer.Volume < 1.0f) { MediaPlayer.Volume += 0.01f; }
+
                     //Change to the Menu State when Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
                     {
@@ -573,6 +605,12 @@ namespace Shiro
                             case 2:
                                 state = GameState.MainMenu;
 
+                                //Menu music
+                                MediaPlayer.Stop();
+                                MediaPlayer.Play(menuSong);
+                                MediaPlayer.Volume = 0.01f;
+                                MediaPlayer.IsRepeating = true;
+
                                 //Reset the Level
 
                                 //Reset the Player's Stamina and Position
@@ -666,6 +704,11 @@ namespace Shiro
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
                     {
                         state = GameState.MainMenu;
+
+                        MediaPlayer.Stop();
+                        MediaPlayer.Play(menuSong);
+                        MediaPlayer.Volume = 0.01f;
+                        MediaPlayer.IsRepeating = true;
                     }
                     //Update the arrow position to decide which choice the user in highlighting
                     if (Helpers.SingleKeyPress(Keys.Up, pbState, kbState))
@@ -701,6 +744,10 @@ namespace Shiro
                         switch (arrowPosition)
                         {
                             case 1:
+                                MediaPlayer.Stop();
+                                MediaPlayer.Play(menuSong);
+                                MediaPlayer.Volume = 0.01f;
+                                MediaPlayer.IsRepeating = true;
                                 state = GameState.MainMenu;
                                 break;
                             case 2:

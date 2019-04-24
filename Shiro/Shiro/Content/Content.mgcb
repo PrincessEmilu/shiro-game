@@ -85,6 +85,12 @@
 /processorParam:TextureFormat=Color
 /build:cat.jpg
 
+#begin cityMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:cityMusic.mp3
+
 #begin cityTileset.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -199,6 +205,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GarbageBagSprites.png
+
+#begin heavenlyLoop.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:heavenlyLoop.ogg
 
 #begin hitbox.png
 /importer:TextureImporter
