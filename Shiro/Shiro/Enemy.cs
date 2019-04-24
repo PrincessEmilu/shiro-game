@@ -35,11 +35,13 @@ namespace Shiro
         protected int startPointY;
         protected int endPointX;
         protected int startPointX;
+        protected int distance;
 
         protected int enemyRng;
         protected bool top;
         protected bool right;
         protected bool once;
+        bool start;
 
         protected int timer;
 
@@ -152,11 +154,13 @@ namespace Shiro
 
             Active = true;
             InBattle = false;
+            bool start = true;
 
             endPointY = position.Y + 100;
             startPointY = position.Y;
             endPointX = position.X + 100;
             startPointX = position.X;
+            this.distance = distance;
 
             enemyRng = rng.Next(1, 5);
             
@@ -188,12 +192,14 @@ namespace Shiro
 
             Active = true;
             InBattle = false;
+            bool start = true;
             
 
             endPointY = position.Y + distance;
             startPointY = position.Y;
             endPointX = position.X + distance;
             startPointX = position.X;
+            this.distance = distance;
 
             this.enemyRng = enemyRng;
 
@@ -230,12 +236,21 @@ namespace Shiro
             }
 
             //Only move around if not in battle
+
+            //Movement numbers for hard-coding
+            //1 = starts top (up and down)
+            //2 = starts bottom (up and dwon)
+            //3 = starts right (side to side)
+            //4 = starts left (side to side)
+            //5 = counterclockwise (bottom right)
+            //6 = clockwise (top left)
+
             if (!InBattle)
             {
                 if (enemyRng == 1)
                 {
                     //Up and down movement, tied to set points based on enemy's starting point, made in constructor
-                    if (top)
+                    if (top)//starts at top
                     {
                         if (position.Y >= startPointY)
                         {
@@ -260,7 +275,42 @@ namespace Shiro
                         }
                     }
                 }
-                if (enemyRng == 2)
+                if(enemyRng == 2) //start at bottom
+                {
+                    if(start)
+                    {
+                        top = false;
+                        endPointY = position.Y - distance;
+                        start = false;
+                    }
+                    
+                    if (top)//starts at top
+                    {
+                        if (position.Y >= startPointY)
+                        {
+                            position.Y += 1;
+
+                            if (position.Y == endPointY)
+                            {
+                                top = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (position.Y <= endPointY)
+                        {
+                            position.Y -= 1;
+                            if (position.Y == startPointY)
+                            {
+                                top = true;
+                            }
+
+                        }
+                    }
+                }
+
+                if (enemyRng == 3)
                 {
                     //Left and Right movement, tied to set points based on enemy's starting point, made in constructor
                     if (right)
@@ -289,7 +339,42 @@ namespace Shiro
                         }
                     }
                 }
-                if (enemyRng == 3) //moving in a counter clockwise square
+                if (enemyRng == 4) //start at left
+                {
+                    if (start)
+                    {
+                        right = false;
+                        endPointX = position.X - distance;
+                        start = false;
+                    }
+
+                    if (right)
+                    {
+                        if (position.X >= startPointX)
+                        {
+                            position.X += 1;
+                            currentState = EnemyState.WalkRight;
+                            if (position.X == endPointX)
+                            {
+                                right = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (position.X <= endPointX)
+                        {
+                            currentState = EnemyState.WalkLeft;
+                            position.X -= 1;
+                            if (position.X == startPointX)
+                            {
+                                right = true;
+                            }
+
+                        }
+                    }
+                }
+                if (enemyRng == 5) //moving in a counter clockwise square - starts bottom right
                 {
                     if (top && right)
                     {
@@ -338,7 +423,7 @@ namespace Shiro
                         }
                     }
                 }
-                if (enemyRng == 4) //moving in a clockwise square
+                if (enemyRng == 6) //moving in a clockwise square - starts top left
                 {
                     if (top && right)
                     {
