@@ -236,6 +236,15 @@ namespace Shiro
             }
 
             //Only move around if not in battle
+
+            //Movement numbers for hard-coding
+            //1 = starts right (side to side)
+            //2 = starts left (side to side)
+            //3 = starts top (up and down)
+            //4 = starts bottom (up and dowm)
+            //5 = counterclockwise (bottom right)
+            //6 = clockwise (top left)
+
             if (!InBattle)
             {
                 if (enemyRng == 1)

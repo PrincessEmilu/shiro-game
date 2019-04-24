@@ -962,6 +962,14 @@ namespace Shiro
             //Variables that change level-to-level
             switch (levelNumber)
             {
+                //Movement numbers for hard-coding
+                //1 = starts right (side to side)
+                //2 = starts left (side to side)
+                //3 = starts top (up and down)
+                //4 = starts bottom (up and dowm)
+                //5 = counterclockwise (bottom right)
+                //6 = clockwise (top left)
+
                 case 1:
                     //Enemies
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, 4, 100, "ratAttackOne.txt"));
