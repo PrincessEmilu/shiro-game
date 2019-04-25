@@ -61,11 +61,14 @@ namespace Shiro
 
         //The hitbox for blocking enemy attacks
         protected Rectangle hitbox;
+        protected Rectangle perfectHitbox;
 
         //Location on battlescreen to draw the enemy and the player
         protected Point playerPosition;
         protected Point enemyPosition;
 
+        //Boolean for if the player gets a perfect hit
+        protected bool perfectHit;
 
         //Battle starts out idle
         protected BattleState battleState = BattleState.Idle;
@@ -103,6 +106,7 @@ namespace Shiro
             failedRun = false;
             success = false;
             isBoss = false;
+            perfectHit = false;
 
             runText = "Run Away Attempt Failed. Shiro has lost 10 Stamina. ";
 
@@ -134,6 +138,8 @@ namespace Shiro
 
             //Hitbox for blocking enemy attacks- it is actually just a rectangle
             hitbox = new Rectangle(100, 350, 100, 100);
+            perfectHitbox = new Rectangle(120, 370, 60, 60);
+            
             this.hitboxTexture = hitboxTexture;
 
             //Rectangle for drawing
@@ -172,6 +178,7 @@ namespace Shiro
             failedRun = false;
             success = false;
             isBoss = true;
+            perfectHit = false;
 
 
             //Also hardcoded for now, eventually given by enemy?
@@ -201,6 +208,7 @@ namespace Shiro
 
             //Hitbox for blocking enemy attacks- it is actually just a rectangle
             hitbox = new Rectangle(100, 350, 100, 100);
+            perfectHitbox = new Rectangle(120, 370, 60, 60);
             this.hitboxTexture = hitboxTexture;
 
             //Rectangle for drawing
@@ -326,23 +334,44 @@ namespace Shiro
                                 //Find which key should be pressed
                              
                                 //If the player has pressed the correct key, then enemy stamina is lowered otherwise player stamina is lowered.
-                                if (listKeys[0].KeyType == keys[0])
+                                if (listKeys[0].KeyType == keys[0] && keys.Length == 1)
                                 {
-                                    if (isBoss)
+                                    if(perfectHitbox.Contains(firstAttack.Position))
                                     {
-                                        boss.Stamina -= 10;
-                                        hitCounter++;
-
-                                        if (hitCounter % 5 == 0)
+                                        if (isBoss)
                                         {
-                                            bossBar -= 20;
+                                            boss.Stamina -= 20;
+                                            hitCounter += 2;
+                                             if (hitCounter % 5 == 0)
+                                              {
+                                                    bossBar -= 20;
+                                              }
+                                         }
+                                        else
+                                        {
+                                            enemy.Stamina -= 20;
                                         }
+
+                                        perfectHit = true;
+
+                                        timerOriginal = timer;
                                     }
                                     else
                                     {
-                                        enemy.Stamina -= 10;
+                                        if (isBoss)
+                                        {
+                                            boss.Stamina -= 10;
+                                            hitCounter ++;
+                                             if (hitCounter % 5 == 0)
+                                              {
+                                                    bossBar -= 20;
+                                              }
+                                        }
+                                        else
+                                        {
+                                            enemy.Stamina -= 10;
+                                        }
                                     }
-
                                 }
                                 else
                                 {
@@ -353,7 +382,10 @@ namespace Shiro
                                 listKeys.RemoveAt(0);
 
                             }
-
+                        }
+                        else if(kbState.GetPressedKeys().Length > 0 && pbState.GetPressedKeys().Length == 0)
+                        {
+                            player.Stamina -= 5;
                         }
                     }
 
@@ -471,6 +503,7 @@ namespace Shiro
             //Some objects get drawn regardless of state, mostly GUI stuff.
             //Draws the hitbox.
             sb.Draw(hitboxTexture, hitbox, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);
+            //sb.Draw(hitboxTexture, perfectHitbox, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);            
 
             //Draws the screen differently based on current state.
             switch (battleState)
@@ -538,7 +571,12 @@ namespace Shiro
                     sb.Draw(healthBoxTexture, new Vector2((float)40, (float)105), new Rectangle(40, 90, 200, 45), Color.Red);
                     sb.Draw(healthBoxTexture, new Vector2((float)40, (float)105), new Rectangle(40, 90, player.Stamina * 2, 45), Color.Green);
 
-
+                    //Draws message for perfect hit
+                    if(perfectHit && timer - timerOriginal <= 75)
+                    {
+                        sb.DrawString(font, "Perfect Hit! -20 Stamina!", new Vector2(300, 200), Color.Red);
+                        timer++;
+                    }
 
                     //Draws the attacks and any effects needed
                     foreach (AttackKey key in listKeys)

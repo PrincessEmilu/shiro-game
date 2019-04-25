@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 
@@ -137,6 +139,11 @@ namespace Shiro
         CollisionItem door;
         List<CollisionItem> items;
         List<CollisionItem> itemsCollide;
+
+        //Audio
+        List<SoundEffect> listSoundEffects;
+        Song menuSong;
+        Song cityLoop;
 #endregion
 
         public Game1()
@@ -156,6 +163,7 @@ namespace Shiro
 
             //Initialize variables
             rng = new Random();
+            listSoundEffects = new List<SoundEffect>();
 
             //Start at the Title Screen
             state = GameState.TitleScreen;
@@ -203,6 +211,18 @@ namespace Shiro
             DownArrow = Content.Load<Texture2D>("DownArrow");
             LeftArrow = Content.Load<Texture2D>("LeftArrow");
             RightArrow = Content.Load<Texture2D>("RightArrow");
+
+
+            //Audio
+            /*
+             * listSoundEffects.Add(Content.Load<SoundEffect>("myAwesomeSound");
+            */
+            menuSong = Content.Load<Song>("heavenlyLoop");
+            cityLoop = Content.Load<Song>("cityMusic");
+
+            MediaPlayer.Play(menuSong);
+            MediaPlayer.Volume = 0.01f;
+            MediaPlayer.IsRepeating = true;
 
             //Salsa
             salsaIdle = Content.Load<Texture2D>("SalsaIdle");
@@ -266,6 +286,9 @@ namespace Shiro
                 #region TitleScreen
                 case GameState.TitleScreen:
 
+                    //Fade in for menu music.
+                    if (MediaPlayer.Volume < 1.0f) { MediaPlayer.Volume += 0.01f; }
+
                     //Transition into Menu State when Enter is Pressed
                     if (Helpers.SingleKeyPress(Keys.Enter, pbState, kbState))
                     {
@@ -285,6 +308,8 @@ namespace Shiro
                 #endregion
                 #region Main Menu
                 case GameState.MainMenu:
+                    //Fade in for menu music.
+                    if (MediaPlayer.Volume < 1.0f) { MediaPlayer.Volume += 0.01f; }
 
                     //Transition to the Title Screen when Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
@@ -330,7 +355,11 @@ namespace Shiro
                         switch (arrowPosition)
                         {
                             case 1:
-                                //Creates the first level
+                                //Creates the first level and stops menu music
+                                MediaPlayer.Stop();
+                                MediaPlayer.Play(cityLoop);
+                                MediaPlayer.IsRepeating = true;
+                                MediaPlayer.Volume = 1.0f;
                                 CreateLevel(1);
                                 break;
 
@@ -345,6 +374,9 @@ namespace Shiro
                 #endregion
                 #region Instructions
                 case GameState.Instructions:
+                    //Fade in for menu music.
+                    if (MediaPlayer.Volume < 1.0f) { MediaPlayer.Volume += 0.01f; }
+
                     //Change to the Menu State when Escape is Pressed
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
                     {
@@ -573,6 +605,12 @@ namespace Shiro
                             case 2:
                                 state = GameState.MainMenu;
 
+                                //Menu music
+                                MediaPlayer.Stop();
+                                MediaPlayer.Play(menuSong);
+                                MediaPlayer.Volume = 0.01f;
+                                MediaPlayer.IsRepeating = true;
+
                                 //Reset the Level
 
                                 //Reset the Player's Stamina and Position
@@ -670,6 +708,11 @@ namespace Shiro
                     if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
                     {
                         state = GameState.MainMenu;
+
+                        MediaPlayer.Stop();
+                        MediaPlayer.Play(menuSong);
+                        MediaPlayer.Volume = 0.01f;
+                        MediaPlayer.IsRepeating = true;
                     }
                     //Update the arrow position to decide which choice the user in highlighting
                     if (Helpers.SingleKeyPress(Keys.Up, pbState, kbState))
@@ -705,6 +748,10 @@ namespace Shiro
                         switch (arrowPosition)
                         {
                             case 1:
+                                MediaPlayer.Stop();
+                                MediaPlayer.Play(menuSong);
+                                MediaPlayer.Volume = 0.01f;
+                                MediaPlayer.IsRepeating = true;
                                 state = GameState.MainMenu;
                                 break;
                             case 2:
@@ -968,13 +1015,22 @@ namespace Shiro
             //Variables that change level-to-level
             switch (levelNumber)
             {
+                //Movement numbers for hard-coding
+                //1 = starts top (up and down)
+                //2 = starts bottom (up and dwon)
+                //3 = starts right (side to side)
+                //4 = starts left (side to side)
+                //5 = counterclockwise (bottom right)
+                //6 = clockwise (top left)
+
                 case 1:
                     //Enemies
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 800, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1000, 1200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1600, 300, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 200, width, height, rng.Next(1, 5), 100, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 200, width, height, 6, 500, "ratAttackOne.txt")); //top right
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 1000, width, height, 2, 200, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 800, width, height, 1, 300, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1200, 1200, width, height, 4, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1400, width, height, 5, 300, "ratAttackOne.txt"));
+                    
 
                     //Healbox for the level
                     healbox = new HealingBox(healBoxTexture, 2000, 150);
@@ -984,9 +1040,16 @@ namespace Shiro
 
                     break;
                 case 2:
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 150, width, height, 6, 500, "ratAttackOne.txt")); //top right
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2000, 300, width, height, 5, 250, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2800, 200, width, height, 6, 250, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 3500, 270, width, height, 5, 300, "ratAttackOne.txt"));
+
+                    exitDoor = new CollisionItem(doorTexture, 4800, 200, player);
                     break;
             }
 
+            //changes enemy battle textures
             foreach(Enemy enemy in listEnemies)
             {
                 int textureRng = rng.Next(1, 4);

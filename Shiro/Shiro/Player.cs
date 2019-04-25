@@ -362,7 +362,7 @@ namespace Shiro
                     sb.Draw(
                         texture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 180, 148),        //Rectangle to draw to
-                        new Rectangle(xDrawOffset, yDrawOffest, 570, 440),      //Source rectangle to draw from file
+                        new Rectangle(xDrawOffset, yDrawOffest - 4, 570, 430),      //Source rectangle to draw from file
                         Color.White,                                            //Blend color
                         0f,                                                     //Rotation
                         new Vector2(0,0),                                       //Origin
@@ -374,14 +374,14 @@ namespace Shiro
                     sb.Draw(
                         texture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 180, 148),        //Rectangle to draw to
-                        new Rectangle(xDrawOffset, yDrawOffest, 570, 440),      //Source rectangle to draw from file
+                        new Rectangle(xDrawOffset, yDrawOffest - 4, 570, 430),      //Source rectangle to draw from file
                         Color.White);                                           //Blend color
                     break;
                 case PlayerState.WalkRight:
                     sb.Draw(
                         walkTexture,
                         new Rectangle(position.X, position.Y, 180, 148),
-                        new Rectangle(xDrawOffset, yDrawOffest, 570, 440),
+                        new Rectangle(xDrawOffset, yDrawOffest - 4, 570, 430),
                         Color.White,
                         0f,
                         new Vector2(0, 0),
@@ -393,7 +393,7 @@ namespace Shiro
                     sb.Draw(
                         walkTexture,
                         new Rectangle(position.X, position.Y, 180, 148),
-                        new Rectangle(xDrawOffset, yDrawOffest, 570, 440),
+                        new Rectangle(xDrawOffset, yDrawOffest - 4, 570, 430),
                         Color.White);
                     break;
             }
