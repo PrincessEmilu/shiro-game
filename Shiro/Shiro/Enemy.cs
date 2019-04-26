@@ -388,7 +388,7 @@ namespace Shiro
                                 {
                                     position.X += 1;
                                     position.Y = endPointY;
-
+                                    currentState = EnemyState.WalkRight;
                                     if (position.X == endPointX)
                                     {
                                         right = false;

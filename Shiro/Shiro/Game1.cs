@@ -1047,6 +1047,29 @@ namespace Shiro
 
                     exitDoor = new CollisionItem(doorTexture, 4800, 200, player);
                     break;
+
+                case 3:
+
+
+
+                    break;
+
+                case 4:
+
+
+
+                    break;
+
+                case 5:
+
+
+                    break;
+
+                case 6:
+
+
+                    break;
+               
             }
 
             //changes enemy battle textures
