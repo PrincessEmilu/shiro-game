@@ -34,7 +34,7 @@ The game will exclusviely use keyboard controls. The player will use the arrow k
 Battles will require rapid and accurate key presses, but the keys used won't change; what will change will be the speed and patterns of key presses.
 
 ### Levels
-Our base game will have three main environments- a sewer, a city, and a forest. Each area is divided into sub-levels, which would essentially be
+Our base game will have one main environment: the city. The area is divided into sub-levels, which would essentially be
 different screens the player moves through.
 The first area of our first level will be designed as a tutorial for the player to get used to the game controls. They will be fairly conventional for moving.  
 For the battle system, keys to be pressed will be displayed on the screen and will not deviate from the basic movement and interactive mechanics.
