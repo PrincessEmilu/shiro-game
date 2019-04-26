@@ -158,7 +158,7 @@ namespace Shiro
                 rightBounding = false;
             }
 
-            if (position.Top - 100 <= boundBox.Top)
+            if (position.Top - 125 <= boundBox.Top)
             {
                 topBounding = true;
             }
@@ -167,7 +167,7 @@ namespace Shiro
                 topBounding = false;
             }
 
-            if (position.Left - 100 <= boundBox.Left)
+            if (position.Left - 130 <= boundBox.Left)
             {
                 leftBounding = true;
             }
