@@ -68,7 +68,7 @@
             this.numericTilesPerRow.Location = new System.Drawing.Point(128, 167);
             this.numericTilesPerRow.Margin = new System.Windows.Forms.Padding(2);
             this.numericTilesPerRow.Maximum = new decimal(new int[] {
-            32,
+            64,
             0,
             0,
             0});
