@@ -39,7 +39,6 @@ namespace Shiro
         KeyboardState pbState;
 
         //Textures
-        Texture2D background;
         Texture2D cityTileset;
         Texture2D shiroIdle;
         Texture2D shiroWalk;
@@ -67,7 +66,6 @@ namespace Shiro
 
         //Entities
         private Player player;
-        private Enemy enemy;
         private Boss salsa;
         private HealingBox healbox;
         private CollisionItem exitDoor;
@@ -121,6 +119,7 @@ namespace Shiro
 
         //The current level the player is in
         Level currentLevel;
+        int levelCounter;
 
         //Debug for testing Keys
         Texture2D UpArrow;
@@ -192,7 +191,7 @@ namespace Shiro
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            cityTileset = Content.Load<Texture2D>("cityTileset");
+            cityTileset = Content.Load<Texture2D>("src_TilesetCity");
             shiroIdle = Content.Load<Texture2D>("idle_sprite_fix");
             shiroWalk = Content.Load<Texture2D>("walk_sprite_fix");
             enemyShadowWalkTexture = Content.Load<Texture2D>("EnemyWalkSpriteSheet");
@@ -232,7 +231,7 @@ namespace Shiro
             salsaIdle = Content.Load<Texture2D>("SalsaIdle");
             salsaBow = Content.Load<Texture2D>("SalsaBow");
             salsaBowDown = Content.Load<Texture2D>("SalsaStandToBow");
-            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 1000, 600, 200, 200, rng, "ratAttackOne.txt");
+            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 1000, 2000, 200, 200, rng, "salsaAttack.txt");
 
             //Title Screen
             titleBackground = Content.Load<Texture2D>("BrickWall");
@@ -263,6 +262,9 @@ namespace Shiro
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
+
+            //level increment
+            levelCounter = 1;
         }
 
         /// <summary>
@@ -364,16 +366,18 @@ namespace Shiro
                                 MediaPlayer.Play(cityLoop);
                                 MediaPlayer.IsRepeating = true;
                                 MediaPlayer.Volume = 0.9f;
-                                CreateLevel(1);
+                                CreateLevel(levelCounter);
                                 break;
 
                             case 2:
                                 state = GameState.Instructions;
+
                                 break;
                             default:
                                 break;
                         }
                     }
+
                     break;
                 #endregion
                 #region Instructions
@@ -406,6 +410,9 @@ namespace Shiro
                     if (salsa.Active)
                     {
                         salsa.Update(gameTime);
+
+                        //Make sure Salas's Position is correct
+                        salsa.Position = new Rectangle(1000, 2000, 200, 200);
                     }
 
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
@@ -539,7 +546,11 @@ namespace Shiro
                     //Go to next level when you touch the door
                     if (exitDoor.CheckCollision(player))
                     {
-                        CreateLevel(2);
+
+                        Console.WriteLine("Entering a door from level " + levelCounter);
+                        levelCounter++;
+                        CreateLevel(levelCounter);
+                        Console.WriteLine("Now in level: " + levelCounter);
                         Console.WriteLine("Boops");
                     }
 
@@ -1016,8 +1027,6 @@ namespace Shiro
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
 
-
-            
             currentLevel = new Level(levelNumber, cityTileset, doorTexture, player);
             itemsCollide = currentLevel.CollisonList;
 
@@ -1041,29 +1050,142 @@ namespace Shiro
                 //6 = clockwise (top left)
 
                 case 1:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
                     //Enemies
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 200, width, height, 6, 500, "ratAttackOne.txt")); //top right
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 1000, width, height, 2, 200, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 800, width, height, 1, 300, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1200, 1200, width, height, 4, 400, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1400, width, height, 5, 300, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 900, width, height, 4, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 350, 400, width, height, 5, 300, "ratAttackOne.txt"));
                     
 
                     //Healbox for the level
                     healbox = new HealingBox(healBoxTexture, 2000, 150);
 
                     //Exit
-                    exitDoor = new CollisionItem(doorTexture, 1000, 1000, player);
+                    exitDoor = new CollisionItem(doorTexture, 1200, 1200, player);
 
                     break;
                 case 2:
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 150, width, height, 6, 500, "ratAttackOne.txt")); //top right
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2000, 300, width, height, 5, 250, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2800, 200, width, height, 6, 250, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 3500, 270, width, height, 5, 300, "ratAttackOne.txt"));
 
-                    exitDoor = new CollisionItem(doorTexture, 4800, 200, player);
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 150, width, height, 6, 500, "ratAttackOne.txt")); //top right
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2000, 250, width, height, 5, 250, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2800, 150, width, height, 6, 250, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 3500, 250, width, height, 5, 300, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 4250, 100, width, height, 1, 300, "ratAttackOne.txt"));
+
+                    exitDoor = new CollisionItem(doorTexture, 3800, 200, player);
                     break;
+
+                case 3:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 3700;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 4000);
+                    prevCamera = camera.Pos;
+
+
+
+                    break;
+
+                case 4:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
+
+                    break;
+
+                case 5:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
+                    break;
+
+                case 6:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
+
+                    break;
+               
             }
 
             //changes enemy battle textures
@@ -1087,20 +1209,7 @@ namespace Shiro
                 }
             }
 
-            //Player variables- position for the camera and the player
-            playerStartingX = 200;
-            playerStartingY = 200;
-
-            pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
-            boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
-
-            player.Pos = pos;
-            player.BoundBoxX = boundBoxPos.X;
-            player.BoundBoxY = boundBoxPos.Y;
-
-            camera.Pos = new Vector2(0, 0);
-            prevCamera = camera.Pos;
-
+            
         }
     }
 

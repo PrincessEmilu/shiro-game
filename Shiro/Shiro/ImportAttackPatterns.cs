@@ -16,7 +16,7 @@ class ImportAttackPatterns
 
     public ImportAttackPatterns(String fileName)
     {
-        //D:\Profiles\dkt7290\Source\Repos\gdaps2-2185-section_2_Team_32\Shiro\Shiro\bin\Windows\x86\Debug\AttackPatterns\ratAttackOne.txt
+        //These disgusting lines of code find the file in the folder we placed them in
         string originalLoc = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
         this.fileName = (Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(originalLoc).FullName).FullName).FullName).FullName).FullName) 
             + ("\\AttackPatterns\\" + fileName);

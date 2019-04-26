@@ -2,11 +2,11 @@
 
 ## Overview
 
-We are planning to create a complex architecture in order to keep such a large project clean and easy to read. We plan to implement 4 finite state machines and 3 main parent classes. By the end of our project we will have implemented many child classes. we plan to do this in an organized manner so that it does not become too overwhelming and instead allows for clarity through the specific and concise classes.
+We are planning to create a complex architecture in order to keep such a large project clean and easy to read. We plan to implement 4 finite state machines and a main parent class for game objects. By the end of our project we will have implemented many child classes. we plan to do this in an organized manner so that it does not become too overwhelming and instead allows for clarity through the specific and concise classes.
 
 ## General Approach
 
-Our general approach to the architecture of this game, is to create all our necessary assets in the cleanest manner we can achieve. We plan to implement 4 finite state machines and 3 parent classes with their many children. We plan to have a state machine for the game state, the player state, the enemy state, and the battle state. Each of these state are designed to make our code cleaner and assist us when creating this large project. The 3 parent classes achieve the same goal. We plan to have them be abstract classes so that we have the base methods for each child class mostly taken care of. These classes will be GameObject, World, and Battle. Each of these classes focus on a main part of our game and will be very useful when developing it.
+Our general approach to the architecture of this game, is to create all our necessary assets in the cleanest manner we can achieve. We plan to implement 4 finite state machines and a parent classes with it's many children. We plan to have a state machine for the game state, the player state, the enemy state, and the battle state. Each of these state are designed to make our code cleaner and assist us when creating this large project. The single parent class achieves the same goal. We plan to have it be an abstract class so that we have the base methods for each child class mostly taken care of. This class will be GameObject and will contain the necessary base code for every object in the game.
 
 ## State Machine(s)
 
@@ -26,11 +26,11 @@ The Battle state machine will 4 states an attack state, an idle state, victory s
 
 ## OO Design
 
-The classes in our game consists of one abstract class called GameObject which has three children, Player, Enemy and AttackKey. GameObject is very basic which has a Draw and Update method along with a Position property.
-Enemy also has a child and that is the Boss class which is very similar to just a regular enemy. Boss is projected to have more uniqueness to it in Milestone 4 when the game is polished.
+The classes in our game consists of one abstract class called GameObject which has five children, Player, Enemy, Boss, HealingBox, and AttackKey. GameObject is very basic which has a Draw and Update method along with a Position property. It also has a second draw method that takes in a float value to handle opacity to allow for us to have slightly more control over our objects.
+
 The inheritance can be visualized with this diagram that also shows each class' different methods and properties.
 
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/GameObject_Class_Diagram.png "GameObject Class Diagram")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Game_Class_Inheritance.png "GameObject Class Diagram")
 
 Other classes that our game utilizes are Level, Camera, Battle, ImportAttackPatterns, Helpers, and CollisionItem.
 
@@ -56,7 +56,19 @@ the corresponding arrow key when it is in the hitbox.
 
 Below is a visualization of the other classes that are independent and have no inheritance.
 
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Other_Class_Diagrams.png "Other Classes Diagram")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Classes.png "Other Classes Diagram")
+
+We also decided to utilize Enums for switching between different states such as the menu screen selections, or the player's direction state for drawing the player sprite correctly. Using enums were especially useful for us,
+as without them none of our enemies, players or boss would have been animated! The most important enum though was the enum "BattleState", which determined when to draw our arrow keys, to show set screens, and was used in multiple classes 
+to create the look and gameplay of our battle screen. Below is all the enums in our project, as well as the delegate used to detect player collision.
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Enums.png "Enums and Delegate")
+
+The most important part of our game is the use of many variables, methods, ect in our Game1 class. Our class diagram for this main class was so large that it had to be split up to be readable. While many of these variables are actually 
+Texture2D for drawing different enemies, doors, and player spritesheets, there are also many important variables. Some of these important variables include: starting x and y position for shiro, the starting state and variable used for
+changing the state, creating the camera per level, and our font! This is, by far, the largest class with the most variables that we have in the game.
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Game1_Class.png "Game1")
 
 ## External Tool - Attack Creator
 
@@ -83,6 +95,7 @@ by each comma into a string array. Finally, for each string inside of the array,
 passed into the enemy of the same file name if it exists. Below, is the flowchart of the outside generator and it's classes that it uses to make the form work. It then gets imported and follows the steps explained above.
 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/KeyPressGenerator.png "KeyPressGenerator Diagram")
+
 
 ## External Tool - Level Editor
 
@@ -145,14 +158,3 @@ Level files are saved as plain .txt files that contain the size of the level, th
 tileset is in that position, and the other mapping which tiles are meant to have collision.
 
 ![alt text](https://i.imgur.com/T4fc5i6.png "Level data under the hood")
-
-### Known Issues
-The level editor is currently fully-functional and seems to have no bugs. However, there are some quality-of-life issues that we are aware of and may improve as
-part of milestone 4's polish.
-
-*  The user can close the paintbox window, and there isn't any way for them to get it back without loading a file again or generating a new map.
-*  The paintbox can be a little too small to work well with if the loaded tileset is very small.
-*  The paintbox tiles do no accurately reflect which tile is currently selected. ALthough a selected tile will have a border added to it, the border is never removed.
-*  No unique images for the toolbar buttons. The documentation should suffice for now.
-*  Representation of collision tiles could be improved for tiles that have no transparency in them.
-*  The user has to click individual tiles in order to paint tiles. Clicking and dragging to paint is more standard for editors such as this.
