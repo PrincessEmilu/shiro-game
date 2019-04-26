@@ -30,7 +30,7 @@ The classes in our game consists of one abstract class called GameObject which h
 
 The inheritance can be visualized with this diagram that also shows each class' different methods and properties.
 
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/GameObject_Class_Diagram.png "GameObject Class Diagram")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Game_Class_Inheritance.png "GameObject Class Diagram")
 
 Other classes that our game utilizes are Level, Camera, Battle, ImportAttackPatterns, Helpers, and CollisionItem.
 
@@ -56,7 +56,19 @@ the corresponding arrow key when it is in the hitbox.
 
 Below is a visualization of the other classes that are independent and have no inheritance.
 
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Other_Class_Diagrams.png "Other Classes Diagram")
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Classes.png "Other Classes Diagram")
+
+We also decided to utilize Enums for switching between different states such as the menu screen selections, or the player's direction state for drawing the player sprite correctly. Using enums were especially useful for us,
+as without them none of our enemies, players or boss would have been animated! The most important enum though was the enum "BattleState", which determined when to draw our arrow keys, to show set screens, and was used in multiple classes 
+to create the look and gameplay of our battle screen. Below is all the enums in our project, as well as the delegate used to detect player collision.
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Enums.png "Enums and Delegate")
+
+The most important part of our game is the use of many variables, methods, ect in our Game1 class. Our class diagram for this main class was so large that it had to be split up to be readable. While many of these variables are actually 
+Texture2D for drawing different enemies, doors, and player spritesheets, there are also many important variables. Some of these important variables include: starting x and y position for shiro, the starting state and variable used for
+changing the state, creating the camera per level, and our font! This is, by far, the largest class with the most variables that we have in the game.
+
+![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/Game1_Class.png "Game1")
 
 ## External Tool - Attack Creator
 
@@ -83,6 +95,7 @@ by each comma into a string array. Finally, for each string inside of the array,
 passed into the enemy of the same file name if it exists. Below, is the flowchart of the outside generator and it's classes that it uses to make the form work. It then gets imported and follows the steps explained above.
 
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Documents/KeyPressGenerator.png "KeyPressGenerator Diagram")
+
 
 ## External Tool - Level Editor
 

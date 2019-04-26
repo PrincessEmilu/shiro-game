@@ -5,7 +5,7 @@
 | 1: Design and Architecture | [Milestone 1 Presentation](https://docs.google.com/presentation/d/1gOebAI5hHMdvS1KRNkfDIXmCK7SdPW3a1ij9g-Fm3xw/edit?usp=sharing) |
 | 2: Bare Bones Game | [Milestone 2 Presentation](https://docs.google.com/presentation/d/1APWOuEi4CWbLe6sKxaiqfur56ZRc5Z7aivgbUW-TQEA/edit#slide=id.p) |
 | 3: First Playable | [Milestone 3 Presentation](https://docs.google.com/presentation/d/1Gx5mDTkYiS9aSs4-Zq24-1XWpaxmPmtpR3t9EUOBiNY/edit#slide=id.p) |
-| 4: A Polished Game | [Milestone 4 Presentation](https://docs.google.com/presentation/....) |
+| 4: A Polished Game | [Milestone 4 Presentation](https://docs.google.com/presentation/d/1C-UtpFSgNtTJ_S5PN7MGXOz1_gBfyaOY80ibjPa-26E/edit?usp=sharing) |
 
 ## Instructions
 The general guideline for a non-lecture PowerPoint slide is 5x5: _No more than 5 bullet points, no more than 5 words per bullet point._  The slide is there so the audience understands what you’ll be talking about.  It does not take the place of the speaker.  This means you should know what you’ll say during that slide.  

@@ -34,7 +34,7 @@ The game will exclusviely use keyboard controls. The player will use the arrow k
 Battles will require rapid and accurate key presses, but the keys used won't change; what will change will be the speed and patterns of key presses.
 
 ### Levels
-Our base game will have three main environments- a sewer, a city, and a forest. Each area is divided into sub-levels, which would essentially be
+Our base game will have one main environment: the city. The area is divided into sub-levels, which would essentially be
 different screens the player moves through.
 The first area of our first level will be designed as a tutorial for the player to get used to the game controls. They will be fairly conventional for moving.  
 For the battle system, keys to be pressed will be displayed on the screen and will not deviate from the basic movement and interactive mechanics.
@@ -84,4 +84,6 @@ In Battle:
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/src/Screenshots%20of%20game/bbattle.PNG "Picture in battle")
 
 ## External References
-As of right now, we don't have any.
+
+We are currently using a edited version of this free to use tileset. Not only did we change some of the tones in it, but we also added our own tiles.
+http://freegameassets.blogspot.com/2013/09/blog-post_20.html
