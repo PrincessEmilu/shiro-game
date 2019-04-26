@@ -37,7 +37,6 @@ namespace Shiro
         int chance = 5;
         SpriteFont font;
         KeyboardState pbState;
-        
 
         //Textures
         Texture2D background;
@@ -222,6 +221,8 @@ namespace Shiro
             listAttackSoundEffects.Add(Content.Load<SoundEffect>("attackDown"));
             listAttackSoundEffects.Add(Content.Load<SoundEffect>("attackLeft"));
             listAttackSoundEffects.Add(Content.Load<SoundEffect>("attackRight"));
+            listAttackSoundEffects.Add(Content.Load<SoundEffect>("takeDamage"));
+            listAttackSoundEffects.Add(Content.Load<SoundEffect>("blockAttack"));
 
             MediaPlayer.Play(menuSong);
             MediaPlayer.Volume = 0.01f;
@@ -362,7 +363,7 @@ namespace Shiro
                                 MediaPlayer.Stop();
                                 MediaPlayer.Play(cityLoop);
                                 MediaPlayer.IsRepeating = true;
-                                MediaPlayer.Volume = 1.0f;
+                                MediaPlayer.Volume = 0.9f;
                                 CreateLevel(1);
                                 break;
 
@@ -514,8 +515,8 @@ namespace Shiro
                                 MediaPlayer.Stop();
                                 MediaPlayer.Play(battleMusic);
                                 MediaPlayer.IsRepeating = true;
-                                MediaPlayer.Volume = 1.0f;
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, listAttackSoundEffects, 3, chance, rng);
+                                MediaPlayer.Volume = 0.9f;
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, listAttackSoundEffects, 4, chance, rng);
                             }
                         }
                     }
@@ -667,7 +668,7 @@ namespace Shiro
                         MediaPlayer.Stop();
                         MediaPlayer.Play(cityLoop);
                         MediaPlayer.IsRepeating = true;
-                        MediaPlayer.Volume = 1.0f;
+                        MediaPlayer.Volume = 0.9f;
                         state = GameState.Level;
 
                         if (chance < 8)
@@ -695,7 +696,7 @@ namespace Shiro
                         MediaPlayer.Stop();
                         MediaPlayer.Play(cityLoop);
                         MediaPlayer.IsRepeating = true;
-                        MediaPlayer.Volume = 1.0f;
+                        MediaPlayer.Volume = 0.9f;
                         state = GameState.Level;
                     }
 

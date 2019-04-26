@@ -101,7 +101,7 @@ namespace Shiro
             //attackTick is the number of frames before a new enemy attack will be created.
             //Although here it is a constant, it can be changed with different enemies.
             timer = 0;
-            attackTick = 40;
+            attackTick = 60;
             arrowPosition = 1;
             timerOriginal = 0;
 
@@ -350,11 +350,13 @@ namespace Shiro
                                             hitCounter += 2;
                                              if (hitCounter % 5 == 0)
                                               {
+                                                    attackSounds[5].Play();
                                                     bossBar -= 20;
                                               }
                                          }
                                         else
                                         {
+                                            attackSounds[5].Play();
                                             enemy.Stamina -= 20;
                                         }
 
@@ -366,6 +368,7 @@ namespace Shiro
                                     {
                                         if (isBoss)
                                         {
+                                            attackSounds[5].Play();
                                             boss.Stamina -= 10;
                                             hitCounter ++;
                                              if (hitCounter % 5 == 0)
@@ -375,6 +378,7 @@ namespace Shiro
                                         }
                                         else
                                         {
+                                            attackSounds[5].Play();
                                             enemy.Stamina -= 10;
                                         }
                                     }
@@ -424,6 +428,8 @@ namespace Shiro
                     {
                         listKeys.RemoveAt(0);
                         player.Stamina -= 10;
+                        //Play damage effect
+                        attackSounds[4].Play();
                     }
 
                     //Calls update on each key.

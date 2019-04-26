@@ -67,6 +67,12 @@
 /processorParam:Quality=Best
 /build:battleMusic.mp3
 
+#begin blockAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:blockAttack.wav
+
 #begin BottomBar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -469,6 +475,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:StartIndividual.png
+
+#begin takeDamage.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:takeDamage.wav
 
 #begin testTileset.png
 /importer:TextureImporter
