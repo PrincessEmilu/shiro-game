@@ -1031,6 +1031,22 @@ namespace Shiro
                 //6 = clockwise (top left)
 
                 case 1:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
                     //Enemies
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 200, width, height, 6, 500, "ratAttackOne.txt")); //top right
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 1000, width, height, 2, 200, "ratAttackOne.txt"));
@@ -1047,16 +1063,46 @@ namespace Shiro
 
                     break;
                 case 2:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 150, width, height, 6, 500, "ratAttackOne.txt")); //top right
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2000, 250, width, height, 5, 250, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2800, 150, width, height, 6, 250, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 3500, 250, width, height, 5, 300, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 4250, 100, width, height, 1, 300, "ratAttackOne.txt"));
 
-                    exitDoor = new CollisionItem(doorTexture, 4800, 200, player);
+                    exitDoor = new CollisionItem(doorTexture, 3800, 200, player);
                     break;
 
                 case 3:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 3700;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 4000);
+                    prevCamera = camera.Pos;
 
 
 
@@ -1064,18 +1110,60 @@ namespace Shiro
 
                 case 4:
 
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
 
 
                     break;
 
                 case 5:
 
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
 
                     break;
 
                 case 6:
 
-                    
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
 
                     break;
                
@@ -1102,20 +1190,7 @@ namespace Shiro
                 }
             }
 
-            //Player variables- position for the camera and the player
-            playerStartingX = 200;
-            playerStartingY = 200;
-
-            pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
-            boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
-
-            player.Pos = pos;
-            player.BoundBoxX = boundBoxPos.X;
-            player.BoundBoxY = boundBoxPos.Y;
-
-            camera.Pos = new Vector2(0, 0);
-            prevCamera = camera.Pos;
-
+            
         }
     }
 
