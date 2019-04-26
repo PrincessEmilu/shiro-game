@@ -13,6 +13,30 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin attackDown.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:attackDown.wav
+
+#begin attackLeft.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:attackLeft.wav
+
+#begin attackRight.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:attackRight.wav
+
+#begin attackUp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:attackUp.wav
+
 #begin background.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,6 +60,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:BackgroundAlley.png
+
+#begin battleMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:battleMusic.mp3
 
 #begin BottomBar.png
 /importer:TextureImporter

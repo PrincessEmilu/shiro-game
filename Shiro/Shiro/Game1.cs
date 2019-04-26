@@ -141,9 +141,10 @@ namespace Shiro
         List<CollisionItem> itemsCollide;
 
         //Audio
-        List<SoundEffect> listSoundEffects;
+        List<SoundEffect> listAttackSoundEffects;
         Song menuSong;
         Song cityLoop;
+        Song battleMusic;
 #endregion
 
         public Game1()
@@ -163,7 +164,7 @@ namespace Shiro
 
             //Initialize variables
             rng = new Random();
-            listSoundEffects = new List<SoundEffect>();
+            listAttackSoundEffects = new List<SoundEffect>();
 
             //Start at the Title Screen
             state = GameState.TitleScreen;
@@ -214,11 +215,13 @@ namespace Shiro
 
 
             //Audio
-            /*
-             * listSoundEffects.Add(Content.Load<SoundEffect>("myAwesomeSound");
-            */
             menuSong = Content.Load<Song>("heavenlyLoop");
             cityLoop = Content.Load<Song>("cityMusic");
+            battleMusic = Content.Load<Song>("battleMusic");
+            listAttackSoundEffects.Add(Content.Load<SoundEffect>("attackUp"));
+            listAttackSoundEffects.Add(Content.Load<SoundEffect>("attackDown"));
+            listAttackSoundEffects.Add(Content.Load<SoundEffect>("attackLeft"));
+            listAttackSoundEffects.Add(Content.Load<SoundEffect>("attackRight"));
 
             MediaPlayer.Play(menuSong);
             MediaPlayer.Volume = 0.01f;
@@ -385,7 +388,7 @@ namespace Shiro
                     }
                     break;
                 #endregion
-                                   #region Level
+                #region Level
                 case GameState.Level:
 
                     //Updated entities
@@ -507,8 +510,12 @@ namespace Shiro
                                 state = GameState.Battle;
                                 player.CurrentState = PlayerState.FaceRight;
 
-                                //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, 5, chance, rng);
+                                //Create a new battle object with player and enemy collided/sets music
+                                MediaPlayer.Stop();
+                                MediaPlayer.Play(battleMusic);
+                                MediaPlayer.IsRepeating = true;
+                                MediaPlayer.Volume = 1.0f;
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, listAttackSoundEffects, 5, chance, rng);
                             }
                         }
                     }
@@ -657,6 +664,10 @@ namespace Shiro
                         //Remove the defeated enemy
                         listEnemies.Remove(currentBattle.currentEnemy);
 
+                        MediaPlayer.Stop();
+                        MediaPlayer.Play(cityLoop);
+                        MediaPlayer.IsRepeating = true;
+                        MediaPlayer.Volume = 1.0f;
                         state = GameState.Level;
 
                         if (chance < 8)
@@ -667,7 +678,7 @@ namespace Shiro
 
                     if (currentBattle.GameOver)
                     {
-                        
+                        //TODO: Change music to game over?
                         state = GameState.GameOver;
                         arrowPosition = 1;  //Make sure the initial position is one
                     }
@@ -680,6 +691,11 @@ namespace Shiro
                         {
                             chance--;
                         }
+                        //Change state and music
+                        MediaPlayer.Stop();
+                        MediaPlayer.Play(cityLoop);
+                        MediaPlayer.IsRepeating = true;
+                        MediaPlayer.Volume = 1.0f;
                         state = GameState.Level;
                     }
 

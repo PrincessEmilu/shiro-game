@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Shiro
 {
@@ -49,7 +50,10 @@ namespace Shiro
         protected Texture2D RightArrow;
         protected Texture2D hitboxTexture;
         protected Texture2D healthBoxTexture;
-        
+
+        //Attack sounds
+        protected List<SoundEffect> attackSounds;
+
         //Keyboard
         protected KeyboardState kbState;
         protected KeyboardState pbState;
@@ -87,7 +91,7 @@ namespace Shiro
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
         //the previous locations of the player and the enemies that were on the level.
         public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D UpArrow, Texture2D DownArrow, Texture2D LeftArrow, Texture2D RightArrow,
-            Texture2D hitboxTexture, Texture2D healthBox, Player player, Enemy enemy, int keySpeed, int runAwayChance, Random rng)
+            Texture2D hitboxTexture, Texture2D healthBox, Player player, Enemy enemy, List<SoundEffect> attackSounds, int keySpeed, int runAwayChance, Random rng)
         {
             //The stars of the show...
             this.player = player;
@@ -122,6 +126,8 @@ namespace Shiro
             enemy.X = 700;
             enemy.Y = 200;
 
+            //Audio assets
+            this.attackSounds = attackSounds;
 
             //listKeys holds the key attack objects. queueAttacks hold the attack pattern from the enemy in battle.
             //For now, it is a hard-coded value.
@@ -628,6 +634,7 @@ namespace Shiro
                 switch (keyType)
                 {
                     case Keys.Up:
+                        attackSounds[0].Play();
                         keyToReturn = new AttackKey(
                             UpArrow,
                             1200,
@@ -636,6 +643,7 @@ namespace Shiro
                             keySpeed);
                         break;
                     case Keys.Down:
+                        attackSounds[1].Play();
                         keyToReturn = new AttackKey(
                             DownArrow,
                             1200,
@@ -644,6 +652,7 @@ namespace Shiro
                             keySpeed);
                         break;
                     case Keys.Left:
+                        attackSounds[2].Play();
                         keyToReturn = new AttackKey(
                             LeftArrow,
                             1200,
@@ -652,6 +661,7 @@ namespace Shiro
                             keySpeed);
                         break;
                     case Keys.Right:
+                        attackSounds[3].Play();
                         keyToReturn = new AttackKey(
                             RightArrow,
                             1200,
