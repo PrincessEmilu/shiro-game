@@ -40,7 +40,7 @@ text more frequently so that we can stay updated about various fixes and changes
 
 ## Milestone 4
 
-Milestone 4 was c much calmer milestone than the last few. With our game basically completed by time we started this milestone, our main objective was to fix the bugs we found during playtesting and have a little fun. Because this milestone was more centered around polishing our game, the number of meetings we had was less than milestone 2 and 3. Regardless the polish we added to our game made the entire game come together.
+Milestone 4 was much calmer milestone than the last few. With our game basically completed by time we started this milestone, our main objective was to fix the bugs we found during playtesting and have a little fun. Because this milestone was more centered around polishing our game, the number of meetings we had was less than milestone 2 and 3. Regardless the polish we added to our game made the entire game come together.
 
 This milestone required more collaboration than the past few as we had to compare code to solve bugs. Our meetings, while few in number, greatly contributed to allowing us to successfully polish our game. While fixing bugs, we often had to discuss the code we had written with other group memebers to discover why the bugs were there and how to fix them. Sometimes all the bug needed was another set of eyes to look at the code.
 
