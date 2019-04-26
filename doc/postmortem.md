@@ -2,7 +2,7 @@
 
 Insert Intro Here
 
-##What Went Right:
+## What Went Right:
 
 Participation
 On top of Milestone Requirements
@@ -12,7 +12,7 @@ Art Style
 
 External Tools
 
-##What Went Wrong:
+## What Went Wrong:
 
 Messy Code
 Coordinating code
@@ -22,7 +22,7 @@ Prioritizing
 
 Architecture
 
-##What We Learned:
+## What We Learned:
 
 Group work is different than personal work
 
@@ -30,8 +30,8 @@ Architecture is more important than we realized
 
 The Importance of Playtesting
 
-##What We Would Do Differently:
-
+## What We Would Do Differently:
+ 
 Explaining our code to each other more effectively
 
 Plan out architecture better
@@ -40,6 +40,6 @@ Organization - tasks - use trello more
 
 Used Data Structures More Effciently - Design Patterns 
 
-##Conclusion
+## Conclusion
 
 Insert Conclusion Here
