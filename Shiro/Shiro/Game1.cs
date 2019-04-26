@@ -52,6 +52,7 @@ namespace Shiro
         Texture2D hitbox;
         Texture2D doorTexture;
         Texture2D healBoxTexture;
+        Texture2D victory;
 
         //Salsa Textures
         Texture2D salsaIdle;
@@ -242,8 +243,9 @@ namespace Shiro
             pawPrint = Content.Load<Texture2D>("PawPrint");
             instructionsBackground = Content.Load<Texture2D>("InstructionsScreen");
             pauseBackground = Content.Load<Texture2D>("ShiroPause");
-            gameOverBackground = Content.Load<Texture2D>("GameOverShiro");
+            gameOverBackground = Content.Load<Texture2D>("GameOver");
             battleBackground = Content.Load<Texture2D>("BackgroundAlley");
+            victory = Content.Load<Texture2D>("Victory");
             start = Content.Load<Texture2D>("StartIndividual");
             instructions = Content.Load<Texture2D>("InstructionsIndividual");
 
@@ -513,7 +515,7 @@ namespace Shiro
                                 player.CurrentState = PlayerState.FaceRight;
 
                                 //Create a new battle object with player and enemy collided\
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, 5, chance, rng);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, 5, chance, rng, victory);
                             }
                         }
                     }
@@ -793,7 +795,7 @@ namespace Shiro
             //Creates the sprite batch with different parameters based on the game state
             GraphicsDevice.Clear(Color.Black);
 
-            if (state == GameState.Battle)
+            if (state == GameState.Battle && !currentBattle.VictoryScreen)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
             }
@@ -958,15 +960,22 @@ namespace Shiro
                 #endregion
                 #region DrawBattle
                 case GameState.Battle:
-                    camera.Pos = new Vector2(0, 0);
-                    spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
-                    spriteBatch.Draw(battleBar, new Rectangle(10, 335, 825, 135), Color.White);
-                    currentBattle.Draw(spriteBatch);
 
                    // Draws Salsa if Active
                     if (salsa.InBattle)
                     {
                         salsa.Draw(spriteBatch);
+                    }
+
+                    if(currentBattle.VictoryScreen)
+                    {
+                        spriteBatch.Draw(victory, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
+                    } else
+                    {
+                        camera.Pos = new Vector2(0, 0);
+                        spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
+                        spriteBatch.Draw(battleBar, new Rectangle(10, 335, 825, 135), Color.White);
+                        currentBattle.Draw(spriteBatch);
                     }
                     break;
                 #endregion
@@ -988,7 +997,7 @@ namespace Shiro
                     break;
                 default:
                     break;
-                    #endregion
+                #endregion
             }
             spriteBatch.End();
             base.Draw(gameTime);

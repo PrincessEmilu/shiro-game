@@ -49,7 +49,8 @@ namespace Shiro
         protected Texture2D RightArrow;
         protected Texture2D hitboxTexture;
         protected Texture2D healthBoxTexture;
-        
+        protected Texture2D victoryScreen;
+
         //Keyboard
         protected KeyboardState kbState;
         protected KeyboardState pbState;
@@ -76,6 +77,7 @@ namespace Shiro
         //Properties
         //Properties that Game1 can check to know how to handle the current battle when it ends.
         public bool Victory { get; private set; }
+        public bool VictoryScreen { get; private set; }
         public bool GameOver { get; private set; }
         public bool RanAway{ get;  private set; }
         public Enemy currentEnemy
@@ -87,11 +89,13 @@ namespace Shiro
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
         //the previous locations of the player and the enemies that were on the level.
         public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D UpArrow, Texture2D DownArrow, Texture2D LeftArrow, Texture2D RightArrow,
-            Texture2D hitboxTexture, Texture2D healthBox, Player player, Enemy enemy, int keySpeed, int runAwayChance, Random rng)
+            Texture2D hitboxTexture, Texture2D healthBox, Player player, Enemy enemy, int keySpeed, int runAwayChance, Random rng, Texture2D victoryScreen)
         {
             //The stars of the show...
             this.player = player;
             this.enemy = enemy;
+
+            VictoryScreen = false;
 
 
             //attackTick is the number of frames before a new enemy attack will be created.
@@ -107,6 +111,8 @@ namespace Shiro
             success = false;
             isBoss = false;
             perfectHit = false;
+
+            this.victoryScreen = victoryScreen;
 
             runText = "Run Away Attempt Failed. Shiro has lost 10 Stamina. ";
 
@@ -447,6 +453,7 @@ namespace Shiro
                         {
                             battleState = BattleState.Victory;
                             timerOriginal = timer;
+                            VictoryScreen = true;
                         }
 
                     }
@@ -469,6 +476,7 @@ namespace Shiro
                     if (!Victory && (timer - timerOriginal) >= 200)
                     {
                         Victory = true;
+                        VictoryScreen = false;
                         player.X = player.PrevPos.X;
                         player.Y = player.PrevPos.Y;
                     }
@@ -590,7 +598,7 @@ namespace Shiro
                     break;
                 case BattleState.Victory:
                     //Show victory message and transition back to level
-                    sb.DrawString(font, "Victory!", new Vector2(500, 100), Color.Red);
+                    //sb.DrawString(font, "Victory!", new Vector2(500, 100), Color.Red);
                     break;
                 case BattleState.RanAway:
                     sb.DrawString(font, "Successfully Ran Away!", new Vector2(500, 100), Color.Red);
