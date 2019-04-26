@@ -120,6 +120,7 @@ namespace Shiro
 
         //The current level the player is in
         Level currentLevel;
+        int levelCounter;
 
         //Debug for testing Keys
         Texture2D UpArrow;
@@ -257,6 +258,9 @@ namespace Shiro
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
+
+            //level increment
+            levelCounter = 1;
         }
 
         /// <summary>
@@ -358,11 +362,12 @@ namespace Shiro
                                 MediaPlayer.Play(cityLoop);
                                 MediaPlayer.IsRepeating = true;
                                 MediaPlayer.Volume = 1.0f;
-                                CreateLevel(1);
+                                CreateLevel(levelCounter);
                                 break;
 
                             case 2:
                                 state = GameState.Instructions;
+
                                 break;
                             default:
                                 break;
@@ -533,7 +538,11 @@ namespace Shiro
                     //Go to next level when you touch the door
                     if (exitDoor.CheckCollision(player))
                     {
-                        CreateLevel(2);
+
+                        Console.WriteLine("Entering a door from level " + levelCounter);
+                        levelCounter++;
+                        CreateLevel(levelCounter);
+                        Console.WriteLine("Now in level: " + levelCounter);
                         Console.WriteLine("Boops");
                     }
 
@@ -1001,8 +1010,6 @@ namespace Shiro
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
 
-
-            
             currentLevel = new Level(levelNumber, cityTileset, doorTexture, player);
             itemsCollide = currentLevel.CollisonList;
 
@@ -1026,6 +1033,22 @@ namespace Shiro
                 //6 = clockwise (top left)
 
                 case 1:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
                     //Enemies
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 200, width, height, 6, 500, "ratAttackOne.txt")); //top right
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 500, 1000, width, height, 2, 200, "ratAttackOne.txt"));
@@ -1042,16 +1065,46 @@ namespace Shiro
 
                     break;
                 case 2:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 150, width, height, 6, 500, "ratAttackOne.txt")); //top right
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2000, 250, width, height, 5, 250, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2800, 150, width, height, 6, 250, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 3500, 250, width, height, 5, 300, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 4250, 100, width, height, 1, 300, "ratAttackOne.txt"));
 
-                    exitDoor = new CollisionItem(doorTexture, 4800, 200, player);
+                    exitDoor = new CollisionItem(doorTexture, 3800, 200, player);
                     break;
 
                 case 3:
+
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 3700;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 4000);
+                    prevCamera = camera.Pos;
 
 
 
@@ -1059,18 +1112,60 @@ namespace Shiro
 
                 case 4:
 
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
 
 
                     break;
 
                 case 5:
 
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
 
                     break;
 
                 case 6:
 
-                    
+                    //Player variables- position for the camera and the player
+                    playerStartingX = 200;
+                    playerStartingY = 200;
+
+                    pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
+                    boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
+
+                    player.Pos = pos;
+                    player.BoundBoxX = boundBoxPos.X;
+                    player.BoundBoxY = boundBoxPos.Y;
+
+                    camera.Pos = new Vector2(0, 0);
+                    prevCamera = camera.Pos;
+
+
 
                     break;
                
@@ -1097,20 +1192,7 @@ namespace Shiro
                 }
             }
 
-            //Player variables- position for the camera and the player
-            playerStartingX = 200;
-            playerStartingY = 200;
-
-            pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
-            boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
-
-            player.Pos = pos;
-            player.BoundBoxX = boundBoxPos.X;
-            player.BoundBoxY = boundBoxPos.Y;
-
-            camera.Pos = new Vector2(0, 0);
-            prevCamera = camera.Pos;
-
+            
         }
     }
 
