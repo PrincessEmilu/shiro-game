@@ -154,13 +154,13 @@ namespace Shiro
 
             Active = true;
             InBattle = false;
-            bool start = true;
+            //bool start = true;
 
             endPointY = position.Y + 100;
             startPointY = position.Y;
             endPointX = position.X + 100;
             startPointX = position.X;
-            this.distance = distance;
+            //this.distance = distance;
 
             enemyRng = rng.Next(1, 5);
             
@@ -192,7 +192,7 @@ namespace Shiro
 
             Active = true;
             InBattle = false;
-            bool start = true;
+            //bool start = true;
             
 
             endPointY = position.Y + distance;

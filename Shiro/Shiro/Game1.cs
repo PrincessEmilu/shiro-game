@@ -40,7 +40,6 @@ namespace Shiro
         
 
         //Textures
-        Texture2D background;
         Texture2D cityTileset;
         Texture2D shiroIdle;
         Texture2D shiroWalk;
@@ -68,7 +67,6 @@ namespace Shiro
 
         //Entities
         private Player player;
-        private Enemy enemy;
         private Boss salsa;
         private HealingBox healbox;
         private CollisionItem exitDoor;
@@ -228,7 +226,7 @@ namespace Shiro
             salsaIdle = Content.Load<Texture2D>("SalsaIdle");
             salsaBow = Content.Load<Texture2D>("SalsaBow");
             salsaBowDown = Content.Load<Texture2D>("SalsaStandToBow");
-            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 1000, 2000, 200, 200, rng, "ratAttackOne.txt");
+            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 1000, 2000, 200, 200, rng, "salsaAttack.txt");
 
             //Title Screen
             titleBackground = Content.Load<Texture2D>("BrickWall");
@@ -370,6 +368,7 @@ namespace Shiro
                                 break;
                         }
                     }
+
                     break;
                 #endregion
                 #region Instructions
@@ -402,6 +401,9 @@ namespace Shiro
                     if (salsa.Active)
                     {
                         salsa.Update(gameTime);
+
+                        //Make sure Salas's Position is correct
+                        salsa.Position = new Rectangle(1000, 2000, 200, 200);
                     }
 
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game

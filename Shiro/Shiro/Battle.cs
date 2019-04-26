@@ -63,10 +63,6 @@ namespace Shiro
         protected Rectangle hitbox;
         protected Rectangle perfectHitbox;
 
-        //Location on battlescreen to draw the enemy and the player
-        protected Point playerPosition;
-        protected Point enemyPosition;
-
         //Boolean for if the player gets a perfect hit
         protected bool perfectHit;
 
