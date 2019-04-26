@@ -122,6 +122,7 @@ namespace Shiro
 
         //The current level the player is in
         Level currentLevel;
+        int levelCounter;
 
         //Debug for testing Keys
         Texture2D UpArrow;
@@ -259,6 +260,9 @@ namespace Shiro
 
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
+
+            //level increment
+            levelCounter = 1;
         }
 
         /// <summary>
@@ -360,11 +364,12 @@ namespace Shiro
                                 MediaPlayer.Play(cityLoop);
                                 MediaPlayer.IsRepeating = true;
                                 MediaPlayer.Volume = 1.0f;
-                                CreateLevel(1);
+                                CreateLevel(levelCounter);
                                 break;
 
                             case 2:
                                 state = GameState.Instructions;
+
                                 break;
                             default:
                                 break;
@@ -531,7 +536,11 @@ namespace Shiro
                     //Go to next level when you touch the door
                     if (exitDoor.CheckCollision(player))
                     {
-                        CreateLevel(2);
+
+                        Console.WriteLine("Entering a door from level " + levelCounter);
+                        levelCounter++;
+                        CreateLevel(levelCounter);
+                        Console.WriteLine("Now in level: " + levelCounter);
                         Console.WriteLine("Boops");
                     }
 
@@ -999,8 +1008,6 @@ namespace Shiro
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
 
-
-            
             currentLevel = new Level(levelNumber, cityTileset, doorTexture, player);
             itemsCollide = currentLevel.CollisonList;
 
