@@ -192,7 +192,7 @@ namespace Shiro
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            cityTileset = Content.Load<Texture2D>("cityTileset");
+            cityTileset = Content.Load<Texture2D>("src_TilesetCity");
             shiroIdle = Content.Load<Texture2D>("idle_sprite_fix");
             shiroWalk = Content.Load<Texture2D>("walk_sprite_fix");
             enemyShadowWalkTexture = Content.Load<Texture2D>("EnemyWalkSpriteSheet");
