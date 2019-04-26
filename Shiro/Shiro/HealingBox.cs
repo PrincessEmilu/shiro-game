@@ -70,7 +70,6 @@ namespace Shiro
                 return false;
            // }
 
-            return false;
         }
     }
 }

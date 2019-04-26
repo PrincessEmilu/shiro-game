@@ -17,7 +17,7 @@ namespace Shiro
         Rectangle collisionBox;
         GameObject objToCollide;
 
-        public event playerCollided playerHit;
+        //public event playerCollided playerHit;
 
         public bool IsDoor { get; private set; }
 

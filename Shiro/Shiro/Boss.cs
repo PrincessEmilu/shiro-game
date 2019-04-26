@@ -9,12 +9,6 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Shiro
 {
-    enum AttackPattern
-    {
-        Pattern1,
-        Pattern2
-    }
-
     enum AnimationState
     {
         Idle,
@@ -26,12 +20,10 @@ namespace Shiro
     class Boss : GameObject
     {
         //Fields
-        private AttackPattern pattern;
         private Texture2D idle;
         private Texture2D bowing;
         private Texture2D inBow;
         private AnimationState state;
-        private Rectangle position;
         private int stamina;
         private int frameTimer;
         private int goalFrame;
@@ -39,28 +31,7 @@ namespace Shiro
 
         private int timer;
 
-        ////Fields Used For the SpriteSheet
-        int frame;              // The current animation frame
-        //double timeCounter;     // The amount of time that has passed
-        //double fps;             // The speed of the animation
-        //double timePerFrame;    // The amount of time (in fractional seconds) per frame
-        //
-        //// Constants for "source" rectangle in Sprite Sheet
-        ////These numbers are placeholders and need to be changed eventually
-        //
-        //const int frameCount = 60;       // The number of frames in the animation
-        //const int rectOffsetX = 10;     // How far right in the image are the frames?
-        //const int rectOffsetY = 10;   // How far down in the image are the frames?
-        //const int rectHeight = 400;     // The height of a single frame
-        //const int rectWidth = 410;      // The width of a single frame
-
-
-        //Properties
-        public AttackPattern Pattern
-        {
-            get { return pattern; }
-            set { pattern = value; }
-        }
+        private int frame;              // The current animation frame
 
         public bool Active { get; set; }
 
@@ -100,13 +71,6 @@ namespace Shiro
             Active = true;
             InBattle = false;
             position = new Rectangle(xPositon, yPosition, width, height);
-
-            pattern = AttackPattern.Pattern1;
-
-            // More Animation Variables that Exist to be changed later
-            //fps = 10.0;                     // Will cycle through 10 walk frames per second
-            //timePerFrame = 1.0 / fps;       // Time per frame = amount of time in a single walk image
-
         }
 
         public override void Update(GameTime gameTime)
@@ -290,7 +254,6 @@ namespace Shiro
                     if (frame == 25)
                     {
                         state = AnimationState.Idle;
-                        //frame = 0;
 
                     }
 
@@ -299,46 +262,7 @@ namespace Shiro
                     break;
             }
 
-            //if (state != AnimationState.UpBow)
-            //{
-            //    frameTimer++;
-            //
-            //    if (frameTimer >= goalFrame)
-            //    {
-            //        frame += 1;
-            //        frameTimer = 0;
-            //    }
-            //
-            //    if (frame == 60 || (frame == 30 && state == AnimationState.DownBow))
-            //    {
-            //        if (state == AnimationState.DownBow)
-            //        {
-            //            state = AnimationState.Bowing;
-            //            frame = 0;
-            //        }
-            //
-            //        frame = 0;
-            //    }
-            //
-            //}
-            //else
-            //{
-            //    frameTimer++;
-            //
-            //    if (frameTimer >= goalFrame)
-            //    {
-            //        frame -= 1;
-            //        frameTimer = 0;
-            //    }
-            //
-            //    if (frame == 0)
-            //    {
-            //        state = AnimationState.Idle;
-            //        frame = 60;
-            //
-            //    }
-            //}
-
+           
         }
 
        
@@ -362,17 +286,5 @@ namespace Shiro
             return false;
         }
 
-        //public override bool RunAway(int chance, Random rng)
-        //{
-        //    int random = rng.Next(1, 11);
-        //    if (random <= chance)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
     }
 }
