@@ -228,7 +228,7 @@ namespace Shiro
             salsaIdle = Content.Load<Texture2D>("SalsaIdle");
             salsaBow = Content.Load<Texture2D>("SalsaBow");
             salsaBowDown = Content.Load<Texture2D>("SalsaStandToBow");
-            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 1000, 2000, 200, 200, rng, "salsaAttack.txt");
+            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 5000, 5000, 200, 200, rng, "salsaAttack.txt");
 
             //Title Screen
             titleBackground = Content.Load<Texture2D>("BrickWall");
@@ -1115,6 +1115,12 @@ namespace Shiro
                     camera.Pos = new Vector2(0, 4000);
                     prevCamera = camera.Pos;
 
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 2900, width, height, 6, 400, "ratAttackOne.txt")); //top right
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 2100, width, height, 5, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 1400, width, height, 6, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 600, width, height, 5, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 200, 900, width, height, 1, 600, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1100, 1900, width, height, 2, 800, "ratAttackOne.txt"));
 
                     exitDoor = new CollisionItem(doorTexture, 900, 300, player);
                     break;
@@ -1160,7 +1166,7 @@ namespace Shiro
 
 
 
-                    healbox = new HealingBox(healBoxTexture, 600, 3800);
+                    healbox = new HealingBox(healBoxTexture, 900, 3800);
 
                     exitDoor = new CollisionItem(doorTexture, 300, 3800, player);
 
@@ -1183,7 +1189,7 @@ namespace Shiro
                     prevCamera = camera.Pos;
 
                     //update salsa's position!!
-
+                    salsa.Position = new Rectangle(3000, 3000, 200, 200);
 
 
                     exitDoor = new CollisionItem(doorTexture, 5000, 5000, player);
