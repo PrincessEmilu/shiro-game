@@ -92,7 +92,7 @@
             this.numericTilesPerColumn.Location = new System.Drawing.Point(128, 200);
             this.numericTilesPerColumn.Margin = new System.Windows.Forms.Padding(2);
             this.numericTilesPerColumn.Maximum = new decimal(new int[] {
-            32,
+            64,
             0,
             0,
             0});
