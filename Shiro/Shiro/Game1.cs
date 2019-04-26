@@ -515,7 +515,7 @@ namespace Shiro
                                 MediaPlayer.Play(battleMusic);
                                 MediaPlayer.IsRepeating = true;
                                 MediaPlayer.Volume = 1.0f;
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, listAttackSoundEffects, 5, chance, rng);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, listAttackSoundEffects, 3, chance, rng);
                             }
                         }
                     }

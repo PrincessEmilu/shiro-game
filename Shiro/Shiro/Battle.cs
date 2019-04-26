@@ -101,7 +101,7 @@ namespace Shiro
             //attackTick is the number of frames before a new enemy attack will be created.
             //Although here it is a constant, it can be changed with different enemies.
             timer = 0;
-            attackTick = 25;
+            attackTick = 40;
             arrowPosition = 1;
             timerOriginal = 0;
 
@@ -637,7 +637,7 @@ namespace Shiro
                         attackSounds[0].Play();
                         keyToReturn = new AttackKey(
                             UpArrow,
-                            1200,
+                            890,
                             375,
                             keyType,
                             keySpeed);
@@ -646,7 +646,7 @@ namespace Shiro
                         attackSounds[1].Play();
                         keyToReturn = new AttackKey(
                             DownArrow,
-                            1200,
+                            890,
                             375,
                             keyType,
                             keySpeed);
@@ -655,7 +655,7 @@ namespace Shiro
                         attackSounds[2].Play();
                         keyToReturn = new AttackKey(
                             LeftArrow,
-                            1200,
+                            890,
                             375,
                             keyType,
                             keySpeed);
@@ -664,7 +664,7 @@ namespace Shiro
                         attackSounds[3].Play();
                         keyToReturn = new AttackKey(
                             RightArrow,
-                            1200,
+                            890,
                             375,
                             keyType,
                             keySpeed);
