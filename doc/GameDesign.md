@@ -84,4 +84,6 @@ In Battle:
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/src/Screenshots%20of%20game/bbattle.PNG "Picture in battle")
 
 ## External References
-As of right now, we don't have any.
+
+We are currently using a edited version of this free to use tileset. Not only did we change some of the tones in it, but we also added our own tiles.
+http://freegameassets.blogspot.com/2013/09/blog-post_20.html
