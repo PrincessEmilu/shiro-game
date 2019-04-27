@@ -228,7 +228,7 @@ namespace Shiro
             salsaIdle = Content.Load<Texture2D>("SalsaIdle");
             salsaBow = Content.Load<Texture2D>("SalsaBow");
             salsaBowDown = Content.Load<Texture2D>("SalsaStandToBow");
-            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 5000, 5000, 200, 200, rng, "salsaAttack.txt");
+            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, -5000, -5000, 200, 200, rng, "salsaAttack.txt");
 
             //Title Screen
             titleBackground = Content.Load<Texture2D>("BrickWall");
@@ -410,7 +410,14 @@ namespace Shiro
                         salsa.Update(gameTime);
 
                         //Make sure Salas's Position is correct
-                        salsa.Position = new Rectangle(1000, 2000, 200, 200);
+                        if (levelCounter != 6)
+                        {
+                            salsa.Position = new Rectangle(-5000, -5000, 200, 200);
+                        }
+                        else
+                        {
+                            salsa.Position = new Rectangle(1600, 800, 200, 200);
+                        }
                     }
 
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
@@ -617,6 +624,7 @@ namespace Shiro
                                 break;
                             case 2:
                                 state = GameState.MainMenu;
+                                levelCounter = 1;
 
                                 //Menu music
                                 MediaPlayer.Stop();
@@ -1120,7 +1128,7 @@ namespace Shiro
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 1400, width, height, 6, 400, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 600, width, height, 5, 400, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 200, 900, width, height, 1, 600, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1100, 1900, width, height, 2, 800, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1100, 1800, width, height, 2, 800, "ratAttackOne.txt"));
 
                     exitDoor = new CollisionItem(doorTexture, 900, 300, player);
                     break;
@@ -1161,10 +1169,15 @@ namespace Shiro
                     camera.Pos = new Vector2(0, 0);
                     prevCamera = camera.Pos;
 
-
-
-
-
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 275, 2900, width, height, 3, 800, "ratAttackOne.txt")); //top right
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 2100, width, height, 4, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 200, 1400, width, height, 3, 300, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 600, width, height, 4, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 100, 900, width, height, 3, 600, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 200, 1900, width, height, 4, 800, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 250, 2600, width, height, 4, 300, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1600, width, height, 4, 800, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 200, 3500, width, height, 4, 600, "ratAttackOne.txt"));
 
                     healbox = new HealingBox(healBoxTexture, 900, 3800);
 
