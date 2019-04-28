@@ -469,7 +469,7 @@ namespace Shiro
                     }
 
                     //If the player is fighting Salsa and Sals is losing, the fight becomes harder!
-                    if (bossBar <= 200 && keySpeed == 5)
+                    if (bossBar <= 100 && keySpeed == 5)
                     {
                         keySpeed = 7;
                     }

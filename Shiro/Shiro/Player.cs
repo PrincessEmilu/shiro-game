@@ -28,12 +28,6 @@ namespace Shiro
         private bool rightBounding;
         private bool leftBounding;
 
-        //Even more bools
-        private bool topWall;
-        private bool leftWall;
-        private bool rightWall;
-        private bool bottomWall;
-
         int movementSpeed;
 
         //Debug
@@ -88,10 +82,10 @@ namespace Shiro
         public int WorldHeight { get; set; }
 
 
-        public bool TopWall { get { return topWall; } }
-        public bool BottomWall { get { return bottomWall; } }
-        public bool LeftWall { get { return leftWall; } }
-        public bool RightWall { get { return rightWall; } }
+        public bool TopWall { get; private set; }
+        public bool BottomWall { get; private set; }
+        public bool LeftWall { get; private set; }
+        public bool RightWall { get; private set; }
 
         public List<CollisionItem> ItemsColliding
         {

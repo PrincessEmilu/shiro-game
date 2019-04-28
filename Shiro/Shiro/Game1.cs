@@ -134,9 +134,6 @@ namespace Shiro
         Camera camera;
         Rectangle pos;
         Vector2 prevCamera;
-
-        CollisionItem door;
-        List<CollisionItem> items;
         List<CollisionItem> itemsCollide;
 
         //Audio
@@ -532,7 +529,7 @@ namespace Shiro
                                 MediaPlayer.Play(battleMusic);
                                 MediaPlayer.IsRepeating = true;
                                 MediaPlayer.Volume = 0.9f;
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, listAttackSoundEffects, 4, chance, rng, victory);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, listAttackSoundEffects, 3 + (levelCounter/2), chance, rng, victory);
                             }
                         }
                     }
@@ -555,12 +552,8 @@ namespace Shiro
                     //Go to next level when you touch the door
                     if (exitDoor.CheckCollision(player))
                     {
-
-                        Console.WriteLine("Entering a door from level " + levelCounter);
                         levelCounter++;
                         CreateLevel(levelCounter);
-                        Console.WriteLine("Now in level: " + levelCounter);
-                        Console.WriteLine("Boops");
                     }
 
                     //Change to the Pause Menu when Escape is Pressed

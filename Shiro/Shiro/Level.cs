@@ -17,12 +17,10 @@ namespace Shiro
         string fileName;
 
         //Data for what to spawn/draw
-        List<GameObject> listEntities;
         int[,] mapTiles;
         List<CollisionItem> collisionList;
 
         //Assets
-        Texture2D backgroundImage;
         Texture2D tilesetImage;
         Texture2D doorTexture;
 
