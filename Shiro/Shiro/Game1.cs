@@ -1159,6 +1159,16 @@ namespace Shiro
                     camera.Pos = new Vector2(0, 0);
                     prevCamera = camera.Pos;
 
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 150, width, height, 1, 300, "ratAttackOne.txt")); //top right
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 600, 250, width, height, 2, 350, "ratAttackOne.txt")); //top right
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1100, 200, width, height, 5, 250, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1200, 250, width, height, 3, 750, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1500, 450, width, height, 4, 750, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2300, 150, width, height, 5, 250, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2550, 200, width, height, 6, 300, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 3600, 450, width, height, 2, 100, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 3800, 350, width, height, 3, 100, "ratAttackOne.txt"));
+
                     exitDoor = new CollisionItem(doorTexture, 3800, 500, player);
 
                     break;
