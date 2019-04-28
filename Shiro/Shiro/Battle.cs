@@ -115,7 +115,7 @@ namespace Shiro
 
             this.victoryScreen = victoryScreen;
 
-            runText = "Run Away Attempt Failed. Shiro has lost 10 Stamina. ";
+            runText = "Run away failed! -10 Stamina!";
 
             //Also hardcoded for now, eventually given by enemy?
             this.keySpeed = keySpeed;
@@ -527,7 +527,7 @@ namespace Shiro
             //Some objects get drawn regardless of state, mostly GUI stuff.
             //Draws the hitbox.
             sb.Draw(hitboxTexture, hitbox, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);
-            //sb.Draw(hitboxTexture, perfectHitbox, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);            
+            sb.Draw(hitboxTexture, perfectHitbox, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);            
 
             //Draws the screen differently based on current state.
             switch (battleState)
@@ -555,24 +555,24 @@ namespace Shiro
                     //Simply draws the options to fight (or not?) to the player
                     if (arrowPosition == 1)
                     {
-                        sb.DrawString(font, "Fight", new Vector2(600, 250), Color.Red);
+                        sb.DrawString(font, "Fight", new Vector2(300, 250), Color.Red);
                     }
                     else
                     {
-                        sb.DrawString(font, "Fight", new Vector2(600, 250), Color.Black);
+                        sb.DrawString(font, "Fight", new Vector2(300, 250), Color.Black);
                     }
                     if (arrowPosition == 2 && !isBoss)
                     {
-                        sb.DrawString(font, "Run Away", new Vector2(600, 280), Color.Red);
+                        sb.DrawString(font, "Run Away", new Vector2(300, 280), Color.Red);
                     }
                     else if (!isBoss)
                     {
-                        sb.DrawString(font, "Run Away", new Vector2(600, 280), Color.Black);
+                        sb.DrawString(font, "Run Away", new Vector2(300, 280), Color.Black);
                     }
 
                     if (failedRun)
                     {
-                        sb.DrawString(font, runText, new Vector2(400, 175), Color.Red);
+                        sb.DrawString(font, runText, new Vector2(300, 175), Color.Red);
                     }
 
                     break;
@@ -614,7 +614,6 @@ namespace Shiro
                     break;
                 case BattleState.Victory:
                     //Show victory message and transition back to level
-                    //sb.DrawString(font, "Victory!", new Vector2(500, 100), Color.Red);
                     break;
                 case BattleState.RanAway:
                     sb.DrawString(font, "Successfully Ran Away!", new Vector2(500, 100), Color.Red);
