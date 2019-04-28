@@ -467,6 +467,12 @@ namespace Shiro
                         }
 
                     }
+
+                    //If the player is fighting Salsa and Sals is losing, the fight becomes harder!
+                    if (bossBar <= 200 && keySpeed == 5)
+                    {
+                        keySpeed = 7;
+                    }
                     break;
 
                 case BattleState.Death:
