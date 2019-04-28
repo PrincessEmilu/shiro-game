@@ -28,17 +28,7 @@ namespace Shiro
         private bool rightBounding;
         private bool leftBounding;
 
-        //Even more bools
-        private bool topWall;
-        private bool leftWall;
-        private bool rightWall;
-        private bool bottomWall;
-
         int movementSpeed;
-
-        //Debug
-        Rectangle temp;
-        Rectangle[] temps = new Rectangle[20];
 
         private List<CollisionItem> itemsColliding;
 
@@ -88,10 +78,10 @@ namespace Shiro
         public int WorldHeight { get; set; }
 
 
-        public bool TopWall { get { return topWall; } }
-        public bool BottomWall { get { return bottomWall; } }
-        public bool LeftWall { get { return leftWall; } }
-        public bool RightWall { get { return rightWall; } }
+        public bool TopWall { get; private set; }
+        public bool BottomWall { get; private set; }
+        public bool LeftWall { get; private set; }
+        public bool RightWall { get; private set; }
 
         public List<CollisionItem> ItemsColliding
         {
@@ -334,9 +324,6 @@ namespace Shiro
         //Draws the player
         public override void Draw(SpriteBatch sb)
         {
-            //DEBUG: DRAW BOUND BOX
-            //sb.Draw(texture, boundBox, Color.Red);
-            //sb.Draw(texture, position, Color.Blue);
 
             //Increase the frame, which will animate the player.
             int frameWidth = 550;
@@ -349,10 +336,6 @@ namespace Shiro
             frame += 1;
 
             if (frame == 60) { frame = 0; }
-
-            //Debug
-            //sb.Draw(box, temp, Color.Red);
-
 
             //Draw different sprite based on state
             switch (CurrentState)

@@ -168,11 +168,12 @@ namespace Shiro
 
         //Constructor for a boss
         public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D UpArrow, Texture2D DownArrow, Texture2D LeftArrow, Texture2D RightArrow,
-            Texture2D hitboxTexture, Texture2D healthBox, Player player, Boss enemy, int keySpeed, int runAwayChance, Random rng)
+            Texture2D hitboxTexture, Texture2D healthBox, Player player, Boss enemy, List<SoundEffect> attackSounds, int keySpeed, int runAwayChance, Random rng)
         {
             //The stars of the show...
             this.player = player;
             this.boss = enemy;
+            this.attackSounds = attackSounds;
 
 
             //attackTick is the number of frames before a new enemy attack will be created.
@@ -466,6 +467,12 @@ namespace Shiro
                         }
 
                     }
+
+                    //If the player is fighting Salsa and Sals is losing, the fight becomes harder!
+                    if (bossBar <= 100 && keySpeed == 5)
+                    {
+                        keySpeed = 7;
+                    }
                     break;
 
                 case BattleState.Death:
@@ -626,12 +633,6 @@ namespace Shiro
             {
                 enemy.Draw(sb, 1);
             }
-
-            //DEBUG: Draw battle info
-            //sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);
-            //sb.DrawString(font, "Player Stamina: " + player.Stamina, new Vector2(50, 150), Color.Beige);
-            //sb.DrawString(font, "Enemy Stamina: " + enemy.Stamina, new Vector2(50, 200), Color.Beige);
-            //sb.DrawString(font, "Elapsed Frames: " + timer, new Vector2(50, 250), Color.Beige);
         }
 
         //Creates a key object

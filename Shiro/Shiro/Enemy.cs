@@ -516,8 +516,6 @@ namespace Shiro
         
         public override void Draw(SpriteBatch sb, float opacity)
         {
-            //Debug: draw bounding box
-            //sb.Draw(texture, position, Color.Red);
 
             if (InBattle == true)
             {

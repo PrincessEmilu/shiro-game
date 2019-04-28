@@ -17,12 +17,10 @@ namespace Shiro
         string fileName;
 
         //Data for what to spawn/draw
-        List<GameObject> listEntities;
         int[,] mapTiles;
         List<CollisionItem> collisionList;
 
         //Assets
-        Texture2D backgroundImage;
         Texture2D tilesetImage;
         Texture2D doorTexture;
 
@@ -35,13 +33,8 @@ namespace Shiro
         int tilesPerRow;
         int tilesPerColumn;
 
-        //Spawn is for when the player enters the are from the begnining; B is when returning from later screen
-        Point playerSpawnA;
-        Point playerSpawnB;
-
         //Player object needed for collidable objects
         Player player;
-
 
         //Properties
         public List<CollisionItem> CollisonList { get { return collisionList; } }
