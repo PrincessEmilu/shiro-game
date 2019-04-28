@@ -16,13 +16,11 @@ revealed themselves to us as we continue to code and playtest, and the Shiro we 
 
 ## What Went Right:
 
-Participation
-On top of Milestone Requirements
-Everyone was heard
+Throughout the development of our project, there was a lot that went right and some things that went even better than expected. The one huge thing that went right was our group members themselves. Throught out the semester, our group worked well together and very rarely had issues. We had full attendence at almost every meeting, everyone completed their assigned tasks in a timely manner, we felt as if we were well prepared for each milestone as they aproached, and everyone in our group was heard and has a small piece of them and their ideas in our final product. During our meeting we would try our hardest to make sure everyone was working on something they wanted to instead of just assigning tasks. While this was not always achieved, we believe that we did fairly well in acomplishing this goal where possible. Our group also benefiter as coders and designer from each other's experience. We often had members showing each other cool tricks or how to use outside programs to create art or even easier and faster ways to implement their code.
 
-Art Style
+Another thing we believe went really well throughout the development process was the art style. From the initial concept sketches our art looked promising and it has never let us down since. As the game progressed, so did the art. Eventually our promising sketches turned into beautiful sprites and finally worked their way into the game. We had originally planned to use the artstyle to tell the narrative of the game, so as the artstyle evolved, our game evolved as well. While the artstyle became more adorable and family friendly as it developed, so did our game and we all agreed this change was for the best.
 
-External Tools
+One of our achievements that went even better than planned was the usage of external tools. When we were first told that we would be required to implement one, none of us really knew how we would accomplish that task. We bounced some ideas of of each other but none of them really stuck. It was an idea that we eventually just decided to leave in the background and just occasionally brainstorm ideas. By the end of our project we ended up creating two external tools which greatly eased our workload when it came to design our game. The two tool swere a level editor and a generator of enemy attack patterns. Originially we had just planned to hardcode both, but these tool made our code clear, faster, and less time consuming to write.
 
 ## What Went Wrong:
 
