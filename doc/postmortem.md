@@ -53,13 +53,21 @@ the game being difficult to younger demographics is something we should of thoug
 for our group because it boosted our confidence in our game, and we practiced a lot of skills that we would need to use later on in our careers and college game making lives.
 ## What We Would Do Differently:
  
-Explaining our code to each other more effectively
+There are many things that we would do differently if we could restart this project. One of them being the fact that we would take more time out of our meetings to sit down and
+explain to each other what our code means and why we chose to implement something in the way that we chose. This was a big thing that caused confusion and is necessary for any
+future projects that we may work on. It will help us learn more, and improve the project better by having a better understanding. Another thing that we would definitely change 
+is our plans for architecture. Planning our the architecture was not as strong as we would like and we see it as something that we would change. We saw many times that we were
+making changes to it as we went along. A better plan at the start would cut down changes and would give us a better idea of how to move forward.
 
-Plan out architecture better
+Another thing that was lacking that could have been improved on was our method of organization and division of tasks. We had a solid idea for the use of Trello within our project
+but we see that it could have been more effective. First of all, we did not fully use it until part way through the project, using it from the very beginning would have helped
+a lot more than starting it part way through. Another thing with Trello is that we could have used it more by assigning certain tasks to people more often or creating more cards
+on the board that kept track of things. The method of how we used it was good, the problem falls with how often it was being used by everyone and that is what should be changed.
+One last thing would be to use data structures more often and efficiently. We used some of them in certain parts of the project but looking back at it, we see that there could
+have been more use for them. Having the knowledge that we do now, we would have certainly used them more to clean up our code better and keep things more tidy and more efficient.
 
-Organization - tasks - use trello more
-
-Used Data Structures More Effciently - Design Patterns 
+There were definite changes that we would have made if we knew what we knew now. We still succeeded in our project but we still could have been even more efficient with better
+tactics to solve problems.
 
 ## Conclusion
 
