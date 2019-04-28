@@ -26,13 +26,21 @@ External Tools
 
 ## What Went Wrong:
 
-Messy Code
-Coordinating code
-Quick Fixes
+Nothing in our project went horribly wrong, but there were a couple of issues and inconveniences that could have been avoided. During the milestone three presentations,
+one of the other groups mentioned having meetings where they explained their code to one another. We did not have meetings like that, and not having them was definitely
+a mistake. Not all of our coding styles meshed, and we needed to consult the others on issues that could have been avoided if we had those meetings and explained our code
+better. We had a lot of useless variables by the end of the project that were created just to get around each others’ code. Many of our classes ended up cluttered with these
+empty variables and needed to be cleaned up. None of this resulted in major errors and everything was easy enough to fix, but it was something uneccessary.
 
-Prioritizing
+Our group occasionally failed to prioritize. Most of that was working on art when we should have been coding, but here were other instances as well. We only started to work on
+collisons at the end of milestone three, and that ended up being discarded because of time constraints. We proabably should have had more than one level by the end of milestone 
+three, but we recovered from that in milestone four. Everything got done, execept for collisions, but we could have been far more organized and planned out exactly what we were 
+going to do every meeting so that we did not drift off and work on things that were not neccessary at the moment.
 
-Architecture
+Some of our code overlapped, and that was never quite fixed. For example, some of our classes had very similar code but we did not use inheritance or anything to make the coding 
+process easier. We did not use interfaces, which was most likely a mistake, as that would have made everything a lot easier. We did not use any events or delegates, and we only used
+one abstract class. Our code would proabably have looked a lot cleaner and flowed a bit better if we had incorporated these techniques into our game, instead of just having a lot 
+of classes.
 
 ## What We Learned:
 Working as a group, while having it's benefits, also has some things that we never considered that could be an issue. While we all worked together wonderfully, group
