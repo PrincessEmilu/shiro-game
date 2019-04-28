@@ -50,6 +50,7 @@ namespace Shiro
         Texture2D hitbox;
         Texture2D doorTexture;
         Texture2D healBoxTexture;
+        Texture2D victory;
 
         //Salsa Textures
         Texture2D salsaIdle;
@@ -231,7 +232,7 @@ namespace Shiro
             salsaIdle = Content.Load<Texture2D>("SalsaIdle");
             salsaBow = Content.Load<Texture2D>("SalsaBow");
             salsaBowDown = Content.Load<Texture2D>("SalsaStandToBow");
-            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, 1000, 2000, 200, 200, rng, "salsaAttack.txt");
+            salsa = new Boss(salsaIdle, salsaBowDown, salsaBow, -5000, -5000, 200, 200, rng, "salsaAttack.txt");
 
             //Title Screen
             titleBackground = Content.Load<Texture2D>("BrickWall");
@@ -244,8 +245,9 @@ namespace Shiro
             pawPrint = Content.Load<Texture2D>("PawPrint");
             instructionsBackground = Content.Load<Texture2D>("InstructionsScreen");
             pauseBackground = Content.Load<Texture2D>("ShiroPause");
-            gameOverBackground = Content.Load<Texture2D>("GameOverShiro");
+            gameOverBackground = Content.Load<Texture2D>("GameOver");
             battleBackground = Content.Load<Texture2D>("BackgroundAlley");
+            victory = Content.Load<Texture2D>("Victory");
             start = Content.Load<Texture2D>("StartIndividual");
             instructions = Content.Load<Texture2D>("InstructionsIndividual");
 
@@ -412,7 +414,14 @@ namespace Shiro
                         salsa.Update(gameTime);
 
                         //Make sure Salas's Position is correct
-                        salsa.Position = new Rectangle(1000, 2000, 200, 200);
+                        if (levelCounter != 6)
+                        {
+                            salsa.Position = new Rectangle(-5000, -5000, 200, 200);
+                        }
+                        else
+                        {
+                            salsa.Position = new Rectangle(1600, 800, 200, 200);
+                        }
                     }
 
                     //Resets enemies and player back to starting point if user exits to main menu and restarts the game
@@ -523,7 +532,7 @@ namespace Shiro
                                 MediaPlayer.Play(battleMusic);
                                 MediaPlayer.IsRepeating = true;
                                 MediaPlayer.Volume = 0.9f;
-                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, listAttackSoundEffects, 4, chance, rng);
+                                currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, e, listAttackSoundEffects, 4, chance, rng, victory);
                             }
                         }
                     }
@@ -623,6 +632,7 @@ namespace Shiro
                                 break;
                             case 2:
                                 state = GameState.MainMenu;
+                                levelCounter = 1;
 
                                 //Menu music
                                 MediaPlayer.Stop();
@@ -812,7 +822,7 @@ namespace Shiro
             //Creates the sprite batch with different parameters based on the game state
             GraphicsDevice.Clear(Color.Black);
 
-            if (state == GameState.Battle)
+            if (state == GameState.Battle && !currentBattle.VictoryScreen)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
             }
@@ -977,15 +987,22 @@ namespace Shiro
                 #endregion
                 #region DrawBattle
                 case GameState.Battle:
-                    camera.Pos = new Vector2(0, 0);
-                    spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
-                    spriteBatch.Draw(battleBar, new Rectangle(10, 335, 825, 135), Color.White);
-                    currentBattle.Draw(spriteBatch);
 
                    // Draws Salsa if Active
                     if (salsa.InBattle)
                     {
                         salsa.Draw(spriteBatch);
+                    }
+
+                    if(currentBattle.VictoryScreen)
+                    {
+                        spriteBatch.Draw(victory, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
+                    } else
+                    {
+                        camera.Pos = new Vector2(0, 0);
+                        spriteBatch.Draw(battleBackground, new Rectangle(0, 0, 1280, 720), Color.White);
+                        spriteBatch.Draw(battleBar, new Rectangle(10, 335, 825, 135), Color.White);
+                        currentBattle.Draw(spriteBatch);
                     }
                     break;
                 #endregion
@@ -1007,7 +1024,7 @@ namespace Shiro
                     break;
                 default:
                     break;
-                    #endregion
+                #endregion
             }
             spriteBatch.End();
             base.Draw(gameTime);
@@ -1101,10 +1118,10 @@ namespace Shiro
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 800, 150, width, height, 6, 500, "ratAttackOne.txt")); //top right
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2000, 250, width, height, 5, 250, "ratAttackOne.txt"));
                     listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2800, 150, width, height, 6, 250, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 3500, 250, width, height, 5, 300, "ratAttackOne.txt"));
-                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 4250, 100, width, height, 1, 300, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 3000, 250, width, height, 5, 300, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 2550, 100, width, height, 1, 300, "ratAttackOne.txt"));
 
-                    exitDoor = new CollisionItem(doorTexture, 3800, 200, player);
+                    exitDoor = new CollisionItem(doorTexture, 3800, 500, player);
                     break;
 
                 case 3:
@@ -1123,8 +1140,14 @@ namespace Shiro
                     camera.Pos = new Vector2(0, 4000);
                     prevCamera = camera.Pos;
 
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 2900, width, height, 6, 400, "ratAttackOne.txt")); //top right
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 2100, width, height, 5, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 1400, width, height, 6, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 600, width, height, 5, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 200, 900, width, height, 1, 600, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 1100, 1800, width, height, 2, 800, "ratAttackOne.txt"));
 
-
+                    exitDoor = new CollisionItem(doorTexture, 900, 300, player);
                     break;
 
                 case 4:
@@ -1143,7 +1166,7 @@ namespace Shiro
                     camera.Pos = new Vector2(0, 0);
                     prevCamera = camera.Pos;
 
-
+                    exitDoor = new CollisionItem(doorTexture, 3800, 500, player);
 
                     break;
 
@@ -1163,6 +1186,19 @@ namespace Shiro
                     camera.Pos = new Vector2(0, 0);
                     prevCamera = camera.Pos;
 
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 275, 2900, width, height, 3, 800, "ratAttackOne.txt")); //top right
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 2100, width, height, 4, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 200, 1400, width, height, 3, 300, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 400, 600, width, height, 4, 400, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 100, 900, width, height, 3, 600, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 200, 1900, width, height, 4, 800, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 250, 2600, width, height, 4, 300, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 300, 1600, width, height, 4, 800, "ratAttackOne.txt"));
+                    listEnemies.Add(new Enemy(enemyShadowIdleTexture, enemyShadowWalkTexture, enemyShadowIdleTexture, 200, 3500, width, height, 4, 600, "ratAttackOne.txt"));
+
+                    healbox = new HealingBox(healBoxTexture, 900, 3800);
+
+                    exitDoor = new CollisionItem(doorTexture, 300, 3800, player);
 
                     break;
 
@@ -1182,7 +1218,11 @@ namespace Shiro
                     camera.Pos = new Vector2(0, 0);
                     prevCamera = camera.Pos;
 
+                    //update salsa's position!!
+                    salsa.Position = new Rectangle(3000, 3000, 200, 200);
 
+
+                    exitDoor = new CollisionItem(doorTexture, 5000, 5000, player);
 
                     break;
                
