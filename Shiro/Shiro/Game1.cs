@@ -104,11 +104,10 @@ namespace Shiro
         Texture2D boundBox;
         Rectangle boundBoxPos;
 
-        //Fields for Pause Menu
+        //Menu backgrounds
         Texture2D pauseBackground;
-
-        //Field for Game Over Menu
         Texture2D gameOverBackground;
+        Texture2D youWinBackground;
 
         //Field for Battle Screen background
         Texture2D battleBackground;
@@ -251,6 +250,7 @@ namespace Shiro
             victory = Content.Load<Texture2D>("Victory");
             start = Content.Load<Texture2D>("StartIndividual");
             instructions = Content.Load<Texture2D>("InstructionsIndividual");
+            youWinBackground = Content.Load<Texture2D>("YouWinSalsa");
 
             //bar for battle
             battleBar = Content.Load<Texture2D>("BottomBar");
@@ -693,17 +693,27 @@ namespace Shiro
                         boundBoxPos = player.BoxPrevPos;
 
                         //Remove the defeated enemy
-                        listEnemies.Remove(currentBattle.currentEnemy);
-
-                        MediaPlayer.Stop();
-                        MediaPlayer.Play(cityLoop);
-                        MediaPlayer.IsRepeating = true;
-                        MediaPlayer.Volume = 0.9f;
-                        state = GameState.Level;
-
-                        if (chance < 8)
+                        if(currentBattle.IsBoss)
                         {
-                            chance++;
+                            gameOverBackground = youWinBackground;
+                            state = GameState.GameOver;
+
+                            //TODO: Victory music
+                        }
+                        else
+                        {
+                            listEnemies.Remove(currentBattle.currentEnemy);
+
+                            MediaPlayer.Stop();
+                            MediaPlayer.Play(cityLoop);
+                            MediaPlayer.IsRepeating = true;
+                            MediaPlayer.Volume = 0.9f;
+                            state = GameState.Level;
+
+                            if (chance < 8)
+                            {
+                                chance++;
+                            }
                         }
                     }
 
@@ -739,73 +749,73 @@ namespace Shiro
                 #region Game Over
                 case GameState.GameOver:
 
-                    /*//Reset the Player's Stamina
-                    player.Stamina = 100;
 
-                    //Reset All Enemies in the Level
-                    foreach (Enemy e in listEnemies)
-                    {
-                        e.Active = true;
-                        e.Stamina = 100;
-                        e.InBattle = false;
-                    }
-                    */
-
-                    //Transition to the Main Menu if Escape is Pressed
-                    if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
-                    {
-                        state = GameState.MainMenu;
-
-                        MediaPlayer.Stop();
-                        MediaPlayer.Play(menuSong);
-                        MediaPlayer.Volume = 0.01f;
-                        MediaPlayer.IsRepeating = true;
-                    }
                     //Update the arrow position to decide which choice the user in highlighting
-                    if (Helpers.SingleKeyPress(Keys.Up, pbState, kbState))
+                    if (gameOverBackground != youWinBackground) //Normal handling of game over screen
                     {
-                        //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
-                        if (arrowPosition == 1)
+                        //quit the game if Escape is Pressed
+                        if (Helpers.SingleKeyPress(Keys.Escape, pbState, kbState))
                         {
-                            arrowPosition = 2;
+                            Exit();
                         }
-                        //Otherwise just move the position up 1
-                        else
-                        {
-                            arrowPosition--;
-                        }
-                    }
-                    else if (Helpers.SingleKeyPress(Keys.Down, pbState, kbState))
-                    {
-                        //If the bottom choice is selcted reset the position to the top choice.
-                        if (arrowPosition == 2)
-                        {
-                            arrowPosition = 1;
-                        }
-                        //Otherwise just move the position down 1
-                        else
-                        {
-                            arrowPosition++;
-                        }
-                    }
 
-                    //Change Game State if a choice is selected
-                    if (Helpers.SingleKeyPress(Keys.Enter, pbState, kbState))
-                    {
-                        switch (arrowPosition)
+                        if (Helpers.SingleKeyPress(Keys.Up, pbState, kbState))
                         {
-                            case 1:
-                                MediaPlayer.Stop();
-                                MediaPlayer.Play(menuSong);
-                                MediaPlayer.Volume = 0.01f;
-                                MediaPlayer.IsRepeating = true;
-                                state = GameState.MainMenu;
-                                break;
-                            case 2:
-                                Exit();
-                                break;
-                            default:
-                                break;
+                            //If no choice has been selected yet or the top choice is selcted reset the position to the bottom choice.
+                            if (arrowPosition == 1)
+                            {
+                                arrowPosition = 2;
+                            }
+                            //Otherwise just move the position up 1
+                            else
+                            {
+                                arrowPosition--;
+                            }
+                        }
+                        else if (Helpers.SingleKeyPress(Keys.Down, pbState, kbState))
+                        {
+                            //If the bottom choice is selcted reset the position to the top choice.
+                            if (arrowPosition == 2)
+                            {
+                                arrowPosition = 1;
+                            }
+                            //Otherwise just move the position down 1
+                            else
+                            {
+                                arrowPosition++;
+                            }
+                        }
+
+                        //Change Game State if a choice is selected
+                        if (Helpers.SingleKeyPress(Keys.Enter, pbState, kbState))
+                        {
+                            switch (arrowPosition)
+                            {
+                                case 1:
+                                    MediaPlayer.Stop();
+                                    MediaPlayer.Play(menuSong);
+                                    MediaPlayer.Volume = 0.01f;
+                                    MediaPlayer.IsRepeating = true;
+                                    state = GameState.MainMenu;
+                                    break;
+                                case 2:
+                                    Exit();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    else //Special case of being the victory screen after beating Salsa
+                    {
+                        if (Helpers.SingleKeyPress(Keys.Enter, pbState, kbState))
+                        {
+                            state = GameState.MainMenu;
+
+                            MediaPlayer.Stop();
+                            MediaPlayer.Play(menuSong);
+                            MediaPlayer.Volume = 0.01f;
+                            MediaPlayer.IsRepeating = true;
                         }
                     }
                     break;
@@ -1019,16 +1029,20 @@ namespace Shiro
                 case GameState.GameOver:
                     camera.Pos = new Vector2(0, 0);
                     spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
-                    switch (arrowPosition)
+                    //Draw the cat paw selector if it is NOT the final you win screen
+                    if (gameOverBackground != youWinBackground)
                     {
-                        case 1:
-                            spriteBatch.Draw(pawPrint, new Rectangle(80, 530, 60, 60), Color.White);
-                            break;
-                        case 2:
-                            spriteBatch.Draw(pawPrint, new Rectangle(80, 600, 60, 60), Color.White);
-                            break;
-                        default:
-                            break;
+                        switch (arrowPosition)
+                        {
+                            case 1:
+                                spriteBatch.Draw(pawPrint, new Rectangle(80, 530, 60, 60), Color.White);
+                                break;
+                            case 2:
+                                spriteBatch.Draw(pawPrint, new Rectangle(80, 600, 60, 60), Color.White);
+                                break;
+                            default:
+                                break;
+                        }
                     }
                     break;
                 default:

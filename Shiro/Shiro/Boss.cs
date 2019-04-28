@@ -50,12 +50,6 @@ namespace Shiro
             set { patternFileName = value; }
         }
 
-        public Rectangle Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-
         //Constructor
         public Boss(Texture2D texture, Texture2D walkTexture, Texture2D battleTexture, int xPositon, int yPosition, int width, int height, Random rng, String patterneFileName)
             : base(texture, xPositon, yPosition)

@@ -33,7 +33,6 @@ namespace Shiro
         protected bool failedRun;
         protected bool success;
         protected string runText;
-        protected bool isBoss;
         protected int bossBar;
         protected int hitCounter;
 
@@ -75,7 +74,6 @@ namespace Shiro
         //Battle starts out idle
         protected BattleState battleState = BattleState.Idle;
 
-        //Properties
         //Properties that Game1 can check to know how to handle the current battle when it ends.
         public bool Victory { get; private set; }
         public bool VictoryScreen { get; private set; }
@@ -85,6 +83,7 @@ namespace Shiro
         {
             get { return enemy; }
         }
+        public bool IsBoss { get; private set; }
 
         //Constructor
         //The battle class will need a reference to an enemy and the player; it may also need to know other things, such as
@@ -110,7 +109,7 @@ namespace Shiro
             this.rng = rng;
             failedRun = false;
             success = false;
-            isBoss = false;
+            IsBoss = false;
             perfectHit = false;
 
             this.victoryScreen = victoryScreen;
@@ -187,7 +186,7 @@ namespace Shiro
             this.rng = rng;
             failedRun = false;
             success = false;
-            isBoss = true;
+            IsBoss = true;
             perfectHit = false;
 
 
@@ -286,7 +285,7 @@ namespace Shiro
                             timerOriginal = 0;
                             failedRun = false;
                         }
-                        else if (kbState.IsKeyDown(Keys.Enter) && arrowPosition == 2 && !isBoss)
+                        else if (kbState.IsKeyDown(Keys.Enter) && arrowPosition == 2 && !IsBoss)
                         {                         
 
                             //Check to see if the player successfully ran away
@@ -348,7 +347,7 @@ namespace Shiro
                                 {
                                     if(perfectHitbox.Contains(firstAttack.Position))
                                     {
-                                        if (isBoss)
+                                        if (IsBoss)
                                         {
                                             boss.Stamina -= 20;
                                             hitCounter += 2;
@@ -370,7 +369,7 @@ namespace Shiro
                                     }
                                     else
                                     {
-                                        if (isBoss)
+                                        if (IsBoss)
                                         {
                                             attackSounds[5].Play();
                                             boss.Stamina -= 10;
@@ -448,12 +447,20 @@ namespace Shiro
                     {
                         battleState = BattleState.Death;
                     }
-                    else if(isBoss)
+                    else if(IsBoss)
                     {
                         if (boss.Stamina <= 0)
                         {
                             battleState = BattleState.Victory;
                             timerOriginal = timer;
+                            VictoryScreen = true;
+                        }
+                        //If the player is fighting Salsa and Salsa is losing, the fight becomes harder!
+                        else if (boss.Stamina <= 100 && keySpeed == 5)
+                        {
+                            //TODO: Maybe add a sound effect to indicate salsa got stronger?
+                            keySpeed = 7;
+                            boss.Stamina += 200;
                         }
 
                     }
@@ -467,12 +474,6 @@ namespace Shiro
                         }
 
                     }
-
-                    //If the player is fighting Salsa and Sals is losing, the fight becomes harder!
-                    if (bossBar <= 100 && keySpeed == 5)
-                    {
-                        keySpeed = 7;
-                    }
                     break;
 
                 case BattleState.Death:
@@ -485,8 +486,7 @@ namespace Shiro
 
                 case BattleState.Victory:
                     //What happens when the enemy stamina reaches  0
-                    //Eventually, this should take some sort of transition time so the player can get  ready to go back into the game world.
-                    //Without it it's all a little disorienting.
+                    //TODO: Add a battle transition?
                     //int temp = timer - timerOriginal;
                     timer++;
                     if (!Victory && (timer - timerOriginal) >= 200)
@@ -538,7 +538,7 @@ namespace Shiro
                     //enemy
                     sb.Draw(healthBoxTexture, new Vector2((float)625, (float)103), new Rectangle(650, 90, 210, 50), Color.Black);
                     sb.Draw(healthBoxTexture, new Vector2((float)630, (float)105), new Rectangle(650, 90, 200, 45), Color.Red);
-                    if (isBoss)
+                    if (IsBoss)
                     {
                         sb.Draw(healthBoxTexture, new Vector2((float)630, (float)105), new Rectangle(630, 90, bossBar, 45), Color.Green);
                     }
@@ -561,11 +561,11 @@ namespace Shiro
                     {
                         sb.DrawString(font, "Fight", new Vector2(300, 250), Color.Black);
                     }
-                    if (arrowPosition == 2 && !isBoss)
+                    if (arrowPosition == 2 && !IsBoss)
                     {
                         sb.DrawString(font, "Run Away", new Vector2(300, 280), Color.Red);
                     }
-                    else if (!isBoss)
+                    else if (!IsBoss)
                     {
                         sb.DrawString(font, "Run Away", new Vector2(300, 280), Color.Black);
                     }
@@ -582,7 +582,7 @@ namespace Shiro
                     //enemy
                     sb.Draw(healthBoxTexture, new Vector2((float)625, (float)103), new Rectangle(650, 90, 210, 50), Color.Black);
                     sb.Draw(healthBoxTexture, new Vector2((float)630, (float)105), new Rectangle(650, 90, 200, 45), Color.Red);
-                    if (isBoss)
+                    if (IsBoss)
                     {
                         sb.Draw(healthBoxTexture, new Vector2((float)630, (float)105), new Rectangle(630, 90, bossBar, 45), Color.Green);
                     }
@@ -623,7 +623,7 @@ namespace Shiro
 
             //Draws player and enemy
             player.Draw(sb);
-            if (isBoss)
+            if (IsBoss)
             {
                 //boss.Position = new Rectangle(0, 0, 200, 200);
                 boss.Draw(sb);
