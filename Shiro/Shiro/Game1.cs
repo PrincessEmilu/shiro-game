@@ -177,7 +177,7 @@ namespace Shiro
             //Screen size/settings
             graphics.PreferredBackBufferWidth = 1300;
             graphics.PreferredBackBufferHeight = 720;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             base.Initialize();
@@ -549,7 +549,7 @@ namespace Shiro
                         player.CurrentState = PlayerState.FaceRight;
                     
                         //Create a new battle object with player and enemy collided\
-                        currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, salsa, 5, chance, rng);
+                        currentBattle = new Battle(kbState, pbState, font, UpArrow, DownArrow, LeftArrow, RightArrow, hitboxPretty, boundBox, player, salsa, listAttackSoundEffects, 5, chance, rng);
                     }
 
                     //Go to next level when you touch the door

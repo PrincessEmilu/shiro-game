@@ -168,11 +168,12 @@ namespace Shiro
 
         //Constructor for a boss
         public Battle(KeyboardState kbState, KeyboardState pbState, SpriteFont font, Texture2D UpArrow, Texture2D DownArrow, Texture2D LeftArrow, Texture2D RightArrow,
-            Texture2D hitboxTexture, Texture2D healthBox, Player player, Boss enemy, int keySpeed, int runAwayChance, Random rng)
+            Texture2D hitboxTexture, Texture2D healthBox, Player player, Boss enemy, List<SoundEffect> attackSounds, int keySpeed, int runAwayChance, Random rng)
         {
             //The stars of the show...
             this.player = player;
             this.boss = enemy;
+            this.attackSounds = attackSounds;
 
 
             //attackTick is the number of frames before a new enemy attack will be created.
