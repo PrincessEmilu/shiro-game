@@ -141,7 +141,11 @@ namespace Shiro
         Song menuSong;
         Song cityLoop;
         Song battleMusic;
-#endregion
+
+        //Int for keeping track of player's stamina and boolean for resetting stamina to 100 once in Update
+        int prevStamina;
+        bool resetStamina;
+        #endregion
 
         public Game1()
         {
@@ -262,6 +266,9 @@ namespace Shiro
             //Viewport Object
             viewport = new Viewport(0, 0, width, height);
 
+            //Stamina reset
+            resetStamina = true;
+
             //level increment
             levelCounter = 1;
         }
@@ -365,6 +372,7 @@ namespace Shiro
                                 MediaPlayer.Play(cityLoop);
                                 MediaPlayer.IsRepeating = true;
                                 MediaPlayer.Volume = 0.9f;
+                                resetStamina = true;
                                 CreateLevel(levelCounter);
                                 break;
 
@@ -404,6 +412,14 @@ namespace Shiro
                     {
                         player.Stamina = 100;
                     }
+
+                    if(resetStamina)
+                    {
+                        player.Stamina = 100;
+                        resetStamina = false;
+                    }
+                    
+                    prevStamina = player.Stamina;
 
                     //Update Salsa if Active
                     if (salsa.Active)
@@ -1036,6 +1052,7 @@ namespace Shiro
             pos = new Rectangle(200, 200, 160, 130);
             boundBoxPos = new Rectangle(50, 50, 600, 600);
             player = new Player(shiroIdle, shiroWalk, 300, 300, width, height, playerWalkSpeed, camera, boundBox, boundBoxPos, itemsCollide);
+            
 
             currentLevel = new Level(levelNumber, cityTileset, doorTexture, player);
             itemsCollide = currentLevel.CollisonList;
@@ -1053,7 +1070,7 @@ namespace Shiro
             {
                 //Movement numbers for hard-coding
                 //1 = starts top (up and down)
-                //2 = starts bottom (up and dwon)
+                //2 = starts bottom (up and down)
                 //3 = starts right (side to side)
                 //4 = starts left (side to side)
                 //5 = counterclockwise (bottom right)
@@ -1064,6 +1081,8 @@ namespace Shiro
                     //Player variables- position for the camera and the player
                     playerStartingX = 200;
                     playerStartingY = 200;
+
+                    player.Stamina = prevStamina;
 
                     pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
                     boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
@@ -1097,6 +1116,8 @@ namespace Shiro
                     playerStartingX = 200;
                     playerStartingY = 200;
 
+                    player.Stamina = prevStamina;
+
                     pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
                     boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
 
@@ -1123,6 +1144,8 @@ namespace Shiro
                     playerStartingX = 200;
                     playerStartingY = 3700;
 
+                    player.Stamina = prevStamina;
+
                     pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
                     boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
 
@@ -1148,6 +1171,8 @@ namespace Shiro
                     //Player variables- position for the camera and the player
                     playerStartingX = 200;
                     playerStartingY = 200;
+
+                    player.Stamina = prevStamina;
 
                     pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
                     boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
@@ -1178,6 +1203,8 @@ namespace Shiro
                     //Player variables- position for the camera and the player
                     playerStartingX = 200;
                     playerStartingY = 200;
+
+                    player.Stamina = prevStamina;
 
                     pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
                     boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
@@ -1210,6 +1237,8 @@ namespace Shiro
                     //Player variables- position for the camera and the player
                     playerStartingX = 200;
                     playerStartingY = 200;
+
+                    player.Stamina = prevStamina;
 
                     pos = new Rectangle(playerStartingX, playerStartingY, 160, 130);
                     boundBoxPos = new Rectangle(playerStartingX, playerStartingY, 600, 600);
