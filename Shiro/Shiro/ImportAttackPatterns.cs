@@ -26,8 +26,6 @@ class ImportAttackPatterns
 
             numOfKeys = int.Parse(input.ReadLine());
             generatePattern();
-            Console.WriteLine("keys generated");
-            //generate keys
         }
         else
         {

@@ -633,12 +633,6 @@ namespace Shiro
             {
                 enemy.Draw(sb, 1);
             }
-
-            //DEBUG: Draw battle info
-            //sb.DrawString(font, battleState.ToString(), new Vector2(50, 100), Color.Beige);
-            //sb.DrawString(font, "Player Stamina: " + player.Stamina, new Vector2(50, 150), Color.Beige);
-            //sb.DrawString(font, "Enemy Stamina: " + enemy.Stamina, new Vector2(50, 200), Color.Beige);
-            //sb.DrawString(font, "Elapsed Frames: " + timer, new Vector2(50, 250), Color.Beige);
         }
 
         //Creates a key object

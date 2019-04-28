@@ -30,10 +30,6 @@ namespace Shiro
 
         int movementSpeed;
 
-        //Debug
-        Rectangle temp;
-        Rectangle[] temps = new Rectangle[20];
-
         private List<CollisionItem> itemsColliding;
 
         private int frame;
@@ -328,9 +324,6 @@ namespace Shiro
         //Draws the player
         public override void Draw(SpriteBatch sb)
         {
-            //DEBUG: DRAW BOUND BOX
-            //sb.Draw(texture, boundBox, Color.Red);
-            //sb.Draw(texture, position, Color.Blue);
 
             //Increase the frame, which will animate the player.
             int frameWidth = 550;
@@ -343,10 +336,6 @@ namespace Shiro
             frame += 1;
 
             if (frame == 60) { frame = 0; }
-
-            //Debug
-            //sb.Draw(box, temp, Color.Red);
-
 
             //Draw different sprite based on state
             switch (CurrentState)
