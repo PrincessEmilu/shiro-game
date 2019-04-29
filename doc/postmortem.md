@@ -77,4 +77,6 @@ tactics to solve problems.
 
 ## Conclusion
 
-Insert Conclusion Here
+Our team is proud of our project. We know that it is far from perfect, but we think that we have made a game that is fun, cute, and provides a unique gameplay experience. Most 
+of our playtesters agree and have enjoyed the experience of our short game. We all feel a sense of accomplishment because of how we have grown as coders and game designers. 
+Whether or not we end up working together again in the future, our experience working together on Shiro has prepared us for bigger and better projects to come.
