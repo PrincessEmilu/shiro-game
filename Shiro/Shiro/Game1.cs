@@ -140,6 +140,9 @@ namespace Shiro
         Song menuSong;
         Song cityLoop;
         Song battleMusic;
+        Song salsaMusic;
+        Song gameOverLoop;
+        Song winGameLoop;
 
         //Int for keeping track of player's stamina and boolean for resetting stamina to 100 once in Update
         int prevStamina;
@@ -217,6 +220,9 @@ namespace Shiro
             menuSong = Content.Load<Song>("heavenlyLoop");
             cityLoop = Content.Load<Song>("cityMusic");
             battleMusic = Content.Load<Song>("battleMusic");
+            salsaMusic = Content.Load<Song>("salsaMusic");
+            gameOverLoop = Content.Load<Song>("gameOverLoop");
+            winGameLoop = Content.Load<Song>("winGameLoop");
             listAttackSoundEffects.Add(Content.Load<SoundEffect>("attackUp"));
             listAttackSoundEffects.Add(Content.Load<SoundEffect>("attackDown"));
             listAttackSoundEffects.Add(Content.Load<SoundEffect>("attackLeft"));
@@ -557,6 +563,11 @@ namespace Shiro
 
                         salsa.InBattle = true;
 
+                        MediaPlayer.Stop();
+                        MediaPlayer.Play(salsaMusic);
+                        MediaPlayer.IsRepeating = true;
+                        MediaPlayer.Volume = 0.9f;
+
                         //Change game state and player state
                         state = GameState.Battle;
                         player.CurrentState = PlayerState.FaceRight;
@@ -698,7 +709,10 @@ namespace Shiro
                             gameOverBackground = youWinBackground;
                             state = GameState.GameOver;
 
-                            //TODO: Victory music
+                            MediaPlayer.Stop();
+                            MediaPlayer.Play(winGameLoop);
+                            MediaPlayer.IsRepeating = true;
+                            MediaPlayer.Volume = 0.9f;
                         }
                         else
                         {
@@ -719,7 +733,10 @@ namespace Shiro
 
                     if (currentBattle.GameOver)
                     {
-                        //TODO: Change music to game over?
+                        MediaPlayer.Stop();
+                        MediaPlayer.Play(gameOverLoop);
+                        MediaPlayer.IsRepeating = true;
+                        MediaPlayer.Volume = 1.0f;
                         state = GameState.GameOver;
                         arrowPosition = 1;  //Make sure the initial position is one
                     }

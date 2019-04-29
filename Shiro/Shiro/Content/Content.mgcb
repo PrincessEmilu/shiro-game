@@ -218,6 +218,12 @@
 /processorParam:TextureFormat=Color
 /build:GameOver.png
 
+#begin gameOverLoop.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:gameOverLoop.mp3
+
 #begin GameOverShiro.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -416,6 +422,12 @@
 /processorParam:TextureFormat=Color
 /build:SalsaIdle.png
 
+#begin salsaMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:salsaMusic.mp3
+
 #begin SalsaStandToBow.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -565,6 +577,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:walk_sprite_fix.png
+
+#begin winGameLoop.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:winGameLoop.mp3
 
 #begin YouWinSalsa.png
 /importer:TextureImporter

@@ -53,6 +53,7 @@ namespace Shiro
         //Attack sounds
         protected List<SoundEffect> attackSounds;
 
+        private int blendTimer;
         protected Texture2D victoryScreen;
 
         //Keyboard
@@ -104,6 +105,8 @@ namespace Shiro
             attackTick = 60;
             arrowPosition = 1;
             timerOriginal = 0;
+
+            blendTimer = 0;
 
             chance = runAwayChance;
             this.rng = rng;
@@ -182,6 +185,8 @@ namespace Shiro
             arrowPosition = 1;
             timerOriginal = 0;
 
+            blendTimer = 0;
+
             chance = runAwayChance;
             this.rng = rng;
             failedRun = false;
@@ -241,6 +246,16 @@ namespace Shiro
             //Keybaord state
             pbState = kbState;
             kbState = Keyboard.GetState();
+
+            //Blend timer for player flashing red when damaged
+            if (blendTimer > 0)
+            {
+                blendTimer -= 1;
+            }
+            if(blendTimer == 0 && player.BlendColor == Color.Red)
+            {
+                player.BlendColor = Color.White;
+            }
 
             //Update logic based on current game state
             switch (battleState)
@@ -389,6 +404,9 @@ namespace Shiro
                                 else
                                 {
                                     player.Stamina -= 10;
+                                    player.BlendColor = Color.Red;
+                                    blendTimer = 15;
+                                    
                                 }
 
                                 //Either way remove the key
@@ -399,6 +417,8 @@ namespace Shiro
                         else if(kbState.GetPressedKeys().Length > 0 && pbState.GetPressedKeys().Length == 0)
                         {
                             player.Stamina -= 5;
+                            player.BlendColor = Color.Red;
+                            blendTimer = 15;
                         }
                     }
 
@@ -433,6 +453,8 @@ namespace Shiro
                         player.Stamina -= 10;
                         //Play damage effect
                         attackSounds[4].Play();
+                        player.BlendColor = Color.Red;
+                        blendTimer = 15;
                     }
 
                     //Calls update on each key.
@@ -482,6 +504,7 @@ namespace Shiro
                     {
                         GameOver = true;
                     }
+                    player.BlendColor = Color.White;
                     break;
 
                 case BattleState.Victory:
@@ -496,6 +519,7 @@ namespace Shiro
                         player.X = player.PrevPos.X;
                         player.Y = player.PrevPos.Y;
                     }
+                    player.BlendColor = Color.White;
                     break;
                 case BattleState.RanAway:
                     //If the player chooses to run away
@@ -517,6 +541,7 @@ namespace Shiro
                         enemy.Once = true;
                         
                     }
+                    player.BlendColor = Color.White;
                     break;
             }
         }

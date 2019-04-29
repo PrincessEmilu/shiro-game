@@ -83,6 +83,8 @@ namespace Shiro
         public bool LeftWall { get; private set; }
         public bool RightWall { get; private set; }
 
+        public Color BlendColor { get; set; }
+
         public List<CollisionItem> ItemsColliding
         {
             get { return itemsColliding; }
@@ -100,6 +102,7 @@ namespace Shiro
         {
             CurrentState = PlayerState.FaceLeft;
 
+            BlendColor = Color.White;
             this.movementSpeed = movementSpeed;
             frame = 0;
             Stamina = 100;
@@ -346,7 +349,7 @@ namespace Shiro
                         texture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 180, 148),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest - 4, 570, 430),      //Source rectangle to draw from file
-                        Color.White,                                            //Blend color
+                        BlendColor,                                            //Blend color
                         0f,                                                     //Rotation
                         new Vector2(0,0),                                       //Origin
                         SpriteEffects.FlipHorizontally,                         //Sprite Effects
@@ -358,14 +361,14 @@ namespace Shiro
                         texture,                                                //Texture to draw
                         new Rectangle(position.X, position.Y, 180, 148),        //Rectangle to draw to
                         new Rectangle(xDrawOffset, yDrawOffest - 4, 570, 430),      //Source rectangle to draw from file
-                        Color.White);                                           //Blend color
+                        BlendColor);                                           //Blend color
                     break;
                 case PlayerState.WalkRight:
                     sb.Draw(
                         walkTexture,
                         new Rectangle(position.X, position.Y, 180, 148),
                         new Rectangle(xDrawOffset, yDrawOffest - 4, 570, 430),
-                        Color.White,
+                        BlendColor,
                         0f,
                         new Vector2(0, 0),
                         SpriteEffects.FlipHorizontally,
@@ -377,18 +380,9 @@ namespace Shiro
                         walkTexture,
                         new Rectangle(position.X, position.Y, 180, 148),
                         new Rectangle(xDrawOffset, yDrawOffest - 4, 570, 430),
-                        Color.White);
+                        BlendColor);
                     break;
             }
         }
-
-        //Checks for collision with a solid object
-        //This method may go elsewhere at some point
-        public void CheckCollisions(Rectangle solidObject)
-        {
-            
-        }
-
-       
     }
 }
