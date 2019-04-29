@@ -24,3 +24,7 @@ presentation and each work on the same sections of the presentation that we did 
 ## Milestone 3
 
 ## Milestone 4
+
+This is the final build of Shiro that our team is submitting for milestone 4.0. Hooray!
+
+Music, sound effects, multiple levels, and a final battle against Salsa have all been implemented. In addition, we have added some new visual effects to enhance the game play experiences.
