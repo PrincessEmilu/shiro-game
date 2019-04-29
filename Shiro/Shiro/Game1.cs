@@ -180,7 +180,7 @@ namespace Shiro
             //Screen size/settings
             graphics.PreferredBackBufferWidth = 1300;
             graphics.PreferredBackBufferHeight = 720;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             base.Initialize();
