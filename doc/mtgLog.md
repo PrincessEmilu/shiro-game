@@ -24,4 +24,6 @@
 - *04/19/2019* (Alexa Missing): Fixed various bugs found after play testing session; adding more content such as new levels and enemy attacks
 - *04/24/2019* (All members present): Continued to fix bugs found after play testing session and began adding polish content such as sound, more levels, and a new and improved tileset.
 - *04/26/2019* (All members present): Continued to add polish material such as sound and new levels. Cleaned up documentation for milestone 4 and disscussed the upcoming presentation.
-- ...
+
+## Transfer to GitHub
+- *06/25/2019* Moved repo to GitHub for public sharing.
