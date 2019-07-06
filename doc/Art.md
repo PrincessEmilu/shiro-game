@@ -18,7 +18,7 @@
 ![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Shirotitlescreen.png "Main Menu")
 
 ## Temporary Game Over <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/GameOverShiro.png "Game Over")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/GameOverShiro.png "Game Over")
 
 # Concept Art - Main Character
 ## Shiro <A>
