@@ -9,51 +9,51 @@
 # Concept Art - Menus and Logos
 
 ## Title <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/ShiroTitle.png "Logo, Shiro")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/ShiroTitle.png "Logo, Shiro")
 
 ## Main Menu Concept <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Main_Menu.png "Main Menu")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Main_Menu.png "Main Menu")
 
 ## Main Menu Art <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Shirotitlescreen.png "Main Menu")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Shirotitlescreen.png "Main Menu")
 
 ## Temporary Game Over <A>
 ![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/GameOverShiro.png "Game Over")
 
 # Concept Art - Main Character
 ## Shiro <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Shiro_Concept.png "Shiro Concept Art")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Shiro_Concept.png "Shiro Concept Art")
 
 ## Shiro In-Game Art
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/dirt_idle0001.png "Shiro In-Game Art")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/dirt_idle0001.png "Shiro In-Game Art")
 
 # Concept Art - Game Screens
 ## Overworld <A>
-![How the overworld might look](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/gameworld.png "How the overworld might look")
+![How the overworld might look](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/gameworld.png "How the overworld might look")
 ## Battle Screen <A>
-![How the battlescreen might look](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/battlescreen.png "How the battle screen might look")
+![How the battlescreen might look](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/battlescreen.png "How the battle screen might look")
 
 # Concept Art - Enemies
 ## Bee <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Shadow_Bee-Wasp.jpg "Bees")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Shadow_Bee-Wasp.jpg "Bees")
 
 ## Shadows <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Shadow_Concept_Art.jpg "Shadows")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Shadow_Concept_Art.jpg "Shadows")
 
 ## Rat(s) <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Rat_Concept_Art.jpg "Rats")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Rat_Concept_Art.jpg "Rats")
 
 ## Final Shadow Art <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Shadow.png "Final Shadow")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Shadow.png "Final Shadow")
 
 ## Enemy Art <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Trashbag.png "Trash Enemy")
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Trashcan.png "Trash Can Enemy")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Trashbag.png "Trash Enemy")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Trashcan.png "Trash Can Enemy")
 
 ## Boss Art (Concept and In-Game) <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Salsa.png "Boss Concept Art")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Salsa.png "Boss Concept Art")
 
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Salsaidle0001.png "Boss Art")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Salsaidle0001.png "Boss Art")
 
 ## Battle Arrow <A>
-![alt text](https://kgcoe-git.rit.edu/eh8582/gdaps2-2185-section_2_Team_3/raw/master/doc/Art/Arrow.png "Left Arrow")
+![alt text](https://github.com/PrincessEmilu/shiro-game/blob/master/doc/Art/Arrow.png "Left Arrow")
